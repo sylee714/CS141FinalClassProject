@@ -5,7 +5,8 @@ public class Map {
 	/**
 	 * The size of the map.
 	 */
-	private int[][] map = new int[9][9];
+	private GameObject[][] map = new GameObject[9][9];
+	
 	
 	/**
 	 * Visibility of the map.

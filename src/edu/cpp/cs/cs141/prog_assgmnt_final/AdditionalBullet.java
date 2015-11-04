@@ -7,7 +7,7 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
  * @author Seungyun
  *
  */
-public class AdditionalBullet {
+public class AdditionalBullet extends GameObject {
 	
 	/**
 	 * This field represents additional bullet which can be

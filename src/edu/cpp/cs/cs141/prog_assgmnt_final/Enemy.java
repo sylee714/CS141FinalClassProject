@@ -7,7 +7,7 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
  * @author Seungyun
  *
  */
-public class Enemy {
+public class Enemy extends GameObject {
 	
 	/**
 	 * Life point of an enemy.
@@ -59,6 +59,10 @@ public class Enemy {
 	 * This method will check if player is next to enemy's tile.
 	 */
 	public void detectingPlayer() {
+		
+	}
+	
+	public void cannotEnterRoom() {
 		
 	}
 

@@ -7,7 +7,7 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
  * @author Seungyun
  *
  */
-public class Invincibility {
+public class Invincibility extends GameObject {
 	
 	/**
 	 * The player will be invincible for 5 turns.

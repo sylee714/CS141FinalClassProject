@@ -7,7 +7,7 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
  * @author Seungyun
  *
  */
-public class Radar {
+public class Radar extends GameObject {
 	
 	/**
 	 * This method finds the location of the brief case.

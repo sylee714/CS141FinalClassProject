@@ -7,7 +7,11 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
  * @author Seungyun
  *
  */
-public class Player {
+/**
+ * @author Seungyun
+ *
+ */
+public class Player extends GameObject {
 	
 	/**
 	 * This field represents the initial life points
@@ -37,6 +41,10 @@ public class Player {
 	private boolean invincible = false;
 	
 	/**
+	 * This field indicates if an enemy is detected.
+	 */
+	private boolean detected = false;
+	/**
 	 * This method decides the starting point of the player.
 	 * @param index number of row
 	 * @param index number of column
@@ -49,7 +57,7 @@ public class Player {
 	 * This method is attacking method
 	 * @return
 	 */
-	public boolean attacking() {
+	public boolean attack() {
 		return false;
 	}
 	
@@ -58,7 +66,7 @@ public class Player {
 	 * to look two-tiles ahead of him/her.
 	 * @return
 	 */
-	public boolean looking() {
+	public boolean look() {
 		return false;
 	}
 	
@@ -68,7 +76,7 @@ public class Player {
 	 * @param movement
 	 * @return
 	 */
-	public int moving (int movement) {
+	public int move (int movement) {
 		return 0; 
 	}
 	
@@ -76,7 +84,7 @@ public class Player {
 	 * This method indicates if player got attacked by an enemy.
 	 * If it did, it will lose 1 life point.
 	 */
-	public void gotAttacked() {
+	public void gotDamaged() {
 		if (underAttack) {
 			life -= 1;
 		}

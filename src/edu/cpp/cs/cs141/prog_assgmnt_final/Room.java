@@ -7,7 +7,7 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
  * @author Seungyun
  *
  */
-public class Room {
+public class Room  {
 	
 	/**
 	 * Only one room can be occupied by brief case.
