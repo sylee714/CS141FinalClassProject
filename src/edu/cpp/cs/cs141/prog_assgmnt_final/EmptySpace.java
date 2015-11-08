@@ -7,9 +7,12 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
  * @author Seungyun
  *
  */
-public abstract class GameObject {
+public class EmptySpace extends GameEntity{
+	
+	public EmptySpace() {
+		super(" ", "*");
 
-	public void location() {
-		
 	}
+
+
 }

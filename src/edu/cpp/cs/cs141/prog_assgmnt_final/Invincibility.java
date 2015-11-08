@@ -7,7 +7,12 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
  * @author Seungyun
  *
  */
-public class Invincibility extends GameObject {
+public class Invincibility extends GameEntity {
+	
+	public Invincibility() {
+		super("I", "*");
+		// TODO Auto-generated constructor stub
+	}
 	
 	/**
 	 * The player will be invincible for 5 turns.

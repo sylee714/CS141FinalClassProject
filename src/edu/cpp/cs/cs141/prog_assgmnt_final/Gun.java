@@ -33,7 +33,7 @@ public class Gun {
 	/**
 	 * This is loading method which gets to executed when the player pick ups bullet power-up.
 	 */
-	public void loading() {
+	public void load() {
 		
 	}
 	

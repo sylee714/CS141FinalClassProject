@@ -11,19 +11,19 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
  * @author Seungyun
  *
  */
-public class Player extends GameObject {
+public class Player extends GameEntity {
+	
+	public Player() {
+		super("P", "P");
+		// TODO Auto-generated constructor stub
+	}
+	
 	
 	/**
 	 * This field represents the initial life points
 	 * that player will start with. 
 	 */
 	private int life = 3;
-	
-	/**
-	 * This field represents spaces that player can store
-	 * power-ups.
-	 */
-	private int storage; 
 	
 	/**
 	 * This field represents if player is got attacked by an enemy. 
@@ -93,7 +93,7 @@ public class Player extends GameObject {
 	/**
 	 * This method is picking up power-ups.
 	 */
-	public void pickingPowerUp() {
+	public void pickPowerUp() {
 		
 	}
 	
@@ -105,27 +105,11 @@ public class Player extends GameObject {
 	}
 	
 	/**
-	 * This method allows player to store radar and invincible
-	 * power-ups.
-	 */
-	public void storingPowerUp() {
-		
-	}
-	
-	/**
 	 * When player finds the brief case, picking up method will pick up the brief case.
 	 */
 	public void pickingUpBriefCase() {
 		
 	}
-	
-	/**
-	 * If player gets attacked by an enemy, it goes back to its starting point.
-	 */
-	public void backToStartingPoint() {
-		
-	}
-	
 	
 	
 	

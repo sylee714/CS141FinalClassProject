@@ -7,7 +7,12 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
  * @author Seungyun
  *
  */
-public class BriefCase extends GameObject {
+public class BriefCase extends GameEntity {
+	
+	public BriefCase() {
+		super("B", "R");
+		
+	}
 	
 	/**
 	 * This boolean 

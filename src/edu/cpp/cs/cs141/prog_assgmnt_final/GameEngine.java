@@ -17,8 +17,6 @@ public class GameEngine {
 	
 	private boolean endGame;
 	
-	
-	
 	public void playerTurn() {
 		
 	}
@@ -26,13 +24,16 @@ public class GameEngine {
 		
 	}
 	
-	public void finalMove() {
+	public void spawnLocation() {
 		
 	}
 	
 	public void endingGame() {
 		
 	}
-
+	
+	public void backToInitialSpawnLocation() {
+		
+	}
 
 }

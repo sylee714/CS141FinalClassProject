@@ -14,6 +14,10 @@ public class UI {
 	
 	private Scanner keyboard;
 	
+	public void startMessage() {
+		System.out.println("Hi There Player!");
+	}
+	
 	public void startGame() {
 
 		printWelcomeMessage();

@@ -7,7 +7,12 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
  * @author Seungyun
  *
  */
-public class Radar extends GameObject {
+public class Radar extends GameEntity {
+	
+	public Radar() {
+		super("+", "*");
+		// TODO Auto-generated constructor stub
+	}
 	
 	/**
 	 * This method finds the location of the brief case.
