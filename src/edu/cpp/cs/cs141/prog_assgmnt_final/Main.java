@@ -11,8 +11,10 @@ public class Main {
 	
 	public static void main(String args[]) {
 		Map map = new Map();
-		map.initializeMap();
-		map.generateEnemy();
+		//map.generateRooms();
+		//map.generatePlayer();
+		//map.genearatePowerUps();
+		//map.generateEnemies();
 		System.out.println(map.toString());
 	}
 
