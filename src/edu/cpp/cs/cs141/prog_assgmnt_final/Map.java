@@ -1,6 +1,10 @@
 package edu.cpp.cs.cs141.prog_assgmnt_final;
 
 import java.util.Random;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Map {
 
@@ -20,13 +24,13 @@ public class Map {
 
 	public void generateEnemy() {
 
-		Random ranNum = new Random();
+		Random randomNumber = new Random();
 
 		int enemyCounter = 0;
 
 		do {
-			int row = ranNum.nextInt(8);
-			int column = ranNum.nextInt(4);
+			int row = randomNumber.nextInt(8);
+			int column = randomNumber.nextInt(4);
 
 			if (map[row][column] == emptySpace) {
 				map[row][column] = new Enemy();
