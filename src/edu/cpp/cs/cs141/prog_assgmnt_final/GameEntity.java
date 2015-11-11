@@ -12,7 +12,7 @@ public abstract class GameEntity {
 	
 	private String front = "";
 	private String back = "";
-	private boolean isFlipped = true;
+	private boolean isFlipped = false;
 
 	public GameEntity(String front, String back) {
 		this.front = front;

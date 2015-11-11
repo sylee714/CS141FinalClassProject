@@ -3,6 +3,8 @@
  */
 package edu.cpp.cs.cs141.prog_assgmnt_final;
 
+import java.util.Random;
+
 /**
  * @author Victor Darkes
  *
@@ -14,11 +16,13 @@ public class Main {
 		map.generateEmptySpace();
 		map.generateRoomsWithBriefCase();
 		map.generatePlayer();
+		map.generateEnemy();
+		map.generateRadar();
+		map.generateAdditionalBullet();
+		map.generateInvincibility();
+
+		System.out.println(map.debugMode());
 		
-		//map.generatePowerUps();
-		//map.generateEnemies();
-		System.out.println(map.toString());
-		//map.makeRooms();
 	}
 
 }

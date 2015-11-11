@@ -1,19 +1,17 @@
 package edu.cpp.cs.cs141.prog_assgmnt_final;
 
 import java.util.Random;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.ArrayList;
 
 public class Map {
 
-	private EmptySpace emptySpace = new EmptySpace();
 	/**
 	 * The size of the map.
 	 */
 	private GameEntity[][] map = new GameEntity[9][9];
 
+	/**
+	 * This method fills the map with empty spaces to initialize the map.
+	 */
 	public void generateEmptySpace() {
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
@@ -22,40 +20,10 @@ public class Map {
 		}
 	}
 
-	public void generateEnemy() {
-
-		Random randomNumber = new Random();
-
-		int enemyCounter = 0;
-
-		do {
-			int row = randomNumber.nextInt(8);
-			int column = randomNumber.nextInt(4);
-
-			if (map[row][column] == emptySpace) {
-				map[row][column] = new Enemy();
-				enemyCounter++;
-			}
-		} while (enemyCounter <= 4);
-
-		int countEnemy = 0;
-
-		for (int i = 0; i < 5; ++i) {
-
-			for (int j = 0; j < 9; ++j) {
-
-				while (countEnemy < 7) {
-					map[i][j] = new Enemy();
-
-				}
-				++countEnemy;
-			}
-		}
-
-	}
-
 	/**
-	 * Generates initial map state.
+	 * This method generates 9 nine rooms and only one of them has the brief
+	 * case. A number will be generated randomly, depending on the number, one
+	 * of the room is selected to contain the brief case.
 	 */
 	public void generateRoomsWithBriefCase() {
 
@@ -71,7 +39,7 @@ public class Map {
 
 		Random r = new Random();
 
-		int randomNumber = r.ints(1, 1, 10).findFirst().getAsInt();
+		int randomNumber = r.nextInt(9) + 1;
 
 		switch (randomNumber) {
 		case 1:
@@ -105,48 +73,127 @@ public class Map {
 
 	}
 
-	public void generateBriefCase() {
-
-		Random r = new Random();
-		int[] fiveRandomNumbers = r.ints(5, 0, 11).toArray();
-		int randomNumber = r.ints(1, 0, 8).findFirst().getAsInt();
-
-		// System.out.println(randomNumber);
-
-		map[randomNumber][randomNumber] = new BriefCase();
-
-	}
-
-	public void makeRooms() {
-
-		Random r = new Random();
-		int[] fiveRandomNumbers = r.ints(5, 0, 11).toArray();
-		int randomNumber = r.ints(1, 1, 9).findFirst().getAsInt();
-
-		System.out.println(randomNumber);
-
-	}
-
+	/**
+	 * This method generates the player's character at position (8,0) which is
+	 * the initial/starting position.
+	 */
 	public void generatePlayer() {
 		map[8][0] = new Player();
 	}
 
-	public void generatePowerUps() {
+	/**
+	 * This method generates 6 enemies. Each enemy's position is generated
+	 * randomly and the 'if statement' filters positions where enemies cannot be
+	 * located. When 6 enemies are generated the 'do while loop' stops.
+	 */
+	public void generateEnemy() {
+		int enemyCount = 0;
+		Random r = new Random();
+		do {
 
-		map[0][6] = new AdditionalBullet();
-		map[0][7] = new Radar();
-		map[0][8] = new Invincibility();
+			for (int i = 0; i < map.length; ++i) {
+				int row = r.nextInt(9);
+				int column = r.nextInt(9);
+				for (int j = 0; j < map[i].length; ++j) {
+					if (enemyCount < 6 && map[row][column].getFront().equals(" ") && map[row][column] != map[5][0]
+							&& map[row][column] != map[5][1] && map[row][column] != map[5][2]
+							&& map[row][column] != map[5][3] && map[row][column] != map[6][0]
+							&& map[row][column] != map[6][1] && map[row][column] != map[6][2]
+							&& map[row][column] != map[6][3] && map[row][column] != map[7][0]
+							&& map[row][column] != map[7][2] && map[row][column] != map[7][3]
+							&& map[row][column] != map[8][1] && map[row][column] != map[8][2]
+							&& map[row][column] != map[8][3]) {
+						map[row][column] = new Enemy();
+						++enemyCount;
+					}
+				}
+			}
+
+		} while (enemyCount < 6);
 
 	}
-	// for(int i = 0; i < map.length; i++)
-	// for(int j = 0; j < map[i].length; i++) {
-	// while (map[i][j] == null)
 
-	// enemy.generateEnemies();
+	/**
+	 * This method generates a radar. Its position is generated
+	 * randomly and the 'if statement' filters positions where it cannot be
+	 * located. When 1 radar is generated, the 'for loop' breaks.
+	 */
+	public void generateRadar() {
 
-	// }
-	// }
+		Random r = new Random();
+		int numberOfRadar = 0;
 
+		for (int i = 0; i < map.length; ++i) {
+			int row = r.nextInt(9);
+			int column = r.nextInt(9);
+			if (numberOfRadar == 1) {
+				break;
+			}
+			for (int j = 0; j < map[i].length; ++j) {
+				if (map[row][column].getFront().equals(" ")) {
+					map[row][column] = new Radar();
+					++numberOfRadar;
+				}
+			}
+		}
+	}
+
+	/**
+	 * This method generates a bullet. Its position is generated
+	 * randomly and the 'if statement' filters positions where it cannot be
+	 * located. When 1 bullet is generated, the 'for loop' breaks.
+	 */
+	public void generateAdditionalBullet() {
+		Random r = new Random();
+		int numberOfBullet = 0;
+
+		for (int i = 0; i < map.length; ++i) {
+			int row = r.nextInt(9);
+			int column = r.nextInt(9);
+			if (numberOfBullet == 1) {
+				break;
+			}
+			for (int j = 0; j < map[i].length; ++j) {
+				if (map[row][column].getFront().equals(" ")) {
+					map[row][column] = new AdditionalBullet();
+					++numberOfBullet;
+				}
+			}
+		}
+
+	}
+	
+	/**
+	 * This method generates a invincible power-up. Its position is generated
+	 * randomly and the 'if statement' filters positions where it cannot be
+	 * located. When 1 invincible power-up is generated, the 'for loop' breaks.
+	 */
+	public void generateInvincibility() {
+		Random r = new Random();
+		int numberOfInviciblePowerUp = 0;
+
+		for (int i = 0; i < map.length; ++i) {
+			int row = r.nextInt(9);
+			int column = r.nextInt(9);
+			if (numberOfInviciblePowerUp == 1) {
+				break;
+			}
+			for (int j = 0; j < map[i].length; ++j) {
+				if (map[row][column].getFront().equals(" ")) {
+					map[row][column] = new Invincibility();
+					++numberOfInviciblePowerUp;
+				}
+			}
+		}
+
+	}
+
+	/**
+	 * This method prints the map in String so that player can see and play the
+	 * game.
+	 * 
+	 * @return A map that player plays on
+	 */
 	public String toString() {
 		String result = "";
 		for (GameEntity[] row : map) {
@@ -164,6 +211,27 @@ public class Map {
 	}
 
 	/**
+	 * This method is debug mode and prints the map in String. It shows all the
+	 * position of the game entities.
+	 * 
+	 * @return A map that shows every position of the game entities.
+	 */
+	public String debugMode() {
+		String result = "";
+		for (GameEntity[] row : map) {
+			for (GameEntity m : row) {
+
+				result += " " + m.getFront() + " ";
+
+			}
+
+			result += "\n";
+		}
+		return result;
+
+	}
+
+	/**
 	 * Visibility of the map.
 	 */
 	private boolean visible = false;
@@ -172,13 +240,6 @@ public class Map {
 	 * If a space is occupied by enemies or player.
 	 */
 	private boolean occupied = false;
-
-	/**
-	 * Location of 9 rooms which is equally distributed.
-	 */
-	public void locationOfRoom() {
-
-	}
 
 	/**
 	 * Space to hold power-ups.
