@@ -91,22 +91,17 @@ public class Map {
 		Random r = new Random();
 		do {
 
-			for (int i = 0; i < map.length; ++i) {
-				int row = r.nextInt(9);
-				int column = r.nextInt(9);
-				for (int j = 0; j < map[i].length; ++j) {
-					if (enemyCount < 6 && map[row][column].getFront().equals(" ") && map[row][column] != map[5][0]
-							&& map[row][column] != map[5][1] && map[row][column] != map[5][2]
-							&& map[row][column] != map[5][3] && map[row][column] != map[6][0]
-							&& map[row][column] != map[6][1] && map[row][column] != map[6][2]
-							&& map[row][column] != map[6][3] && map[row][column] != map[7][0]
-							&& map[row][column] != map[7][2] && map[row][column] != map[7][3]
-							&& map[row][column] != map[8][1] && map[row][column] != map[8][2]
-							&& map[row][column] != map[8][3]) {
-						map[row][column] = new Enemy();
-						++enemyCount;
-					}
-				}
+			int row = r.nextInt(9);
+			int column = r.nextInt(9);
+
+			if (enemyCount < 6 && map[row][column].getFront().equals(" ") && map[row][column] != map[5][0]
+					&& map[row][column] != map[5][1] && map[row][column] != map[5][2] && map[row][column] != map[5][3]
+					&& map[row][column] != map[6][0] && map[row][column] != map[6][1] && map[row][column] != map[6][2]
+					&& map[row][column] != map[6][3] && map[row][column] != map[7][0] && map[row][column] != map[7][2]
+					&& map[row][column] != map[7][3] && map[row][column] != map[8][1] && map[row][column] != map[8][2]
+					&& map[row][column] != map[8][3]) {
+				map[row][column] = new Enemy();
+				++enemyCount;
 			}
 
 		} while (enemyCount < 6);
@@ -114,77 +109,65 @@ public class Map {
 	}
 
 	/**
-	 * This method generates a radar. Its position is generated
-	 * randomly and the 'if statement' filters positions where it cannot be
-	 * located. When 1 radar is generated, the 'for loop' breaks.
+	 * This method generates a radar. Its position is generated randomly and the
+	 * 'if statement' filters positions where it cannot be located. When 1 radar
+	 * is generated, the 'do while' loop stops.
 	 */
 	public void generateRadar() {
 
 		Random r = new Random();
 		int numberOfRadar = 0;
-
-		for (int i = 0; i < map.length; ++i) {
+		do {
 			int row = r.nextInt(9);
 			int column = r.nextInt(9);
-			if (numberOfRadar == 1) {
-				break;
+			if (map[row][column].getFront().equals(" ")) {
+				map[row][column] = new Radar();
+				++numberOfRadar;
 			}
-			for (int j = 0; j < map[i].length; ++j) {
-				if (map[row][column].getFront().equals(" ")) {
-					map[row][column] = new Radar();
-					++numberOfRadar;
-				}
-			}
-		}
+
+		} while (numberOfRadar < 1);
+
 	}
 
 	/**
-	 * This method generates a bullet. Its position is generated
-	 * randomly and the 'if statement' filters positions where it cannot be
-	 * located. When 1 bullet is generated, the 'for loop' breaks.
+	 * This method generates a bullet. Its position is generated randomly and
+	 * the 'if statement' filters positions where it cannot be located. When 1
+	 * bullet is generated, the 'do while' loop stops.
 	 */
 	public void generateAdditionalBullet() {
 		Random r = new Random();
 		int numberOfBullet = 0;
 
-		for (int i = 0; i < map.length; ++i) {
+		do {
 			int row = r.nextInt(9);
 			int column = r.nextInt(9);
-			if (numberOfBullet == 1) {
-				break;
+			if (map[row][column].getFront().equals(" ")) {
+				map[row][column] = new AdditionalBullet();
+				++numberOfBullet;
 			}
-			for (int j = 0; j < map[i].length; ++j) {
-				if (map[row][column].getFront().equals(" ")) {
-					map[row][column] = new AdditionalBullet();
-					++numberOfBullet;
-				}
-			}
-		}
+
+		} while (numberOfBullet < 1);
 
 	}
-	
+
 	/**
 	 * This method generates a invincible power-up. Its position is generated
 	 * randomly and the 'if statement' filters positions where it cannot be
-	 * located. When 1 invincible power-up is generated, the 'for loop' breaks.
+	 * located. When 1 invincible power-up is generated, the 'do while' loop stops.
 	 */
 	public void generateInvincibility() {
 		Random r = new Random();
-		int numberOfInviciblePowerUp = 0;
+		int numberOfInvicible = 0;
 
-		for (int i = 0; i < map.length; ++i) {
+		do {
 			int row = r.nextInt(9);
 			int column = r.nextInt(9);
-			if (numberOfInviciblePowerUp == 1) {
-				break;
+			if (map[row][column].getFront().equals(" ")) {
+				map[row][column] = new Invincibility();
+				++numberOfInvicible;
 			}
-			for (int j = 0; j < map[i].length; ++j) {
-				if (map[row][column].getFront().equals(" ")) {
-					map[row][column] = new Invincibility();
-					++numberOfInviciblePowerUp;
-				}
-			}
-		}
+
+		} while (numberOfInvicible < 1);
 
 	}
 

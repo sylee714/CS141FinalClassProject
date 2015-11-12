@@ -44,14 +44,7 @@ public class Player extends GameEntity {
 	 * This field indicates if an enemy is detected.
 	 */
 	private boolean detected = false;
-	/**
-	 * This method decides the starting point of the player.
-	 * @param index number of row
-	 * @param index number of column
-	 */
-	public void location(int row, int column) {
-		
-	}
+
 	
 	/**
 	 * This method is attacking method
