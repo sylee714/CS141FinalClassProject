@@ -22,6 +22,7 @@ public class Main {
 		map.generateInvincibility();
 
 		System.out.println(map.debugMode());
+		System.out.println(map.toString());
 		
 	}
 
