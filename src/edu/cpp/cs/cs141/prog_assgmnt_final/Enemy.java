@@ -13,6 +13,8 @@ public class Enemy extends GameEntity {
 		super("E", "*");
 	}
 
+	private Player player = new Player();
+	
 	/**
 	 * Life point of an enemy.
 	 */
@@ -28,6 +30,11 @@ public class Enemy extends GameEntity {
 	 */
 	private boolean alive = true;
 
+	/**
+	 * 
+	 */
+	private boolean attack = false;
+	
 	/**
 	 * Initial spawn point of an enemy.
 	 */
@@ -49,7 +56,7 @@ public class Enemy extends GameEntity {
 	 * This method attacks player if the player is located an adjacent tile.
 	 */
 	public void attack() {
-
+		
 	}
 
 	/**

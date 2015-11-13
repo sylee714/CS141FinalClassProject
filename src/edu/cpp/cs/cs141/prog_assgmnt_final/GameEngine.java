@@ -35,5 +35,16 @@ public class GameEngine {
 	public void backToInitialSpawnLocation() {
 		
 	}
+	
+	public void move(int movement) {
+		switch (movement) {
+		case 1: map.up();
+		}
+	}
+	
+	public void up(int x, int y) {
+		x =x;
+		y= y-1;
+	}
 
 }

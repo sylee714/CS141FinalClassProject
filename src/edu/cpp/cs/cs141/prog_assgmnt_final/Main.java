@@ -12,6 +12,7 @@ import java.util.Random;
 public class Main {
 	
 	public static void main(String args[]) {
+		Player player = new Player();
 		Map map = new Map();
 		map.generateEmptySpace();
 		map.generateRoomsWithBriefCase();
@@ -23,6 +24,7 @@ public class Main {
 
 		System.out.println(map.debugMode());
 		System.out.println(map.toString());
+
 		
 	}
 

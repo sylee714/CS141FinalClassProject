@@ -28,7 +28,7 @@ public class Player extends GameEntity {
 	/**
 	 * This field represents if player is got attacked by an enemy. 
 	 */
-	private boolean underAttack = false;
+	private boolean underAttack = true;
 	
 	/**
 	 * This field represents if player picked up radar power-up or not.
@@ -69,8 +69,28 @@ public class Player extends GameEntity {
 	 * @param movement
 	 * @return
 	 */
-	public int move (int movement) {
-		return 0; 
+	public void move (int movement) {
+		
+		switch (movement) {
+		
+		case 1: map[x][y-1];
+			
+			break;
+			
+		case 2: map[x][y+1];
+			
+			break;
+			
+		case 3:
+			
+			break;
+			
+		case 4:
+			
+			break;
+			
+			
+		}
 	}
 	
 	/**
@@ -93,7 +113,7 @@ public class Player extends GameEntity {
 	/**
 	 * This method is using power-ups.
 	 */
-	public void usingPowerUp() {
+	public void usePowerUp() {
 		
 	}
 	
@@ -103,6 +123,21 @@ public class Player extends GameEntity {
 	public void pickingUpBriefCase() {
 		
 	}
+
+	/**
+	 * @return the life
+	 */
+	public int getLife() {
+		return life;
+	}
+
+	/**
+	 * @param life the life to set
+	 */
+	public void setLife(int life) {
+		this.life = life;
+	}
+	
 	
 	
 	
