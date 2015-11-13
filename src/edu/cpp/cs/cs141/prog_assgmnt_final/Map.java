@@ -98,7 +98,7 @@ public class Map {
 			int row = r.nextInt(9);
 			int column = r.nextInt(9);
 
-			if (enemyCount < 6 && map[row][column].getFront().equals(" ") && map[row][column] != map[5][0]
+			if (map[row][column].getFront().equals(" ") && map[row][column] != map[5][0]
 					&& map[row][column] != map[5][1] && map[row][column] != map[5][2] && map[row][column] != map[5][3]
 					&& map[row][column] != map[6][0] && map[row][column] != map[6][1] && map[row][column] != map[6][2]
 					&& map[row][column] != map[6][3] && map[row][column] != map[7][0] && map[row][column] != map[7][2]
@@ -196,7 +196,24 @@ public class Map {
 		return result;
 
 	}
-
+	
+	public String printDebug() {
+		String result = "";
+		for (int i = 0; i < map.length; ++i) {
+			for (int j = 0; j < map[i].length; ++j) {
+				if (map[i][j].getFront() != " " ) 
+					result += " " + map[i][j].getFront();
+				else 
+					result += " " + "*";
+			}
+			
+			result += "\n";
+		}
+		
+		return result;
+		
+	}
+	
 	/**
 	 * This method is debug mode and prints the map in String. It shows all the
 	 * position of the game entities.
@@ -207,9 +224,11 @@ public class Map {
 		String result = "";
 		for (GameEntity[] row : map) {
 			for (GameEntity m : row) {
+				
+				if(m.getFront() != " ")
 
 				result += " " + m.getFront() + " ";
-
+				
 			}
 
 			result += "\n";
@@ -218,6 +237,16 @@ public class Map {
 
 	}
 
+	public void playerMove() {
+		for(int i = 0; i < map.length; ++i) {
+			for(int j = 0; j < map[i].length; ++j) {
+				if (map[i][j].getFront().equals("P")) {
+				
+				}
+			}
+		}
+	}
+	
 	/**
 	 * Visibility of the map.
 	 */

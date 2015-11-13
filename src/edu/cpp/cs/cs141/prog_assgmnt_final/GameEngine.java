@@ -38,7 +38,7 @@ public class GameEngine {
 	
 	public void move(int movement) {
 		switch (movement) {
-		case 1: map.up();
+		case 1:
 		}
 	}
 	

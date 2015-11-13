@@ -22,7 +22,7 @@ public class Main {
 		map.generateAdditionalBullet();
 		map.generateInvincibility();
 
-		System.out.println(map.debugMode());
+		System.out.println(map.printDebug());
 		System.out.println(map.toString());
 
 		

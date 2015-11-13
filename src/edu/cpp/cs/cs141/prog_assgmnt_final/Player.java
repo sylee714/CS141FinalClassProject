@@ -73,11 +73,11 @@ public class Player extends GameEntity {
 		
 		switch (movement) {
 		
-		case 1: map[x][y-1];
+		case 1: 
 			
 			break;
 			
-		case 2: map[x][y+1];
+		case 2: 
 			
 			break;
 			
