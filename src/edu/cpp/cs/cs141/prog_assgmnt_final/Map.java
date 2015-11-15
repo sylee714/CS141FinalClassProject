@@ -157,7 +157,8 @@ public class Map {
 	/**
 	 * This method generates a invincible power-up. Its position is generated
 	 * randomly and the 'if statement' filters positions where it cannot be
-	 * located. When 1 invincible power-up is generated, the 'do while' loop stops.
+	 * located. When 1 invincible power-up is generated, the 'do while' loop
+	 * stops.
 	 */
 	public void generateInvincibility() {
 		Random r = new Random();
@@ -196,24 +197,24 @@ public class Map {
 		return result;
 
 	}
-	
+
 	public String printDebug() {
 		String result = "";
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
-				if (map[i][j].getFront() != " " ) 
+				if (map[i][j].getFront() != " ")
 					result += " " + map[i][j].getFront();
-				else 
+				else
 					result += " " + "*";
 			}
-			
+
 			result += "\n";
 		}
-		
+
 		return result;
-		
+
 	}
-	
+
 	/**
 	 * This method is debug mode and prints the map in String. It shows all the
 	 * position of the game entities.
@@ -224,11 +225,11 @@ public class Map {
 		String result = "";
 		for (GameEntity[] row : map) {
 			for (GameEntity m : row) {
-				
-				if(m.getFront() != " ")
 
-				result += " " + m.getFront() + " ";
-				
+				if (m.getFront() != " ")
+
+					result += " " + m.getFront() + " ";
+
 			}
 
 			result += "\n";
@@ -238,15 +239,15 @@ public class Map {
 	}
 
 	public void playerMove() {
-		for(int i = 0; i < map.length; ++i) {
-			for(int j = 0; j < map[i].length; ++j) {
+		for (int i = 0; i < map.length; ++i) {
+			for (int j = 0; j < map[i].length; ++j) {
 				if (map[i][j].getFront().equals("P")) {
-				
+
 				}
 			}
 		}
 	}
-	
+
 	/**
 	 * Visibility of the map.
 	 */

@@ -10,7 +10,7 @@ import java.util.Random;
  *
  */
 public class Main {
-	
+
 	public static void main(String args[]) {
 		Player player = new Player();
 		Map map = new Map();
@@ -25,7 +25,6 @@ public class Main {
 		System.out.println(map.printDebug());
 		System.out.println(map.toString());
 
-		
 	}
 
 }
