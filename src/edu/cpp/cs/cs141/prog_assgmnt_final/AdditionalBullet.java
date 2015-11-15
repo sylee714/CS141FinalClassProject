@@ -5,7 +5,7 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
 
 /**
  * @author Seungyun
- *
+ * test in addditional bullet
  */
 public class AdditionalBullet extends GameEntity {
 	
