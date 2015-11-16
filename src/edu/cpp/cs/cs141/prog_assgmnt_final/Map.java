@@ -13,14 +13,6 @@ public class Map {
 	 */
 	private GameEntity[][] map = new GameEntity[9][9];
 
-	public GameEntity[][] getMap() {
-		return map;
-	}
-
-	public void setMap(GameEntity[][] map) {
-		this.map = map;
-	}
-
 	/**
 	 * This method fills the map with empty spaces to initialize the map.
 	 */
@@ -205,31 +197,20 @@ public class Map {
 		return result;
 
 	}
-<<<<<<< HEAD
-	
+
 	/**
 	 * This method is debug mode and prints the map in String. It shows all the
 	 * position of the game entities.
 	 * 
 	 * @return A map that shows every position of the game entities.
 	 */
-=======
-
->>>>>>> origin/master
 	public String printDebug() {
 		String result = "";
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
-<<<<<<< HEAD
-				if (map[i][j].getFront() != " " ) 
-					result += " " + map[i][j].getFront()
-					;
-				else 
-=======
 				if (map[i][j].getFront() != " ")
 					result += " " + map[i][j].getFront();
 				else
->>>>>>> origin/master
 					result += " " + "*";
 			}
 
@@ -239,76 +220,54 @@ public class Map {
 		return result;
 
 	}
-<<<<<<< HEAD
-	
-	
+
 	public void playerMove(int movement) {
-		for(int i = 0; i < map.length; ++i) {
-			for(int j = 0; j < map[i].length; ++j) {
+		for (int i = 0; i < map.length; ++i) {
+			for (int j = 0; j < map[i].length; ++j) {
 				if (map[i][j].getFront().equals("P")) {
 					GameEntity temp;
 					switch (movement) {
 					case 1:
-						temp = map[i][j-1];
-						map[i][j-1] = map[i][j];
+						temp = map[i][j - 1];
+						map[i][j - 1] = map[i][j];
 						map[i][j] = temp;
-						
+
 						break;
 					case 2:
-						temp = map[i][j+1];
-						map[i][j+1] = map[i][j];
-						map[i][j] = temp; 
-						
+						temp = map[i][j + 1];
+						map[i][j + 1] = map[i][j];
+						map[i][j] = temp;
+
 						break;
 					case 3:
-						temp = map[i-1][j];
-						map[i-1][j] = map[i][j];
+						temp = map[i - 1][j];
+						map[i - 1][j] = map[i][j];
 						map[i][j] = temp;
-						
+
 						break;
 					case 4:
-						
-						temp = map[i+1][j];
-						map[i+1][j] = map[i][j];
+
+						temp = map[i + 1][j];
+						map[i + 1][j] = map[i][j];
 						map[i][j] = temp;
-						
+
 						break;
-					
+
 					}
-=======
-
-	/**
-	 * This method is debug mode and prints the map in String. It shows all the
-	 * position of the game entities.
-	 * 
-	 * @return A map that shows every position of the game entities.
-	 */
-	public String debugMode() {
-		String result = "";
-		for (GameEntity[] row : map) {
-			for (GameEntity m : row) {
-
-				if (m.getFront() != " ")
-
-					result += " " + m.getFront() + " ";
-
+				}
 			}
-
-			result += "\n";
 		}
-		return result;
-
 	}
 
-	public void playerMove() {
+	public void playerLook(int direction) {
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
 				if (map[i][j].getFront().equals("P")) {
 
->>>>>>> origin/master
 				}
 			}
 		}
+
 	}
 
 	/**
