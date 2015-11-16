@@ -14,10 +14,11 @@ public class Radar extends GameEntity {
 	}
 
 	/**
-	 * This method finds the location of the brief case.
+	 * This method finds the location of the brief case. We call the setlocation() 
+	 * of the breifcase class to find the random values previously generated.
 	 */
 	public void locatingBriefCase() {
-
+	Briefcase.setlocation();
 	}
 
 	/**
