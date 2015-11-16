@@ -13,6 +13,14 @@ public class Map {
 	 */
 	private GameEntity[][] map = new GameEntity[9][9];
 
+	public GameEntity[][] getMap() {
+		return map;
+	}
+
+	public void setMap(GameEntity[][] map) {
+		this.map = map;
+	}
+
 	/**
 	 * This method fills the map with empty spaces to initialize the map.
 	 */
@@ -157,7 +165,8 @@ public class Map {
 	/**
 	 * This method generates a invincible power-up. Its position is generated
 	 * randomly and the 'if statement' filters positions where it cannot be
-	 * located. When 1 invincible power-up is generated, the 'do while' loop stops.
+	 * located. When 1 invincible power-up is generated, the 'do while' loop
+	 * stops.
 	 */
 	public void generateInvincibility() {
 		Random r = new Random();
@@ -196,6 +205,7 @@ public class Map {
 		return result;
 
 	}
+<<<<<<< HEAD
 	
 	/**
 	 * This method is debug mode and prints the map in String. It shows all the
@@ -203,23 +213,33 @@ public class Map {
 	 * 
 	 * @return A map that shows every position of the game entities.
 	 */
+=======
+
+>>>>>>> origin/master
 	public String printDebug() {
 		String result = "";
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
+<<<<<<< HEAD
 				if (map[i][j].getFront() != " " ) 
 					result += " " + map[i][j].getFront()
 					;
 				else 
+=======
+				if (map[i][j].getFront() != " ")
+					result += " " + map[i][j].getFront();
+				else
+>>>>>>> origin/master
 					result += " " + "*";
 			}
-			
+
 			result += "\n";
 		}
-		
+
 		return result;
-		
+
 	}
+<<<<<<< HEAD
 	
 	
 	public void playerMove(int movement) {
@@ -255,11 +275,42 @@ public class Map {
 						break;
 					
 					}
+=======
+
+	/**
+	 * This method is debug mode and prints the map in String. It shows all the
+	 * position of the game entities.
+	 * 
+	 * @return A map that shows every position of the game entities.
+	 */
+	public String debugMode() {
+		String result = "";
+		for (GameEntity[] row : map) {
+			for (GameEntity m : row) {
+
+				if (m.getFront() != " ")
+
+					result += " " + m.getFront() + " ";
+
+			}
+
+			result += "\n";
+		}
+		return result;
+
+	}
+
+	public void playerMove() {
+		for (int i = 0; i < map.length; ++i) {
+			for (int j = 0; j < map[i].length; ++j) {
+				if (map[i][j].getFront().equals("P")) {
+
+>>>>>>> origin/master
 				}
 			}
 		}
 	}
-	
+
 	/**
 	 * Visibility of the map.
 	 */
