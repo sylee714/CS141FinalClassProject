@@ -13,6 +13,14 @@ public class Map {
 	 */
 	private GameEntity[][] map = new GameEntity[9][9];
 
+	public GameEntity[][] getMap() {
+		return map;
+	}
+
+	public void setMap(GameEntity[][] map) {
+		this.map = map;
+	}
+
 	/**
 	 * This method fills the map with empty spaces to initialize the map.
 	 */

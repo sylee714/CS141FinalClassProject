@@ -7,15 +7,10 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
  * @author Seungyun
  *
  */
-/**
- * @author Seungyun
- *
- */
 public class Player extends GameEntity {
 
 	public Player() {
 		super("P", "P");
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -70,23 +65,35 @@ public class Player extends GameEntity {
 	 * @return
 	 */
 	public void move(int movement) {
+		// read through array and find p location store it
+		Map map = new Map();
+		GameEntity[][] tempMap = map.getMap();
+		int plaRowLoc = 0;
+		int plaColLoc = 0;
 
+		for (int i = 0; i < tempMap.length; i++)
+			for (int j = 0; j < tempMap[i].length; j++)
+				if (tempMap[i][j].equals("P")) {
+					plaRowLoc = i;
+					plaColLoc = j;
+				}
+		//**might have to add additional code to each case to fill original player spot empty space
 		switch (movement) {
-
+		// up
 		case 1:
-
+			tempMap[plaRowLoc - 1][plaColLoc] = new Player();
 			break;
-
+		// down
 		case 2:
-
+			tempMap[plaRowLoc + 1][plaColLoc] = new Player();
 			break;
-
+		// left
 		case 3:
-
+			tempMap[plaRowLoc][plaColLoc - 1] = new Player();
 			break;
-
+		// right
 		case 4:
-
+			tempMap[plaRowLoc - 1][plaColLoc + 1] = new Player();
 			break;
 
 		}
