@@ -12,7 +12,9 @@ public class UI {
 	
 	GameEngine ge = new GameEngine();
 	
-	private Scanner keyboard;
+	//private Scanner keyboard;
+	
+	Scanner keyboard = new Scanner(System.in);
 	
 	public void startMessage() {
 		System.out.println("Hi There Player!");
@@ -34,10 +36,10 @@ public class UI {
 
 				gameLoop();
 				break;
-
+			//calls on loadGame() to open previously saved game
 			case 2:
-
-				
+				//loadGame();
+				break;
 				
 			case 3: 
 				
@@ -78,13 +80,35 @@ public class UI {
 	public void gameLoop() {
 		
 	}
-		
+	/*At this point, maybe a SavedGame class with all the boolean values would be helpful.
+	To load a game, simply load a jar file named SavedGame. 
+	The new calss loadgameloop() would call all the other classes required to start with the boolean values at SavedGame().
+	*/
+	
+	/*	
 	public void saveGame() {
+		//uses a variable to save the game under a user specified name.
+		//maybe an array of string would be better for more saved games.
+		String nameFile = "";
+		System.out.println("What would you like to name your file?");
+		nameFile = keyboard.nextLine();
 		
+		File file = new File("nameFile.txt"); 
 	}
 	
 	public void loadGame() {
+		//creates a string variable line to hold the information read from the file
+		String line = "";
+		System.out.println("Which file would you like to load?");
+		nameFile = keyboard.nextLine();
 		
+		Scanner fileScanner = new Scanner("nameFile.txt");
+		line = fileScanner.nextLine();
+		
+		while( line != null)
+		{
+		
+		}
 	}
-	
+	*/ 
 }
