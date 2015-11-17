@@ -18,7 +18,7 @@ public class Radar extends GameEntity {
 	 * of the breifcase class to find the random values previously generated.
 	 */
 	public void locatingBriefCase() {
-	Briefcase.setlocation();
+		//Briefcase.setlocation();
 	}
 
 	/**

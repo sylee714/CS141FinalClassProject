@@ -66,7 +66,9 @@ public class Player extends GameEntity {
 	 */
 	public void move(int movement) {
 		// read through array and find p location store it
+		/*
 		Map map = new Map();
+		
 		GameEntity[][] tempMap = map.getMap();
 		int plaRowLoc = 0;
 		int plaColLoc = 0;
@@ -96,9 +98,9 @@ public class Player extends GameEntity {
 			tempMap[plaRowLoc - 1][plaColLoc + 1] = new Player();
 			break;
 
-		}
+		} */
 	}
-
+		
 	/**
 	 * This method indicates if player got attacked by an enemy. If it did, it
 	 * will lose 1 life point.

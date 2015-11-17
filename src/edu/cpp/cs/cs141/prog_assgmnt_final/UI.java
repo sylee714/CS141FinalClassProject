@@ -12,7 +12,7 @@ public class UI {
 	
 	GameEngine ge = new GameEngine();
 	
-	private Scanner keyboard;
+	//private Scanner keyboard;
 	
 	Scanner keyboard = new Scanner(System.in);
 	
@@ -38,7 +38,7 @@ public class UI {
 				break;
 			//calls on loadGame() to open previously saved game
 			case 2:
-				loadGame();
+				//loadGame();
 				break;
 				
 			case 3: 
