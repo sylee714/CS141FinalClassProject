@@ -66,7 +66,7 @@ public class Player extends GameEntity {
 	 */
 	public void move(int movement) {
 		// read through array and find p location store it
-		/*
+		
 		Map map = new Map();
 		
 		GameEntity[][] tempMap = map.getMap();
@@ -98,7 +98,7 @@ public class Player extends GameEntity {
 			tempMap[plaRowLoc - 1][plaColLoc + 1] = new Player();
 			break;
 
-		} */
+		} 
 	}
 		
 	/**
