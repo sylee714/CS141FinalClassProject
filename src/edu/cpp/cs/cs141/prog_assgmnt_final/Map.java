@@ -13,6 +13,14 @@ public class Map {
 	 */
 	private GameEntity[][] map = new GameEntity[9][9];
 
+	public GameEntity[][] getMap() {
+		return map;
+	}
+
+	public void setMap(GameEntity[][] tempMap) {
+		this.map = tempMap;
+	}
+
 	/**
 	 * This method fills the map with empty spaces to initialize the map.
 	 */
@@ -83,6 +91,7 @@ public class Map {
 	 */
 	public void generatePlayer() {
 		map[8][0] = new Player();
+		
 	}
 
 	/**
@@ -187,7 +196,7 @@ public class Map {
 		for (GameEntity[] row : map) {
 			for (GameEntity m : row) {
 				if (m.isFlipped())
-					result += " " + m.getFront() + " ";
+					result += " " + m.getFront();
 				else
 					result += " " + m.getBack();
 			}
@@ -226,25 +235,112 @@ public class Map {
 			for (int j = 0; j < map[i].length; ++j) {
 				if (map[i][j].getFront().equals("P")) {
 					GameEntity temp;
+
+					try {
+						switch (movement) {
+						// Left
+						case 1:
+			
+							temp = map[i][j - 1];
+							map[i][j - 1] = map[i][j];
+							map[i][j] = temp;
+
+							break;
+						// Right
+						case 2:
+							temp = map[i][j + 1];
+							map[i][j + 1] = map[i][j];
+							map[i][j] = temp;
+
+							break;
+						// Up
+						case 3:
+							temp = map[i - 1][j];
+							map[i - 1][j] = map[i][j];
+							map[i][j] = temp;
+
+							break;
+						// Down
+						case 4:
+
+							temp = map[i + 1][j];
+							map[i + 1][j] = map[i][j];
+							map[i][j] = temp;
+
+							break;
+
+						}
+					} catch (ArrayIndexOutOfBoundsException e) {
+
+					}
+				}
+			}
+		}
+	}
+
+	public void playerLook(int direction) {
+		for (int i = 0; i < map.length; ++i) {
+			for (int j = 0; j < map[i].length; ++j) {
+				if (map[i][j].getFront().equals("P")) {
+					switch (direction) {
+					// Left
+					case 1:
+						map[i][j - 2].setFlipped(true);
+						map[i][j - 1].setFlipped(true);
+						break;
+					// Right
+					case 2:
+						map[i][j + 2].setFlipped(true);
+						map[i][j + 1].setFlipped(true);
+						break;
+					// Up
+					case 3:
+						map[i - 2][j].setFlipped(true);
+						map[i - 1][j].setFlipped(true);
+						break;
+					// Down
+					case 4:
+						map[i + 2][j].setFlipped(true);
+						map[i + 1][j].setFlipped(true);
+						break;
+					}
+				}
+			}
+		}
+
+	}
+	
+	public void enemyMove() {
+		for (int i = 0; i < map.length; ++i) {
+			for (int j = 0; j < map[i].length; ++j) {
+				if (map[i][j].getFront().equals("E")) {
+					GameEntity temp;
+					Random r = new Random();
+					int movement;
+					movement = r.nextInt(4) + 1;
 					switch (movement) {
+					// Left
 					case 1:
 						temp = map[i][j - 1];
 						map[i][j - 1] = map[i][j];
 						map[i][j] = temp;
 
 						break;
+					// Right
 					case 2:
 						temp = map[i][j + 1];
 						map[i][j + 1] = map[i][j];
 						map[i][j] = temp;
 
 						break;
+					// Up
 					case 3:
 						temp = map[i - 1][j];
 						map[i - 1][j] = map[i][j];
 						map[i][j] = temp;
 
 						break;
+					// Down
 					case 4:
 
 						temp = map[i + 1][j];
@@ -258,17 +354,39 @@ public class Map {
 			}
 		}
 	}
-
-	public void playerLook(int direction) {
+	
+	public void search(int movement) {
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
-				if (map[i][j].getFront().equals("P")) {
-
+				if(map[i][j].equals("P")) {
+					switch (movement) {
+					case 1: map[i][j].up(i, j);
+					}
 				}
 			}
 		}
-
 	}
+	
+	
+	
+	public void setNotFlipped() {
+		for (int i = 0; i < map.length; ++i) {
+			for (int j = 0; j < map[i].length; ++j) {
+				map[i][j].setFlipped(false);
+			}
+		}
+	}
+	
+	public void initialPoint() {
+		for (int i = 0; i < map.length; ++i) {
+			for (int j = 0; j < map[i].length; ++j) {
+				if (map[i][j].equals("P")) {
+					map[i][j] = new EmptySpace();
+				}
+			}
+		}
+	}
+	
 
 	/**
 	 * Visibility of the map.
@@ -284,6 +402,11 @@ public class Map {
 	 * Space to hold power-ups.
 	 */
 	public void space() {
+
+	}
+
+	public void setMap(GameEntity gameEntity) {
+		// TODO Auto-generated method stub
 
 	}
 

@@ -57,6 +57,10 @@ public class Player extends GameEntity {
 	public boolean look() {
 		return false;
 	}
+	
+	public void move1(int row, int column) {
+		
+	}
 
 	/**
 	 * This method is moving method. Up, down, right, and left only.
@@ -67,35 +71,44 @@ public class Player extends GameEntity {
 	public void move(int movement) {
 		// read through array and find p location store it
 		Map map = new Map();
+		map.generateEmptySpace();
+		map.generateRoomsWithBriefCase();
+		map.generatePlayer();
+		map.generateEnemy();
+		map.generateRadar();
+		map.generateAdditionalBullet();
+		map.generateInvincibility();
 		GameEntity[][] tempMap = map.getMap();
-		int plaRowLoc = 0;
-		int plaColLoc = 0;
 
-		for (int i = 0; i < tempMap.length; i++)
-			for (int j = 0; j < tempMap[i].length; j++)
-				if (tempMap[i][j].equals("P")) {
-					plaRowLoc = i;
-					plaColLoc = j;
+		for (int i = 0; i < tempMap.length; ++i) {
+			for (int j = 0; j < tempMap[i].length; ++j) {
+				if (tempMap[i][j].getFront().equals("P")) {
+
+					// **might have to add additional code to each case to fill
+					// original
+					// player spot empty space
+					switch (movement) {
+					// up
+					case 1:
+						tempMap[i - 1][j] = new Player();
+						map.setMap(tempMap[i - 1][j]);
+						break;
+					// down
+					case 2:
+						tempMap[i + 1][j] = new Player();
+						break;
+					// left
+					case 3:
+						tempMap[i][j - 1] = new Player();
+						break;
+					// right
+					case 4:
+						tempMap[i - 1][j + 1] = new Player();
+						break;
+
+					}
 				}
-		//**might have to add additional code to each case to fill original player spot empty space
-		switch (movement) {
-		// up
-		case 1:
-			tempMap[plaRowLoc - 1][plaColLoc] = new Player();
-			break;
-		// down
-		case 2:
-			tempMap[plaRowLoc + 1][plaColLoc] = new Player();
-			break;
-		// left
-		case 3:
-			tempMap[plaRowLoc][plaColLoc - 1] = new Player();
-			break;
-		// right
-		case 4:
-			tempMap[plaRowLoc - 1][plaColLoc + 1] = new Player();
-			break;
-
+			}
 		}
 	}
 

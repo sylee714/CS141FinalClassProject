@@ -21,9 +21,12 @@ public class Main {
 		map.generateRadar();
 		map.generateAdditionalBullet();
 		map.generateInvincibility();
-		map.playerMove(3);
+		//map.playerMove(2);
+		//map.playerLook(2);
+		//player.move(1);
+		
 
-		System.out.println(map.printDebug());
+		System.out.println(map.toString());
 		//System.out.println(map.toString());
 
 	}

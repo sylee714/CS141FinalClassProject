@@ -3,6 +3,8 @@
  */
 package edu.cpp.cs.cs141.prog_assgmnt_final;
 
+import edu.cpp.cs.cs141.prog_assgmnt_final.Map;
+
 /**
  * @author Seungyun
  *
@@ -15,6 +17,8 @@ public class GameEngine {
 	
 	private Enemy enemy = new Enemy();
 	
+	private int turn = 3;
+	
 	private boolean endGame;
 	
 	public void playerTurn() {
@@ -24,7 +28,7 @@ public class GameEngine {
 		
 	}
 	
-	public void spawnLocation() {
+	public void backToSpawnLocation() {
 		
 	}
 	
