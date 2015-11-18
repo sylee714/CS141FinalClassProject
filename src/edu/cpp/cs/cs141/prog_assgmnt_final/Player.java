@@ -147,7 +147,10 @@ public class Player extends GameEntity {
 		// read through array and find p location store it
 		
 		Map map = new Map();
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 		map.generateEmptySpace();
 		map.generateRoomsWithBriefCase();
 		map.generatePlayer();
@@ -156,11 +159,16 @@ public class Player extends GameEntity {
 		map.generateAdditionalBullet();
 		map.generateInvincibility();
 
+<<<<<<< HEAD
 		
 
 		GameEntity[][] tempMap = map.getMap();
 
 
+=======
+		GameEntity[][] tempMap = map.getMap();
+
+>>>>>>> origin/master
 		for (int i = 0; i < tempMap.length; ++i) {
 			for (int j = 0; j < tempMap[i].length; ++j) {
 				if (tempMap[i][j].getFront().equals("P")) {
@@ -191,10 +199,14 @@ public class Player extends GameEntity {
 				}
 			}
 		}
+<<<<<<< HEAD
 
 		} 
 
 	
+=======
+	} 
+>>>>>>> origin/master
 		
 	/**
 	 * This method indicates if player got attacked by an enemy. If it did, it
