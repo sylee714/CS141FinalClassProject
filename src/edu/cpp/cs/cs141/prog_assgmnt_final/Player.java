@@ -8,9 +8,84 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
  *
  */
 public class Player extends GameEntity {
-
+	
+	private int row;
+	
+	private int column;
+	
 	public Player() {
 		super("P", "P");
+	}
+
+	
+				
+	
+	
+	/**
+	 * @param front
+	 * @param back
+	 * @param row
+	 * @param column
+	 */
+	public Player(String front, String back, int row, int column) {
+		super("P", "P");
+		this.row = row;
+		this.column = column;
+	}
+	
+	public void up() {
+		row = row - 1;
+	}
+	
+	public void down() {
+		row = row + 1;
+	}
+	
+	public void left() {
+		column = column - 1;
+	}
+	public void right() {
+		column = column + 1;
+	}
+	
+	/**
+	 * @return the row
+	 */
+	public int getRow() {
+		return row;
+	}
+
+
+
+
+
+	/**
+	 * @param row the row to set
+	 */
+	public void setRow(int row) {
+		this.row = row;
+	}
+
+
+
+
+
+	/**
+	 * @return the column
+	 */
+	public int getColumn() {
+		return column;
+	}
+
+
+
+
+
+	/**
+	 * @param column the column to set
+	 */
+	public void setColumn(int column) {
+		this.column = column;
 	}
 
 	/**
@@ -72,7 +147,7 @@ public class Player extends GameEntity {
 		// read through array and find p location store it
 		
 		Map map = new Map();
-<<<<<<< HEAD
+
 		map.generateEmptySpace();
 		map.generateRoomsWithBriefCase();
 		map.generatePlayer();
@@ -80,12 +155,12 @@ public class Player extends GameEntity {
 		map.generateRadar();
 		map.generateAdditionalBullet();
 		map.generateInvincibility();
-=======
+
 		
->>>>>>> origin/master
+
 		GameEntity[][] tempMap = map.getMap();
 
-<<<<<<< HEAD
+
 		for (int i = 0; i < tempMap.length; ++i) {
 			for (int j = 0; j < tempMap[i].length; ++j) {
 				if (tempMap[i][j].getFront().equals("P")) {
@@ -116,10 +191,10 @@ public class Player extends GameEntity {
 				}
 			}
 		}
-=======
+
 		} 
->>>>>>> origin/master
-	}
+
+	
 		
 	/**
 	 * This method indicates if player got attacked by an enemy. If it did, it

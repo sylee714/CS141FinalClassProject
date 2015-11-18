@@ -310,6 +310,54 @@ public class Map {
 
 	}
 	
+	public void up(String GameEntity) {
+		for (int i=0; i < map.length; ++i) {
+			for (int j=0; j < map[i].length; ++j) {
+				if(map[i][j].getFront().equals(GameEntity)) {
+					map[i-1][j] = map[i][j];
+					map[i][j] = new EmptySpace();
+				}
+			}
+		}
+		
+	}
+	
+	public void down(String GameEntity) {
+		for (int i=0; i < map.length; ++i) {
+			for (int j=0; j < map[i].length; ++j) {
+				if(map[i][j].getFront().equals(GameEntity)) {
+					map[i+1][j] = map[i][j];
+					map[i][j] = new EmptySpace();
+				}
+			}
+		}
+		
+	}
+	
+	public void right(String GameEntity) {
+		for (int i=0; i < map.length; ++i) {
+			for (int j=0; j < map[i].length; ++j) {
+				if(map[i][j].getFront().equals(GameEntity)) {
+					map[i][j+1] = map[i][j];
+					map[i][j] = new EmptySpace();
+				}
+			}
+		}
+		
+	}
+	
+	public void left(String GameEntity) {
+		for (int i=0; i < map.length; ++i) {
+			for (int j=0; j < map[i].length; ++j) {
+				if(map[i][j].getFront().equals(GameEntity)) {
+					map[i][j-1] = map[i][j];
+					map[i][j] = new EmptySpace();
+				}
+			}
+		}
+		
+	}
+	
 	public void enemyMove() {
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {

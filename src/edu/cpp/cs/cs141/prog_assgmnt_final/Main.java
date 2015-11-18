@@ -12,23 +12,25 @@ import java.util.Random;
 public class Main {
 
 	public static void main(String args[]) {
-		Player player = new Player();
+		//Player player = new Player();
 		Map map = new Map();
-		map.generateEmptySpace();
-		map.generateRoomsWithBriefCase();
-		map.generatePlayer();
-		map.generateEnemy();
-		map.generateRadar();
-		map.generateAdditionalBullet();
-		map.generateInvincibility();
-		//map.playerMove(2);
-		//map.playerLook(2);
-		//player.move(1);
+		GameEngine ge = new GameEngine();
+		//map.generateEmptySpace();
+		//map.generateRoomsWithBriefCase();
+		//map.generatePlayer();
+		//map.generateEnemy();
+		//map.generateRadar();
+		//map.generateAdditionalBullet();
+		//map.generateInvincibility();
+		ge.generateMap();
+		ge.move(3,"P");
+		ge.printMap();
+		
+		//System.out.println(ge.printMap());
 		
 
-		System.out.println(map.toString());
-		//System.out.println(map.toString());
-
+		
+		
 	}
 
 }
