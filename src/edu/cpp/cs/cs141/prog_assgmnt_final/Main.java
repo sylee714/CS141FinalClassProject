@@ -14,6 +14,7 @@ public class Main {
 	public static void main(String args[]) {
 		Player player = new Player();
 		Map map = new Map();
+		GameEngine ge = new GameEngine();
 		map.generateEmptySpace();
 		map.generateRoomsWithBriefCase();
 		map.generatePlayer();
@@ -21,6 +22,13 @@ public class Main {
 		map.generateRadar();
 		map.generateAdditionalBullet();
 		map.generateInvincibility();
+		
+		//map.findPlayer();
+		ge.move(1);
+		map.setNewPlayer();
+		
+		
+		
 		//map.playerMove(2);
 		//map.playerLook(2);
 		//player.move(1);
