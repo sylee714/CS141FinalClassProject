@@ -12,10 +12,50 @@ public class Map {
 	 * The size of the map.
 	 */
 	private GameEntity[][] map = new GameEntity[9][9];
+	
+	private int row;
+	
+	private int column;
 
 	public GameEntity[][] getMap() {
 		return map;
 	}
+	
+	public int getRow() {
+		return row;
+	}
+
+	public void setRow(int row) {
+		this.row = row;
+	}
+
+	public int getColumn() {
+		return column;
+	}
+
+	public void setColumn(int column) {
+		this.column = column;
+	}
+
+	/**
+	 * This method locates player.
+	 */
+	public void findPlayer() {
+		for (int i = 0; i < map.length; ++i)
+			for (int j = 0; j < map[i].length; ++j)
+				if (map[i][j].getFront().equals("P")) {
+					row = i;
+					column = j;
+				}
+		System.out.println("find start value: " + row + " " + column);
+		
+	}
+	
+	public void setNewPlayer() {
+		map[row][column] = new Player();
+		//map[row][coloumn] = new EmptySpace();
+	}
+
 
 	public void setMap(GameEntity[][] tempMap) {
 		this.map = tempMap;

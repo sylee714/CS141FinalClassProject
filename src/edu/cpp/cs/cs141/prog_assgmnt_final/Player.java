@@ -147,10 +147,7 @@ public class Player extends GameEntity {
 		// read through array and find p location store it
 		
 		Map map = new Map();
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
 		map.generateEmptySpace();
 		map.generateRoomsWithBriefCase();
 		map.generatePlayer();
@@ -159,19 +156,19 @@ public class Player extends GameEntity {
 		map.generateAdditionalBullet();
 		map.generateInvincibility();
 
-<<<<<<< HEAD
+
 		
 
 		GameEntity[][] tempMap = map.getMap();
 
 
-=======
-		GameEntity[][] tempMap = map.getMap();
 
->>>>>>> origin/master
-		for (int i = 0; i < tempMap.length; ++i) {
-			for (int j = 0; j < tempMap[i].length; ++j) {
-				if (tempMap[i][j].getFront().equals("P")) {
+		GameEntity[][] tempMap1 = map.getMap();
+
+
+		for (int i = 0; i < tempMap1.length; ++i) {
+			for (int j = 0; j < tempMap1[i].length; ++j) {
+				if (tempMap1[i][j].getFront().equals("P")) {
 
 					// **might have to add additional code to each case to fill
 					// original
@@ -179,34 +176,34 @@ public class Player extends GameEntity {
 					switch (movement) {
 					// up
 					case 1:
-						tempMap[i - 1][j] = new Player();
-						map.setMap(tempMap[i - 1][j]);
+						tempMap1[i - 1][j] = new Player();
+						map.setMap(tempMap1[i - 1][j]);
 						break;
 					// down
 					case 2:
-						tempMap[i + 1][j] = new Player();
+						tempMap1[i + 1][j] = new Player();
 						break;
 					// left
 					case 3:
-						tempMap[i][j - 1] = new Player();
+						tempMap1[i][j - 1] = new Player();
 						break;
 					// right
 					case 4:
-						tempMap[i - 1][j + 1] = new Player();
+						tempMap1[i - 1][j + 1] = new Player();
 						break;
 
 					}
 				}
 			}
 		}
-<<<<<<< HEAD
+
 
 		} 
 
 	
-=======
-	} 
->>>>>>> origin/master
+
+	
+
 		
 	/**
 	 * This method indicates if player got attacked by an enemy. If it did, it
