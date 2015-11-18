@@ -229,7 +229,9 @@ public class Map {
 		return result;
 
 	}
-
+/*
+ * use as refereance
+ * 
 	public void playerMove(int movement) {
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
@@ -277,7 +279,7 @@ public class Map {
 			}
 		}
 	}
-
+*/
 	public void playerLook(int direction) {
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
