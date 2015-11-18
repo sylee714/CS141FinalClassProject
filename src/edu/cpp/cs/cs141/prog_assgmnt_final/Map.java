@@ -56,6 +56,7 @@ public class Map {
 	}
 	
 	public void setNewPlayer() {
+		System.out.println("values of setNewPlayer: " + row + " " + column);
 		map[row][column] = new Player();
 		//map[row][coloumn] = new EmptySpace();
 	}

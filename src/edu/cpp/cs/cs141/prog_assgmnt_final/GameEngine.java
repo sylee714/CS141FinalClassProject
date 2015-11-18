@@ -42,7 +42,8 @@ public class GameEngine {
 	}
 
 	public void move(int movement) {
-		map.findPlayer();
+		//map.findPlayer();
+		//System.out.println("checks initial values before get: " + row + " " + column);
 		int row = map.getRow();
 		int column = map.getColumn();
 		

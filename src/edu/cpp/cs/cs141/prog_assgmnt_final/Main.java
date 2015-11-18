@@ -23,7 +23,7 @@ public class Main {
 		map.generateAdditionalBullet();
 		map.generateInvincibility();
 		
-		//map.findPlayer();
+		map.findPlayer();
 		ge.move(1);
 		map.setNewPlayer();
 		
