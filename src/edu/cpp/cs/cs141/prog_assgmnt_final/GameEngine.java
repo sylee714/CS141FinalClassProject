@@ -52,7 +52,7 @@ public class GameEngine {
 		switch (movement) {
 		// up
 		case 1:
-			map.setRow(row--);
+			map.setRow(--row);
 			break;
 		// down
 		case 2:
