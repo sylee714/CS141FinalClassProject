@@ -2,6 +2,8 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
 
 import java.util.Random;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 /**
  * @author Seungyun
  *
@@ -12,15 +14,17 @@ public class Map {
 	 * The size of the map.
 	 */
 	private GameEntity[][] map = new GameEntity[9][9];
-	
-	private int row;
-	
-	private int column;
+	private int row = 0;
+	private int column = 0;
 
 	public GameEntity[][] getMap() {
 		return map;
 	}
-	
+
+	public void setMap(GameEntity[][] tempMap) {
+		this.map = tempMap;
+	}
+
 	public int getRow() {
 		return row;
 	}
@@ -44,21 +48,17 @@ public class Map {
 		for (int i = 0; i < map.length; ++i)
 			for (int j = 0; j < map[i].length; ++j)
 				if (map[i][j].getFront().equals("P")) {
-					row = i;
-					column = j;
+					this.row = i;
+					this.column = j;
 				}
 		System.out.println("find start value: " + row + " " + column);
 		
 	}
 	
 	public void setNewPlayer() {
+		System.out.println("values of setNewPlayer: " + row + " " + column);
 		map[row][column] = new Player();
 		//map[row][coloumn] = new EmptySpace();
-	}
-
-
-	public void setMap(GameEntity[][] tempMap) {
-		this.map = tempMap;
 	}
 
 	/**
@@ -131,7 +131,7 @@ public class Map {
 	 */
 	public void generatePlayer() {
 		map[8][0] = new Player();
-		
+
 	}
 
 	/**
@@ -269,57 +269,34 @@ public class Map {
 		return result;
 
 	}
-/*
- * use as refereance
- * 
-	public void playerMove(int movement) {
-		for (int i = 0; i < map.length; ++i) {
-			for (int j = 0; j < map[i].length; ++j) {
-				if (map[i][j].getFront().equals("P")) {
-					GameEntity temp;
 
-					try {
-						switch (movement) {
-						// Left
-						case 1:
-			
-							temp = map[i][j - 1];
-							map[i][j - 1] = map[i][j];
-							map[i][j] = temp;
-
-							break;
-						// Right
-						case 2:
-							temp = map[i][j + 1];
-							map[i][j + 1] = map[i][j];
-							map[i][j] = temp;
-
-							break;
-						// Up
-						case 3:
-							temp = map[i - 1][j];
-							map[i - 1][j] = map[i][j];
-							map[i][j] = temp;
-
-							break;
-						// Down
-						case 4:
-
-							temp = map[i + 1][j];
-							map[i + 1][j] = map[i][j];
-							map[i][j] = temp;
-
-							break;
-
-						}
-					} catch (ArrayIndexOutOfBoundsException e) {
-
-					}
-				}
-			}
-		}
-	}
-*/
+	/*
+	 * use as refereance
+	 * 
+	 * public void playerMove(int movement) { for (int i = 0; i < map.length;
+	 * ++i) { for (int j = 0; j < map[i].length; ++j) { if
+	 * (map[i][j].getFront().equals("P")) { GameEntity temp;
+	 * 
+	 * try { switch (movement) { // Left case 1:
+	 * 
+	 * temp = map[i][j - 1]; map[i][j - 1] = map[i][j]; map[i][j] = temp;
+	 * 
+	 * break; // Right case 2: temp = map[i][j + 1]; map[i][j + 1] = map[i][j];
+	 * map[i][j] = temp;
+	 * 
+	 * break; // Up case 3: temp = map[i - 1][j]; map[i - 1][j] = map[i][j];
+	 * map[i][j] = temp;
+	 * 
+	 * break; // Down case 4:
+	 * 
+	 * temp = map[i + 1][j]; map[i + 1][j] = map[i][j]; map[i][j] = temp;
+	 * 
+	 * break;
+	 * 
+	 * } } catch (ArrayIndexOutOfBoundsException e) {
+	 * 
+	 * } } } } }
+	 */
 	public void playerLook(int direction) {
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
@@ -351,55 +328,7 @@ public class Map {
 		}
 
 	}
-	
-	public void up(String GameEntity) {
-		for (int i=0; i < map.length; ++i) {
-			for (int j=0; j < map[i].length; ++j) {
-				if(map[i][j].getFront().equals(GameEntity)) {
-					map[i-1][j] = map[i][j];
-					map[i][j] = new EmptySpace();
-				}
-			}
-		}
-		
-	}
-	
-	public void down(String GameEntity) {
-		for (int i=0; i < map.length; ++i) {
-			for (int j=0; j < map[i].length; ++j) {
-				if(map[i][j].getFront().equals(GameEntity)) {
-					map[i+1][j] = map[i][j];
-					map[i][j] = new EmptySpace();
-				}
-			}
-		}
-		
-	}
-	
-	public void right(String GameEntity) {
-		for (int i=0; i < map.length; ++i) {
-			for (int j=0; j < map[i].length; ++j) {
-				if(map[i][j].getFront().equals(GameEntity)) {
-					map[i][j+1] = map[i][j];
-					map[i][j] = new EmptySpace();
-				}
-			}
-		}
-		
-	}
-	
-	public void left(String GameEntity) {
-		for (int i=0; i < map.length; ++i) {
-			for (int j=0; j < map[i].length; ++j) {
-				if(map[i][j].getFront().equals(GameEntity)) {
-					map[i][j-1] = map[i][j];
-					map[i][j] = new EmptySpace();
-				}
-			}
-		}
-		
-	}
-	
+
 	public void enemyMove() {
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
@@ -444,21 +373,20 @@ public class Map {
 			}
 		}
 	}
-	
+
 	public void search(int movement) {
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
-				if(map[i][j].equals("P")) {
+				if (map[i][j].equals("P")) {
 					switch (movement) {
-					case 1: map[i][j].up(i, j);
+					case 1:
+						map[i][j].up(i, j);
 					}
 				}
 			}
 		}
 	}
-	
-	
-	
+
 	public void setNotFlipped() {
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
@@ -466,7 +394,7 @@ public class Map {
 			}
 		}
 	}
-	
+
 	public void initialPoint() {
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
@@ -476,7 +404,6 @@ public class Map {
 			}
 		}
 	}
-	
 
 	/**
 	 * Visibility of the map.

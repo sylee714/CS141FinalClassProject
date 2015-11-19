@@ -11,34 +11,11 @@ public abstract class GameEntity {
 
 	private String front = "";
 	private String back = "";
-	private int row;
-	private int column;
 	private boolean isFlipped = false;
 
 	public GameEntity(String front, String back) {
 		this.front = front;
 		this.back = back;
-	}
-
-	public GameEntity(int row, int column) {
-		this.row = row;
-		this.column = column;
-	}
-
-	public int getRow() {
-		return row;
-	}
-
-	public void setRow(int row) {
-		this.row = row;
-	}
-
-	public int getColumn() {
-		return column;
-	}
-
-	public void setColumn(int column) {
-		this.column = column;
 	}
 
 	public boolean isFlipped() {

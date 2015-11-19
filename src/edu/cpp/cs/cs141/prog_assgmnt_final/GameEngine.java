@@ -21,6 +21,7 @@ public class GameEngine {
 
 	private boolean endGame;
 
+<<<<<<< HEAD
 	public void generateMap() {
 		map.generateEmptySpace();
 		map.generateRoomsWithBriefCase();
@@ -53,6 +54,9 @@ public class GameEngine {
 		} catch (ArrayIndexOutOfBoundsException e) {
 
 		}
+=======
+	public void playerTurn() {
+>>>>>>> origin/master
 
 	}
 
@@ -100,9 +104,34 @@ public class GameEngine {
 
 	}
 
-	public void up(int x, int y) {
-		x = x;
-		y = y - 1;
+	public void move(int movement) {
+		//map.findPlayer();
+		//System.out.println("checks initial values before get: " + row + " " + column);
+		int row = map.getRow();
+		int column = map.getColumn();
+		
+		System.out.println("checks initial get values: " + row + " " + column);
+		
+		switch (movement) {
+		// up
+		case 1:
+			map.setRow(--row);
+			break;
+		// down
+		case 2:
+			map.setRow(row++);
+			break;
+		// left
+		case 3:
+			map.setColumn(column--);
+			break;
+		// right
+		case 4:
+			map.setColumn(column++);
+			break;
+		}
+		
+		System.out.println("final values after switch: " + row + " " + column);
 	}
 
 }

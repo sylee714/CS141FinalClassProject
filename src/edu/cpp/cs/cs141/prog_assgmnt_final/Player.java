@@ -8,84 +8,9 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
  *
  */
 public class Player extends GameEntity {
-	
-	private int row;
-	
-	private int column;
-	
+
 	public Player() {
 		super("P", "P");
-	}
-
-	
-				
-	
-	
-	/**
-	 * @param front
-	 * @param back
-	 * @param row
-	 * @param column
-	 */
-	public Player(String front, String back, int row, int column) {
-		super("P", "P");
-		this.row = row;
-		this.column = column;
-	}
-	
-	public void up() {
-		row = row - 1;
-	}
-	
-	public void down() {
-		row = row + 1;
-	}
-	
-	public void left() {
-		column = column - 1;
-	}
-	public void right() {
-		column = column + 1;
-	}
-	
-	/**
-	 * @return the row
-	 */
-	public int getRow() {
-		return row;
-	}
-
-
-
-
-
-	/**
-	 * @param row the row to set
-	 */
-	public void setRow(int row) {
-		this.row = row;
-	}
-
-
-
-
-
-	/**
-	 * @return the column
-	 */
-	public int getColumn() {
-		return column;
-	}
-
-
-
-
-
-	/**
-	 * @param column the column to set
-	 */
-	public void setColumn(int column) {
-		this.column = column;
 	}
 
 	/**
@@ -148,27 +73,11 @@ public class Player extends GameEntity {
 		
 		Map map = new Map();
 
-		map.generateEmptySpace();
-		map.generateRoomsWithBriefCase();
-		map.generatePlayer();
-		map.generateEnemy();
-		map.generateRadar();
-		map.generateAdditionalBullet();
-		map.generateInvincibility();
-
-
-		
-
 		GameEntity[][] tempMap = map.getMap();
 
-
-
-		GameEntity[][] tempMap1 = map.getMap();
-
-
-		for (int i = 0; i < tempMap1.length; ++i) {
-			for (int j = 0; j < tempMap1[i].length; ++j) {
-				if (tempMap1[i][j].getFront().equals("P")) {
+		for (int i = 0; i < tempMap.length; ++i) {
+			for (int j = 0; j < tempMap[i].length; ++j) {
+				if (tempMap[i][j].getFront().equals("P")) {
 
 					// **might have to add additional code to each case to fill
 					// original
@@ -176,20 +85,20 @@ public class Player extends GameEntity {
 					switch (movement) {
 					// up
 					case 1:
-						tempMap1[i - 1][j] = new Player();
-						map.setMap(tempMap1[i - 1][j]);
+						tempMap[i - 1][j] = new Player();
+						map.setMap(tempMap[i - 1][j]);
 						break;
 					// down
 					case 2:
-						tempMap1[i + 1][j] = new Player();
+						tempMap[i + 1][j] = new Player();
 						break;
 					// left
 					case 3:
-						tempMap1[i][j - 1] = new Player();
+						tempMap[i][j - 1] = new Player();
 						break;
 					// right
 					case 4:
-						tempMap1[i - 1][j + 1] = new Player();
+						tempMap[i - 1][j + 1] = new Player();
 						break;
 
 					}
@@ -197,14 +106,9 @@ public class Player extends GameEntity {
 			}
 		}
 
+	} 
 
-		} 
 
-	
-
-	
-
-		
 	/**
 	 * This method indicates if player got attacked by an enemy. If it did, it
 	 * will lose 1 life point.
