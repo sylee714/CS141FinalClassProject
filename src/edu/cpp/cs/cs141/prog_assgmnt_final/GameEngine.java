@@ -31,9 +31,7 @@ public class GameEngine {
 		map.generateInvincibility();
 	}
 
-	public void printMap() {
-		System.out.print(map.toString());
-	}
+
 
 	public void move(int movement, String GameEntity) {
 		try {
