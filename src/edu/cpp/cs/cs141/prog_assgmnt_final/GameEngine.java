@@ -25,6 +25,34 @@ public class GameEngine {
 
 	}
 
+	public void move1(int movement) {
+		
+		map.findPlayer();
+		int row = map.getRow();
+		int column = map.getColumn();
+
+		System.out.println("checks initial get values: " + row + " " + column);
+
+		switch (movement) {
+		// up
+		case 1:
+			map.setRow(row--);
+			break;
+		// down
+		case 2:
+			map.setRow(row++);
+			break;
+		// left
+		case 3:
+			map.setColumn(column--);
+			break;
+		// right
+		case 4:
+			map.setColumn(column++);
+			break;
+		}
+	}
+
 	public void EnemyTurn() {
 
 	}

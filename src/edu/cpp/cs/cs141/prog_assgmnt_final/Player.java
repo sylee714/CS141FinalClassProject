@@ -72,13 +72,6 @@ public class Player extends GameEntity {
 		// read through array and find p location store it
 		
 		Map map = new Map();
-		map.generateEmptySpace();
-		map.generateRoomsWithBriefCase();
-		map.generatePlayer();
-		map.generateEnemy();
-		map.generateRadar();
-		map.generateAdditionalBullet();
-		map.generateInvincibility();
 
 		GameEntity[][] tempMap = map.getMap();
 
@@ -112,8 +105,10 @@ public class Player extends GameEntity {
 				}
 			}
 		}
+
 	} 
-		
+
+
 	/**
 	 * This method indicates if player got attacked by an enemy. If it did, it
 	 * will lose 1 life point.
