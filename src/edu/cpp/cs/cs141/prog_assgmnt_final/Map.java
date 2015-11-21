@@ -30,6 +30,7 @@ public class Map {
 	private Enemy enemy5 = new Enemy();
 	private Enemy enemy6 = new Enemy();
 
+
 	/**
 	 * This method fills the map with empty spaces to initialize the map.
 	 */
@@ -427,7 +428,7 @@ public class Map {
 	 * 
 	 * }
 	 */
-	public void enemyMove() {
+	public void enemyMove() throws ArrayIndexOutOfBoundsException {
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
 				if (map[i][j].getFront().equals("E")) {
@@ -436,56 +437,53 @@ public class Map {
 					int movement;
 					movement = r.nextInt(4) + 1;
 
-					try {
-						switch (movement) {
-						// Left
+					switch (movement) {
+					// Left
 
-						case 1:
-							try {
-								temp = map[i][j - 1];
-								map[i][j - 1] = map[i][j];
-								map[i][j] = temp;
-							} catch (ArrayIndexOutOfBoundsException e) {
-								System.out.println("Left");
-							}
-							break;
-						// Right
-						case 2:
-							try {
-								temp = map[i][j + 1];
-								map[i][j + 1] = map[i][j];
-								map[i][j] = temp;
-							} catch (ArrayIndexOutOfBoundsException e) {
-								System.out.println("Right");
-							}
-
-							break;
-						// Up
-						case 3:
-							try {
-								temp = map[i - 1][j];
-								map[i - 1][j] = map[i][j];
-								map[i][j] = temp;
-							} catch (ArrayIndexOutOfBoundsException e) {
-								System.out.println("Up");
-							}
-							break;
-						// Down
-						case 4:
-							try {
-								temp = map[i + 1][j];
-								map[i + 1][j] = map[i][j];
-								map[i][j] = temp;
-							} catch (ArrayIndexOutOfBoundsException e) {
-								System.out.println("down");
-							}
-
-							break;
+					case 1:
+						try {
+							temp = map[i][j - 1];
+							map[i][j - 1] = map[i][j];
+							map[i][j] = temp;
+						} catch (ArrayIndexOutOfBoundsException e) {
+							System.out.println("Left");
 						}
-					} catch (ArrayIndexOutOfBoundsException e) {
-						System.out.println("You dork");
+						break;
+					// Right
+					case 2:
+						try {
+							temp = map[i][j + 1];
+							map[i][j + 1] = map[i][j];
+							map[i][j] = temp;
+						} catch (ArrayIndexOutOfBoundsException e) {
+							
+							System.out.println("Right");
+						}
 
+						break;
+					// Up
+					case 3:
+						try {
+							temp = map[i - 1][j];
+							map[i - 1][j] = map[i][j];
+							map[i][j] = temp;
+						} catch (ArrayIndexOutOfBoundsException e) {
+							System.out.println("Up");
+						}
+						break;
+					// Down
+					case 4:
+						try {
+							temp = map[i + 1][j];
+							map[i + 1][j] = map[i][j];
+							map[i][j] = temp;
+						} catch (ArrayIndexOutOfBoundsException e) {
+							System.out.println("down");
+						}
+
+						break;
 					}
+
 				}
 			}
 		}
@@ -505,6 +503,54 @@ public class Map {
 				if (map[i][j].equals("P")) {
 					map[i][j] = new EmptySpace();
 				}
+			}
+		}
+	}
+	
+	public void enemyLook1(int direction) {
+		for (int i = 1; i < 2; ++i) {
+			switch (direction) {
+			// left
+			case 1:
+				map[enemy1.getRow()][enemy1.getColumn() - i].setFlipped(true);
+				break;
+			// right
+			case 2:
+				map[enemy1.getRow()][enemy1.getColumn() + i].setFlipped(true);
+				break;
+			// up
+			case 3:
+				map[enemy1.getRow() - i][enemy1.getColumn()].setFlipped(true);
+				break;
+			// down
+			case 4:
+				map[enemy1.getRow() + i][enemy1.getColumn()].setFlipped(true);
+				break;
+
+			}
+		}
+	}
+	
+	public void enemyLook2(int direction) {
+		for (int i = 1; i < 2; ++i) {
+			switch (direction) {
+			// left
+			case 1:
+				map[enemy2.getRow()][enemy2.getColumn() - i].setFlipped(true);
+				break;
+			// right
+			case 2:
+				map[enemy2.getRow()][enemy2.getColumn() + i].setFlipped(true);
+				break;
+			// up
+			case 3:
+				map[enemy2.getRow() - i][enemy2.getColumn()].setFlipped(true);
+				break;
+			// down
+			case 4:
+				map[enemy2.getRow() + i][enemy2.getColumn()].setFlipped(true);
+				break;
+
 			}
 		}
 	}

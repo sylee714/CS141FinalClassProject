@@ -164,8 +164,7 @@ public class UI {
 			case 4:
 				break;
 			default:
-				System.out
-						.println("That isn't a valid input try again please.");
+				System.out.println("That isn't a valid input try again please.");
 				break;
 
 			}
