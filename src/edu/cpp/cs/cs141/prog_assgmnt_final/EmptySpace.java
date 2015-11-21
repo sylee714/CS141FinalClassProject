@@ -10,7 +10,7 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
 public class EmptySpace extends GameEntity{
 	
 	public EmptySpace() {
-		super(" ", "*");
+		super(" ", "*", 0, 0);
 
 	}
 

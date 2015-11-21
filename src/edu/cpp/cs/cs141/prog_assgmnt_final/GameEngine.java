@@ -18,10 +18,12 @@ public class GameEngine {
 	private Enemy enemy = new Enemy();
 
 	private int turn = 3;
+	
+	private boolean attacked = false;
 
 	private boolean endGame;
 
-<<<<<<< HEAD
+
 	public void generateMap() {
 		map.generateEmptySpace();
 		map.generateRoomsWithBriefCase();
@@ -31,61 +33,20 @@ public class GameEngine {
 		map.generateAdditionalBullet();
 		map.generateInvincibility();
 	}
-
-
-
-	public void move(int movement, String GameEntity) {
-		try {
-			switch (movement) {
-
-			case 1:
-				map.up(GameEntity);
-				break;
-			case 2:
-				map.down(GameEntity);
-				break;
-			case 3:
-				map.right(GameEntity);
-				break;
-			case 4:
-				map.left(GameEntity);
-				break;
-			}
-		} catch (ArrayIndexOutOfBoundsException e) {
-
-		}
-=======
-	public void playerTurn() {
->>>>>>> origin/master
-
+	
+	public String printMap() {
+		return map.toString();
+	}
+	
+	public String printDebug() {
+		return map.printDebug();
 	}
 
-	public void move1(int movement) {
+
 		
-		map.findPlayer();
-		int row = map.getRow();
-		int column = map.getColumn();
+	public void playerTurn() {
 
-		System.out.println("checks initial get values: " + row + " " + column);
 
-		switch (movement) {
-		// up
-		case 1:
-			map.setRow(row--);
-			break;
-		// down
-		case 2:
-			map.setRow(row++);
-			break;
-		// left
-		case 3:
-			map.setColumn(column--);
-			break;
-		// right
-		case 4:
-			map.setColumn(column++);
-			break;
-		}
 	}
 
 	public void EnemyTurn() {
@@ -104,34 +65,6 @@ public class GameEngine {
 
 	}
 
-	public void move(int movement) {
-		//map.findPlayer();
-		//System.out.println("checks initial values before get: " + row + " " + column);
-		int row = map.getRow();
-		int column = map.getColumn();
-		
-		System.out.println("checks initial get values: " + row + " " + column);
-		
-		switch (movement) {
-		// up
-		case 1:
-			map.setRow(--row);
-			break;
-		// down
-		case 2:
-			map.setRow(row++);
-			break;
-		// left
-		case 3:
-			map.setColumn(column--);
-			break;
-		// right
-		case 4:
-			map.setColumn(column++);
-			break;
-		}
-		
-		System.out.println("final values after switch: " + row + " " + column);
-	}
+
 
 }

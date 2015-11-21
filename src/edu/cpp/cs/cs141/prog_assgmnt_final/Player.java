@@ -9,8 +9,12 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
  */
 public class Player extends GameEntity {
 
+	
+	private Gun gun = new Gun();
+
 	public Player() {
-		super("P", "P");
+		super("P", "P", 0, 0);
+		
 	}
 
 	/**
@@ -44,8 +48,8 @@ public class Player extends GameEntity {
 	 * 
 	 * @return
 	 */
-	public boolean attack() {
-		return false;
+	public void attack() {
+		
 	}
 
 	/**
@@ -57,56 +61,6 @@ public class Player extends GameEntity {
 	public boolean look() {
 		return false;
 	}
-	
-	public void move1(int row, int column) {
-		
-	}
-
-	/**
-	 * This method is moving method. Up, down, right, and left only.
-	 * 
-	 * @param movement
-	 * @return
-	 */
-	public void move(int movement) {
-		// read through array and find p location store it
-		
-		Map map = new Map();
-
-		GameEntity[][] tempMap = map.getMap();
-
-		for (int i = 0; i < tempMap.length; ++i) {
-			for (int j = 0; j < tempMap[i].length; ++j) {
-				if (tempMap[i][j].getFront().equals("P")) {
-
-					// **might have to add additional code to each case to fill
-					// original
-					// player spot empty space
-					switch (movement) {
-					// up
-					case 1:
-						tempMap[i - 1][j] = new Player();
-						map.setMap(tempMap[i - 1][j]);
-						break;
-					// down
-					case 2:
-						tempMap[i + 1][j] = new Player();
-						break;
-					// left
-					case 3:
-						tempMap[i][j - 1] = new Player();
-						break;
-					// right
-					case 4:
-						tempMap[i - 1][j + 1] = new Player();
-						break;
-
-					}
-				}
-			}
-		}
-
-	} 
 
 
 	/**
@@ -137,7 +91,7 @@ public class Player extends GameEntity {
 	 * When player finds the brief case, picking up method will pick up the
 	 * brief case.
 	 */
-	public void pickingUpBriefCase() {
+	public void pickUpBriefCase() {
 
 	}
 

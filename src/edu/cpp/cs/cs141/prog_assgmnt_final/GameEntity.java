@@ -11,11 +11,15 @@ public abstract class GameEntity {
 
 	private String front = "";
 	private String back = "";
+	private int row = 0;
+	private int column = 0;
 	private boolean isFlipped = false;
 
-	public GameEntity(String front, String back) {
+	public GameEntity(String front, String back, int row, int column) {
 		this.front = front;
 		this.back = back;
+		this.row = row;
+		this.column = column;
 	}
 
 	public boolean isFlipped() {
@@ -33,25 +37,65 @@ public abstract class GameEntity {
 	public String getBack() {
 		return back;
 	}
+	
+	
 
-	public int up(int row, int column) {
-		row = row - 1;
+	/**
+	 * @return the row
+	 */
+	public int getRow() {
 		return row;
 	}
 
-	public int down(int row, int column) {
-		row = row + 1;
-		return row;
+	/**
+	 * @param row the row to set
+	 */
+	public void setRow(int row) {
+		this.row = row;
 	}
 
-	public int right(int row, int column) {
-		column = column + 1;
+	/**
+	 * @return the column
+	 */
+	public int getColumn() {
 		return column;
 	}
 
-	public int left(int row, int column) {
-		column = column - 1;
-		return column;
+	/**
+	 * @param column the column to set
+	 */
+	public void setColumn(int column) {
+		this.column = column;
+	}
+
+	/**
+	 * This method is moving method. Up, down, right, and left only.
+	 * 
+	 * @param movement
+	 * @return
+	 */
+	public void move(int movement) {
+
+		switch (movement) {
+		// up
+		case 1:
+			row = row - 1;
+			break;
+		// down
+		case 2:
+			row = row + 1;
+			break;
+		// right
+		case 3:
+			column = column + 1;
+			break;
+		// left
+		case 4:
+			column = column - 1;
+			break;
+
+		}
+
 	}
 
 }

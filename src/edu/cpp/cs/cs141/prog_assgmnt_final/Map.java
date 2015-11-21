@@ -14,52 +14,24 @@ public class Map {
 	 * The size of the map.
 	 */
 	private GameEntity[][] map = new GameEntity[9][9];
-	private int row = 0;
-	private int column = 0;
 
-	public GameEntity[][] getMap() {
-		return map;
-	}
-
-	public void setMap(GameEntity[][] tempMap) {
-		this.map = tempMap;
-	}
-
-	public int getRow() {
-		return row;
-	}
-
-	public void setRow(int row) {
-		this.row = row;
-	}
-
-	public int getColumn() {
-		return column;
-	}
-
-	public void setColumn(int column) {
-		this.column = column;
-	}
-
-	/**
-	 * This method locates player.
-	 */
-	public void findPlayer() {
-		for (int i = 0; i < map.length; ++i)
-			for (int j = 0; j < map[i].length; ++j)
-				if (map[i][j].getFront().equals("P")) {
-					this.row = i;
-					this.column = j;
-				}
-		System.out.println("find start value: " + row + " " + column);
-		
-	}
+	private Player player = new Player();
 	
-	public void setNewPlayer() {
-		System.out.println("values of setNewPlayer: " + row + " " + column);
-		map[row][column] = new Player();
-		//map[row][coloumn] = new EmptySpace();
-	}
+	private AdditionalBullet bullet = new AdditionalBullet();
+	
+	private Radar radar = new Radar();
+	
+	private Invincibility invincible = new Invincibility();
+	
+	private BriefCase briefCase = new BriefCase();
+	
+	private Enemy enemy1 = new Enemy();
+	private Enemy enemy2 = new Enemy();
+	private Enemy enemy3 = new Enemy();
+	private Enemy enemy4 = new Enemy();
+	private Enemy enemy5 = new Enemy();
+	private Enemy enemy6 = new Enemy();
+	
 
 	/**
 	 * This method fills the map with empty spaces to initialize the map.
@@ -95,31 +67,49 @@ public class Map {
 
 		switch (randomNumber) {
 		case 1:
-			map[1][1] = new BriefCase();
+			map[1][1] = briefCase;
+			briefCase.setRow(1);
+			briefCase.setColumn(1);
 			break;
 		case 2:
-			map[1][4] = new BriefCase();
+			map[1][4] = briefCase;
+			briefCase.setRow(1);
+			briefCase.setColumn(4);
 			break;
 		case 3:
-			map[1][7] = new BriefCase();
+			map[1][7] = briefCase;
+			briefCase.setRow(1);
+			briefCase.setColumn(7);
 			break;
 		case 4:
-			map[4][1] = new BriefCase();
+			map[4][1] = briefCase;
+			briefCase.setRow(4);
+			briefCase.setColumn(1);
 			break;
 		case 5:
-			map[4][4] = new BriefCase();
+			map[4][4] = briefCase;
+			briefCase.setRow(4);
+			briefCase.setColumn(4);
 			break;
 		case 6:
-			map[4][7] = new BriefCase();
+			map[4][7] = briefCase;
+			briefCase.setRow(4);
+			briefCase.setColumn(7);
 			break;
 		case 7:
-			map[7][1] = new BriefCase();
+			map[7][1] = briefCase;
+			briefCase.setRow(7);
+			briefCase.setColumn(1);
 			break;
 		case 8:
-			map[7][4] = new BriefCase();
+			map[7][4] = briefCase;
+			briefCase.setRow(7);
+			briefCase.setColumn(4);
 			break;
 		case 9:
 			map[7][7] = new BriefCase();
+			briefCase.setRow(7);
+			briefCase.setColumn(7);
 			break;
 		}
 
@@ -130,7 +120,10 @@ public class Map {
 	 * the initial/starting position.
 	 */
 	public void generatePlayer() {
-		map[8][0] = new Player();
+		map[8][0] = player;
+		player.setRow(8);
+		player.setColumn(0);
+		System.out.println(player.getRow() + player.getColumn());
 
 	}
 
@@ -153,12 +146,51 @@ public class Map {
 					&& map[row][column] != map[6][3] && map[row][column] != map[7][0] && map[row][column] != map[7][2]
 					&& map[row][column] != map[7][3] && map[row][column] != map[8][1] && map[row][column] != map[8][2]
 					&& map[row][column] != map[8][3]) {
-				map[row][column] = new Enemy();
+				for (int i = 1; i < 7; ++i){
+						updateEnemyLocation(i, row, column);
+				}
 				++enemyCount;
 			}
 
 		} while (enemyCount < 6);
 
+	}
+	
+	public void updateEnemyLocation(int i, int row, int column) {
+		
+		switch (i) {
+		case 1:
+			map[row][column] = enemy1;
+			enemy1.setRow(row);
+			enemy1.setColumn(column);
+			break;
+		case 2:
+			map[row][column] = enemy2;
+			enemy1.setRow(row);
+			enemy1.setColumn(column);
+			break;
+		case 3:
+			map[row][column] = enemy3;
+			enemy1.setRow(row);
+			enemy1.setColumn(column);
+			break;
+		case 4: 
+			map[row][column] = enemy4;
+			enemy1.setRow(row);
+			enemy1.setColumn(column);
+			break;
+		case 5:
+			map[row][column] = enemy5;
+			enemy1.setRow(row);
+			enemy1.setColumn(column);
+			break;
+		case 6: 
+			map[row][column] = enemy6;
+			enemy1.setRow(row);
+			enemy1.setColumn(column);
+			break;
+		}
+		
 	}
 
 	/**
@@ -174,7 +206,10 @@ public class Map {
 			int row = r.nextInt(9);
 			int column = r.nextInt(9);
 			if (map[row][column].getFront().equals(" ")) {
-				map[row][column] = new Radar();
+				map[row][column] = radar;
+				radar.setRow(row);
+				radar.setColumn(column);
+				
 				++numberOfRadar;
 			}
 
@@ -195,7 +230,9 @@ public class Map {
 			int row = r.nextInt(9);
 			int column = r.nextInt(9);
 			if (map[row][column].getFront().equals(" ")) {
-				map[row][column] = new AdditionalBullet();
+				map[row][column] = bullet;
+				bullet.setRow(row);
+				bullet.setColumn(column);
 				++numberOfBullet;
 			}
 
@@ -217,7 +254,9 @@ public class Map {
 			int row = r.nextInt(9);
 			int column = r.nextInt(9);
 			if (map[row][column].getFront().equals(" ")) {
-				map[row][column] = new Invincibility();
+				map[row][column] = invincible;
+				invincible.setRow(row);
+				invincible.setColumn(column);
 				++numberOfInvicible;
 			}
 
@@ -267,6 +306,21 @@ public class Map {
 		}
 
 		return result;
+
+	}
+	
+	public void movePlayer(int movement) {
+		int tempRow = player.getRow();
+		int tempColumn = player.getColumn();
+
+		player.move(movement);
+		player.setRow(player.getRow());
+		player.setColumn(player.getColumn());
+
+		map[tempRow][tempColumn] = new EmptySpace();
+		map[player.getRow()][player.getColumn()] = player;
+		System.out.println(tempRow + tempColumn);
+		System.out.println(player.getRow() + player.getColumn());
 
 	}
 
@@ -374,18 +428,6 @@ public class Map {
 		}
 	}
 
-	public void search(int movement) {
-		for (int i = 0; i < map.length; ++i) {
-			for (int j = 0; j < map[i].length; ++j) {
-				if (map[i][j].equals("P")) {
-					switch (movement) {
-					case 1:
-						map[i][j].up(i, j);
-					}
-				}
-			}
-		}
-	}
 
 	public void setNotFlipped() {
 		for (int i = 0; i < map.length; ++i) {
@@ -405,26 +447,6 @@ public class Map {
 		}
 	}
 
-	/**
-	 * Visibility of the map.
-	 */
-	private boolean visible = false;
-
-	/**
-	 * If a space is occupied by enemies or player.
-	 */
-	private boolean occupied = false;
-
-	/**
-	 * Space to hold power-ups.
-	 */
-	public void space() {
-
-	}
-
-	public void setMap(GameEntity gameEntity) {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 }
