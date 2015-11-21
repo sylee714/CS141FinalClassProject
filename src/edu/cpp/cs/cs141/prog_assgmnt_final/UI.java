@@ -43,8 +43,7 @@ public class UI {
 				quit = true;
 				break;
 			default:
-				System.out
-						.println("Invalid input. Choose from \"1\",\"2\", or \"3\" please.");
+				error0();
 				break;
 
 			}
@@ -62,15 +61,21 @@ public class UI {
 
 	private int mainMenu() {
 		int option = 0;
-		System.out
-				.println("Select an option:\n\n1)New Game\n2)Load Game\n3)Quit Game");
+		System.out.println("Select an option:\n\n1)New Game\n2)Load Game\n3)Quit Game");
 		option = keyboard.nextInt();
 		keyboard.nextLine();
 
 		return option;
 
 	}
-
+	public void error0()
+	{
+		System.out.println("Invalid input. Please choose from \"1\",\"2\", or \"3\".");
+	}
+	public void error1()
+	{
+		System.out.println("Invalid input. Please select from \"A\", \"B\", \"C\",or \"D\".");
+	}
 	public void gameLoop() {
 
 		while (!game.gameWon()) {
@@ -80,25 +85,27 @@ public class UI {
 			System.out.println(game.printDebug());
 			// System.out.println(game.displayBoard());
 			System.out.println("Chose a direction to look in.\n");
-			System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
+			System.out.println("A)Left \nD)Right \nW)Up \nS)Down");
 
-			int option = keyboard.nextInt();
+			char charOption = keyboard.nextLine();
 			try {
-				switch (option) {
+			
+			NumOption = REmappedKeys();
+				switch (NumOption) {
 				// Left
-				case 1:
+				case '1':
 					game.playerLook(1);
 					break;
 				// Right
-				case 2:
+				case '2':
 					game.playerLook(2);
 					break;
 				// Up
-				case 3:
+				case '3':
 					game.playerLook(3);
 					break;
 				// Down
-				case 4:
+				case '4':
 					game.playerLook(4);
 					break;
 				default:
@@ -179,5 +186,30 @@ public class UI {
 	public void visibilityOfPlayer() {
 		game.visibilityOfPlayer();
 	}
-
+	
+	public int REmappedKeys(charOption)
+	{
+		int intOption = 0;
+		
+		if(charOption == 'A' || charOption == 'a')
+		{
+			intOption = 1;
+		}
+		else if(charOption == 'B' || charOption == 'b')
+		{
+			intOption = 2;
+		}
+		else if(charOption == 'C' || charOption == 'c')
+		{
+			intOption = 3;
+		}
+		else if(charOption == 'D' || charOption == 'd')
+		{
+			intOption = 4;
+		}
+		else 
+			error1();
+		return intOption;
+	}
+		
 }
