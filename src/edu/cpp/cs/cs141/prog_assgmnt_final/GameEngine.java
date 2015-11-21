@@ -13,19 +13,23 @@ public class GameEngine {
 
 	private Map map = null;
 
-	public GameEngine(Map map) {
-		this.map = map;
-	}
-
 	private Player player = new Player();
 
 	private Enemy enemy = new Enemy();
 
-	private int turn = 3;
+	private int turn = 0;
 
 	private boolean attacked = false;
 
 	private boolean endGame;
+
+	public int getTurn() {
+		return turn;
+	}
+
+	public GameEngine(Map map) {
+		this.map = map;
+	}
 
 	public void generateMap() {
 		map.generateEmptySpace();
@@ -76,8 +80,8 @@ public class GameEngine {
 	 * switch (direction) { // Left case 1: map.visibilityOfPlayer(1); break; //
 	 * Right case 2: map.visibilityOfPlayer(2); break; // Up case 3:
 	 * map.visibilityOfPlayer(3); break; // Down case 4:
-	 * map.visibilityOfPlayer(4); break; default:
-	 * System.out.println("That isn't a valid choice player."); break; } }
+	 * map.visibilityOfPlayer(4); break; default: System.out.println(
+	 * "That isn't a valid choice player."); break; } }
 	 */
 	/**
 	 * @param direction
@@ -139,7 +143,7 @@ public class GameEngine {
 	}
 
 	public void playerTurn() {
-
+		turn++;
 	}
 
 	public void EnemyMove() {
