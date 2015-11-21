@@ -55,11 +55,22 @@ public class Player extends GameEntity {
 	/**
 	 * This method is looking method which enables the player to look two-tiles
 	 * ahead of him/her.
-	 * 
-	 * @return
 	 */
-	public boolean look() {
-		return false;
+	public void look(int direction) {
+		switch(direction) {
+		//up
+		case 1:
+			break;
+		//down
+		case 2:
+			break;
+		//right
+		case 3:
+			break;
+		//left
+		case 4:
+			break;
+		}
 	}
 
 

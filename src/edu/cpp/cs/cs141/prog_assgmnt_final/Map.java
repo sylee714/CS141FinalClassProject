@@ -16,22 +16,21 @@ public class Map {
 	private GameEntity[][] map = new GameEntity[9][9];
 
 	private Player player = new Player();
-	
+
 	private AdditionalBullet bullet = new AdditionalBullet();
-	
+
 	private Radar radar = new Radar();
-	
+
 	private Invincibility invincible = new Invincibility();
-	
+
 	private BriefCase briefCase = new BriefCase();
-	
+
 	private Enemy enemy1 = new Enemy();
 	private Enemy enemy2 = new Enemy();
 	private Enemy enemy3 = new Enemy();
 	private Enemy enemy4 = new Enemy();
 	private Enemy enemy5 = new Enemy();
 	private Enemy enemy6 = new Enemy();
-	
 
 	/**
 	 * This method fills the map with empty spaces to initialize the map.
@@ -123,7 +122,7 @@ public class Map {
 		map[8][0] = player;
 		player.setRow(8);
 		player.setColumn(0);
-		System.out.println(player.getRow() + player.getColumn());
+	
 
 	}
 
@@ -146,8 +145,8 @@ public class Map {
 					&& map[row][column] != map[6][3] && map[row][column] != map[7][0] && map[row][column] != map[7][2]
 					&& map[row][column] != map[7][3] && map[row][column] != map[8][1] && map[row][column] != map[8][2]
 					&& map[row][column] != map[8][3]) {
-				for (int i = 1; i < 7; ++i){
-						updateEnemyLocation(i, row, column);
+				for (int i = 1; i < 7; ++i) {
+					updateEnemyLocation(i, row, column);
 				}
 				++enemyCount;
 			}
@@ -155,9 +154,9 @@ public class Map {
 		} while (enemyCount < 6);
 
 	}
-	
+
 	public void updateEnemyLocation(int i, int row, int column) {
-		
+
 		switch (i) {
 		case 1:
 			map[row][column] = enemy1;
@@ -174,7 +173,7 @@ public class Map {
 			enemy1.setRow(row);
 			enemy1.setColumn(column);
 			break;
-		case 4: 
+		case 4:
 			map[row][column] = enemy4;
 			enemy1.setRow(row);
 			enemy1.setColumn(column);
@@ -184,13 +183,13 @@ public class Map {
 			enemy1.setRow(row);
 			enemy1.setColumn(column);
 			break;
-		case 6: 
+		case 6:
 			map[row][column] = enemy6;
 			enemy1.setRow(row);
 			enemy1.setColumn(column);
 			break;
 		}
-		
+
 	}
 
 	/**
@@ -209,7 +208,7 @@ public class Map {
 				map[row][column] = radar;
 				radar.setRow(row);
 				radar.setColumn(column);
-				
+
 				++numberOfRadar;
 			}
 
@@ -308,7 +307,7 @@ public class Map {
 		return result;
 
 	}
-	
+
 	public void movePlayer(int movement) {
 		int tempRow = player.getRow();
 		int tempColumn = player.getColumn();
@@ -319,38 +318,32 @@ public class Map {
 
 		map[tempRow][tempColumn] = new EmptySpace();
 		map[player.getRow()][player.getColumn()] = player;
-		System.out.println(tempRow + tempColumn);
-		System.out.println(player.getRow() + player.getColumn());
-
+	
 	}
 
-	/*
-	 * use as refereance
-	 * 
-	 * public void playerMove(int movement) { for (int i = 0; i < map.length;
-	 * ++i) { for (int j = 0; j < map[i].length; ++j) { if
-	 * (map[i][j].getFront().equals("P")) { GameEntity temp;
-	 * 
-	 * try { switch (movement) { // Left case 1:
-	 * 
-	 * temp = map[i][j - 1]; map[i][j - 1] = map[i][j]; map[i][j] = temp;
-	 * 
-	 * break; // Right case 2: temp = map[i][j + 1]; map[i][j + 1] = map[i][j];
-	 * map[i][j] = temp;
-	 * 
-	 * break; // Up case 3: temp = map[i - 1][j]; map[i - 1][j] = map[i][j];
-	 * map[i][j] = temp;
-	 * 
-	 * break; // Down case 4:
-	 * 
-	 * temp = map[i + 1][j]; map[i + 1][j] = map[i][j]; map[i][j] = temp;
-	 * 
-	 * break;
-	 * 
-	 * } } catch (ArrayIndexOutOfBoundsException e) {
-	 * 
-	 * } } } } }
-	 */
+	public void visibilityOfPlayer(int direction) {
+		for (int i = 1; i < 3; ++i) {
+			switch (direction) {
+			// up
+			case 1:
+				map[player.getRow() + i][player.getColumn()].setFlipped(true);
+				break;
+			// down
+			case 2:
+				map[player.getRow() - i][player.getColumn()].setFlipped(true);
+				break;
+			// right
+			case 3:
+				map[player.getRow()][player.getColumn() + i].setFlipped(true);
+				break;
+			// left
+			case 4:
+				map[player.getRow()][player.getColumn() - i].setFlipped(true);
+				break;
+			}
+		}
+	}
+
 	public void playerLook(int direction) {
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
@@ -428,7 +421,6 @@ public class Map {
 		}
 	}
 
-
 	public void setNotFlipped() {
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
@@ -446,7 +438,5 @@ public class Map {
 			}
 		}
 	}
-
-	
 
 }

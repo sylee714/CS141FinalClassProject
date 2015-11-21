@@ -24,6 +24,7 @@ public class Main {
 		map.generateAdditionalBullet();
 		map.generateInvincibility();
 		map.movePlayer(3);
+		map.visibilityOfPlayer(3);
 		
 		
 
