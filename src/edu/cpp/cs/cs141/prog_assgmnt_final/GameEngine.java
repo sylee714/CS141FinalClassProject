@@ -156,16 +156,12 @@ public class GameEngine {
 	}
 
 	public void backToSpawnLocation() {
-
+		map.generatePlayer();
 	}
 
 	public boolean gameWon() {
 		boolean won = false;
 		return won;
-
-	}
-
-	public void backToInitialSpawnLocation() {
 
 	}
 
