@@ -235,39 +235,39 @@ public class Map {
 		// }
 		// }
 		// }
-			for (int i = 1; i < 2; ++i) {
-				try {
-					if (map[radar.getColumn()][radar.getRow() - i].getFront()
-							.equals("P"))
-						briefCase.setAttack(true);
-				} catch (ArrayIndexOutOfBoundsException e) {
+		for (int i = 1; i < 2; ++i) {
+			try {
+				if (map[radar.getColumn()][radar.getRow() - i].getFront()
+						.equals("P"))
+					briefCase.setAttack(true);
+			} catch (ArrayIndexOutOfBoundsException e) {
 
-				}
-
-				try {
-					if (map[radar.getColumn()][radar.getRow() + i].getFront()
-							.equals("P"))
-						briefCase.setAttack(true);
-				} catch (ArrayIndexOutOfBoundsException e) {
-
-				}
-				try {
-					if (map[radar.getColumn() - i][radar.getRow()].getFront()
-							.equals("P"))
-						briefCase.setAttack(true);
-				} catch (ArrayIndexOutOfBoundsException e) {
-
-				}
-				try {
-					if (map[radar.getColumn() + i][radar.getRow()].getFront()
-							.equals("P"))
-						briefCase.setAttack(true);
-				} catch (ArrayIndexOutOfBoundsException e) {
-					
-				}
-
-				briefCase.setFlipped(true);
 			}
+
+			try {
+				if (map[radar.getColumn()][radar.getRow() + i].getFront()
+						.equals("P"))
+					briefCase.setAttack(true);
+			} catch (ArrayIndexOutOfBoundsException e) {
+
+			}
+			try {
+				if (map[radar.getColumn() - i][radar.getRow()].getFront()
+						.equals("P"))
+					briefCase.setAttack(true);
+			} catch (ArrayIndexOutOfBoundsException e) {
+
+			}
+			try {
+				if (map[radar.getColumn() + i][radar.getRow()].getFront()
+						.equals("P"))
+					briefCase.setAttack(true);
+			} catch (ArrayIndexOutOfBoundsException e) {
+
+			}
+
+			briefCase.setFlipped(true);
+		}
 	}
 
 	/**
@@ -373,18 +373,26 @@ public class Map {
 			// left
 			case 1:
 				map[player.getRow()][player.getColumn() - i].setFlipped(true);
+				if (map[player.getRow()][player.getColumn() - i].getFront().equals("E"))
+					player.setDangerAhead(true);
 				break;
 			// right
 			case 2:
 				map[player.getRow()][player.getColumn() + i].setFlipped(true);
+				if (map[player.getRow()][player.getColumn() + i].getFront().equals("E"))
+					player.setDangerAhead(true);
 				break;
 			// up
 			case 3:
 				map[player.getRow() - i][player.getColumn()].setFlipped(true);
+				if (map[player.getRow() - i][player.getColumn()].getFront().equals("E"))
+					player.setDangerAhead(true);
 				break;
 			// down
 			case 4:
 				map[player.getRow() + i][player.getColumn()].setFlipped(true);
+				if (map[player.getRow() + i][player.getColumn()].getFront().equals("E"))
+					player.setDangerAhead(true);
 				break;
 
 			}
@@ -398,7 +406,7 @@ public class Map {
 	 */
 
 	public void playerLook(int direction) throws ArrayIndexOutOfBoundsException {
-		for (int i = 0; i < 9; ++i) {
+		for (int i = 0; i < 3; ++i) {
 
 			switch (direction) {
 
@@ -453,10 +461,6 @@ public class Map {
 
 	public void movePlayer(int movement) {
 
-		// if(map[player.getRow()][player.getColumn() -
-		// i].getFront().equals("R") || map[player.getRow()][player.getColumn()
-		// - i].getFront().equals("R"))
-
 		int tempRow = player.getRow();
 		int tempColumn = player.getColumn();
 
@@ -508,6 +512,32 @@ public class Map {
 	 * 
 	 * }
 	 */
+
+	public void moveEnemy(int movement) {
+
+		GameEntity[] enemyHold = { enemy1, enemy2, enemy3, enemy4, enemy5,
+				enemy6 };
+
+		for (int i = 0; i < 6; ++i) {
+
+			int tempRow = enemyHold[i].getRow();
+			int tempColumn = enemyHold[i].getColumn();
+
+			enemyHold[i].move(movement);
+
+			GameEntity tempSpace = map[enemyHold[i].getRow()][enemyHold[i]
+					.getColumn()];
+
+			enemyHold[i].setRow(enemyHold[i].getRow());
+			enemyHold[i].setColumn(enemyHold[i].getColumn());
+
+			map[tempRow][tempColumn] = tempSpace;
+			map[enemyHold[i].getRow()][enemyHold[i].getColumn()] = enemyHold[i];
+
+		}
+
+	}
+
 	public void enemyMove() throws ArrayIndexOutOfBoundsException {
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
@@ -567,49 +597,36 @@ public class Map {
 		}
 	}
 
-	public void enemyArray() {
+	public boolean visibilityOfEnemy() {
 
-		GameEntity[] enemyHold = { enemy1, enemy2, enemy3, enemy3, enemy4,
-				enemy5, enemy6 };
-	}
+		boolean foundPlayer = false;
 
-	/*
-	 * public void enemyLook() {
-	 * 
-	 * for (int i = 0; i < 6; ++i) {
-	 * 
-	 * enemyHold[i].
-	 * 
-	 * }
-	 * 
-	 * }
-	 */
-	public void enemyLook1(int direction) {
-		for (int i = 1; i < 2; ++i) {
-			switch (direction) {
-			// left
-			case 1:
+		GameEntity[] enemyHold = { enemy1, enemy2, enemy3, enemy4, enemy5,
+				enemy6 };
 
-				if (map[enemy1.getRow()][enemy1.getColumn() - i].getFront()
-						.equals("P"))
-					enemy1.setAttack(true);
-				break;
-			// right
-			case 2:
-				map[enemy1.getRow()][enemy1.getColumn() + i].setFlipped(true);
-				break;
-			// up
-			case 3:
-				map[enemy1.getRow() - i][enemy1.getColumn()].setFlipped(true);
-				break;
-			// down
-			case 4:
-				map[enemy1.getRow() + i][enemy1.getColumn()].setFlipped(true);
-				break;
+		for (int i = 0; i < 6; ++i) {
 
-			}
+			if (map[enemyHold[i].getRow()][enemyHold[i].getColumn() - 1]
+					.getFront().equals("P")
+					|| map[enemyHold[i].getRow()][enemyHold[i].getColumn() + 1]
+							.getFront().equals("P")
+					|| map[enemyHold[i].getRow() - 1][enemyHold[i].getColumn()]
+							.getFront().equals("P")
+					|| map[enemyHold[i].getRow() + 1][enemyHold[i].getColumn()]
+							.getFront().equals("P"))
+				enemyHold[i].setAttack(true);
+			foundPlayer = enemyHold[i].isAttack();
 		}
 
+		return foundPlayer;
 	}
 
+	public void enemyAttack(boolean foundPlayer) {
+
+		map[player.getRow()][player.getColumn()] = new EmptySpace();
+
+	}
+
+	
+	
 }

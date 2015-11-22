@@ -73,9 +73,10 @@ public class UI {
 	public void gameLoop() {
 
 		while (!game.gameWon()) {
-
+			
+			boolean debug = false;
+			
 			System.out.println("Begin your turn player!\n");
-			visibilityOfPlayer();
 			//System.out.println(game.printDebug());
 			System.out.println(game.displayBoard());
 			System.out.println("Chose a direction to look in.\n");
@@ -86,19 +87,19 @@ public class UI {
 				switch (option) {
 				// Left
 				case 1:
-					game.playerLook(1);
+					game.visibilityOfPlayer(1);
 					break;
 				// Right
 				case 2:
-					game.playerLook(2);
+					game.visibilityOfPlayer(2);
 					break;
 				// Up
 				case 3:
-					game.playerLook(3);
+					game.visibilityOfPlayer(3);
 					break;
 				// Down
 				case 4:
-					game.playerLook(4);
+					game.visibilityOfPlayer(4);
 					break;
 				default:
 					System.out.println("That isn't a valid choice player.");
@@ -110,9 +111,11 @@ public class UI {
 						.println("You currently can't look in that direction player. Look in a valid direction.\n");
 			}
 			game.playerDetect();
-			System.out.println("What would you like to do next?\n");
+			
 			//System.out.println(game.printDebug());
 			//System.out.println(game.displayBoard());
+			System.out.println("What would you like to do next?\n");
+			
 			System.out.println("1)Move \n2)Shoot \n3)Save \n4)Quit");
 
 			int choice = keyboard.nextInt();
@@ -145,7 +148,7 @@ public class UI {
 						break;
 					default:
 						System.out
-								.println("That's isn't a direction player. Please try again");
+								.println("That's isn't a valid direction player. Please try again");
 						break;
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
@@ -163,22 +166,31 @@ public class UI {
 			// Quit
 			case 4:
 				break;
+			// Debug
+			case 5:
+				if(game.isDebug() == false){
+					System.out.println("3");
+					game.setDebug(true);
+					game.printBoard();
+					
+				}
+				else{
+					System.out.println("4");
+					game.setDebug(false);
+					game.printBoard();
+					
+				}
+				break;
 			default:
 				System.out.println("That isn't a valid input try again please.");
 				break;
 
 			}
-			game.EnemyMove();
+			game.moveEnemy();
 			game.setNotFlipped();
 			game.useRadar();
-			// System.out.println(game.printDebug());
-			// System.out.println(game.displayBoard());
 		}
 
-	}
-
-	public void visibilityOfPlayer() {
-		game.visibilityOfPlayer();
 	}
 
 }

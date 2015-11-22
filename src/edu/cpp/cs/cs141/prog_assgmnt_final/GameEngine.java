@@ -3,6 +3,8 @@
  */
 package edu.cpp.cs.cs141.prog_assgmnt_final;
 
+import java.util.Random;
+
 import edu.cpp.cs.cs141.prog_assgmnt_final.Map;
 
 /**
@@ -26,6 +28,22 @@ public class GameEngine {
 	private boolean attacked = false;
 
 	private boolean endGame;
+	
+	private boolean debug = false;
+
+	/**
+	 * @return the debug
+	 */
+	public boolean isDebug() {
+		return debug;
+	}
+
+	/**
+	 * @param debug the debug to set
+	 */
+	public void setDebug(boolean debug) {
+		this.debug = debug;
+	}
 
 	public void generateMap() {
 		map.generateEmptySpace();
@@ -37,6 +55,18 @@ public class GameEngine {
 		map.generateInvincibility();
 	}
 
+	public String printBoard() {
+			if(isDebug() == false){
+				System.out.println(isDebug() +" 1");
+				return map.toString();
+				
+			}
+			else{
+				System.out.println(isDebug() + " 2");
+				return map.printDebug();
+			}
+	}
+	
 	public String displayBoard() {
 		return map.toString();
 	}
@@ -47,66 +77,24 @@ public class GameEngine {
 	 *            player has immediate visibility of each turn.
 	 */
 
-	public void visibilityOfPlayer() {
-		try {
-			map.visibilityOfPlayer(1);
-		} catch (ArrayIndexOutOfBoundsException e) {
-
-		}
-		try {
-			map.visibilityOfPlayer(2);
-		} catch (ArrayIndexOutOfBoundsException e) {
-
-		}
-		try {
-			map.visibilityOfPlayer(3);
-		} catch (ArrayIndexOutOfBoundsException e) {
-
-		}
-		try {
-			map.visibilityOfPlayer(4);
-		} catch (ArrayIndexOutOfBoundsException e) {
-
-		}
-	}
-
-	/*
-	 * public void visibilityOfPlayer(int direction) {
-	 * 
-	 * switch (direction) { // Left case 1: map.visibilityOfPlayer(1); break; //
-	 * Right case 2: map.visibilityOfPlayer(2); break; // Up case 3:
-	 * map.visibilityOfPlayer(3); break; // Down case 4:
-	 * map.visibilityOfPlayer(4); break; default:
-	 * System.out.println("That isn't a valid choice player."); break; } }
-	 */
-	/**
-	 * @param direction
-	 *            the player can "Look".
-	 */
-	
-	public void playerLook(int direction) {
+	public void visibilityOfPlayer(int direction) {
 		switch (direction) {
-		// Left
 		case 1:
-			map.playerLook(1);
+			map.visibilityOfPlayer(1);
 			break;
-		// Right
+
 		case 2:
-			map.playerLook(2);
+			map.visibilityOfPlayer(2);
 			break;
-		// Up
+
 		case 3:
-			map.playerLook(3);
+			map.visibilityOfPlayer(3);
 			break;
-		// Down
+
 		case 4:
-			map.playerLook(4);
-			break;
-		default:
-			System.out.println("That isn't a valid choice player.");
+			map.visibilityOfPlayer(4);
 			break;
 		}
-
 	}
 
 	public void playerMove(int direction) {
@@ -132,7 +120,7 @@ public class GameEngine {
 			break;
 
 		}
-		
+
 	}
 
 	public String printDebug() {
@@ -143,9 +131,11 @@ public class GameEngine {
 
 	}
 
-	public void EnemyMove() {
+	public void moveEnemy() {
+		Random random = new Random();
+		int i = (random.nextInt(3) + 1);
 		try {
-			map.enemyMove();
+			map.moveEnemy(i);
 		} catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println("You blew it");
 		}
@@ -165,7 +155,7 @@ public class GameEngine {
 	public void backToInitialSpawnLocation() {
 
 	}
-	
+
 	public void playerDetect() {
 		map.playerDetect();
 	}
@@ -173,7 +163,7 @@ public class GameEngine {
 	public void setNotFlipped() {
 		map.setNotFlipped();
 	}
-	
+
 	public void useRadar() {
 		map.useRadar();
 	}
