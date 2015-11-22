@@ -83,6 +83,7 @@ public class GameEngine {
 	 * @param direction
 	 *            the player can "Look".
 	 */
+	
 	public void playerLook(int direction) {
 		switch (direction) {
 		// Left
@@ -131,7 +132,7 @@ public class GameEngine {
 			break;
 
 		}
-
+		
 	}
 
 	public String printDebug() {
@@ -164,5 +165,16 @@ public class GameEngine {
 	public void backToInitialSpawnLocation() {
 
 	}
+	
+	public void playerDetect() {
+		map.playerDetect();
+	}
 
+	public void setNotFlipped() {
+		map.setNotFlipped();
+	}
+	
+	public void useRadar() {
+		map.useRadar();
+	}
 }

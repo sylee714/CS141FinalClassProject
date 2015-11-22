@@ -62,8 +62,7 @@ public class UI {
 
 	private int mainMenu() {
 		int option = 0;
-		System.out
-				.println("Select an option:\n\n1)New Game\n2)Load Game\n3)Quit Game");
+		System.out.println("Select an option:\n\n1)New Game\n2)Load Game\n3)Quit Game");
 		option = keyboard.nextInt();
 		keyboard.nextLine();
 
@@ -77,8 +76,8 @@ public class UI {
 
 			System.out.println("Begin your turn player!\n");
 			visibilityOfPlayer();
-			System.out.println(game.printDebug());
-			//System.out.println(game.displayBoard());
+			//System.out.println(game.printDebug());
+			System.out.println(game.displayBoard());
 			System.out.println("Chose a direction to look in.\n");
 			System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
 
@@ -104,14 +103,15 @@ public class UI {
 				default:
 					System.out.println("That isn't a valid choice player.");
 					break;
+				
 				}
 			} catch (ArrayIndexOutOfBoundsException e) {
 				System.out
 						.println("You currently can't look in that direction player. Look in a valid direction.\n");
 			}
-
+			game.playerDetect();
 			System.out.println("What would you like to do next?\n");
-			System.out.println(game.printDebug());
+			//System.out.println(game.printDebug());
 			//System.out.println(game.displayBoard());
 			System.out.println("1)Move \n2)Shoot \n3)Save \n4)Quit");
 
@@ -169,6 +169,8 @@ public class UI {
 
 			}
 			game.EnemyMove();
+			game.setNotFlipped();
+			game.useRadar();
 			// System.out.println(game.printDebug());
 			// System.out.println(game.displayBoard());
 		}
