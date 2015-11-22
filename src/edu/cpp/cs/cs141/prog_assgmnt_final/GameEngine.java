@@ -124,7 +124,10 @@ public class GameEngine {
 		}
 
 	}
-
+boolean legitmate = UI.validMove();
+while(legitmate)
+{
+	
 	public void playerMove(int direction) {
 		switch (direction) {
 		// left
@@ -148,8 +151,9 @@ public class GameEngine {
 			break;
 
 		}
-
-	}
+		}	
+	
+}
 
 >>>>>>> origin/master
 	public String printDebug() {
