@@ -137,20 +137,11 @@ public class Map {
 			int row = r.nextInt(9);
 			int column = r.nextInt(9);
 
-			if (map[row][column].getFront().equals(" ")
-					&& map[row][column] != map[5][0]
-					&& map[row][column] != map[5][1]
-					&& map[row][column] != map[5][2]
-					&& map[row][column] != map[5][3]
-					&& map[row][column] != map[6][0]
-					&& map[row][column] != map[6][1]
-					&& map[row][column] != map[6][2]
-					&& map[row][column] != map[6][3]
-					&& map[row][column] != map[7][0]
-					&& map[row][column] != map[7][2]
-					&& map[row][column] != map[7][3]
-					&& map[row][column] != map[8][1]
-					&& map[row][column] != map[8][2]
+			if (map[row][column].getFront().equals(" ") && map[row][column] != map[5][0]
+					&& map[row][column] != map[5][1] && map[row][column] != map[5][2] && map[row][column] != map[5][3]
+					&& map[row][column] != map[6][0] && map[row][column] != map[6][1] && map[row][column] != map[6][2]
+					&& map[row][column] != map[6][3] && map[row][column] != map[7][0] && map[row][column] != map[7][2]
+					&& map[row][column] != map[7][3] && map[row][column] != map[8][1] && map[row][column] != map[8][2]
 					&& map[row][column] != map[8][3]) {
 
 				for (int i = 1; i < 7; ++i) {
@@ -316,32 +307,37 @@ public class Map {
 
 	}
 
-<<<<<<< HEAD
-	public void movePlayer(int movement) {
-		int tempRow = player.getRow();
-		int tempColumn = player.getColumn();
+	public boolean visibilityOfEnemy() {
 		
+		boolean foundPlayer = false;
 		
+		GameEntity[] enemyHold = { enemy1, enemy2, enemy3, enemy4, enemy5, enemy6 };
 
-		player.move(movement);
-		
-		GameEntity tempSpace = map[player.getRow()][player.getColumn()];
-		
-		player.setRow(player.getRow());
-		player.setColumn(player.getColumn());
+		for (int i = 0; i < 6; ++i) {
 
-		map[tempRow][tempColumn] = tempSpace;
-		map[player.getRow()][player.getColumn()] = player;
+			if (map[enemyHold[i].getRow()][enemyHold[i].getColumn() - 1].getFront().equals("P")
+					|| map[enemyHold[i].getRow()][enemyHold[i].getColumn() + 1].getFront().equals("P")
+					|| map[enemyHold[i].getRow() - 1][enemyHold[i].getColumn()].getFront().equals("P")
+					|| map[enemyHold[i].getRow() + 1][enemyHold[i].getColumn()].getFront().equals("P"))
+				enemyHold[i].setAttack(true);
+				foundPlayer = enemyHold[i].isAttack();
+		}
+		
+		return foundPlayer;
+	}
 	
+	public void enemyAttack(boolean foundPlayer) {
+		
+		map[player.getRow()][player.getColumn()] = new EmptySpace();
+		
 	}
 
-=======
 	/**
 	 * @param direction
 	 *            immediate area next to player in which they can see without
 	 *            needing to "Look".
 	 */
->>>>>>> origin/master
+
 	public void visibilityOfPlayer(int direction) {
 		for (int i = 1; i < 2; ++i) {
 			switch (direction) {
@@ -354,7 +350,9 @@ public class Map {
 				map[player.getRow()][player.getColumn() + i].setFlipped(true);
 				break;
 			// up
+
 			case 3:
+
 				map[player.getRow() - i][player.getColumn()].setFlipped(true);
 				break;
 			// down
@@ -365,13 +363,6 @@ public class Map {
 			}
 		}
 	}
-<<<<<<< HEAD
-	
-	public void enemyMove2() {
-		for (int i = 1; i < 7; ++i) {
-			
-		}
-=======
 
 	/**
 	 * @param direction
@@ -406,57 +397,17 @@ public class Map {
 		int tempColumn = player.getColumn();
 
 		player.move(movement);
+
+		GameEntity tempSpace = map[player.getRow()][player.getColumn()];
+
 		player.setRow(player.getRow());
 		player.setColumn(player.getColumn());
 
-		map[tempRow][tempColumn] = new EmptySpace();
+		map[tempRow][tempColumn] = tempSpace;
 		map[player.getRow()][player.getColumn()] = player;
-		// System.out.println(tempRow + tempColumn);
-		// System.out.println(player.getRow() + player.getColumn());
 
->>>>>>> origin/master
 	}
-	
 
-	/*
-	 * use as refereance
-	 * 
-	 * public void playerMove(int movement) { for (int i = 0; i < map.length;
-	 * ++i) { for (int j = 0; j < map[i].length; ++j) { if
-	 * (map[i][j].getFront().equals("P")) { GameEntity temp;
-	 * 
-	 * try { switch (movement) { // Left case 1:
-	 * 
-	 * temp = map[i][j - 1]; map[i][j - 1] = map[i][j]; map[i][j] = temp;
-	 * 
-	 * break; // Right case 2: temp = map[i][j + 1]; map[i][j + 1] = map[i][j];
-	 * map[i][j] = temp;
-	 * 
-	 * break; // Up case 3: temp = map[i - 1][j]; map[i - 1][j] = map[i][j];
-	 * map[i][j] = temp;
-	 * 
-	 * break; // Down case 4:
-	 * 
-	 * temp = map[i + 1][j]; map[i + 1][j] = map[i][j]; map[i][j] = temp;
-	 * 
-	 * break;
-	 * 
-	 * } } catch (ArrayIndexOutOfBoundsException e) {
-	 * 
-	 * } } } } }
-	 */
-	/*
-	 * public void playerLook(int direction) { for (int i = 0; i < map.length;
-	 * ++i) { for (int j = 0; j < map[i].length; ++j) { if
-	 * (map[i][j].getFront().equals("P")) { switch (direction) { // Left case 1:
-	 * map[i][j - 2].setFlipped(true); map[i][j - 1].setFlipped(true); break; //
-	 * Right case 2: map[i][j + 2].setFlipped(true); map[i][j +
-	 * 1].setFlipped(true); break; // Up case 3: map[i - 2][j].setFlipped(true);
-	 * map[i - 1][j].setFlipped(true); break; // Down case 4: map[i +
-	 * 2][j].setFlipped(true); map[i + 1][j].setFlipped(true); break; } } } }
-	 * 
-	 * }
-	 */
 	public void enemyMove() {
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
@@ -521,6 +472,61 @@ public class Map {
 		}
 	}
 
+	public void playerAttack(int direction) {
+		
+		for (int i = 0; i < map.length; ++i) {
+
+			switch (direction) {
+
+			// left
+			case 1:
+
+				if (map[player.getRow()][player.getColumn() - i].getFront().equals("E"))
+					map[player.getRow()][player.getColumn() - i] = new EmptySpace();
+
+				break;
+			// right
+			case 2:
+
+				if (map[player.getRow()][player.getColumn() + i].getFront().equals("E"))
+					map[player.getRow()][player.getColumn() + i] = new EmptySpace();
+
+				break;
+			// up
+			case 3:
+
+				if (map[player.getRow() - i][player.getColumn()].getFront().equals("E"))
+					map[player.getRow() - i][player.getColumn()] = new EmptySpace();
+
+				break;
+			// down
+			case 4:
+
+				if (map[player.getRow() + i][player.getColumn()].getFront().equals("E"))
+					map[player.getRow() + i][player.getColumn()] = new EmptySpace();
+
+				break;
+
+			}
+
+		}
+	}
+	
+	public int checkEnemyRemaining() {
+		
+		int numberOfEnemy = 0;
+		
+		for (int i = 0; i < map.length; ++i) {
+			for (int j = 0; j < map[i].length; ++j) {
+				if (map[i][j].equals("E")) {
+					numberOfEnemy = numberOfEnemy + 1; 
+				}
+			}
+		}
+		
+		return numberOfEnemy;
+	}
+
 	public void setNotFlipped() {
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
@@ -530,13 +536,13 @@ public class Map {
 	}
 
 	public void initialPoint() {
-		
-		GameEntity tempSpace = map[8][0]; 
+
+		GameEntity tempSpace = map[8][0];
 		map[player.getRow()][player.getColumn()] = tempSpace;
 		map[8][0] = player;
 		player.setRow(8);
 		player.setColumn(0);
-	
+
 	}
 
 }

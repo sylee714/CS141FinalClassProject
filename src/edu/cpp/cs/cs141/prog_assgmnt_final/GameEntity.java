@@ -14,12 +14,37 @@ public abstract class GameEntity {
 	private int row = 0;
 	private int column = 0;
 	private boolean isFlipped = false;
+	private boolean attack = false;
+	
 
 	public GameEntity(String front, String back, int row, int column) {
 		this.front = front;
 		this.back = back;
 		this.row = row;
 		this.column = column;
+	}
+	
+	public void attack(boolean attack) {
+		
+	}
+
+
+
+
+	/**
+	 * @param attack the attack to set
+	 */
+	public void setAttack(boolean attack) {
+		this.attack = attack;
+	}
+
+
+
+	/**
+	 * @return the attack
+	 */
+	public boolean isAttack() {
+		return attack;
 	}
 
 	public boolean isFlipped() {
