@@ -2,8 +2,6 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
 
 import java.util.Random;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 /**
  * @author Seungyun
  *
@@ -122,7 +120,7 @@ public class Map {
 		map[8][0] = player;
 		player.setRow(8);
 		player.setColumn(0);
-	
+		// System.out.println(player.getRow() + player.getColumn());
 
 	}
 
@@ -139,12 +137,22 @@ public class Map {
 			int row = r.nextInt(9);
 			int column = r.nextInt(9);
 
-			if (map[row][column].getFront().equals(" ") && map[row][column] != map[5][0]
-					&& map[row][column] != map[5][1] && map[row][column] != map[5][2] && map[row][column] != map[5][3]
-					&& map[row][column] != map[6][0] && map[row][column] != map[6][1] && map[row][column] != map[6][2]
-					&& map[row][column] != map[6][3] && map[row][column] != map[7][0] && map[row][column] != map[7][2]
-					&& map[row][column] != map[7][3] && map[row][column] != map[8][1] && map[row][column] != map[8][2]
+			if (map[row][column].getFront().equals(" ")
+					&& map[row][column] != map[5][0]
+					&& map[row][column] != map[5][1]
+					&& map[row][column] != map[5][2]
+					&& map[row][column] != map[5][3]
+					&& map[row][column] != map[6][0]
+					&& map[row][column] != map[6][1]
+					&& map[row][column] != map[6][2]
+					&& map[row][column] != map[6][3]
+					&& map[row][column] != map[7][0]
+					&& map[row][column] != map[7][2]
+					&& map[row][column] != map[7][3]
+					&& map[row][column] != map[8][1]
+					&& map[row][column] != map[8][2]
 					&& map[row][column] != map[8][3]) {
+
 				for (int i = 1; i < 7; ++i) {
 					updateEnemyLocation(i, row, column);
 				}
@@ -308,6 +316,7 @@ public class Map {
 
 	}
 
+<<<<<<< HEAD
 	public void movePlayer(int movement) {
 		int tempRow = player.getRow();
 		int tempColumn = player.getColumn();
@@ -326,36 +335,128 @@ public class Map {
 	
 	}
 
+=======
+	/**
+	 * @param direction
+	 *            immediate area next to player in which they can see without
+	 *            needing to "Look".
+	 */
+>>>>>>> origin/master
 	public void visibilityOfPlayer(int direction) {
-		for (int i = 1; i < 3; ++i) {
+		for (int i = 1; i < 2; ++i) {
 			switch (direction) {
-			// up
-			case 1:
-				map[player.getRow() + i][player.getColumn()].setFlipped(true);
-				break;
-			// down
-			case 2:
-				map[player.getRow() - i][player.getColumn()].setFlipped(true);
-				break;
-			// right
-			case 3:
-				map[player.getRow()][player.getColumn() + i].setFlipped(true);
-				break;
 			// left
-			case 4:
+			case 1:
 				map[player.getRow()][player.getColumn() - i].setFlipped(true);
 				break;
+			// right
+			case 2:
+				map[player.getRow()][player.getColumn() + i].setFlipped(true);
+				break;
+			// up
+			case 3:
+				map[player.getRow() - i][player.getColumn()].setFlipped(true);
+				break;
+			// down
+			case 4:
+				map[player.getRow() + i][player.getColumn()].setFlipped(true);
+				break;
+
 			}
 		}
 	}
+<<<<<<< HEAD
 	
 	public void enemyMove2() {
 		for (int i = 1; i < 7; ++i) {
 			
 		}
+=======
+
+	/**
+	 * @param direction
+	 *            the player can "Look" in.
+	 */
+	public void playerLook(int direction) {
+		for (int i = 1; i < 3; ++i) {
+			switch (direction) {
+			// left
+			case 1:
+				map[player.getRow()][player.getColumn() - i].setFlipped(true);
+				break;
+			// right
+			case 2:
+				map[player.getRow()][player.getColumn() + i].setFlipped(true);
+				break;
+			// up
+			case 3:
+				map[player.getRow() - i][player.getColumn()].setFlipped(true);
+				break;
+			// down
+			case 4:
+				map[player.getRow() + i][player.getColumn()].setFlipped(true);
+				break;
+
+			}
+		}
+	}
+
+	public void movePlayer(int movement) {
+		int tempRow = player.getRow();
+		int tempColumn = player.getColumn();
+
+		player.move(movement);
+		player.setRow(player.getRow());
+		player.setColumn(player.getColumn());
+
+		map[tempRow][tempColumn] = new EmptySpace();
+		map[player.getRow()][player.getColumn()] = player;
+		// System.out.println(tempRow + tempColumn);
+		// System.out.println(player.getRow() + player.getColumn());
+
+>>>>>>> origin/master
 	}
 	
 
+	/*
+	 * use as refereance
+	 * 
+	 * public void playerMove(int movement) { for (int i = 0; i < map.length;
+	 * ++i) { for (int j = 0; j < map[i].length; ++j) { if
+	 * (map[i][j].getFront().equals("P")) { GameEntity temp;
+	 * 
+	 * try { switch (movement) { // Left case 1:
+	 * 
+	 * temp = map[i][j - 1]; map[i][j - 1] = map[i][j]; map[i][j] = temp;
+	 * 
+	 * break; // Right case 2: temp = map[i][j + 1]; map[i][j + 1] = map[i][j];
+	 * map[i][j] = temp;
+	 * 
+	 * break; // Up case 3: temp = map[i - 1][j]; map[i - 1][j] = map[i][j];
+	 * map[i][j] = temp;
+	 * 
+	 * break; // Down case 4:
+	 * 
+	 * temp = map[i + 1][j]; map[i + 1][j] = map[i][j]; map[i][j] = temp;
+	 * 
+	 * break;
+	 * 
+	 * } } catch (ArrayIndexOutOfBoundsException e) {
+	 * 
+	 * } } } } }
+	 */
+	/*
+	 * public void playerLook(int direction) { for (int i = 0; i < map.length;
+	 * ++i) { for (int j = 0; j < map[i].length; ++j) { if
+	 * (map[i][j].getFront().equals("P")) { switch (direction) { // Left case 1:
+	 * map[i][j - 2].setFlipped(true); map[i][j - 1].setFlipped(true); break; //
+	 * Right case 2: map[i][j + 2].setFlipped(true); map[i][j +
+	 * 1].setFlipped(true); break; // Up case 3: map[i - 2][j].setFlipped(true);
+	 * map[i - 1][j].setFlipped(true); break; // Down case 4: map[i +
+	 * 2][j].setFlipped(true); map[i + 1][j].setFlipped(true); break; } } } }
+	 * 
+	 * }
+	 */
 	public void enemyMove() {
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
@@ -364,36 +465,55 @@ public class Map {
 					Random r = new Random();
 					int movement;
 					movement = r.nextInt(4) + 1;
-					switch (movement) {
-					// Left
-					case 1:
-						temp = map[i][j - 1];
-						map[i][j - 1] = map[i][j];
-						map[i][j] = temp;
 
-						break;
-					// Right
-					case 2:
-						temp = map[i][j + 1];
-						map[i][j + 1] = map[i][j];
-						map[i][j] = temp;
+					try {
+						switch (movement) {
+						// Left
 
-						break;
-					// Up
-					case 3:
-						temp = map[i - 1][j];
-						map[i - 1][j] = map[i][j];
-						map[i][j] = temp;
+						case 1:
+							try {
+								temp = map[i][j - 1];
+								map[i][j - 1] = map[i][j];
+								map[i][j] = temp;
+							} catch (ArrayIndexOutOfBoundsException e) {
+								System.out.println("Left");
+							}
+							break;
+						// Right
+						case 2:
+							try {
+								temp = map[i][j + 1];
+								map[i][j + 1] = map[i][j];
+								map[i][j] = temp;
+							} catch (ArrayIndexOutOfBoundsException e) {
+								System.out.println("Right");
+							}
 
-						break;
-					// Down
-					case 4:
+							break;
+						// Up
+						case 3:
+							try {
+								temp = map[i - 1][j];
+								map[i - 1][j] = map[i][j];
+								map[i][j] = temp;
+							} catch (ArrayIndexOutOfBoundsException e) {
+								System.out.println("Up");
+							}
+							break;
+						// Down
+						case 4:
+							try {
+								temp = map[i + 1][j];
+								map[i + 1][j] = map[i][j];
+								map[i][j] = temp;
+							} catch (ArrayIndexOutOfBoundsException e) {
+								System.out.println("down");
+							}
 
-						temp = map[i + 1][j];
-						map[i + 1][j] = map[i][j];
-						map[i][j] = temp;
-
-						break;
+							break;
+						}
+					} catch (ArrayIndexOutOfBoundsException e) {
+						System.out.println("You dork");
 
 					}
 				}

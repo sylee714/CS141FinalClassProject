@@ -12,6 +12,7 @@ import java.util.Random;
 public class Main {
 
 	public static void main(String args[]) {
+<<<<<<< HEAD
 		
 		Map map = new Map();
         UI ui = new UI(new GameEngine(map));
@@ -34,6 +35,26 @@ public class Main {
 		//System.out.println(map.toString());
 		//System.out.println(map.printDebug());
 		
+=======
+
+		Map map = new Map();
+		UI ui = new UI(new GameEngine(map));
+		ui.startGame();
+
+		/*
+		 * Map map = new Map();
+		 * 
+		 * map.generateEmptySpace(); map.generateRoomsWithBriefCase();
+		 * map.generatePlayer(); map.generateEnemy(); map.generateRadar();
+		 * map.generateAdditionalBullet(); map.generateInvincibility();
+		 * map.movePlayer(3);
+		 * 
+		 * 
+		 * 
+		 * System.out.println(map.toString());
+		 * System.out.println(map.printDebug());
+		 */
+>>>>>>> origin/master
 
 	}
 
