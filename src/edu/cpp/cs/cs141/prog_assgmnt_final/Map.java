@@ -311,12 +311,17 @@ public class Map {
 	public void movePlayer(int movement) {
 		int tempRow = player.getRow();
 		int tempColumn = player.getColumn();
+		
+		
 
 		player.move(movement);
+		
+		GameEntity tempSpace = map[player.getRow()][player.getColumn()];
+		
 		player.setRow(player.getRow());
 		player.setColumn(player.getColumn());
 
-		map[tempRow][tempColumn] = new EmptySpace();
+		map[tempRow][tempColumn] = tempSpace;
 		map[player.getRow()][player.getColumn()] = player;
 	
 	}
@@ -343,38 +348,13 @@ public class Map {
 			}
 		}
 	}
-
-	public void playerLook(int direction) {
-		for (int i = 0; i < map.length; ++i) {
-			for (int j = 0; j < map[i].length; ++j) {
-				if (map[i][j].getFront().equals("P")) {
-					switch (direction) {
-					// Left
-					case 1:
-						map[i][j - 2].setFlipped(true);
-						map[i][j - 1].setFlipped(true);
-						break;
-					// Right
-					case 2:
-						map[i][j + 2].setFlipped(true);
-						map[i][j + 1].setFlipped(true);
-						break;
-					// Up
-					case 3:
-						map[i - 2][j].setFlipped(true);
-						map[i - 1][j].setFlipped(true);
-						break;
-					// Down
-					case 4:
-						map[i + 2][j].setFlipped(true);
-						map[i + 1][j].setFlipped(true);
-						break;
-					}
-				}
-			}
+	
+	public void enemyMove2() {
+		for (int i = 1; i < 7; ++i) {
+			
 		}
-
 	}
+	
 
 	public void enemyMove() {
 		for (int i = 0; i < map.length; ++i) {
@@ -430,13 +410,13 @@ public class Map {
 	}
 
 	public void initialPoint() {
-		for (int i = 0; i < map.length; ++i) {
-			for (int j = 0; j < map[i].length; ++j) {
-				if (map[i][j].equals("P")) {
-					map[i][j] = new EmptySpace();
-				}
-			}
-		}
+		
+		GameEntity tempSpace = map[8][0]; 
+		map[player.getRow()][player.getColumn()] = tempSpace;
+		map[8][0] = player;
+		player.setRow(8);
+		player.setColumn(0);
+	
 	}
 
 }
