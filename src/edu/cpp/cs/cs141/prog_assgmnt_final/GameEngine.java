@@ -76,14 +76,14 @@ public class GameEngine {
 	 * switch (direction) { // Left case 1: map.visibilityOfPlayer(1); break; //
 	 * Right case 2: map.visibilityOfPlayer(2); break; // Up case 3:
 	 * map.visibilityOfPlayer(3); break; // Down case 4:
-	 * map.visibilityOfPlayer(4); break; default:
-	 * System.out.println("That isn't a valid choice player."); break; } }
+	 * map.visibilityOfPlayer(4); break; default: System.out.println(
+	 * "That isn't a valid choice player."); break; } }
 	 */
 	/**
 	 * @param direction
 	 *            the player can "Look".
 	 */
-	
+
 	public void playerLook(int direction) {
 		switch (direction) {
 		// Left
@@ -109,30 +109,33 @@ public class GameEngine {
 
 	}
 
-	public void playerMove(int direction) {
+	public boolean playerMove(int direction) {
+		boolean temp = false;
+
 		switch (direction) {
 		// left
 		case 1:
-			map.movePlayer(4);
+			temp = map.movePlayer(4);
 			break;
 		// Right
 		case 2:
-			map.movePlayer(3);
+			temp = map.movePlayer(3);
 			break;
 		// Up
 		case 3:
-			map.movePlayer(1);
+			temp = map.movePlayer(1);
 			break;
 		// Down
 		case 4:
-			map.movePlayer(2);
+			temp = map.movePlayer(2);
 			break;
-		default:
-			System.out.println("That isn't a valid input player.");
-			break;
-
 		}
+
+		System.out.println("GameEngineClass PlayerMove() temp variable: " + temp);
+
+		temp = (temp == true) ? true : false;
 		
+		return temp;
 	}
 
 	public String printDebug() {
@@ -143,13 +146,8 @@ public class GameEngine {
 
 	}
 
-	public void EnemyMove() {
-		try {
-			map.enemyMove();
-		} catch (ArrayIndexOutOfBoundsException e) {
-			System.out.println("You blew it");
-		}
-
+	public void enemyMove() {
+		map.enemyMove();
 	}
 
 	public void backToSpawnLocation() {
@@ -165,7 +163,7 @@ public class GameEngine {
 	public void backToInitialSpawnLocation() {
 
 	}
-	
+
 	public void playerDetect() {
 		map.playerDetect();
 	}
@@ -173,7 +171,7 @@ public class GameEngine {
 	public void setNotFlipped() {
 		map.setNotFlipped();
 	}
-	
+
 	public void useRadar() {
 		map.useRadar();
 	}

@@ -41,11 +41,4 @@ public class Gun {
 		}
 	}
 
-	/**
-	 * Can only kill one enemy at a time. Can not go through rooms.
-	 */
-	public void collision() {
-
-	}
-
 }

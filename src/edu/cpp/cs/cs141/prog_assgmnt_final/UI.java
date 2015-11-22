@@ -43,8 +43,7 @@ public class UI {
 				quit = true;
 				break;
 			default:
-				System.out
-						.println("Invalid input. Choose from \"1\",\"2\", or \"3\" please.");
+				System.out.println("Invalid input. Choose from \"1\",\"2\", or \"3\" please.");
 				break;
 
 			}
@@ -76,8 +75,8 @@ public class UI {
 
 			System.out.println("Begin your turn player!\n");
 			visibilityOfPlayer();
-			//System.out.println(game.printDebug());
-			System.out.println(game.displayBoard());
+			System.out.println(game.printDebug());
+			// System.out.println(game.displayBoard());
 			System.out.println("Chose a direction to look in.\n");
 			System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
 
@@ -103,16 +102,15 @@ public class UI {
 				default:
 					System.out.println("That isn't a valid choice player.");
 					break;
-				
+
 				}
 			} catch (ArrayIndexOutOfBoundsException e) {
-				System.out
-						.println("You currently can't look in that direction player. Look in a valid direction.\n");
+				System.out.println("You currently can't look in that direction player. Look in a valid direction.\n");
 			}
 			game.playerDetect();
 			System.out.println("What would you like to do next?\n");
-			//System.out.println(game.printDebug());
-			//System.out.println(game.displayBoard());
+			// System.out.println(game.printDebug());
+			// System.out.println(game.displayBoard());
 			System.out.println("1)Move \n2)Shoot \n3)Save \n4)Quit");
 
 			int choice = keyboard.nextInt();
@@ -123,35 +121,7 @@ public class UI {
 				System.out.println("Chose a direction to move in.\n");
 				System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
 
-				int direction = keyboard.nextInt();
-
-				try {
-					switch (direction) {
-					// Left
-					case 1:
-						game.playerMove(1);
-						break;
-					// Right
-					case 2:
-						game.playerMove(2);
-						break;
-					// Up
-					case 3:
-						game.playerMove(3);
-						break;
-					// Down
-					case 4:
-						game.playerMove(4);
-						break;
-					default:
-						System.out
-								.println("That's isn't a direction player. Please try again");
-						break;
-					}
-				} catch (ArrayIndexOutOfBoundsException e) {
-					System.out
-							.println("You currently can't move in that direction player. Move in a valid direction.\n");
-				}
+				playerMove();
 
 				break;
 			// Shoot
@@ -168,12 +138,45 @@ public class UI {
 				break;
 
 			}
-			game.EnemyMove();
+			// game.enemyMove();
 			game.setNotFlipped();
 			game.useRadar();
 			// System.out.println(game.printDebug());
 			// System.out.println(game.displayBoard());
 		}
+
+	}
+
+	public void playerMove() {
+		int direction = keyboard.nextInt();
+		boolean temp = false;
+
+		do {
+			switch (direction) {
+			// Left
+			case 1:
+				temp = game.playerMove(1);
+				break;
+			// Right
+			case 2:
+				temp = game.playerMove(2);
+				break;
+			// Up
+			case 3:
+				game.playerMove(3);
+				break;
+			// Down
+			case 4:
+				game.playerMove(4);
+				break;
+			}
+
+			System.out.println("UIClass playerMove() temp variable: " + temp);
+			System.out.println("That's isn't a direction player. Please try again");
+
+			temp = (temp == true) ? true : false;
+
+		} while (temp == false);
 
 	}
 

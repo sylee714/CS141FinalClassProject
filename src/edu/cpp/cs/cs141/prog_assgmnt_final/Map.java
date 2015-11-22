@@ -2,6 +2,8 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
 
 import java.util.Random;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 /**
  * @author Seungyun
  *
@@ -137,20 +139,11 @@ public class Map {
 			int row = r.nextInt(9);
 			int column = r.nextInt(9);
 
-			if (map[row][column].getFront().equals(" ")
-					&& map[row][column] != map[5][0]
-					&& map[row][column] != map[5][1]
-					&& map[row][column] != map[5][2]
-					&& map[row][column] != map[5][3]
-					&& map[row][column] != map[6][0]
-					&& map[row][column] != map[6][1]
-					&& map[row][column] != map[6][2]
-					&& map[row][column] != map[6][3]
-					&& map[row][column] != map[7][0]
-					&& map[row][column] != map[7][2]
-					&& map[row][column] != map[7][3]
-					&& map[row][column] != map[8][1]
-					&& map[row][column] != map[8][2]
+			if (map[row][column].getFront().equals(" ") && map[row][column] != map[5][0]
+					&& map[row][column] != map[5][1] && map[row][column] != map[5][2] && map[row][column] != map[5][3]
+					&& map[row][column] != map[6][0] && map[row][column] != map[6][1] && map[row][column] != map[6][2]
+					&& map[row][column] != map[6][3] && map[row][column] != map[7][0] && map[row][column] != map[7][2]
+					&& map[row][column] != map[7][3] && map[row][column] != map[8][1] && map[row][column] != map[8][2]
 					&& map[row][column] != map[8][3]) {
 
 				for (int i = 1; i < 7; ++i) {
@@ -235,39 +228,35 @@ public class Map {
 		// }
 		// }
 		// }
-			for (int i = 1; i < 2; ++i) {
-				try {
-					if (map[radar.getColumn()][radar.getRow() - i].getFront()
-							.equals("P"))
-						briefCase.setAttack(true);
-				} catch (ArrayIndexOutOfBoundsException e) {
+		for (int i = 1; i < 2; ++i) {
+			try {
+				if (map[radar.getColumn()][radar.getRow() - i].getFront().equals("P"))
+					briefCase.setAttack(true);
+			} catch (ArrayIndexOutOfBoundsException e) {
 
-				}
-
-				try {
-					if (map[radar.getColumn()][radar.getRow() + i].getFront()
-							.equals("P"))
-						briefCase.setAttack(true);
-				} catch (ArrayIndexOutOfBoundsException e) {
-
-				}
-				try {
-					if (map[radar.getColumn() - i][radar.getRow()].getFront()
-							.equals("P"))
-						briefCase.setAttack(true);
-				} catch (ArrayIndexOutOfBoundsException e) {
-
-				}
-				try {
-					if (map[radar.getColumn() + i][radar.getRow()].getFront()
-							.equals("P"))
-						briefCase.setAttack(true);
-				} catch (ArrayIndexOutOfBoundsException e) {
-					
-				}
-
-				briefCase.setFlipped(true);
 			}
+
+			try {
+				if (map[radar.getColumn()][radar.getRow() + i].getFront().equals("P"))
+					briefCase.setAttack(true);
+			} catch (ArrayIndexOutOfBoundsException e) {
+
+			}
+			try {
+				if (map[radar.getColumn() - i][radar.getRow()].getFront().equals("P"))
+					briefCase.setAttack(true);
+			} catch (ArrayIndexOutOfBoundsException e) {
+
+			}
+			try {
+				if (map[radar.getColumn() + i][radar.getRow()].getFront().equals("P"))
+					briefCase.setAttack(true);
+			} catch (ArrayIndexOutOfBoundsException e) {
+
+			}
+
+			briefCase.setFlipped(true);
+		}
 	}
 
 	/**
@@ -404,28 +393,24 @@ public class Map {
 
 			case 1:
 				// Left
-				if (map[player.getRow()][player.getColumn() - i].getFront()
-						.equals("E"))
+				if (map[player.getRow()][player.getColumn() - i].getFront().equals("E"))
 					player.setDangerAhead(true);
 				// System.out.println("it works left");}
 				break;
 			// Right
 			case 2:
-				if (map[player.getRow()][player.getColumn() + i].getFront()
-						.equals("E"))
+				if (map[player.getRow()][player.getColumn() + i].getFront().equals("E"))
 					player.setDangerAhead(true);
 				// System.out.println("it works right");}
 				break;
 
 			case 3:
-				if (map[player.getRow() - i][player.getColumn()].getFront()
-						.equals("E"))
+				if (map[player.getRow() - i][player.getColumn()].getFront().equals("E"))
 					player.setDangerAhead(true);
 				// System.out.println("it works up");}
 				break;
 			case 4:
-				if (map[player.getRow() + i][player.getColumn()].getFront()
-						.equals("E"))
+				if (map[player.getRow() + i][player.getColumn()].getFront().equals("E"))
 					player.setDangerAhead(true);
 				// System.out.println("it works down");}
 				break;
@@ -451,21 +436,35 @@ public class Map {
 			System.out.println("Clear!\n");
 	}
 
-	public void movePlayer(int movement) {
-
+	public boolean movePlayer(int movement) {
 		// if(map[player.getRow()][player.getColumn() -
 		// i].getFront().equals("R") || map[player.getRow()][player.getColumn()
 		// - i].getFront().equals("R"))
 
 		int tempRow = player.getRow();
 		int tempColumn = player.getColumn();
-
-		player.move(movement);
-		player.setRow(player.getRow());
-		player.setColumn(player.getColumn());
-
-		map[tempRow][tempColumn] = new EmptySpace();
-		map[player.getRow()][player.getColumn()] = player;
+		boolean validInput = false;
+		//do{
+			try {
+				player.move(movement);
+				System.out.println("0");
+				player.setRow(player.getRow());
+				System.out.println("1");
+				player.setColumn(player.getColumn());
+				System.out.println("2");
+				
+				map[tempRow][tempColumn] = new EmptySpace();
+				System.out.println("3");
+				map[player.getRow()][player.getColumn()] = player;
+				System.out.println("4");
+				
+				return true;
+				
+			} catch (ArrayIndexOutOfBoundsException e) {
+				return false;
+			}
+		//} while (validInput == false);
+	
 
 	}
 
@@ -508,18 +507,16 @@ public class Map {
 	 * 
 	 * }
 	 */
-	public void enemyMove() throws ArrayIndexOutOfBoundsException {
+	public void enemyMove() {
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
 				if (map[i][j].getFront().equals("E")) {
 					GameEntity temp;
 					Random r = new Random();
-					int movement;
-					movement = r.nextInt(4) + 1;
+					int movement = r.nextInt(4) + 1;
 
 					switch (movement) {
 					// Left
-
 					case 1:
 						temp = map[i][j - 1];
 						map[i][j - 1] = map[i][j];
@@ -569,8 +566,7 @@ public class Map {
 
 	public void enemyArray() {
 
-		GameEntity[] enemyHold = { enemy1, enemy2, enemy3, enemy3, enemy4,
-				enemy5, enemy6 };
+		GameEntity[] enemyHold = { enemy1, enemy2, enemy3, enemy3, enemy4, enemy5, enemy6 };
 	}
 
 	/*
@@ -590,8 +586,7 @@ public class Map {
 			// left
 			case 1:
 
-				if (map[enemy1.getRow()][enemy1.getColumn() - i].getFront()
-						.equals("P"))
+				if (map[enemy1.getRow()][enemy1.getColumn() - i].getFront().equals("P"))
 					enemy1.setAttack(true);
 				break;
 			// right
