@@ -148,10 +148,12 @@ public class UI {
 	}
 
 	public void playerMove() {
-		int direction = keyboard.nextInt();
+
 		boolean temp = false;
 
 		do {
+			int direction = keyboard.nextInt();
+
 			switch (direction) {
 			// Left
 			case 1:
@@ -172,9 +174,13 @@ public class UI {
 			}
 
 			System.out.println("UIClass playerMove() temp variable: " + temp);
-			System.out.println("That's isn't a direction player. Please try again");
 
-			temp = (temp == true) ? true : false;
+			if (temp == true)
+				temp = true;
+			else {
+				temp = false;
+				System.out.print("That isn't a direction, player. Please enter new direction: ");
+			}
 
 		} while (temp == false);
 

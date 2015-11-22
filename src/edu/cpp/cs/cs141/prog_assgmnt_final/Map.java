@@ -443,29 +443,25 @@ public class Map {
 
 		int tempRow = player.getRow();
 		int tempColumn = player.getColumn();
-		boolean validInput = false;
-		//do{
-			try {
-				player.move(movement);
-				System.out.println("0");
-				player.setRow(player.getRow());
-				System.out.println("1");
-				player.setColumn(player.getColumn());
-				System.out.println("2");
-				
-				map[tempRow][tempColumn] = new EmptySpace();
-				System.out.println("3");
-				map[player.getRow()][player.getColumn()] = player;
-				System.out.println("4");
-				
-				return true;
-				
-			} catch (ArrayIndexOutOfBoundsException e) {
-				return false;
-			}
-		//} while (validInput == false);
-	
 
+		try {
+			player.move(movement);
+			System.out.println("0");
+			player.setRow(player.getRow());
+			System.out.println("1");
+			player.setColumn(player.getColumn());
+			System.out.println("2");
+
+			map[tempRow][tempColumn] = new EmptySpace();
+			System.out.println("3");
+			map[player.getRow()][player.getColumn()] = player;
+			System.out.println("4");
+
+			return true;
+
+		} catch (ArrayIndexOutOfBoundsException e) {
+			return false;
+		}
 	}
 
 	/*
