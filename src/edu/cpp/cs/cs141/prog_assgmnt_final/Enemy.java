@@ -36,6 +36,20 @@ public class Enemy extends GameEntity {
 	private boolean attack = false;
 	
 	/**
+	 * @return the attack
+	 */
+	public boolean isAttack() {
+		return attack;
+	}
+
+	/**
+	 * @param attack the attack to set
+	 */
+	public void setAttack(boolean attack) {
+		this.attack = attack;
+	}
+
+	/**
 	 * Initial spawn point of an enemy.
 	 */
 	public void location() {

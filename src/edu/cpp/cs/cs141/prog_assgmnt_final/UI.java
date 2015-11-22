@@ -78,7 +78,7 @@ public class UI {
 			System.out.println("Begin your turn player!\n");
 			visibilityOfPlayer();
 			System.out.println(game.printDebug());
-			// System.out.println(game.displayBoard());
+			//System.out.println(game.displayBoard());
 			System.out.println("Chose a direction to look in.\n");
 			System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
 
@@ -112,7 +112,7 @@ public class UI {
 
 			System.out.println("What would you like to do next?\n");
 			System.out.println(game.printDebug());
-			// System.out.println(game.displayBoard());
+			//System.out.println(game.displayBoard());
 			System.out.println("1)Move \n2)Shoot \n3)Save \n4)Quit");
 
 			int choice = keyboard.nextInt();

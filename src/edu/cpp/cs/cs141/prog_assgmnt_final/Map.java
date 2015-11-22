@@ -507,12 +507,28 @@ public class Map {
 		}
 	}
 	
+	public void enemyArray() {
+		
+		GameEntity[] enemyHold = {enemy1,enemy2, enemy3, enemy3, enemy4, enemy5, enemy6};		
+	}
+	
+	public void enemyLook() {
+		
+		for (int i = 0; i < 6; ++i) {
+			
+			enemyHold[i].
+			
+		}
+		
+	}
 	public void enemyLook1(int direction) {
 		for (int i = 1; i < 2; ++i) {
 			switch (direction) {
 			// left
 			case 1:
-				map[enemy1.getRow()][enemy1.getColumn() - i].setFlipped(true);
+				
+				if(map[enemy1.getRow()][enemy1.getColumn() - i].getFront().equals("P"))
+					enemy1.setAttack(true);
 				break;
 			// right
 			case 2:
@@ -554,5 +570,54 @@ public class Map {
 			}
 		}
 	}
+	
+	public void enemyLook3(int direction) {
+		for (int i = 1; i < 2; ++i) {
+			switch (direction) {
+			// left
+			case 1:
+				map[enemy3.getRow()][enemy3.getColumn() - i].setFlipped(true);
+				break;
+			// right
+			case 2:
+				map[enemy3.getRow()][enemy3.getColumn() + i].setFlipped(true);
+				break;
+			// up
+			case 3:
+				map[enemy3.getRow() - i][enemy3.getColumn()].setFlipped(true);
+				break;
+			// down
+			case 4:
+				map[enemy3.getRow() + i][enemy3.getColumn()].setFlipped(true);
+				break;
+
+			}
+		}
+	}
+	
+	public void enemyLook4(int direction) {
+		for (int i = 1; i < 2; ++i) {
+			switch (direction) {
+			// left
+			case 1:
+				map[enemy4.getRow()][enemy4.getColumn() - i].setFlipped(true);
+				break;
+			// right
+			case 2:
+				map[enemy4.getRow()][enemy4.getColumn() + i].setFlipped(true);
+				break;
+			// up
+			case 3:
+				map[enemy4.getRow() - i][enemy4.getColumn()].setFlipped(true);
+				break;
+			// down
+			case 4:
+				map[enemy4.getRow() + i][enemy4.getColumn()].setFlipped(true);
+				break;
+
+			}
+		}
+	}
+	
 
 }
