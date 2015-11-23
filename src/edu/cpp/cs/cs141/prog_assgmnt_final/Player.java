@@ -21,7 +21,9 @@ public class Player extends GameEntity {
 	 * This field represents the initial life points that player will start
 	 * with.
 	 */
+	
 	private int life = 3;
+
 
 	/**
 	 * This field represents if player is got attacked by an enemy.
@@ -32,12 +34,34 @@ public class Player extends GameEntity {
 	 * This field represents if player picked up radar power-up or not.
 	 */
 	private boolean radar = false;
-
+	
+	
 	/**
 	 * This field represents if player picked up invincible power-up or not.
 	 */
+	
 	private boolean invincible = false;
+	
 
+	//Set methods for life and powerups
+	public int setLife(life)
+	{
+		playerLife = life;
+		return playerLife;
+	}
+	
+	public boolean setRadar(radar)
+	{
+		playerRadar = radar;
+		return playerRadar;
+	}
+	
+	public boolean setinvincible(invincible)
+	{
+		playerInvincibile = invincible;
+		return playerInvincibile;
+	}
+	
 	/**
 	 * This field indicates if an enemy is detected.
 	 */
