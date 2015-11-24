@@ -74,9 +74,7 @@ public class UI {
 		while (!game.gameWon()) {
 
 			System.out.println("Begin your turn player!\n");
-			visibilityOfPlayer();
-			System.out.println(game.printDebug());
-			// System.out.println(game.displayBoard());
+			System.out.println(game.printBoard());
 			System.out.println("Chose a direction to look in.\n");
 			System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
 
@@ -108,9 +106,8 @@ public class UI {
 				System.out.println("You currently can't look in that direction player. Look in a valid direction.\n");
 			}
 			game.playerDetect();
+			System.out.println(game.printBoard());
 			System.out.println("What would you like to do next?\n");
-			// System.out.println(game.printDebug());
-			// System.out.println(game.displayBoard());
 			System.out.println("1)Move \n2)Shoot \n3)Save \n4)Quit");
 
 			int choice = keyboard.nextInt();
@@ -122,7 +119,6 @@ public class UI {
 				System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
 
 				playerMove();
-
 				break;
 			// Shoot
 			case 2:
@@ -136,14 +132,21 @@ public class UI {
 			default:
 				System.out.println("That isn't a valid input try again please.");
 				break;
-
 			}
-			// game.enemyMove();
-			game.setNotFlipped();
-			game.useRadar();
-			// System.out.println(game.printDebug());
-			// System.out.println(game.displayBoard());
+			endTurn();
 		}
+
+	}
+
+	/**
+	 * Runs all the methods that should take effect once the player's turn is
+	 * over.
+	 */
+	public void endTurn() {
+		//game.moveEnemy();
+		game.setNotFlipped();
+		game.useRadar();
+		game.playerTurn();
 
 	}
 
@@ -178,15 +181,19 @@ public class UI {
 			else {
 				temp = false;
 				System.out.println("Invalid Input. Please enter new direction: ");
-				System.out.println(game.printBoard());
+				System.out.println(game.displayBoard());
 			}
 
 		} while (temp != true);
 
 	}
 
-	public void visibilityOfPlayer() {
-		game.visibilityOfPlayer();
+	public void toggleBoard() {
+		if (game.isDebug() == false) {
+			game.setDebug(true);
+		} else {
+			game.setDebug(false);
+		}
 	}
 
 }

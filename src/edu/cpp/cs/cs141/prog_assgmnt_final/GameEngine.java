@@ -17,15 +17,28 @@ public class GameEngine {
 		this.map = map;
 	}
 
-	private Player player = new Player();
-
-	private Enemy enemy = new Enemy();
-
-	private int turn = 3;
+	private int turn = 0;
 
 	private boolean attacked = false;
 
 	private boolean endGame;
+
+	private boolean debug = false;
+
+	/**
+	 * @return the debug
+	 */
+	public boolean isDebug() {
+		return debug;
+	}
+
+	/**
+	 * @param debug
+	 *            the debug to set
+	 */
+	public void setDebug(boolean debug) {
+		this.debug = debug;
+	}
 
 	public void generateMap() {
 		map.generateEmptySpace();
@@ -36,6 +49,16 @@ public class GameEngine {
 		map.generateAdditionalBullet();
 		map.generateInvincibility();
 	}
+	
+	
+	public String printBoard() {
+		if (isDebug() == false) {
+			return map.toString();
+
+		} else {
+			return map.printDebug();
+		}
+	}
 
 	public String displayBoard() {
 		return map.toString();
@@ -44,29 +67,25 @@ public class GameEngine {
 	/**
 	 * 
 	 * @param direction
-	 *            player has immediate visibility of each turn.
+	 *            the player "looks".
 	 */
-
-	public void visibilityOfPlayer() {
-		try {
+	public void visibilityOfPlayer(int direction) {
+		switch (direction) {
+		case 1:
 			map.visibilityOfPlayer(1);
-		} catch (ArrayIndexOutOfBoundsException e) {
+			break;
 
-		}
-		try {
+		case 2:
 			map.visibilityOfPlayer(2);
-		} catch (ArrayIndexOutOfBoundsException e) {
+			break;
 
-		}
-		try {
+		case 3:
 			map.visibilityOfPlayer(3);
-		} catch (ArrayIndexOutOfBoundsException e) {
+			break;
 
-		}
-		try {
+		case 4:
 			map.visibilityOfPlayer(4);
-		} catch (ArrayIndexOutOfBoundsException e) {
-
+			break;
 		}
 	}
 
@@ -81,7 +100,7 @@ public class GameEngine {
 	 */
 	/**
 	 * @param direction
-	 *            the player can "Look".
+	 * @return
 	 */
 
 	public void playerLook(int direction) {

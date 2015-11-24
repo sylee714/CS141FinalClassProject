@@ -14,7 +14,7 @@ public abstract class GameEntity {
 	private int row = 0;
 	private int column = 0;
 	private boolean isFlipped = false;
-	private boolean attack;
+	private boolean attack = false;
 
 	public GameEntity(String front, String back, int row, int column) {
 		this.front = front;
@@ -101,6 +101,11 @@ public abstract class GameEntity {
 
 	public void setAttack(boolean attack) {
 		this.attack = attack;
+	}
+
+	public boolean isAttack() {
+		// TODO Auto-generated method stub
+		return attack;
 	}
 
 }

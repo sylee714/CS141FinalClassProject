@@ -13,8 +13,6 @@ public class Enemy extends GameEntity {
 		super("E", "*", 0, 0);
 	}
 
-	private Player player = new Player();
-
 	/**
 	 * Life point of an enemy.
 	 */

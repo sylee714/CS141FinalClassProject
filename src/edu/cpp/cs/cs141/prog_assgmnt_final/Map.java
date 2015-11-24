@@ -32,6 +32,10 @@ public class Map {
 	private Enemy enemy5 = new Enemy();
 	private Enemy enemy6 = new Enemy();
 
+	private boolean roomIndicator = false;
+
+	private boolean powerUpIndicator = false;
+	
 	/**
 	 * This method fills the map with empty spaces to initialize the map.
 	 */
@@ -199,19 +203,25 @@ public class Map {
 	 * is generated, the 'do while' loop stops.
 	 */
 	public void generateRadar() {
-		map[6][0] = radar;
-		// radar.setRow(5);
-		// radar.setColumn(0);
-		/*
-		 * Random r = new Random(); int numberOfRadar = 0; do { int row =
-		 * r.nextInt(9); int column = r.nextInt(9); if
-		 * (map[row][column].getFront().equals(" ")) { map[row][column] = radar;
-		 * radar.setRow(row); radar.setColumn(column);
-		 * 
-		 * ++numberOfRadar; }
-		 * 
-		 * } while (numberOfRadar < 1);
-		 */
+		 map[6][0] = radar;
+		 radar.setRow(6);
+		 radar.setColumn(0);
+
+/*		Random r = new Random();
+		int numberOfRadar = 0;
+		do {
+			int row = r.nextInt(9);
+			int column = r.nextInt(9);
+			if (map[row][column].getFront().equals(" ")) {
+				map[row][column] = radar;
+				radar.setRow(row);
+				radar.setColumn(column);
+
+				++numberOfRadar;
+			}
+
+		} while (numberOfRadar < 1);
+*/
 	}
 
 	/**
