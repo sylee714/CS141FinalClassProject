@@ -437,59 +437,66 @@ public class Map {
 	}
 
 	public boolean movePlayer(int movement) {
-		// if(map[player.getRow()][player.getColumn() -
-		// i].getFront().equals("R") || map[player.getRow()][player.getColumn()
-		// - i].getFront().equals("R"))
 
 		int tempRow = player.getRow();
 		int tempColumn = player.getColumn();
 		int tempRowFalse = player.getRow();
 		int tempColumnFalse = player.getColumn();
 
+		GameEntity tempSpace = map[player.getRow()][player.getColumn()];
+
 		try {
 			player.move(movement);
-			//System.out.println("0");
+			// System.out.println("0");
 			player.setRow(player.getRow());
-			//System.out.println("1");
+			// System.out.println("1");
 			player.setColumn(player.getColumn());
-			//System.out.println("2");
+			// System.out.println("2");
 
 			map[tempRow][tempColumn] = new EmptySpace();
-			//System.out.println("3");
+			// System.out.println("3");
 
-			if (map[player.getRow()][player.getColumn()] != map[5][0]
-					&& map[player.getRow()][player.getColumn()] != map[5][1]
-					&& map[player.getRow()][player.getColumn()] != map[5][2]
-					&& map[player.getRow()][player.getColumn()] != map[5][3]
-					&& map[player.getRow()][player.getColumn()] != map[6][0]
-					&& map[player.getRow()][player.getColumn()] != map[6][1]
-					&& map[player.getRow()][player.getColumn()] != map[6][2]
-					&& map[player.getRow()][player.getColumn()] != map[6][3]
-					&& map[player.getRow()][player.getColumn()] != map[7][0]
-					&& map[player.getRow()][player.getColumn()] != map[7][2]
-					&& map[player.getRow()][player.getColumn()] != map[7][3]
-					&& map[player.getRow()][player.getColumn()] != map[8][1]
-					&& map[player.getRow()][player.getColumn()] != map[8][2]
-					&& map[player.getRow()][player.getColumn()] != map[8][3]) {
+			if (map[player.getRow()][player.getColumn()] != map[1][1]
+					&& map[player.getRow()][player.getColumn()] != map[1][4]
+					&& map[player.getRow()][player.getColumn()] != map[1][7]
+					&& map[player.getRow()][player.getColumn()] != map[4][1]
+					&& map[player.getRow()][player.getColumn()] != map[4][4]
+					&& map[player.getRow()][player.getColumn()] != map[4][7]
+					&& map[player.getRow()][player.getColumn()] != map[7][1]
+					&& map[player.getRow()][player.getColumn()] != map[7][4]
+					&& map[player.getRow()][player.getColumn()] != map[7][7]) {
 
+				map[player.getRow()][player.getColumn()] = player;
+				return true;
+
+			} /*
+				 * else if (tempSpace.getFront().equals("+") ||
+				 * tempSpace.getFront().equals("A") ||
+				 * tempSpace.getFront().equals("I")) {
+				 * 
+				 * powerUpIndicator = true; // validInput = true;
+				 * 
+				 * player.setRow(player.getRow());
+				 * player.setColumn(player.getColumn());
+				 * 
+				 * map[tempRow][tempColumn] = new EmptySpace();
+				 * map[player.getRow()][player.getColumn()] = player;
+				 * System.out.println(powerUpIndicator); return true; }
+				 */ else {
 				player.setRow(tempRowFalse);
 				player.setColumn(tempColumnFalse);
 				map[tempRowFalse][tempColumnFalse] = player;
 				return false;
-
-			} else {
-				map[player.getRow()][player.getColumn()] = player;
-				//System.out.println("4");
-				return true;
 			}
-
+			// invalid input
 		} catch (ArrayIndexOutOfBoundsException e) {
-			//System.out.println(tempRowFalse + " " + tempColumnFalse);
+			// System.out.println(tempRowFalse + " " + tempColumnFalse);
 			player.setRow(tempRowFalse);
 			player.setColumn(tempColumnFalse);
 			map[tempRowFalse][tempColumnFalse] = player;
 			return false;
 		}
+
 	}
 
 	/*

@@ -38,8 +38,6 @@ public abstract class GameEntity {
 	public String getBack() {
 		return back;
 	}
-	
-	
 
 	/**
 	 * @return the row
@@ -49,7 +47,8 @@ public abstract class GameEntity {
 	}
 
 	/**
-	 * @param row the row to set
+	 * @param row
+	 *            the row to set
 	 */
 	public void setRow(int row) {
 		this.row = row;
@@ -63,7 +62,8 @@ public abstract class GameEntity {
 	}
 
 	/**
-	 * @param column the column to set
+	 * @param column
+	 *            the column to set
 	 */
 	public void setColumn(int column) {
 		this.column = column;

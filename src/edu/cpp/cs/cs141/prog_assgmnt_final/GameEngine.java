@@ -110,7 +110,7 @@ public class GameEngine {
 	}
 
 	public boolean playerMove(int direction) {
-		boolean temp = false;
+		boolean temp = true;
 
 		switch (direction) {
 		// left
@@ -131,10 +131,8 @@ public class GameEngine {
 			break;
 		}
 
-		//System.out.println("GameEngineClass PlayerMove() temp variable: " + temp);
-
 		temp = (temp == true) ? true : false;
-		
+
 		return temp;
 	}
 

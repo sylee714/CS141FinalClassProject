@@ -148,8 +148,8 @@ public class UI {
 	}
 
 	public void playerMove() {
-
-		boolean temp = false;
+		// true = correct choice
+		boolean temp = true;
 
 		do {
 			int direction = keyboard.nextInt();
@@ -173,17 +173,15 @@ public class UI {
 				break;
 			}
 
-			//System.out.println("UIClass playerMove() temp variable: " + temp);
-
 			if (temp == true)
 				temp = true;
 			else {
 				temp = false;
-				System.out.println(game.printDebug());
-				System.out.println("Invalid move. Please enter new direction: ");
+				System.out.println("Invalid Input. Please enter new direction: ");
+				System.out.println(game.printBoard());
 			}
 
-		} while (temp == false);
+		} while (temp != true);
 
 	}
 
