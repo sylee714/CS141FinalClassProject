@@ -19,16 +19,12 @@ public class GameEngine {
 		this.map = map;
 	}
 
-	private Player player = new Player();
-
-	private Enemy enemy = new Enemy();
-
-	private int turn = 3;
+	private int turn = 0;
 
 	private boolean attacked = false;
 
 	private boolean endGame;
-	
+
 	private boolean debug = false;
 
 	/**
@@ -39,7 +35,8 @@ public class GameEngine {
 	}
 
 	/**
-	 * @param debug the debug to set
+	 * @param debug
+	 *            the debug to set
 	 */
 	public void setDebug(boolean debug) {
 		this.debug = debug;
@@ -56,15 +53,14 @@ public class GameEngine {
 	}
 
 	public String printBoard() {
-			if(isDebug() == false){
-				return map.toString();
-				
-			}
-			else{
-				return map.printDebug();
-			}
+		if (isDebug() == false) {
+			return map.toString();
+
+		} else {
+			return map.printDebug();
+		}
 	}
-	
+
 	public String displayBoard() {
 		return map.toString();
 	}
@@ -72,9 +68,8 @@ public class GameEngine {
 	/**
 	 * 
 	 * @param direction
-	 *            player has immediate visibility of each turn.
+	 *            the player "looks".
 	 */
-
 	public void visibilityOfPlayer(int direction) {
 		switch (direction) {
 		case 1:
@@ -95,33 +90,10 @@ public class GameEngine {
 		}
 	}
 
-	/*
-	public  void playerMove(int direction) {
-		switch (direction) {
-		// left
-		case 1:
-			map.movePlayer(4);
-			break;
-		// Right
-		case 2:
-			map.movePlayer(3);
-			break;
-		// Up
-		case 3:
-			map.movePlayer(1);
-			break;
-		// Down
-		case 4:
-			map.movePlayer(2);
-			break;
-		default:
-			System.out.println("That isn't a valid input player.");
-			break;
-
-		}
-
-	}
-*/
+	/**
+	 * @param direction
+	 * @return
+	 */
 	public boolean playerMove(int direction) {
 		boolean temp = false;
 
@@ -144,19 +116,27 @@ public class GameEngine {
 			break;
 		}
 
-		//System.out.println("GameEngineClass PlayerMove() temp variable: " + temp);
-
 		temp = (temp == true) ? true : false;
-		
+
 		return temp;
 	}
-	
+
 	public String printDebug() {
 		return map.printDebug();
 	}
 
+	/**
+	 * Keeps track of how many turns the player makes.
+	 */
 	public void playerTurn() {
+		turn++;
+	}
 
+	/**
+	 * @return the turn
+	 */
+	public int getTurn() {
+		return turn;
 	}
 
 	public void moveEnemy() {
@@ -171,16 +151,12 @@ public class GameEngine {
 	}
 
 	public void backToSpawnLocation() {
-
+		map.generatePlayer();
 	}
 
-	public boolean gameWon() {
+	public boolean endGame() {
 		boolean won = false;
 		return won;
-
-	}
-
-	public void backToInitialSpawnLocation() {
 
 	}
 
@@ -195,4 +171,13 @@ public class GameEngine {
 	public void useRadar() {
 		map.useRadar();
 	}
+	
+	/*
+	public boolean enemyAttack() {
+		map.visibilityOfEnemy();
+		map.enemyAttack(foundPlayer);
+		
+		return foundPlayer;
+	}
+	*/
 }

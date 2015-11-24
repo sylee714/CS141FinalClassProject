@@ -73,7 +73,7 @@ public class UI {
 
 	public void gameLoop() {
 
-		while (!game.gameWon()) {
+		while (!game.endGame()) {
 
 			System.out.println("Begin your turn player!\n");
 			System.out.println(game.printBoard());
@@ -105,14 +105,16 @@ public class UI {
 
 				}
 			} catch (ArrayIndexOutOfBoundsException e) {
-				System.out.println("You currently can't look in that direction player. Look in a valid direction.\n");
+				System.out
+						.println("You currently can't look in that direction player. Look in a valid direction.\n");
 			}
 			game.playerDetect();
 
 			System.out.println(game.printBoard());
 			System.out.println("What would you like to do next?\n");
 
-			System.out.println("1)Move \n2)Shoot \n3)Save \n4)Quit \n5)Toggle Debug");
+			System.out
+					.println("1)Move \n2)Shoot \n3)Save \n4)Quit \n5)Toggle Debug");
 
 			int choice = keyboard.nextInt();
 
@@ -123,36 +125,6 @@ public class UI {
 				System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
 
 				playerMove();
-/*				int direction = keyboard.nextInt();
-
-				try {
-					switch (direction) {
-					// Left
-					case 1:
-						game.playerMove(1);
-						break;
-					// Right
-					case 2:
-						game.playerMove(2);
-						break;
-					// Up
-					case 3:
-						game.playerMove(3);
-						break;
-					// Down
-					case 4:
-						game.playerMove(4);
-						break;
-					default:
-						System.out
-								.println("That's isn't a valid direction player. Please try again");
-						break;
-					}
-				} catch (ArrayIndexOutOfBoundsException e) {
-					System.out
-							.println("You currently can't move in that direction player. Move in a valid direction.\n");
-				}
-*/
 				break;
 			// Shoot
 			case 2:
@@ -170,15 +142,24 @@ public class UI {
 			default:
 				System.out.println("That isn't a valid input try again please.");
 				break;
-
 			}
-			game.moveEnemy();
-			game.setNotFlipped();
-			game.useRadar();
+			endTurn();
 		}
 
 	}
-	
+
+	/**
+	 * Runs all the methods that should take effect once the player's turn is
+	 * over.
+	 */
+	public void endTurn() {
+		game.moveEnemy();
+		game.setNotFlipped();
+		game.useRadar();
+		game.playerTurn();
+
+	}
+
 	public void playerMove() {
 
 		boolean temp = false;
@@ -209,7 +190,7 @@ public class UI {
 				temp = true;
 			else {
 				temp = false;
-				System.out.println("That isn't a direction, player. Please enter new direction: ");
+				System.out.println("Please enter new direction: ");
 				System.out.println(game.printBoard());
 			}
 

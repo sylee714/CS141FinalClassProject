@@ -21,15 +21,4 @@ public class AdditionalBullet extends GameEntity {
 	 */
 	private int bullet = 1;
 	
-	/** 
-	 * This field represent the location of additional bullet when
-	 * the game starts. 
-	 * 
-	 * @param index number of row
-	 * @param index number of column
-	 */
-	public void location(int row, int column) {
-		
-	}
-
 }

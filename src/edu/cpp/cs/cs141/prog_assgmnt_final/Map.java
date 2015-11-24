@@ -210,11 +210,11 @@ public class Map {
 	 * is generated, the 'do while' loop stops.
 	 */
 	public void generateRadar() {
-//		 map[6][0] = radar;
-//		 radar.setRow(6);
-//		 radar.setColumn(0);
+		 map[6][0] = radar;
+		 radar.setRow(6);
+		 radar.setColumn(0);
 
-		Random r = new Random();
+/*		Random r = new Random();
 		int numberOfRadar = 0;
 		do {
 			int row = r.nextInt(9);
@@ -228,7 +228,7 @@ public class Map {
 			}
 
 		} while (numberOfRadar < 1);
-
+*/
 	}
 
 	/**
@@ -238,24 +238,15 @@ public class Map {
 	public void useRadar() {
 		
 		
+		
+		briefCase.setFlipped(true);
 		System.out.println(briefCase.isFlipped());
 		
-		System.out.println(map[radar.getColumn()][radar.getRow()]);
-			if (map[radar.getColumn()][radar.getRow()].getFront().equals("+")) {
+		//System.out.println(map[radar.getColumn()][radar.getRow()]);
+		/*	if (map[radar.getColumn()][radar.getRow()].getFront().equals("+")) {
 				System.out.println(map[radar.getColumn()][radar.getRow()]);
-		}
-//		if (map[radar.getColumn()][radar.getRow()].getFront().equals("+ ")) {
-//			for (int i = 0; i < map.length; ++i) {
-//				for (int j = 0; j < map[i].length; ++j) {
-//					if (map[i][j].getFront() == "B") {
-//						briefCase.getFront();
-//						System.out.println(briefCase.isFlipped());
-	///				}
-	//			}
-
-//			}
-//		}
-
+			}
+			*/
 		}
 
 	/**
@@ -506,11 +497,13 @@ public class Map {
 
 				map[tempRow][tempColumn] = new EmptySpace();
 				map[player.getRow()][player.getColumn()] = player;
+				System.out.println(powerUpIndicator);
 				return true;
 			
 			} else {
 				map[player.getRow()][player.getColumn()] = player;
 				//System.out.println("4");
+				
 				return true;
 			}
 
@@ -521,6 +514,8 @@ public class Map {
 			map[tempRowFalse][tempColumnFalse] = player;
 			return false;
 		}
+		
+		
 	}
 /*	
 	public void movePlayer(int movement) {
