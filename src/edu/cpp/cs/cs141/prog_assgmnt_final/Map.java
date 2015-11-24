@@ -443,6 +443,8 @@ public class Map {
 
 		int tempRow = player.getRow();
 		int tempColumn = player.getColumn();
+		int tempRowFalse = player.getRow();
+		int tempColumnFalse = player.getColumn();
 
 		try {
 			player.move(movement);
@@ -460,6 +462,10 @@ public class Map {
 			return true;
 
 		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println(tempRowFalse + " " + tempColumnFalse);
+			player.setRow(tempRowFalse);
+			player.setColumn(tempColumnFalse);
+			map[tempRowFalse][tempColumnFalse] = player;
 			return false;
 		}
 	}

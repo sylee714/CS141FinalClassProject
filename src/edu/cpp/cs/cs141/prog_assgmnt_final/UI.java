@@ -179,7 +179,8 @@ public class UI {
 				temp = true;
 			else {
 				temp = false;
-				System.out.print("That isn't a direction, player. Please enter new direction: ");
+				System.out.println("That isn't a direction, player. Please enter new direction: ");
+				System.out.println(game.printDebug());
 			}
 
 		} while (temp == false);
