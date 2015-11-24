@@ -62,7 +62,8 @@ public class UI {
 
 	private int mainMenu() {
 		int option = 0;
-		System.out.println("Select an option:\n\n1)New Game\n2)Load Game\n3)Quit Game");
+		System.out
+				.println("Select an option:\n\n1)New Game\n2)Load Game\n3)Quit Game");
 		option = keyboard.nextInt();
 		keyboard.nextLine();
 
@@ -73,12 +74,9 @@ public class UI {
 	public void gameLoop() {
 
 		while (!game.gameWon()) {
-			
-			boolean debug = false;
-			
+
 			System.out.println("Begin your turn player!\n");
-			//System.out.println(game.printDebug());
-			System.out.println(game.displayBoard());
+			System.out.println(game.printBoard());
 			System.out.println("Chose a direction to look in.\n");
 			System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
 
@@ -104,19 +102,17 @@ public class UI {
 				default:
 					System.out.println("That isn't a valid choice player.");
 					break;
-				
+
 				}
 			} catch (ArrayIndexOutOfBoundsException e) {
-				System.out
-						.println("You currently can't look in that direction player. Look in a valid direction.\n");
+				System.out.println("You currently can't look in that direction player. Look in a valid direction.\n");
 			}
 			game.playerDetect();
-			
-			//System.out.println(game.printDebug());
-			//System.out.println(game.displayBoard());
+
+			System.out.println(game.printBoard());
 			System.out.println("What would you like to do next?\n");
-			
-			System.out.println("1)Move \n2)Shoot \n3)Save \n4)Quit");
+
+			System.out.println("1)Move \n2)Shoot \n3)Save \n4)Quit \n5)Toggle Debug");
 
 			int choice = keyboard.nextInt();
 
@@ -126,7 +122,8 @@ public class UI {
 				System.out.println("Chose a direction to move in.\n");
 				System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
 
-				int direction = keyboard.nextInt();
+				playerMove();
+/*				int direction = keyboard.nextInt();
 
 				try {
 					switch (direction) {
@@ -155,7 +152,7 @@ public class UI {
 					System.out
 							.println("You currently can't move in that direction player. Move in a valid direction.\n");
 				}
-
+*/
 				break;
 			// Shoot
 			case 2:
@@ -168,18 +165,7 @@ public class UI {
 				break;
 			// Debug
 			case 5:
-				if(game.isDebug() == false){
-					System.out.println("3");
-					game.setDebug(true);
-					game.printBoard();
-					
-				}
-				else{
-					System.out.println("4");
-					game.setDebug(false);
-					game.printBoard();
-					
-				}
+				toggleBoard();
 				break;
 			default:
 				System.out.println("That isn't a valid input try again please.");
@@ -191,6 +177,52 @@ public class UI {
 			game.useRadar();
 		}
 
+	}
+	
+	public void playerMove() {
+
+		boolean temp = false;
+
+		do {
+			int direction = keyboard.nextInt();
+
+			switch (direction) {
+			// Left
+			case 1:
+				temp = game.playerMove(1);
+				break;
+			// Right
+			case 2:
+				temp = game.playerMove(2);
+				break;
+			// Up
+			case 3:
+				temp = game.playerMove(3);
+				break;
+			// Down
+			case 4:
+				temp = game.playerMove(4);
+				break;
+			}
+
+			if (temp == true)
+				temp = true;
+			else {
+				temp = false;
+				System.out.println("That isn't a direction, player. Please enter new direction: ");
+				System.out.println(game.printBoard());
+			}
+
+		} while (temp == false);
+
+	}
+
+	public void toggleBoard() {
+		if (game.isDebug() == false) {
+			game.setDebug(true);
+		} else {
+			game.setDebug(false);
+		}
 	}
 
 }

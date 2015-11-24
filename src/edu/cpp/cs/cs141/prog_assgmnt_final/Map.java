@@ -30,6 +30,10 @@ public class Map {
 	private Enemy enemy5 = new Enemy();
 	private Enemy enemy6 = new Enemy();
 
+	private boolean roomIndicator = false;
+
+	private boolean powerUpIndicator = false;
+	
 	/**
 	 * This method fills the map with empty spaces to initialize the map.
 	 */
@@ -206,19 +210,25 @@ public class Map {
 	 * is generated, the 'do while' loop stops.
 	 */
 	public void generateRadar() {
-		map[6][0] = radar;
-		// radar.setRow(5);
-		// radar.setColumn(0);
-		/*
-		 * Random r = new Random(); int numberOfRadar = 0; do { int row =
-		 * r.nextInt(9); int column = r.nextInt(9); if
-		 * (map[row][column].getFront().equals(" ")) { map[row][column] = radar;
-		 * radar.setRow(row); radar.setColumn(column);
-		 * 
-		 * ++numberOfRadar; }
-		 * 
-		 * } while (numberOfRadar < 1);
-		 */
+//		 map[6][0] = radar;
+//		 radar.setRow(6);
+//		 radar.setColumn(0);
+
+		Random r = new Random();
+		int numberOfRadar = 0;
+		do {
+			int row = r.nextInt(9);
+			int column = r.nextInt(9);
+			if (map[row][column].getFront().equals(" ")) {
+				map[row][column] = radar;
+				radar.setRow(row);
+				radar.setColumn(column);
+
+				++numberOfRadar;
+			}
+
+		} while (numberOfRadar < 1);
+
 	}
 
 	/**
@@ -226,49 +236,27 @@ public class Map {
 	 * searching the map for it and showing it's face value.
 	 */
 	public void useRadar() {
-
-		// First try flips but doesn't do it right
-		// for(int i = 0; i < map.length; ++i) {
-		// for(int j = 0; j < map.length; ++j) {
-		// if(map[i][j].getFront().equals("B")){
-		// briefCase.setFlipped(true);
-		// }
-		// }
-		// }
-		for (int i = 1; i < 2; ++i) {
-			try {
-				if (map[radar.getColumn()][radar.getRow() - i].getFront()
-						.equals("P"))
-					briefCase.setAttack(true);
-			} catch (ArrayIndexOutOfBoundsException e) {
-
-			}
-
-			try {
-				if (map[radar.getColumn()][radar.getRow() + i].getFront()
-						.equals("P"))
-					briefCase.setAttack(true);
-			} catch (ArrayIndexOutOfBoundsException e) {
-
-			}
-			try {
-				if (map[radar.getColumn() - i][radar.getRow()].getFront()
-						.equals("P"))
-					briefCase.setAttack(true);
-			} catch (ArrayIndexOutOfBoundsException e) {
-
-			}
-			try {
-				if (map[radar.getColumn() + i][radar.getRow()].getFront()
-						.equals("P"))
-					briefCase.setAttack(true);
-			} catch (ArrayIndexOutOfBoundsException e) {
-
-			}
-
-			briefCase.setFlipped(true);
+		
+		
+		System.out.println(briefCase.isFlipped());
+		
+		System.out.println(map[radar.getColumn()][radar.getRow()]);
+			if (map[radar.getColumn()][radar.getRow()].getFront().equals("+")) {
+				System.out.println(map[radar.getColumn()][radar.getRow()]);
 		}
-	}
+//		if (map[radar.getColumn()][radar.getRow()].getFront().equals("+ ")) {
+//			for (int i = 0; i < map.length; ++i) {
+//				for (int j = 0; j < map[i].length; ++j) {
+//					if (map[i][j].getFront() == "B") {
+//						briefCase.getFront();
+//						System.out.println(briefCase.isFlipped());
+	///				}
+	//			}
+
+//			}
+//		}
+
+		}
 
 	/**
 	 * This method generates a bullet. Its position is generated randomly and
@@ -373,25 +361,29 @@ public class Map {
 			// left
 			case 1:
 				map[player.getRow()][player.getColumn() - i].setFlipped(true);
-				if (map[player.getRow()][player.getColumn() - i].getFront().equals("E"))
+				if (map[player.getRow()][player.getColumn() - i].getFront()
+						.equals("E"))
 					player.setDangerAhead(true);
 				break;
 			// right
 			case 2:
 				map[player.getRow()][player.getColumn() + i].setFlipped(true);
-				if (map[player.getRow()][player.getColumn() + i].getFront().equals("E"))
+				if (map[player.getRow()][player.getColumn() + i].getFront()
+						.equals("E"))
 					player.setDangerAhead(true);
 				break;
 			// up
 			case 3:
 				map[player.getRow() - i][player.getColumn()].setFlipped(true);
-				if (map[player.getRow() - i][player.getColumn()].getFront().equals("E"))
+				if (map[player.getRow() - i][player.getColumn()].getFront()
+						.equals("E"))
 					player.setDangerAhead(true);
 				break;
 			// down
 			case 4:
 				map[player.getRow() + i][player.getColumn()].setFlipped(true);
-				if (map[player.getRow() + i][player.getColumn()].getFront().equals("E"))
+				if (map[player.getRow() + i][player.getColumn()].getFront()
+						.equals("E"))
 					player.setDangerAhead(true);
 				break;
 
@@ -399,12 +391,13 @@ public class Map {
 		}
 	}
 
+
 	/**
 	 * @param direction
 	 *            the player can "Look" in the columns to detect and enemy in
 	 *            the row.
 	 */
-
+/*
 	public void playerLook(int direction) throws ArrayIndexOutOfBoundsException {
 		for (int i = 0; i < 3; ++i) {
 
@@ -440,7 +433,7 @@ public class Map {
 			}
 
 		}
-
+*/
 		/*
 		 * break; // right case 2: map[player.getRow()][player.getColumn() +
 		 * i].setFlipped(true); break; // up case 3: map[player.getRow() -
@@ -449,7 +442,7 @@ public class Map {
 		 * 
 		 * } }
 		 */
-	}
+	
 
 	public void playerDetect() {
 		if (player.isDangerAhead() == true) {
@@ -458,6 +451,135 @@ public class Map {
 		} else
 			System.out.println("Clear!\n");
 	}
+	
+	public boolean movePlayer(int movement) {
+		// if(map[player.getRow()][player.getColumn() -
+		// i].getFront().equals("R") || map[player.getRow()][player.getColumn()
+		// - i].getFront().equals("R"))
+
+		int tempRow = player.getRow();
+		int tempColumn = player.getColumn();
+		int tempRowFalse = player.getRow();
+		int tempColumnFalse = player.getColumn();
+
+		GameEntity tempSpace = map[player.getRow()][player.getColumn()];
+		
+		try {
+			player.move(movement);
+			//System.out.println("0");
+			player.setRow(player.getRow());
+			//System.out.println("1");
+			player.setColumn(player.getColumn());
+			//System.out.println("2");
+
+			map[tempRow][tempColumn] = new EmptySpace();
+			//System.out.println("3");
+
+			if (map[player.getRow()][player.getColumn()] != map[5][0]
+					&& map[player.getRow()][player.getColumn()] != map[5][1]
+					&& map[player.getRow()][player.getColumn()] != map[5][2]
+					&& map[player.getRow()][player.getColumn()] != map[5][3]
+					&& map[player.getRow()][player.getColumn()] != map[6][0]
+					&& map[player.getRow()][player.getColumn()] != map[6][1]
+					&& map[player.getRow()][player.getColumn()] != map[6][2]
+					&& map[player.getRow()][player.getColumn()] != map[6][3]
+					&& map[player.getRow()][player.getColumn()] != map[7][0]
+					&& map[player.getRow()][player.getColumn()] != map[7][2]
+					&& map[player.getRow()][player.getColumn()] != map[7][3]
+					&& map[player.getRow()][player.getColumn()] != map[8][1]
+					&& map[player.getRow()][player.getColumn()] != map[8][2]
+					&& map[player.getRow()][player.getColumn()] != map[8][3]) {
+
+				player.setRow(tempRowFalse);
+				player.setColumn(tempColumnFalse);
+				map[tempRowFalse][tempColumnFalse] = player;
+				return false;
+
+			} else if (tempSpace.getFront().equals("+") || tempSpace.getFront().equals("A")
+					|| tempSpace.getFront().equals("I")) {
+
+				powerUpIndicator = true;
+				// validInput = true;
+
+				player.setRow(player.getRow());
+				player.setColumn(player.getColumn());
+
+				map[tempRow][tempColumn] = new EmptySpace();
+				map[player.getRow()][player.getColumn()] = player;
+				return true;
+			
+			} else {
+				map[player.getRow()][player.getColumn()] = player;
+				//System.out.println("4");
+				return true;
+			}
+
+		} catch (ArrayIndexOutOfBoundsException e) {
+			//System.out.println(tempRowFalse + " " + tempColumnFalse);
+			player.setRow(tempRowFalse);
+			player.setColumn(tempColumnFalse);
+			map[tempRowFalse][tempColumnFalse] = player;
+			return false;
+		}
+	}
+/*	
+	public void movePlayer(int movement) {
+		
+		
+
+		int tempRow = player.getRow();
+		int tempColumn = player.getColumn();
+		player.move(movement);
+		GameEntity tempSpace = map[player.getRow()][player.getColumn()];
+		
+
+		if (tempSpace.getFront().equals("R")) {
+
+			roomIndicator = true;
+
+			// validInput = true;
+
+			player.setRow(player.getRow());
+			player.setColumn(player.getColumn());
+
+			map[tempRow][tempColumn] = player;
+			map[player.getRow()][player.getColumn()] = tempSpace;
+			
+			
+			
+
+		} else if (tempSpace.getFront().equals("+") || tempSpace.getFront().equals("A")
+				|| tempSpace.getFront().equals("I")) {
+
+			powerUpIndicator = true;
+			// validInput = true;
+
+			player.setRow(player.getRow());
+			player.setColumn(player.getColumn());
+
+			map[tempRow][tempColumn] = new EmptySpace();
+			map[player.getRow()][player.getColumn()] = player;
+
+		} else {
+
+			roomIndicator = false;
+			powerUpIndicator = false;
+			// validInput = true;
+
+			player.setRow(player.getRow());
+			player.setColumn(player.getColumn());
+
+			map[tempRow][tempColumn] = tempSpace;
+			map[player.getRow()][player.getColumn()] = player;
+		}
+	
+}
+
+*/
+	
+	
+	
+	/*
 
 	public void movePlayer(int movement) {
 
@@ -471,7 +593,7 @@ public class Map {
 		map[tempRow][tempColumn] = new EmptySpace();
 		map[player.getRow()][player.getColumn()] = player;
 
-	}
+	}/*
 
 	/*
 	 * use as refereance
@@ -537,7 +659,7 @@ public class Map {
 		}
 
 	}
-
+/*
 	public void enemyMove() throws ArrayIndexOutOfBoundsException {
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
@@ -578,7 +700,7 @@ public class Map {
 			}
 		}
 	}
-
+*/
 	public void setNotFlipped() {
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
@@ -627,6 +749,4 @@ public class Map {
 
 	}
 
-	
-	
 }

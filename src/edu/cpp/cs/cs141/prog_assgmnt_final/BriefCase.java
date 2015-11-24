@@ -22,6 +22,22 @@ public class BriefCase extends GameEntity {
 	 */
 	private boolean retrieved = false;
 	
+	private boolean found = false;
+	
+	/**
+	 * @return the found
+	 */
+	public boolean isFound() {
+		return found;
+	}
+
+	/**
+	 * @param found the found to set
+	 */
+	public void setFound(boolean found) {
+		this.found = found;
+	}
+
 	/** 
 	 * This field represent the location of brief case when
 	 * the game starts. It can be only located in one of nine rooms. 

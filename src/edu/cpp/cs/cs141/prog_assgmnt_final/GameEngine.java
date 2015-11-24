@@ -57,12 +57,10 @@ public class GameEngine {
 
 	public String printBoard() {
 			if(isDebug() == false){
-				System.out.println(isDebug() +" 1");
 				return map.toString();
 				
 			}
 			else{
-				System.out.println(isDebug() + " 2");
 				return map.printDebug();
 			}
 	}
@@ -97,7 +95,8 @@ public class GameEngine {
 		}
 	}
 
-	public void playerMove(int direction) {
+	/*
+	public  void playerMove(int direction) {
 		switch (direction) {
 		// left
 		case 1:
@@ -122,7 +121,36 @@ public class GameEngine {
 		}
 
 	}
+*/
+	public boolean playerMove(int direction) {
+		boolean temp = false;
 
+		switch (direction) {
+		// left
+		case 1:
+			temp = map.movePlayer(4);
+			break;
+		// Right
+		case 2:
+			temp = map.movePlayer(3);
+			break;
+		// Up
+		case 3:
+			temp = map.movePlayer(1);
+			break;
+		// Down
+		case 4:
+			temp = map.movePlayer(2);
+			break;
+		}
+
+		//System.out.println("GameEngineClass PlayerMove() temp variable: " + temp);
+
+		temp = (temp == true) ? true : false;
+		
+		return temp;
+	}
+	
 	public String printDebug() {
 		return map.printDebug();
 	}
@@ -137,7 +165,7 @@ public class GameEngine {
 		try {
 			map.moveEnemy(i);
 		} catch (ArrayIndexOutOfBoundsException e) {
-			System.out.println("You blew it");
+			System.out.println("Enemies move out of bounds");
 		}
 
 	}
