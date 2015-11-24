@@ -165,22 +165,22 @@ public class UI {
 				break;
 			// Up
 			case 3:
-				game.playerMove(3);
+				temp = game.playerMove(3);
 				break;
 			// Down
 			case 4:
-				game.playerMove(4);
+				temp = game.playerMove(4);
 				break;
 			}
 
-			System.out.println("UIClass playerMove() temp variable: " + temp);
+			//System.out.println("UIClass playerMove() temp variable: " + temp);
 
 			if (temp == true)
 				temp = true;
 			else {
 				temp = false;
-				System.out.println("That isn't a direction, player. Please enter new direction: ");
 				System.out.println(game.printDebug());
+				System.out.println("Invalid move. Please enter new direction: ");
 			}
 
 		} while (temp == false);

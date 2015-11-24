@@ -131,7 +131,7 @@ public class GameEngine {
 			break;
 		}
 
-		System.out.println("GameEngineClass PlayerMove() temp variable: " + temp);
+		//System.out.println("GameEngineClass PlayerMove() temp variable: " + temp);
 
 		temp = (temp == true) ? true : false;
 		

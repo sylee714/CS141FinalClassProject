@@ -448,21 +448,43 @@ public class Map {
 
 		try {
 			player.move(movement);
-			System.out.println("0");
+			//System.out.println("0");
 			player.setRow(player.getRow());
-			System.out.println("1");
+			//System.out.println("1");
 			player.setColumn(player.getColumn());
-			System.out.println("2");
+			//System.out.println("2");
 
 			map[tempRow][tempColumn] = new EmptySpace();
-			System.out.println("3");
-			map[player.getRow()][player.getColumn()] = player;
-			System.out.println("4");
+			//System.out.println("3");
 
-			return true;
+			if (map[player.getRow()][player.getColumn()] != map[5][0]
+					&& map[player.getRow()][player.getColumn()] != map[5][1]
+					&& map[player.getRow()][player.getColumn()] != map[5][2]
+					&& map[player.getRow()][player.getColumn()] != map[5][3]
+					&& map[player.getRow()][player.getColumn()] != map[6][0]
+					&& map[player.getRow()][player.getColumn()] != map[6][1]
+					&& map[player.getRow()][player.getColumn()] != map[6][2]
+					&& map[player.getRow()][player.getColumn()] != map[6][3]
+					&& map[player.getRow()][player.getColumn()] != map[7][0]
+					&& map[player.getRow()][player.getColumn()] != map[7][2]
+					&& map[player.getRow()][player.getColumn()] != map[7][3]
+					&& map[player.getRow()][player.getColumn()] != map[8][1]
+					&& map[player.getRow()][player.getColumn()] != map[8][2]
+					&& map[player.getRow()][player.getColumn()] != map[8][3]) {
+
+				player.setRow(tempRowFalse);
+				player.setColumn(tempColumnFalse);
+				map[tempRowFalse][tempColumnFalse] = player;
+				return false;
+
+			} else {
+				map[player.getRow()][player.getColumn()] = player;
+				//System.out.println("4");
+				return true;
+			}
 
 		} catch (ArrayIndexOutOfBoundsException e) {
-			System.out.println(tempRowFalse + " " + tempColumnFalse);
+			//System.out.println(tempRowFalse + " " + tempColumnFalse);
 			player.setRow(tempRowFalse);
 			player.setColumn(tempColumnFalse);
 			map[tempRowFalse][tempColumnFalse] = player;
