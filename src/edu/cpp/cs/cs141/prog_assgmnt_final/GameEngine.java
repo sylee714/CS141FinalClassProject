@@ -169,7 +169,9 @@ public class GameEngine {
 	{
 	FileOutputStream outStream = new FileOutputStream("Objects.dat");
   	ObjectOutputStream objectOutputFile = new ObjectOutputStream(outStream);
-  	objectOutputFile.writeObject(GameDataSave);
+  	objectOutputFile.writeObject(GameEntity);
+  	objectOutputFile.writeObject(Gun);
+  	objectOutputFile.writeObject(Map);
 	objectOutputFile.close();	
 	}
 
@@ -191,7 +193,9 @@ public class GameEngine {
 	{
 	FileInputStream inStream = new FileInputStream("Objects.dat");
 	ObjectInputStream objectInputFile = new ObjectInputStream(inStream);
-	objectInputFile.readObject(GameDataSave);
+	objectOutputFile.writeObject(GameEntity);
+  	objectOutputFile.writeObject(Gun);
+  	objectOutputFile.writeObject(Map);
   	objectInputFile.close();
   	
 	}
