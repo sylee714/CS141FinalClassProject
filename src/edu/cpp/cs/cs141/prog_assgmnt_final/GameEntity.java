@@ -2,12 +2,12 @@
  * 
  */
 package edu.cpp.cs.cs141.prog_assgmnt_final;
-
+import java.io.Serializable;
 /**
  * @author Seungyun
  *
  */
-public abstract class GameEntity {
+public abstract class GameEntity implements Serializable {
 
 	private String front = "";
 	private String back = "";
@@ -110,5 +110,4 @@ public abstract class GameEntity {
 		}
 
 	}
-
 }

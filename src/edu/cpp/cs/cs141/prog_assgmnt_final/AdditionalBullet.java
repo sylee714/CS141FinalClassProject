@@ -8,7 +8,7 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
  * 
  */
 public class AdditionalBullet extends GameEntity {
-	
+
 	public AdditionalBullet() {
 		super("A", "*", 0, 0);
 		

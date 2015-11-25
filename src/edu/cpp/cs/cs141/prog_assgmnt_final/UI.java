@@ -72,10 +72,19 @@ public class UI {
 	public void gameLoop() {
 
 		while (!game.endGame()) {
+<<<<<<< HEAD
 
 			System.out.println("Begin your turn player!\n");
 			System.out.println(game.printBoard());
 			System.out.println("Chose a direction to look in.\n");
+=======
+			
+			//game.enemyTurn();
+
+			System.out.println("Begin your turn player!\n");
+			System.out.println(game.printBoard());
+			System.out.println("Choose a direction to look in.\n");
+>>>>>>> refs/remotes/origin/master
 			System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
 
 			int option = keyboard.nextInt();
@@ -108,20 +117,36 @@ public class UI {
 			game.playerDetect();
 			System.out.println(game.printBoard());
 			System.out.println("What would you like to do next?\n");
+<<<<<<< HEAD
 			System.out.println("1)Move \n2)Shoot \n3)Save \n4)Quit");
+=======
+			System.out.println("1)Move \n2)Shoot \n3)Save \n4)Quit \n5)Debug Mode");
+>>>>>>> refs/remotes/origin/master
 
 			int choice = keyboard.nextInt();
 
 			switch (choice) {
 			// Move
 			case 1:
-				System.out.println("Chose a direction to move in.\n");
+				
+				System.out.println("Choose a direction to move in.\n");
 				System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
 
 				playerMove();
+<<<<<<< HEAD
+=======
+				
+>>>>>>> refs/remotes/origin/master
 				break;
 			// Shoot
 			case 2:
+				
+				System.out.println("Choose a direction to shoot.\n");
+				System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
+				int direction = keyboard.nextInt();
+				
+				playerShoot(direction);
+				System.out.println();
 				break;
 			// Save
 			case 3:
@@ -149,14 +174,45 @@ public class UI {
 	 */
 	public void endTurn() {
 		game.moveEnemy();
+<<<<<<< HEAD
+=======
+		//game.enemyTurn();
+>>>>>>> refs/remotes/origin/master
 		game.setNotFlipped();
 		game.playerTurn();
 
 	}
+<<<<<<< HEAD
+=======
+	
+	public void playerShoot(int direction) {
+		
+		
+		switch (direction) {
+		case 1:
+			game.playerAttack(1);
+			break;
+		case 2:
+			game.playerAttack(2);
+			break;
+		case 3:
+			game.playerAttack(3);
+			break;
+		case 4:
+			game.playerAttack(4);
+			break;
+		}
+		
+	}
+>>>>>>> refs/remotes/origin/master
 
 	public void playerMove() {
 		// true = correct choice
 		boolean temp = true;
+<<<<<<< HEAD
+=======
+		
+>>>>>>> refs/remotes/origin/master
 
 		do {
 			int direction = keyboard.nextInt();

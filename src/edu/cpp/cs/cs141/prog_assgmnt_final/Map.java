@@ -1,6 +1,7 @@
 package edu.cpp.cs.cs141.prog_assgmnt_final;
 
 import java.util.Random;
+import java.io.Serializable;
 
 import javax.swing.plaf.synth.SynthSeparatorUI;
 
@@ -8,8 +9,7 @@ import javax.swing.plaf.synth.SynthSeparatorUI;
  * @author Seungyun
  *
  */
-public class Map {
-
+public class Map implements Serializable {
 	/**
 	 * The size of the map.
 	 */
@@ -48,6 +48,22 @@ public class Map {
 
 	private boolean briefCaseIndicator = false;
 
+<<<<<<< HEAD
+=======
+	private boolean enemyAttack = true;
+
+	private boolean foundPlayer = false;
+
+	private boolean playerAttack = false;
+
+	/**
+	 * @return the foundPlayer
+	 */
+	public boolean isFoundPlayer() {
+		return foundPlayer;
+	}
+
+>>>>>>> refs/remotes/origin/master
 	/**
 	 * @return the powerUpIndicator
 	 */
@@ -108,6 +124,24 @@ public class Map {
 		this.invincibleIndicator = invincibleIndicator;
 	}
 
+<<<<<<< HEAD
+=======
+	/**
+	 * @return the playerAttack
+	 */
+	public boolean isPlayerAttack() {
+		return playerAttack;
+	}
+
+	/**
+	 * @param playerAttack
+	 *            the playerAttack to set
+	 */
+	public void setPlayerAttack(boolean playerAttack) {
+		this.playerAttack = playerAttack;
+	}
+
+>>>>>>> refs/remotes/origin/master
 	public boolean detectBriefCase(int row, int column) {
 
 		if (map[row][column].getFront().equals("B")) {
@@ -143,6 +177,11 @@ public class Map {
 			bulletIndicator = true;
 			powerUpIndicator = bulletIndicator;
 
+<<<<<<< HEAD
+=======
+			player.attack(true);
+
+>>>>>>> refs/remotes/origin/master
 		} else if (map[row][column].getFront().equals("I")) {
 
 			invincibleIndicator = true;
@@ -153,6 +192,53 @@ public class Map {
 		return powerUpIndicator;
 	}
 
+<<<<<<< HEAD
+=======
+	public void pickUpInvincible(boolean invincibleIndicator) {
+
+		enemyAttack = false;
+
+	}
+
+	public void pickUpBullet(boolean bulletIndicator) {
+
+		if (player.getBullet() == 0) {
+			player.setBullet(1);
+		}
+	}
+
+	public boolean checkBullet() {
+
+		if (player.getBullet() == 1) {
+
+			playerAttack = true;
+		} else if (player.getBullet() == 0) {
+			playerAttack = false;
+		}
+
+		return playerAttack;
+	}
+
+	public void useBullet() {
+
+		player.setBullet(0);
+
+	}
+
+	public void pickUpRadar(boolean radarIndicator) {
+
+		if (radarIndicator) {
+			for (int i = 0; i < map.length; ++i) {
+				for (int j = 0; j < map[i].length; ++j) {
+					if (map[i][j].getFront().equals("B")) {
+						map[i][j].setFlipped(true);
+					}
+				}
+			}
+		}
+	}
+
+>>>>>>> refs/remotes/origin/master
 	/**
 	 * This method fills the map with empty spaces to initialize the map.
 	 */
@@ -272,9 +358,15 @@ public class Map {
 				map[row][column] = holdEnemy[i];
 				holdEnemy[i].setRow(row);
 				holdEnemy[i].setColumn(column);
+<<<<<<< HEAD
 
 			} else {
 
+=======
+
+			} else {
+
+>>>>>>> refs/remotes/origin/master
 				--i;
 			}
 		}
@@ -381,29 +473,65 @@ public class Map {
 	 *            immediate area next to player in which they can see without
 	 *            needing to "Look".
 	 */
+<<<<<<< HEAD
 	public void visibilityOfPlayer(int direction) {
 		for (int i = 1; i < 3; ++i) {
+=======
+	public boolean visibilityOfEnemy(int direction) {
+
+		for (int j = 0; j < holdEnemy.length; ++j) {
+
+>>>>>>> refs/remotes/origin/master
 			switch (direction) {
+
 			// left
 			case 1:
-				map[player.getRow()][player.getColumn() - i].setFlipped(true);
+
+				if (map[holdEnemy[j].getRow()][holdEnemy[j].getColumn() - 1].getFront().equals("P")) {
+					foundPlayer = true;
+				}
+
 				break;
+
 			// right
 			case 2:
-				map[player.getRow()][player.getColumn() + i].setFlipped(true);
+
+				if (map[holdEnemy[j].getRow()][holdEnemy[j].getColumn() + 1].getFront().equals("P")) {
+					foundPlayer = true;
+				}
 				break;
+
 			// up
 			case 3:
-				map[player.getRow() - i][player.getColumn()].setFlipped(true);
+
+				if (map[holdEnemy[j].getRow() - 1][holdEnemy[j].getColumn()].getFront().equals("P")) {
+					foundPlayer = true;
+				}
 				break;
+
 			// down
 			case 4:
-				map[player.getRow() + i][player.getColumn()].setFlipped(true);
+
+				if (map[holdEnemy[j].getRow() + 1][holdEnemy[j].getColumn()].getFront().equals("P")) {
+					foundPlayer = true;
+				}
 				break;
 
 			}
+
 		}
+		return foundPlayer;
+
 	}
+
+	public void enemyAttack(boolean foundPlayer) {
+
+		if (foundPlayer) {
+			map[player.getRow()][player.getColumn()] = new EmptySpace();
+		}
+
+	}
+<<<<<<< HEAD
 	/*
 	 * public void movePlayer(int movement) {
 	 * 
@@ -550,6 +678,212 @@ public class Map {
 
 		for (int i = 0; i < map.length; ++i) {
 
+=======
+
+	/**
+	 * @param direction
+	 *            immediate area next to player in which they can see without
+	 *            needing to "Look".
+	 */
+	public void visibilityOfPlayer(int direction) {
+		for (int i = 1; i < 3; ++i) {
+>>>>>>> refs/remotes/origin/master
+			switch (direction) {
+
+			// left
+			case 1:
+<<<<<<< HEAD
+
+				if (map[player.getRow()][player.getColumn() - i].getFront().equals("E"))
+					map[player.getRow()][player.getColumn() - i] = new EmptySpace();
+=======
+				map[player.getRow()][player.getColumn() - i].setFlipped(true);
+				if (map[player.getRow()][player.getColumn() - i].getFront().equals("E"))
+					player.setDangerAhead(true);
+>>>>>>> refs/remotes/origin/master
+
+				break;
+			// right
+			case 2:
+<<<<<<< HEAD
+
+				if (map[player.getRow()][player.getColumn() + i].getFront().equals("E"))
+					map[player.getRow()][player.getColumn() + i] = new EmptySpace();
+
+				break;
+			// up
+			case 3:
+
+				if (map[player.getRow() - i][player.getColumn()].getFront().equals("E"))
+					map[player.getRow() - i][player.getColumn()] = new EmptySpace();
+
+				break;
+			// down
+			case 4:
+
+				if (map[player.getRow() + i][player.getColumn()].getFront().equals("E"))
+					map[player.getRow() + i][player.getColumn()] = new EmptySpace();
+=======
+				map[player.getRow()][player.getColumn() + i].setFlipped(true);
+				if (map[player.getRow()][player.getColumn() + i].getFront().equals("E"))
+					player.setDangerAhead(true);
+				break;
+			// up
+			case 3:
+				map[player.getRow() - i][player.getColumn()].setFlipped(true);
+				if (map[player.getRow() - i][player.getColumn()].getFront().equals("E"))
+					player.setDangerAhead(true);
+				break;
+			// down
+			case 4:
+				map[player.getRow() + i][player.getColumn()].setFlipped(true);
+				if (map[player.getRow() + i][player.getColumn()].getFront().equals("E"))
+					player.setDangerAhead(true);
+>>>>>>> refs/remotes/origin/master
+
+				break;
+
+			}
+
+		}
+	}
+
+<<<<<<< HEAD
+	public void playerDetect() {
+		if (player.isDangerAhead() == true) {
+			System.out.println("Danger Ahead!\n");
+			player.setDangerAhead(false);
+		} else
+			System.out.println("Clear!\n");
+	}
+
+	public int checkEnemyRemaining() {
+=======
+	public boolean movePlayer(int movement) {
+
+		int tempRow = player.getRow();
+		int tempColumn = player.getColumn();
+		int tempRowFalse = player.getRow();
+		int tempColumnFalse = player.getColumn();
+
+		try {
+			player.move(movement);
+
+			player.setRow(player.getRow());
+
+			player.setColumn(player.getColumn());
+
+			map[tempRow][tempColumn] = new EmptySpace();
+
+			if (map[player.getRow()][player.getColumn()] != map[1][1]
+					&& map[player.getRow()][player.getColumn()] != map[1][4]
+					&& map[player.getRow()][player.getColumn()] != map[1][7]
+					&& map[player.getRow()][player.getColumn()] != map[4][1]
+					&& map[player.getRow()][player.getColumn()] != map[4][4]
+					&& map[player.getRow()][player.getColumn()] != map[4][7]
+					&& map[player.getRow()][player.getColumn()] != map[7][1]
+					&& map[player.getRow()][player.getColumn()] != map[7][4]
+					&& map[player.getRow()][player.getColumn()] != map[7][7]) {
+
+				detectPowerUps(player.getRow(), player.getColumn());
+
+				pickUpBullet(bulletIndicator);
+				pickUpInvincible(invincibleIndicator);
+				//pickUpRadar(radarIndicator);
+
+				if (bulletIndicator) {
+					System.out.println("Found a bullet!");
+				} else if (invincibleIndicator) {
+					System.out.println("You are invincible for 5 turns!");
+				} else if (radarIndicator) {
+					for (int i = 0; i < map.length; ++i) {
+						for (int j = 0; j < map[i].length; ++j) {
+							if (map[i][j].getFront().equals("B")) {
+								map[i][j].setFlipped(true);
+								System.out.println(map[i][j].isFlipped());
+							}
+						}
+					}
+					System.out.println("Found the radar!");
+				}
+
+				map[player.getRow()][player.getColumn()] = player;
+				return true;
+
+			} else {
+				player.setRow(tempRowFalse);
+				player.setColumn(tempColumnFalse);
+				map[tempRowFalse][tempColumnFalse] = player;
+				return false;
+			}
+
+		} catch (ArrayIndexOutOfBoundsException e) {
+
+			player.setRow(tempRowFalse);
+			player.setColumn(tempColumnFalse);
+			map[tempRowFalse][tempColumnFalse] = player;
+			return false;
+		}
+>>>>>>> refs/remotes/origin/master
+
+		int numberOfEnemy = 0;
+
+<<<<<<< HEAD
+		for (int i = 0; i < map.length; ++i) {
+			for (int j = 0; j < map[i].length; ++j) {
+				if (map[i][j].equals("E")) {
+					numberOfEnemy = numberOfEnemy + 1;
+=======
+	public void moveEnemy() {
+		boolean good = true;
+		int tempRow = 0;
+		int tempColumn = 0;
+		int tempRowFalse = 0;
+		int tempColumnFalse = 0;
+
+		for (int i = 0; i < 6; ++i) {
+			try {
+
+				tempRow = holdEnemy[i].getRow();
+				tempColumn = holdEnemy[i].getColumn();
+				tempRowFalse = holdEnemy[i].getRow();
+				tempColumnFalse = holdEnemy[i].getColumn();
+
+				Random r = new Random();
+
+				int movement = r.nextInt(4) + 1;
+
+				holdEnemy[i].move(movement);
+
+				holdEnemy[i].setRow(holdEnemy[i].getRow());
+				holdEnemy[i].setColumn(holdEnemy[i].getColumn());
+
+				map[tempRow][tempColumn] = new EmptySpace();
+
+				if (map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()].getFront().equals(" ")) {
+
+					map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] = holdEnemy[i];
+					good = true;
+
+				} else {
+					holdEnemy[i].setRow(tempRowFalse);
+					holdEnemy[i].setColumn(tempColumnFalse);
+					map[tempRowFalse][tempColumnFalse] = holdEnemy[i];
+>>>>>>> refs/remotes/origin/master
+				}
+
+			} catch (ArrayIndexOutOfBoundsException e) {
+				map[tempRowFalse][tempColumnFalse] = holdEnemy[i];
+			}
+		}
+
+		return numberOfEnemy;
+	}
+
+	public void playerAttack(int direction) {
+
+		for (int i = player.getRow(); i < map.length; ++i) {
+
 			switch (direction) {
 
 			// left
@@ -586,6 +920,58 @@ public class Map {
 		}
 	}
 
+	public void playerAttackHorizontally(int direction) {
+
+		for (int i = player.getColumn(); i < map.length; ++i) {
+
+			switch (direction) {
+
+			// left
+			case 1:
+
+				if (map[player.getRow()][player.getColumn() - i].getFront().equals("E"))
+					map[player.getRow()][player.getColumn() - i] = new EmptySpace();
+
+				break;
+			// right
+			case 2:
+
+				if (map[player.getRow()][player.getColumn() + i].getFront().equals("E"))
+					map[player.getRow()][player.getColumn() + i] = new EmptySpace();
+
+				break;
+			}
+		}
+
+	}
+
+	public void playerAttackVertically(int direction) {
+
+		for (int i = player.getRow(); i < map.length; ++i) {
+
+			switch (direction) {
+
+			// up
+			case 1:
+
+				if (map[player.getRow() - i][player.getColumn()].getFront().equals("E"))
+					map[player.getRow() - i][player.getColumn()] = new EmptySpace();
+
+				break;
+			// down
+			case 2:
+
+				if (map[player.getRow() + i][player.getColumn()].getFront().equals("E"))
+					map[player.getRow() + i][player.getColumn()] = new EmptySpace();
+
+				break;
+
+			}
+
+		}
+
+	}
+
 	public void playerDetect() {
 		if (player.isDangerAhead() == true) {
 			System.out.println("Danger Ahead!\n");
@@ -609,14 +995,7 @@ public class Map {
 		return numberOfEnemy;
 	}
 
-	public void setNotFlipped() {
-		for (int i = 0; i < map.length; ++i) {
-			for (int j = 0; j < map[i].length; ++j) {
-				map[i][j].setFlipped(false);
-			}
-		}
-	}
-
+<<<<<<< HEAD
 	public void initialPoint() {
 
 		GameEntity tempSpace = map[8][0];
@@ -624,6 +1003,25 @@ public class Map {
 		map[8][0] = player;
 		player.setRow(8);
 		player.setColumn(0);
+
+=======
+	public void setNotFlipped() {
+		for (int i = 0; i < map.length; ++i) {
+			for (int j = 0; j < map[i].length; ++j) {
+				map[i][j].setFlipped(false);
+			}
+		}
+>>>>>>> refs/remotes/origin/master
+	}
+
+	public void initialPoint() {
+		if (foundPlayer) {
+			GameEntity tempSpace = map[8][0];
+			map[player.getRow()][player.getColumn()] = tempSpace;
+			map[8][0] = player;
+			player.setRow(8);
+			player.setColumn(0);
+		}
 
 	}
 

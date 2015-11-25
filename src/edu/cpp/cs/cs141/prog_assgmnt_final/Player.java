@@ -9,8 +9,7 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
  */
 public class Player extends GameEntity {
 
-	
-	private Gun gun = new Gun();
+	//private Gun gun = new Gun();
 
 	public Player() {
 		super("P", "P", 0, 0);
@@ -22,12 +21,16 @@ public class Player extends GameEntity {
 	 * with.
 	 */
 	private int life = 3;
+	
+	private int bullet = 1;
 
 	/**
 	 * This field represents if player is got attacked by an enemy.
 	 */
 	private boolean underAttack = true;
 
+	private boolean attack = true;
+	
 	/**
 	 * This field represents if player picked up radar power-up or not.
 	 */
@@ -113,5 +116,37 @@ public class Player extends GameEntity {
 	public void setLife(int life) {
 		this.life = life;
 	}
+
+	/**
+	 * @return the bullet
+	 */
+	public int getBullet() {
+		return bullet;
+	}
+
+	/**
+	 * @param bullet the bullet to set
+	 */
+	public void setBullet(int bullet) {
+		this.bullet = bullet;
+	}
+
+	/**
+	 * @return the attack
+	 */
+	public boolean isAttack() {
+		return attack;
+	}
+
+	/**
+	 * @param attack the attack to set
+	 */
+	public void setAttack(boolean attack) {
+		this.attack = attack;
+	}
+	
+	
+	
+	
 
 }

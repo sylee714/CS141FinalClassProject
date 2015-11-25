@@ -2,12 +2,12 @@
  * 
  */
 package edu.cpp.cs.cs141.prog_assgmnt_final;
-
+import java.io.Serializable;
 /**
  * @author Seungyun
  *
  */
-public class Gun {
+public class Gun implements Serializable {
 
 	/**
 	 * This field represents the number of bullet the player starts with.
@@ -44,5 +44,4 @@ public class Gun {
 	public void collision() {
 
 	}
-
 }

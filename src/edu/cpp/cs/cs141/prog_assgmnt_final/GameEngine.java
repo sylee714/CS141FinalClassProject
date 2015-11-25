@@ -3,6 +3,14 @@
  */
 package edu.cpp.cs.cs141.prog_assgmnt_final;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.Random;
+
 import edu.cpp.cs.cs141.prog_assgmnt_final.Map;
 
 import java.io.*;
@@ -13,6 +21,8 @@ import java.util.Random;
  *
  */
 public class GameEngine {
+
+	private static final Object GameDataSave = null;
 
 	private Map map = null;
 
@@ -138,6 +148,7 @@ public class GameEngine {
 
 	}
 
+<<<<<<< HEAD
 	public int getTurn() {
 		return turn;
 	}
@@ -154,6 +165,101 @@ public class GameEngine {
 		map.generatePlayer();
 	}
 
+=======
+	public void playerAttack(int direction) {
+
+		if (map.checkBullet()) {
+			switch (direction) {
+			// left
+			case 1:
+				map.playerAttackHorizontally(1);
+				map.useBullet();
+				break;
+			// right
+			case 2:
+				map.playerAttackHorizontally(2);
+				map.useBullet();
+				break;
+			// up
+			case 3:
+				map.playerAttackVertically(1);
+				map.useBullet();
+				break;
+			// down
+			case 4:
+				map.playerAttackVertically(2);
+				map.useBullet();
+				break;
+			}
+		}
+	}
+
+	public void powerUps() {
+
+		if (map.isBulletIndicator()) {
+			System.out.println("Found a bullet!");
+		} else if (map.isInvincibleIndicator()) {
+			System.out.println("You are invincible for 5 turns!");
+		} else if (map.isRadarIndicator()) {
+			System.out.println("Found the radar!");
+		}
+
+	}
+
+	/**
+	 * 
+	 * @param direction
+	 *            player has immediate visibility of each turn.
+	 */
+
+	public void visibilityOfEnemy() {
+		try {
+			map.visibilityOfEnemy(1);
+		} catch (ArrayIndexOutOfBoundsException e) {
+
+		}
+		try {
+			map.visibilityOfEnemy(2);
+		} catch (ArrayIndexOutOfBoundsException e) {
+
+		}
+		try {
+			map.visibilityOfEnemy(3);
+		} catch (ArrayIndexOutOfBoundsException e) {
+
+		}
+		try {
+			map.visibilityOfEnemy(4);
+		} catch (ArrayIndexOutOfBoundsException e) {
+
+		}
+	}
+
+	public void enemyTurn() {
+
+		visibilityOfEnemy();
+		map.enemyAttack(map.isFoundPlayer());
+		System.out.println("Foud Player: " + map.isFoundPlayer());
+		map.initialPoint();
+	}
+
+	public int getTurn() {
+		return turn;
+	}
+
+	public void moveEnemy() {
+		try {
+			map.moveEnemy();
+		} catch (ArrayIndexOutOfBoundsException e) {
+			// System.out.println("Enemies move out of bounds");
+		}
+	}
+
+	public void backToSpawnLocation() {
+		map.generatePlayer();
+	}
+
+>>>>>>> refs/remotes/origin/master
 	public boolean endGame() {
 		boolean won = false;
 		return won;
@@ -163,9 +269,23 @@ public class GameEngine {
 	public void playerDetect() {
 		map.playerDetect();
 	}
+<<<<<<< HEAD
 
 	public void setNotFlipped() {
 		map.setNotFlipped();
+=======
+
+	public void setNotFlipped() {
+		map.setNotFlipped();
+	}
+
+	public void Save() {
+
+	}
+
+	public void load() {
+	
+>>>>>>> refs/remotes/origin/master
 	}
 
 	/*
