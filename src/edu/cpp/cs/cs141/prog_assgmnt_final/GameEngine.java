@@ -3,6 +3,8 @@
  */
 package edu.cpp.cs.cs141.prog_assgmnt_final;
 
+import java.util.Random;
+
 import edu.cpp.cs.cs141.prog_assgmnt_final.Map;
 
 /**
@@ -11,18 +13,34 @@ import edu.cpp.cs.cs141.prog_assgmnt_final.Map;
  */
 public class GameEngine {
 
-
-	private Map map = new Map();
+	private Map map = null;
 
 	public GameEngine(Map map) {
 		this.map = map;
 	}
 
-	private int turn = 3;
+	private int turn = 0;
 
 	private boolean attacked = false;
 
 	private boolean endGame;
+
+	private boolean debug = false;
+
+	/**
+	 * @return the debug
+	 */
+	public boolean isDebug() {
+		return debug;
+	}
+
+	/**
+	 * @param debug
+	 *            the debug to set
+	 */
+	public void setDebug(boolean debug) {
+		this.debug = debug;
+	}
 
 	public void generateMap() {
 		map.generateEmptySpace();
@@ -32,6 +50,15 @@ public class GameEngine {
 		map.generatePowerUps();
 	}
 
+	public String printBoard() {
+		if (isDebug() == false) {
+			return map.toString();
+
+		} else {
+			return map.printDebug();
+		}
+	}
+
 	public String displayBoard() {
 		return map.toString();
 	}
@@ -39,82 +66,94 @@ public class GameEngine {
 	/**
 	 * 
 	 * @param direction
-	 *            player has immediate visibility of each turn.
+	 *            the player "looks".
 	 */
-
-
-
-	/**
-	 * @param direction
-	 *            the player can "Look".
-	 */
-
-	public void playerLook(int direction) {
-		
+	public void visibilityOfPlayer(int direction) {
 		switch (direction) {
-		// Left
 		case 1:
 			map.visibilityOfPlayer(1);
 			break;
-		// Right
+
 		case 2:
 			map.visibilityOfPlayer(2);
 			break;
-		// Up
+
 		case 3:
 			map.visibilityOfPlayer(3);
 			break;
-		// Down
+
 		case 4:
 			map.visibilityOfPlayer(4);
 			break;
 		}
-
 	}
 
-	public void playerMove(int direction) {
-		
+	/**
+	 * @param direction
+	 * @return
+	 */
+	public boolean playerMove(int direction) {
+		boolean temp = false;
 
 		switch (direction) {
 		// left
 		case 1:
-			map.movePlayer(1);
+			temp = map.movePlayer(4);
 			break;
 		// Right
 		case 2:
-			map.movePlayer(2);
+			temp = map.movePlayer(3);
 			break;
 		// Up
 		case 3:
-			map.movePlayer(3);
+			temp = map.movePlayer(1);
 			break;
 		// Down
 		case 4:
-			map.movePlayer(4);
+			temp = map.movePlayer(2);
 			break;
 		}
 
-	
+		temp = (temp == true) ? true : false;
+
+		return temp;
 	}
 
 	public String printDebug() {
 		return map.printDebug();
 	}
 
-
-	public void enemyMove() {
-		map.moveEnemy();
+	/**
+	 * Keeps track of how many turns the player makes.
+	 */
+	public void playerTurn() {
+		turn++;
 	}
 
+	/**
+	 * @return the turn
+	 */
+	public int getTurn() {
+		return turn;
+	}
 
-	public boolean gameWon() {
+	public void moveEnemy() {
+	
+		try {
+			map.moveEnemy();
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("Enemies move out of bounds");
+		}
+
+	}
+
+	public void backToSpawnLocation() {
+		map.generatePlayer();
+	}
+
+	public boolean endGame() {
 		boolean won = false;
 		return won;
-
-	}
-
-	public void backToInitialSpawnLocation() {
-		map.initialPoint();
 
 	}
 
@@ -129,5 +168,13 @@ public class GameEngine {
 	public void useRadar() {
 		map.useRadar();
 	}
-
+	
+	/*
+	public boolean enemyAttack() {
+		map.visibilityOfEnemy();
+		map.enemyAttack(foundPlayer);
+		
+		return foundPlayer;
+	}
+	*/
 }

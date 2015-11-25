@@ -37,7 +37,125 @@ public class Map {
 	private GameEntity[] holdEnemy = { enemy1, enemy2, enemy3, enemy4, enemy5, enemy6 };
 	
 	private GameEntity[] holdPowerUps = { radar, bullet, invincible}; 
+	
+	private boolean bulletIndicator = false;
+	
+	private boolean radarIndicator = false;
+	
+	private boolean invincibleIndicator = false;
+	
+	private boolean briefCaseIndicator = false;
+	
+	/**
+	 * @return the powerUpIndicator
+	 */
+	public boolean isPowerUpIndicator() {
+		return powerUpIndicator;
+	}
 
+
+	/**
+	 * @param powerUpIndicator the powerUpIndicator to set
+	 */
+	public void setPowerUpIndicator(boolean powerUpIndicator) {
+		this.powerUpIndicator = powerUpIndicator;
+	}
+
+
+	/**
+	 * @return the bulletIndicator
+	 */
+	public boolean isBulletIndicator() {
+		return bulletIndicator;
+	}
+
+
+	/**
+	 * @param bulletIndicator the bulletIndicator to set
+	 */
+	public void setBulletIndicator(boolean bulletIndicator) {
+		this.bulletIndicator = bulletIndicator;
+	}
+
+
+	/**
+	 * @return the radarIndicator
+	 */
+	public boolean isRadarIndicator() {
+		return radarIndicator;
+	}
+
+
+	/**
+	 * @param radarIndicator the radarIndicator to set
+	 */
+	public void setRadarIndicator(boolean radarIndicator) {
+		this.radarIndicator = radarIndicator;
+	}
+
+
+	/**
+	 * @return the invincibleIndicator
+	 */
+	public boolean isInvincibleIndicator() {
+		return invincibleIndicator;
+	}
+
+
+	/**
+	 * @param invincibleIndicator the invincibleIndicator to set
+	 */
+	public void setInvincibleIndicator(boolean invincibleIndicator) {
+		this.invincibleIndicator = invincibleIndicator;
+	}
+	
+	public boolean detectBriefCase(int row, int column) {
+		
+		if (map[row][column].getFront().equals("B")) {
+			
+			briefCaseIndicator = true;
+			
+		}
+		
+		return briefCaseIndicator;
+	}
+	
+	public boolean detectRoom(int row, int column) {
+		
+		if (map[row][column].getBack().equals("R")) {
+			
+			roomIndicator = true;
+			
+		}
+		
+		return roomIndicator;
+		
+	}
+
+
+	public boolean detectPowerUps(int row, int column) {
+		
+		if (map[row][column].getFront().equals("+")) {
+			
+			radarIndicator = true;
+			powerUpIndicator = radarIndicator;
+			
+		} else if (map[row][column].getFront().equals("A")) {
+			
+			bulletIndicator = true;
+			powerUpIndicator = bulletIndicator;
+			
+		} else if (map[row][column].getFront().equals("I")) {
+			
+			invincibleIndicator = true;
+			powerUpIndicator = invincibleIndicator;
+			
+		}
+			
+		return powerUpIndicator;
+	}
+	
+	
 	/**
 	 * This method fills the map with empty spaces to initialize the map.
 	 */
@@ -299,24 +417,91 @@ public class Map {
 			}
 		}
 	}
+	
+	public void playerDetect1() {
+		if (player.isDangerAhead() == true) {
+			System.out.println("Danger Ahead!\n");
+			player.setDangerAhead(false);
+		} else
+			System.out.println("Clear!\n");
+	}
+	
+	public boolean movePlayer(int movement) {
+		// if(map[player.getRow()][player.getColumn() -
+		// i].getFront().equals("R") || map[player.getRow()][player.getColumn()
+		// - i].getFront().equals("R"))
 
-	public void movePlayer1(int movement) {
 		int tempRow = player.getRow();
 		int tempColumn = player.getColumn();
-
-		player.move(movement);
+		int tempRowFalse = player.getRow();
+		int tempColumnFalse = player.getColumn();
 
 		GameEntity tempSpace = map[player.getRow()][player.getColumn()];
+		
+		try {
+			player.move(movement);
+			//System.out.println("0");
+			player.setRow(player.getRow());
+			//System.out.println("1");
+			player.setColumn(player.getColumn());
+			//System.out.println("2");
 
-		player.setRow(player.getRow());
-		player.setColumn(player.getColumn());
+			map[tempRow][tempColumn] = new EmptySpace();
+			//System.out.println("3");
 
-		map[tempRow][tempColumn] = tempSpace;
-		map[player.getRow()][player.getColumn()] = player;
+			if (map[player.getRow()][player.getColumn()] != map[5][0]
+					&& map[player.getRow()][player.getColumn()] != map[5][1]
+					&& map[player.getRow()][player.getColumn()] != map[5][2]
+					&& map[player.getRow()][player.getColumn()] != map[5][3]
+					&& map[player.getRow()][player.getColumn()] != map[6][0]
+					&& map[player.getRow()][player.getColumn()] != map[6][1]
+					&& map[player.getRow()][player.getColumn()] != map[6][2]
+					&& map[player.getRow()][player.getColumn()] != map[6][3]
+					&& map[player.getRow()][player.getColumn()] != map[7][0]
+					&& map[player.getRow()][player.getColumn()] != map[7][2]
+					&& map[player.getRow()][player.getColumn()] != map[7][3]
+					&& map[player.getRow()][player.getColumn()] != map[8][1]
+					&& map[player.getRow()][player.getColumn()] != map[8][2]
+					&& map[player.getRow()][player.getColumn()] != map[8][3]) {
 
+				player.setRow(tempRowFalse);
+				player.setColumn(tempColumnFalse);
+				map[tempRowFalse][tempColumnFalse] = player;
+				return false;
+
+			} else if (tempSpace.getFront().equals("+") || tempSpace.getFront().equals("A")
+					|| tempSpace.getFront().equals("I")) {
+
+				powerUpIndicator = true;
+				// validInput = true;
+
+				player.setRow(player.getRow());
+				player.setColumn(player.getColumn());
+
+				map[tempRow][tempColumn] = new EmptySpace();
+				map[player.getRow()][player.getColumn()] = player;
+				System.out.println(powerUpIndicator);
+				return true;
+			
+			} else {
+				map[player.getRow()][player.getColumn()] = player;
+				//System.out.println("4");
+				
+				return true;
+			}
+
+		} catch (ArrayIndexOutOfBoundsException e) {
+			//System.out.println(tempRowFalse + " " + tempColumnFalse);
+			player.setRow(tempRowFalse);
+			player.setColumn(tempColumnFalse);
+			map[tempRowFalse][tempColumnFalse] = player;
+			return false;
+		}
+		
+		
 	}
 
-	public void movePlayer(int movement) {
+	public void movePlayer1(int movement) {
 
 		int tempRow = player.getRow();
 
@@ -378,7 +563,7 @@ public class Map {
 
 				Random r = new Random();
 				
-				int movement = 0;
+				int movement;
 				
 				movement = r.nextInt(3) + 1;
 
@@ -400,213 +585,8 @@ public class Map {
 		}
 	}
 
-	public void enemy1Move() {
-
-		try {
-			int tempRow = enemy1.getRow();
-			int tempColumn = enemy1.getColumn();
-			Random randomNum = new Random();
-			int movement = 0;
-			movement = randomNum.nextInt(3) + 1;
-
-			enemy1.move(movement);
-
-			GameEntity tempSpace = map[enemy1.getRow()][enemy1.getColumn()];
-
-			enemy1.setRow(enemy1.getRow());
-			enemy1.setColumn(enemy1.getColumn());
-
-			map[tempRow][tempColumn] = tempSpace;
-			map[enemy1.getRow()][enemy1.getColumn()] = enemy1;
-		} catch (ArrayIndexOutOfBoundsException e) {
-
-		}
-
-	}
-
-	public void enemy2Move() {
-
-		try {
-			int tempRow = enemy2.getRow();
-			int tempColumn = enemy2.getColumn();
-			Random randomNum = new Random();
-			int movement = 0;
-			movement = randomNum.nextInt(3) + 1;
-
-			enemy2.move(movement);
-
-			GameEntity tempSpace = map[enemy2.getRow()][enemy2.getColumn()];
-
-			enemy2.setRow(enemy2.getRow());
-			enemy2.setColumn(enemy2.getColumn());
-
-			map[tempRow][tempColumn] = tempSpace;
-			map[enemy2.getRow()][enemy2.getColumn()] = enemy2;
-		} catch (ArrayIndexOutOfBoundsException e) {
-
-		}
-
-	}
-
-	public void enemy3Move() {
-
-		try {
-			int tempRow = enemy3.getRow();
-			int tempColumn = enemy3.getColumn();
-			Random randomNum = new Random();
-			int movement = 0;
-			movement = randomNum.nextInt(3) + 1;
-
-			enemy3.move(movement);
-
-			GameEntity tempSpace = map[enemy3.getRow()][enemy3.getColumn()];
-
-			enemy3.setRow(enemy3.getRow());
-			enemy3.setColumn(enemy3.getColumn());
-
-			map[tempRow][tempColumn] = tempSpace;
-			map[enemy3.getRow()][enemy3.getColumn()] = enemy3;
-		} catch (ArrayIndexOutOfBoundsException e) {
-
-		}
-
-	}
-
-	public void enemy4Move() {
-
-		try {
-			int tempRow = enemy4.getRow();
-			int tempColumn = enemy4.getColumn();
-			Random randomNum = new Random();
-			int movement = 0;
-			movement = randomNum.nextInt(3) + 1;
-
-			enemy4.move(movement);
-
-			GameEntity tempSpace = map[enemy4.getRow()][enemy4.getColumn()];
-
-			enemy4.setRow(enemy4.getRow());
-			enemy4.setColumn(enemy4.getColumn());
-
-			map[tempRow][tempColumn] = tempSpace;
-			map[enemy4.getRow()][enemy4.getColumn()] = enemy4;
-		} catch (ArrayIndexOutOfBoundsException e) {
-
-		}
-
-	}
-
-	public void enemy5Move() {
-
-		try {
-			int tempRow = enemy5.getRow();
-			int tempColumn = enemy5.getColumn();
-			Random randomNum = new Random();
-			int movement = 0;
-			movement = randomNum.nextInt(3) + 1;
-
-			enemy5.move(movement);
-
-			GameEntity tempSpace = map[enemy5.getRow()][enemy5.getColumn()];
-
-			enemy5.setRow(enemy5.getRow());
-			enemy5.setColumn(enemy5.getColumn());
-
-			map[tempRow][tempColumn] = tempSpace;
-			map[enemy5.getRow()][enemy5.getColumn()] = enemy5;
-		} catch (ArrayIndexOutOfBoundsException e) {
-
-		}
-
-	}
-
-	public void enemy6Move() {
-
-		try {
-			int tempRow = enemy6.getRow();
-			int tempColumn = enemy6.getColumn();
-			Random randomNum = new Random();
-			int movement = 0;
-			movement = randomNum.nextInt(3) + 1;
-
-			enemy6.move(movement);
-
-			GameEntity tempSpace = map[enemy6.getRow()][enemy6.getColumn()];
-
-			enemy6.setRow(enemy6.getRow());
-			enemy6.setColumn(enemy6.getColumn());
-
-			map[tempRow][tempColumn] = tempSpace;
-			map[enemy6.getRow()][enemy6.getColumn()] = enemy6;
-		} catch (ArrayIndexOutOfBoundsException e) {
-
-		}
-
-	}
-
-	public void enemyMove() {
-		for (int i = 0; i < map.length; ++i) {
-			for (int j = 0; j < map[i].length; ++j) {
-				if (map[i][j].getFront().equals("E")) {
-					GameEntity temp;
-					Random r = new Random();
-					int movement;
-					movement = r.nextInt(4) + 1;
-
-					try {
-						switch (movement) {
-						// Left
-
-						case 1:
-							try {
-								temp = map[i][j - 1];
-								map[i][j - 1] = map[i][j];
-								map[i][j] = temp;
-							} catch (ArrayIndexOutOfBoundsException e) {
-								System.out.println("Left");
-							}
-							break;
-						// Right
-						case 2:
-							try {
-								temp = map[i][j + 1];
-								map[i][j + 1] = map[i][j];
-								map[i][j] = temp;
-							} catch (ArrayIndexOutOfBoundsException e) {
-								System.out.println("Right");
-							}
-
-							break;
-						// Up
-						case 3:
-							try {
-								temp = map[i - 1][j];
-								map[i - 1][j] = map[i][j];
-								map[i][j] = temp;
-							} catch (ArrayIndexOutOfBoundsException e) {
-								System.out.println("Up");
-							}
-							break;
-						// Down
-						case 4:
-							try {
-								temp = map[i + 1][j];
-								map[i + 1][j] = map[i][j];
-								map[i][j] = temp;
-							} catch (ArrayIndexOutOfBoundsException e) {
-								System.out.println("down");
-							}
-
-							break;
-						}
-					} catch (ArrayIndexOutOfBoundsException e) {
-						System.out.println("You dork");
-
-					}
-				}
-			}
-		}
-	}
+	
+	
 
 	public void playerAttack(int direction) {
 
