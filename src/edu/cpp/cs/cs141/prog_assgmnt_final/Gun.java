@@ -41,11 +41,7 @@ public class Gun implements Serializable {
 		}
 	}
 
-	/**
-	 * Can only kill one enemy at a time. Can not go through rooms.
-	 */
 	public void collision() {
 
 	}
-
 }

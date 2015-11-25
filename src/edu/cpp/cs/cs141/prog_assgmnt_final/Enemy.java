@@ -9,13 +9,11 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
  */
 public class Enemy extends GameEntity {
 	
-	public Enemy(String front) {
-		
-		super( front, "*",0 , 0);
+
+	public Enemy() {
+		super("E", "*", 0, 0);
 	}
 
-	private Player player = new Player();
-	
 	/**
 	 * Life point of an enemy.
 	 */
@@ -35,7 +33,22 @@ public class Enemy extends GameEntity {
 	 * 
 	 */
 	private boolean attack = false;
-	
+
+	/**
+	 * @return the attack
+	 */
+	public boolean isAttack() {
+		return attack;
+	}
+
+	/**
+	 * @param attack
+	 *            the attack to set
+	 */
+	public void setAttack(boolean attack) {
+		this.attack = attack;
+	}
+
 	/**
 	 * Initial spawn point of an enemy.
 	 */
@@ -57,7 +70,7 @@ public class Enemy extends GameEntity {
 	 * This method attacks player if the player is located an adjacent tile.
 	 */
 	public void attack() {
-		
+
 	}
 
 	/**
@@ -74,6 +87,5 @@ public class Enemy extends GameEntity {
 	public void detectPlayer() {
 
 	}
-
 
 }

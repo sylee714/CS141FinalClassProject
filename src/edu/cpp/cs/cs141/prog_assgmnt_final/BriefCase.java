@@ -35,5 +35,4 @@ public class BriefCase extends GameEntity {
 	public void setRetrieved(boolean retrieved) {
 		this.retrieved = retrieved;
 	}
-	
 }

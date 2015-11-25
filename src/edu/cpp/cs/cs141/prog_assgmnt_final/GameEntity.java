@@ -15,7 +15,6 @@ public abstract class GameEntity implements Serializable {
 	private int column = 0;
 	private boolean isFlipped = false;
 	private boolean attack = false;
-	
 
 	public GameEntity(String front, String back, int row, int column) {
 		this.front = front;
@@ -23,21 +22,15 @@ public abstract class GameEntity implements Serializable {
 		this.row = row;
 		this.column = column;
 	}
-	
+
 	public void attack(boolean attack) {
-		
+
 	}
 
-	/**
-	 * @param attack the attack to set
-	 */
 	public void setAttack(boolean attack) {
 		this.attack = attack;
 	}
 
-	/**
-	 * @return the attack
-	 */
 	public boolean isAttack() {
 		return attack;
 	}
@@ -57,8 +50,6 @@ public abstract class GameEntity implements Serializable {
 	public String getBack() {
 		return back;
 	}
-	
-	
 
 	/**
 	 * @return the row
@@ -68,7 +59,8 @@ public abstract class GameEntity implements Serializable {
 	}
 
 	/**
-	 * @param row the row to set
+	 * @param row
+	 *            the row to set
 	 */
 	public void setRow(int row) {
 		this.row = row;
@@ -82,7 +74,8 @@ public abstract class GameEntity implements Serializable {
 	}
 
 	/**
-	 * @param column the column to set
+	 * @param column
+	 *            the column to set
 	 */
 	public void setColumn(int column) {
 		this.column = column;
@@ -97,26 +90,24 @@ public abstract class GameEntity implements Serializable {
 	public void move(int movement) {
 
 		switch (movement) {
-		// left
-		case 1:
-			column = column - 1;
-			break;
-		// right
-		case 2:
-			column = column + 1;
-			break;
 		// up
-		case 3:
+		case 1:
 			row = row - 1;
 			break;
 		// down
-		case 4:
-
+		case 2:
 			row = row + 1;
+			break;
+		// right
+		case 3:
+			column = column + 1;
+			break;
+		// left
+		case 4:
+			column = column - 1;
 			break;
 
 		}
 
 	}
-
 }

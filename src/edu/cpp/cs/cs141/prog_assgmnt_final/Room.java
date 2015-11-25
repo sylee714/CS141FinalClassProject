@@ -8,7 +8,6 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
  *
  */
 public class Room extends GameEntity {
-	
 	public Room() {
 		super("R", "R", 0, 0);
 	}
@@ -40,5 +39,6 @@ public class Room extends GameEntity {
 	public boolean spaceForBriefCase() {
 		return occupied = true;
 	}
+
 
 }

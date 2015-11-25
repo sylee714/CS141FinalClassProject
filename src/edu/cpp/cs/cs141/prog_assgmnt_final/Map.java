@@ -2,12 +2,12 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
 
 import java.util.Random;
 import java.io.Serializable;
+
 /**
  * @author Seungyun
  *
  */
-public class Map implements Serializable{
-
+public class Map implements Serializable {
 	/**
 	 * The size of the map.
 	 */
@@ -23,29 +23,42 @@ public class Map implements Serializable{
 
 	private BriefCase briefCase = new BriefCase();
 
-	private Enemy enemy1 = new Enemy("1");
-	private Enemy enemy2 = new Enemy("2");
-	private Enemy enemy3 = new Enemy("3");
-	private Enemy enemy4 = new Enemy("4");
-	private Enemy enemy5 = new Enemy("5");
-	private Enemy enemy6 = new Enemy("6");
+	private Enemy enemy1 = new Enemy();
+	private Enemy enemy2 = new Enemy();
+	private Enemy enemy3 = new Enemy();
+	private Enemy enemy4 = new Enemy();
+	private Enemy enemy5 = new Enemy();
+	private Enemy enemy6 = new Enemy();
 
 	private boolean roomIndicator = false;
 
 	private boolean powerUpIndicator = false;
 
 	private GameEntity[] holdEnemy = { enemy1, enemy2, enemy3, enemy4, enemy5, enemy6 };
-	
-	private GameEntity[] holdPowerUps = { radar, bullet, invincible}; 
-	
+
+	private GameEntity[] holdPowerUps = { radar, bullet, invincible };
+
 	private boolean bulletIndicator = false;
-	
+
 	private boolean radarIndicator = false;
-	
+
 	private boolean invincibleIndicator = false;
-	
+
 	private boolean briefCaseIndicator = false;
-	
+
+	private boolean enemyAttack = true;
+
+	private boolean foundPlayer = false;
+
+	private boolean playerAttack = false;
+
+	/**
+	 * @return the foundPlayer
+	 */
+	public boolean isFoundPlayer() {
+		return foundPlayer;
+	}
+
 	/**
 	 * @return the powerUpIndicator
 	 */
@@ -53,14 +66,13 @@ public class Map implements Serializable{
 		return powerUpIndicator;
 	}
 
-
 	/**
-	 * @param powerUpIndicator the powerUpIndicator to set
+	 * @param powerUpIndicator
+	 *            the powerUpIndicator to set
 	 */
 	public void setPowerUpIndicator(boolean powerUpIndicator) {
 		this.powerUpIndicator = powerUpIndicator;
 	}
-
 
 	/**
 	 * @return the bulletIndicator
@@ -69,14 +81,13 @@ public class Map implements Serializable{
 		return bulletIndicator;
 	}
 
-
 	/**
-	 * @param bulletIndicator the bulletIndicator to set
+	 * @param bulletIndicator
+	 *            the bulletIndicator to set
 	 */
 	public void setBulletIndicator(boolean bulletIndicator) {
 		this.bulletIndicator = bulletIndicator;
 	}
-
 
 	/**
 	 * @return the radarIndicator
@@ -85,14 +96,13 @@ public class Map implements Serializable{
 		return radarIndicator;
 	}
 
-
 	/**
-	 * @param radarIndicator the radarIndicator to set
+	 * @param radarIndicator
+	 *            the radarIndicator to set
 	 */
 	public void setRadarIndicator(boolean radarIndicator) {
 		this.radarIndicator = radarIndicator;
 	}
-
 
 	/**
 	 * @return the invincibleIndicator
@@ -101,61 +111,120 @@ public class Map implements Serializable{
 		return invincibleIndicator;
 	}
 
-
 	/**
-	 * @param invincibleIndicator the invincibleIndicator to set
+	 * @param invincibleIndicator
+	 *            the invincibleIndicator to set
 	 */
 	public void setInvincibleIndicator(boolean invincibleIndicator) {
 		this.invincibleIndicator = invincibleIndicator;
 	}
-	
+
+	/**
+	 * @return the playerAttack
+	 */
+	public boolean isPlayerAttack() {
+		return playerAttack;
+	}
+
+	/**
+	 * @param playerAttack
+	 *            the playerAttack to set
+	 */
+	public void setPlayerAttack(boolean playerAttack) {
+		this.playerAttack = playerAttack;
+	}
+
 	public boolean detectBriefCase(int row, int column) {
-		
+
 		if (map[row][column].getFront().equals("B")) {
-			
+
 			briefCaseIndicator = true;
-			
+
 		}
-		
+
 		return briefCaseIndicator;
 	}
-	
-	public boolean detectRoom(int row, int column) {
-		
-		if (map[row][column].getBack().equals("R")) {
-			
-			roomIndicator = true;
-			
-		}
-		
-		return roomIndicator;
-		
-	}
 
+	public boolean detectRoom(int row, int column) {
+
+		if (map[row][column].getBack().equals("R")) {
+
+			roomIndicator = true;
+
+		}
+
+		return roomIndicator;
+
+	}
 
 	public boolean detectPowerUps(int row, int column) {
-		
+
 		if (map[row][column].getFront().equals("+")) {
-			
+
 			radarIndicator = true;
 			powerUpIndicator = radarIndicator;
-			
+
 		} else if (map[row][column].getFront().equals("A")) {
-			
+
 			bulletIndicator = true;
 			powerUpIndicator = bulletIndicator;
-			
+
+			player.attack(true);
+
 		} else if (map[row][column].getFront().equals("I")) {
-			
+
 			invincibleIndicator = true;
 			powerUpIndicator = invincibleIndicator;
-			
+
 		}
-			
+
 		return powerUpIndicator;
 	}
-	
-	
+
+	public void pickUpInvincible(boolean invincibleIndicator) {
+
+		enemyAttack = false;
+
+	}
+
+	public void pickUpBullet(boolean bulletIndicator) {
+
+		if (player.getBullet() == 0) {
+			player.setBullet(1);
+		}
+	}
+
+	public boolean checkBullet() {
+
+		if (player.getBullet() == 1) {
+
+			playerAttack = true;
+		} else if (player.getBullet() == 0) {
+			playerAttack = false;
+		}
+
+		return playerAttack;
+	}
+
+	public void useBullet() {
+
+		player.setBullet(0);
+
+	}
+
+	public void pickUpRadar(boolean radarIndicator) {
+
+		if (radarIndicator) {
+			for (int i = 0; i < map.length; ++i) {
+				for (int j = 0; j < map[i].length; ++j) {
+					if (map[i][j].getFront().equals("B")) {
+						map[i][j].setFlipped(true);
+					}
+				}
+			}
+		}
+	}
+
 	/**
 	 * This method fills the map with empty spaces to initialize the map.
 	 */
@@ -253,8 +322,9 @@ public class Map implements Serializable{
 	/**
 	 * This method generates 6 enemies. Each enemy's position is generated
 	 * randomly and the 'if statement' filters positions where enemies cannot be
-	 * located. When invalid position is generated and skips an element in the holdEnemy array,
-	 * --i in 'else' will make the value of i back to its previous value.
+	 * located. When invalid position is generated and skips an element in the
+	 * holdEnemy array, --i in 'else' will make the value of i back to its
+	 * previous value.
 	 */
 	public void generateEnemy() {
 
@@ -271,7 +341,6 @@ public class Map implements Serializable{
 					&& map[row][column] != map[7][3] && map[row][column] != map[8][1] && map[row][column] != map[8][2]
 					&& map[row][column] != map[8][3]) {
 
-				
 				map[row][column] = holdEnemy[i];
 				holdEnemy[i].setRow(row);
 				holdEnemy[i].setColumn(column);
@@ -283,32 +352,32 @@ public class Map implements Serializable{
 		}
 
 	}
-	
+
 	/**
 	 * This method generates 3 enemies. Each power-up's position is generated
-	 * randomly and the 'if statement' filters positions where power-ups cannot be
-	 * located. When invalid position is generated and skips an element in the holdEnemy array,
-	 * --i in 'else' will make the value of i back to its previous value.
+	 * randomly and the 'if statement' filters positions where power-ups cannot
+	 * be located. When invalid position is generated and skips an element in
+	 * the holdEnemy array, --i in 'else' will make the value of i back to its
+	 * previous value.
 	 */
 	public void generatePowerUps() {
-		
+
 		Random r = new Random();
-		
+
 		for (int i = 0; i < holdPowerUps.length; ++i) {
 			int row = r.nextInt(9);
 			int column = r.nextInt(9);
 			if (map[row][column].getFront().equals(" ")) {
-				
+
 				map[row][column] = holdPowerUps[i];
 				holdPowerUps[i].setRow(row);
 				holdPowerUps[i].setColumn(column);
-				
+
 			} else {
 				--i;
 			}
-		} 
-		
-		
+		}
+
 	}
 
 	/**
@@ -356,28 +425,62 @@ public class Map implements Serializable{
 
 	}
 
-	public boolean visibilityOfEnemy() {
+	/**
+	 * @param direction
+	 *            immediate area next to player in which they can see without
+	 *            needing to "Look".
+	 */
+	public boolean visibilityOfEnemy(int direction) {
 
-		boolean foundPlayer = false;
+		for (int j = 0; j < holdEnemy.length; ++j) {
 
-		
+			switch (direction) {
 
-		for (int i = 0; i < 6; ++i) {
+			// left
+			case 1:
 
-			if (map[holdEnemy[i].getRow()][holdEnemy[i].getColumn() - 1].getFront().equals("P")
-					|| map[holdEnemy[i].getRow()][holdEnemy[i].getColumn() + 1].getFront().equals("P")
-					|| map[holdEnemy[i].getRow() - 1][holdEnemy[i].getColumn()].getFront().equals("P")
-					|| map[holdEnemy[i].getRow() + 1][holdEnemy[i].getColumn()].getFront().equals("P"))
-				holdEnemy[i].setAttack(true);
-			foundPlayer = holdEnemy[i].isAttack();
+				if (map[holdEnemy[j].getRow()][holdEnemy[j].getColumn() - 1].getFront().equals("P")) {
+					foundPlayer = true;
+				}
+
+				break;
+
+			// right
+			case 2:
+
+				if (map[holdEnemy[j].getRow()][holdEnemy[j].getColumn() + 1].getFront().equals("P")) {
+					foundPlayer = true;
+				}
+				break;
+
+			// up
+			case 3:
+
+				if (map[holdEnemy[j].getRow() - 1][holdEnemy[j].getColumn()].getFront().equals("P")) {
+					foundPlayer = true;
+				}
+				break;
+
+			// down
+			case 4:
+
+				if (map[holdEnemy[j].getRow() + 1][holdEnemy[j].getColumn()].getFront().equals("P")) {
+					foundPlayer = true;
+				}
+				break;
+
+			}
+
 		}
-
 		return foundPlayer;
+
 	}
 
 	public void enemyAttack(boolean foundPlayer) {
 
-		map[player.getRow()][player.getColumn()] = new EmptySpace();
+		if (foundPlayer) {
+			map[player.getRow()][player.getColumn()] = new EmptySpace();
+		}
 
 	}
 
@@ -386,126 +489,154 @@ public class Map implements Serializable{
 	 *            immediate area next to player in which they can see without
 	 *            needing to "Look".
 	 */
-
 	public void visibilityOfPlayer(int direction) {
 		for (int i = 1; i < 3; ++i) {
 			switch (direction) {
 			// left
 			case 1:
-
 				map[player.getRow()][player.getColumn() - i].setFlipped(true);
-				break;
+				if (map[player.getRow()][player.getColumn() - i].getFront().equals("E"))
+					player.setDangerAhead(true);
 
+				break;
 			// right
 			case 2:
-
 				map[player.getRow()][player.getColumn() + i].setFlipped(true);
+				if (map[player.getRow()][player.getColumn() + i].getFront().equals("E"))
+					player.setDangerAhead(true);
 				break;
 			// up
-
 			case 3:
-
 				map[player.getRow() - i][player.getColumn()].setFlipped(true);
+				if (map[player.getRow() - i][player.getColumn()].getFront().equals("E"))
+					player.setDangerAhead(true);
 				break;
-
 			// down
 			case 4:
-
 				map[player.getRow() + i][player.getColumn()].setFlipped(true);
+				if (map[player.getRow() + i][player.getColumn()].getFront().equals("E"))
+					player.setDangerAhead(true);
+
 				break;
 
 			}
 		}
 	}
 
-	public void movePlayer(int movement) {
+	public boolean movePlayer(int movement) {
 
 		int tempRow = player.getRow();
-
 		int tempColumn = player.getColumn();
+		int tempRowFalse = player.getRow();
+		int tempColumnFalse = player.getColumn();
 
-		player.move(movement);
-
-		GameEntity tempSpace = map[player.getRow()][player.getColumn()];
-
-		if (tempSpace.getFront().equals("R")) {
-
-			roomIndicator = true;
-
-			// validInput = true;
+		try {
+			player.move(movement);
 
 			player.setRow(player.getRow());
-			player.setColumn(player.getColumn());
 
-			map[tempRow][tempColumn] = player;
-			map[player.getRow()][player.getColumn()] = tempSpace;
-
-		} else if (tempSpace.getFront().equals("+") || tempSpace.getFront().equals("A")
-				|| tempSpace.getFront().equals("I")) {
-
-			powerUpIndicator = true;
-			// validInput = true;
-
-			player.setRow(player.getRow());
 			player.setColumn(player.getColumn());
 
 			map[tempRow][tempColumn] = new EmptySpace();
-			map[player.getRow()][player.getColumn()] = player;
 
-		} else {
+			if (map[player.getRow()][player.getColumn()] != map[1][1]
+					&& map[player.getRow()][player.getColumn()] != map[1][4]
+					&& map[player.getRow()][player.getColumn()] != map[1][7]
+					&& map[player.getRow()][player.getColumn()] != map[4][1]
+					&& map[player.getRow()][player.getColumn()] != map[4][4]
+					&& map[player.getRow()][player.getColumn()] != map[4][7]
+					&& map[player.getRow()][player.getColumn()] != map[7][1]
+					&& map[player.getRow()][player.getColumn()] != map[7][4]
+					&& map[player.getRow()][player.getColumn()] != map[7][7]) {
 
-			roomIndicator = false;
-			powerUpIndicator = false;
-			// validInput = true;
+				detectPowerUps(player.getRow(), player.getColumn());
 
-			player.setRow(player.getRow());
-			player.setColumn(player.getColumn());
+				pickUpBullet(bulletIndicator);
+				pickUpInvincible(invincibleIndicator);
+				//pickUpRadar(radarIndicator);
 
-			map[tempRow][tempColumn] = tempSpace;
-			map[player.getRow()][player.getColumn()] = player;
+				if (bulletIndicator) {
+					System.out.println("Found a bullet!");
+				} else if (invincibleIndicator) {
+					System.out.println("You are invincible for 5 turns!");
+				} else if (radarIndicator) {
+					for (int i = 0; i < map.length; ++i) {
+						for (int j = 0; j < map[i].length; ++j) {
+							if (map[i][j].getFront().equals("B")) {
+								map[i][j].setFlipped(true);
+								System.out.println(map[i][j].isFlipped());
+							}
+						}
+					}
+					System.out.println("Found the radar!");
+				}
+
+				map[player.getRow()][player.getColumn()] = player;
+				return true;
+
+			} else {
+				player.setRow(tempRowFalse);
+				player.setColumn(tempColumnFalse);
+				map[tempRowFalse][tempColumnFalse] = player;
+				return false;
+			}
+
+		} catch (ArrayIndexOutOfBoundsException e) {
+
+			player.setRow(tempRowFalse);
+			player.setColumn(tempColumnFalse);
+			map[tempRowFalse][tempColumnFalse] = player;
+			return false;
 		}
 
 	}
 
 	public void moveEnemy() {
+		boolean good = true;
+		int tempRow = 0;
+		int tempColumn = 0;
+		int tempRowFalse = 0;
+		int tempColumnFalse = 0;
 
-		//GameEntity[] enemyHold = { enemy1, enemy2, enemy3, enemy4, enemy5, enemy6 };
+		for (int i = 0; i < 6; ++i) {
+			try {
 
-		try {
-			for (int i = 0; i < 6; ++i) {
-
-				int tempRow = holdEnemy[i].getRow();
-				
-				int tempColumn = holdEnemy[i].getColumn();
+				tempRow = holdEnemy[i].getRow();
+				tempColumn = holdEnemy[i].getColumn();
+				tempRowFalse = holdEnemy[i].getRow();
+				tempColumnFalse = holdEnemy[i].getColumn();
 
 				Random r = new Random();
-				
-				int movement;
-				
-				movement = r.nextInt(3) + 1;
+
+				int movement = r.nextInt(4) + 1;
 
 				holdEnemy[i].move(movement);
-
-				GameEntity tempSpace = map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()];
 
 				holdEnemy[i].setRow(holdEnemy[i].getRow());
 				holdEnemy[i].setColumn(holdEnemy[i].getColumn());
 
-				map[tempRow][tempColumn] = tempSpace;
-				map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] = holdEnemy[i];
+				map[tempRow][tempColumn] = new EmptySpace();
 
-			} 
+				if (map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()].getFront().equals(" ")) {
 
-		} catch (ArrayIndexOutOfBoundsException e) {
-		
+					map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] = holdEnemy[i];
+					good = true;
 
+				} else {
+					holdEnemy[i].setRow(tempRowFalse);
+					holdEnemy[i].setColumn(tempColumnFalse);
+					map[tempRowFalse][tempColumnFalse] = holdEnemy[i];
+				}
+
+			} catch (ArrayIndexOutOfBoundsException e) {
+				map[tempRowFalse][tempColumnFalse] = holdEnemy[i];
+			}
 		}
 	}
 
-	
 	public void playerAttack(int direction) {
 
-		for (int i = 0; i < map.length; ++i) {
+		for (int i = player.getRow(); i < map.length; ++i) {
 
 			switch (direction) {
 
@@ -543,6 +674,58 @@ public class Map implements Serializable{
 		}
 	}
 
+	public void playerAttackHorizontally(int direction) {
+
+		for (int i = player.getColumn(); i < map.length; ++i) {
+
+			switch (direction) {
+
+			// left
+			case 1:
+
+				if (map[player.getRow()][player.getColumn() - i].getFront().equals("E"))
+					map[player.getRow()][player.getColumn() - i] = new EmptySpace();
+
+				break;
+			// right
+			case 2:
+
+				if (map[player.getRow()][player.getColumn() + i].getFront().equals("E"))
+					map[player.getRow()][player.getColumn() + i] = new EmptySpace();
+
+				break;
+			}
+		}
+
+	}
+
+	public void playerAttackVertically(int direction) {
+
+		for (int i = player.getRow(); i < map.length; ++i) {
+
+			switch (direction) {
+
+			// up
+			case 1:
+
+				if (map[player.getRow() - i][player.getColumn()].getFront().equals("E"))
+					map[player.getRow() - i][player.getColumn()] = new EmptySpace();
+
+				break;
+			// down
+			case 2:
+
+				if (map[player.getRow() + i][player.getColumn()].getFront().equals("E"))
+					map[player.getRow() + i][player.getColumn()] = new EmptySpace();
+
+				break;
+
+			}
+
+		}
+
+	}
+
 	public void playerDetect() {
 		if (player.isDangerAhead() == true) {
 			System.out.println("Danger Ahead!\n");
@@ -575,54 +758,14 @@ public class Map implements Serializable{
 	}
 
 	public void initialPoint() {
-
-		GameEntity tempSpace = map[8][0];
-		map[player.getRow()][player.getColumn()] = tempSpace;
-		map[8][0] = player;
-		player.setRow(8);
-		player.setColumn(0);
-
-	}
-
-	public void useRadar() {
-
-		// First try flips but doesn't do it right
-		// for(int i = 0; i < map.length; ++i) {
-		// for(int j = 0; j < map.length; ++j) {
-		// if(map[i][j].getFront().equals("B")){
-		// briefCase.setFlipped(true);
-		// }
-		// }
-		// }
-		for (int i = 1; i < 2; ++i) {
-			try {
-				if (map[radar.getColumn()][radar.getRow() - i].getFront().equals("P"))
-					briefCase.setAttack(true);
-			} catch (ArrayIndexOutOfBoundsException e) {
-
-			}
-
-			try {
-				if (map[radar.getColumn()][radar.getRow() + i].getFront().equals("P"))
-					briefCase.setAttack(true);
-			} catch (ArrayIndexOutOfBoundsException e) {
-
-			}
-			try {
-				if (map[radar.getColumn() - i][radar.getRow()].getFront().equals("P"))
-					briefCase.setAttack(true);
-			} catch (ArrayIndexOutOfBoundsException e) {
-
-			}
-			try {
-				if (map[radar.getColumn() + i][radar.getRow()].getFront().equals("P"))
-					briefCase.setAttack(true);
-			} catch (ArrayIndexOutOfBoundsException e) {
-
-			}
-
-			briefCase.setFlipped(true);
+		if (foundPlayer) {
+			GameEntity tempSpace = map[8][0];
+			map[player.getRow()][player.getColumn()] = tempSpace;
+			map[8][0] = player;
+			player.setRow(8);
+			player.setColumn(0);
 		}
+
 	}
 
 }

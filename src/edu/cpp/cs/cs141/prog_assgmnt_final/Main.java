@@ -1,3 +1,5 @@
+
+
 /**
  * 
  */
@@ -14,14 +16,10 @@ public class Main {
 
 	public static void main(String args[]) {
 
-		Scanner sc = new Scanner(System.in);
-		
-		
-
 		Map map = new Map();
 		UI ui = new UI(new GameEngine(map));
 		ui.startGame();
-		
+
 	}
 
 }

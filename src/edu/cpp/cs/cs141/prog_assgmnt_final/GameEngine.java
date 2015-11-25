@@ -3,6 +3,12 @@
  */
 package edu.cpp.cs.cs141.prog_assgmnt_final;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Random;
 
 import edu.cpp.cs.cs141.prog_assgmnt_final.Map;
@@ -12,6 +18,8 @@ import edu.cpp.cs.cs141.prog_assgmnt_final.Map;
  *
  */
 public class GameEngine {
+
+	private static final Object GameDataSave = null;
 
 	private Map map = null;
 
@@ -88,12 +96,22 @@ public class GameEngine {
 		}
 	}
 
+	/*
+	 * public void visibilityOfPlayer(int direction) {
+	 * 
+	 * switch (direction) { // Left case 1: map.visibilityOfPlayer(1); break; //
+	 * Right case 2: map.visibilityOfPlayer(2); break; // Up case 3:
+	 * map.visibilityOfPlayer(3); break; // Down case 4:
+	 * map.visibilityOfPlayer(4); break; default: System.out.println(
+	 * "That isn't a valid choice player."); break; } }
+	 */
 	/**
 	 * @param direction
 	 * @return
 	 */
+
 	public boolean playerMove(int direction) {
-		boolean temp = false;
+		boolean temp = true;
 
 		switch (direction) {
 		// left
@@ -123,28 +141,97 @@ public class GameEngine {
 		return map.printDebug();
 	}
 
-	/**
-	 * Keeps track of how many turns the player makes.
-	 */
 	public void playerTurn() {
-		turn++;
+
+	}
+
+	public void playerAttack(int direction) {
+
+		if (map.checkBullet()) {
+			switch (direction) {
+			// left
+			case 1:
+				map.playerAttackHorizontally(1);
+				map.useBullet();
+				break;
+			// right
+			case 2:
+				map.playerAttackHorizontally(2);
+				map.useBullet();
+				break;
+			// up
+			case 3:
+				map.playerAttackVertically(1);
+				map.useBullet();
+				break;
+			// down
+			case 4:
+				map.playerAttackVertically(2);
+				map.useBullet();
+				break;
+			}
+		}
+	}
+
+	public void powerUps() {
+
+		if (map.isBulletIndicator()) {
+			System.out.println("Found a bullet!");
+		} else if (map.isInvincibleIndicator()) {
+			System.out.println("You are invincible for 5 turns!");
+		} else if (map.isRadarIndicator()) {
+			System.out.println("Found the radar!");
+		}
+
 	}
 
 	/**
-	 * @return the turn
+	 * 
+	 * @param direction
+	 *            player has immediate visibility of each turn.
 	 */
+
+	public void visibilityOfEnemy() {
+		try {
+			map.visibilityOfEnemy(1);
+		} catch (ArrayIndexOutOfBoundsException e) {
+
+		}
+		try {
+			map.visibilityOfEnemy(2);
+		} catch (ArrayIndexOutOfBoundsException e) {
+
+		}
+		try {
+			map.visibilityOfEnemy(3);
+		} catch (ArrayIndexOutOfBoundsException e) {
+
+		}
+		try {
+			map.visibilityOfEnemy(4);
+		} catch (ArrayIndexOutOfBoundsException e) {
+
+		}
+	}
+
+	public void enemyTurn() {
+
+		visibilityOfEnemy();
+		map.enemyAttack(map.isFoundPlayer());
+		System.out.println("Foud Player: " + map.isFoundPlayer());
+		map.initialPoint();
+	}
+
 	public int getTurn() {
 		return turn;
 	}
 
 	public void moveEnemy() {
-	
 		try {
 			map.moveEnemy();
 		} catch (ArrayIndexOutOfBoundsException e) {
-			System.out.println("Enemies move out of bounds");
+			// System.out.println("Enemies move out of bounds");
 		}
-
 	}
 
 	public void backToSpawnLocation() {
@@ -164,40 +251,13 @@ public class GameEngine {
 	public void setNotFlipped() {
 		map.setNotFlipped();
 	}
-	
-	public void Save()
-	{
-	FileOutputStream outStream = new FileOutputStream("Objects.dat");
-  	ObjectOutputStream objectOutputFile = new ObjectOutputStream(outStream);
-  	objectOutputFile.writeObject(GameEntity);
-  	objectOutputFile.writeObject(Gun);
-  	objectOutputFile.writeObject(Map);
-	objectOutputFile.close();	
+
+	public void Save() {
+
 	}
 
-<<<<<<< HEAD
-	public void useRadar() {
-		map.useRadar();
-	}
+	public void load() {
 	
-	/*
-	public boolean enemyAttack() {
-		map.visibilityOfEnemy();
-		map.enemyAttack(foundPlayer);
-		
-		return foundPlayer;
 	}
-	*/
-=======
-	public void Load()
-	{
-	FileInputStream inStream = new FileInputStream("Objects.dat");
-	ObjectInputStream objectInputFile = new ObjectInputStream(inStream);
-	objectOutputFile.writeObject(GameEntity);
-  	objectOutputFile.writeObject(Gun);
-  	objectOutputFile.writeObject(Map);
-  	objectInputFile.close();
-  	
-	}
->>>>>>> origin/master
+
 }
