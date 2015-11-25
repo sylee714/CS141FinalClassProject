@@ -211,5 +211,21 @@ while(legitmate)
 	public void backToInitialSpawnLocation() {
 
 	}
+	
+	public void Save()
+	{
+	FileOutputStream outStream = new FileOutputStream("Objects.dat");
+  	ObjectOutputStream objectOutputFile = new ObjectOutputStream(outStream);
+  	objectOutputFile.writeObject(GameDataSave);
+	objectOutputFile.close();	
+	}
 
+	public void Load()
+	{
+	FileInputStream inStream = new FileInputStream("Objects.dat");
+	ObjectInputStream objectInputFile = new ObjectInputStream(inStream);
+	objectInputFile.readObject(GameDataSave);
+  	objectInputFile.close();
+  	
+	}
 }
