@@ -1,12 +1,12 @@
 package edu.cpp.cs.cs141.prog_assgmnt_final;
 
 import java.util.Random;
-
+import java.io.Serializable;
 /**
  * @author Seungyun
  *
  */
-public class Map {
+public class Map implements Serializable{
 
 	/**
 	 * The size of the map.
