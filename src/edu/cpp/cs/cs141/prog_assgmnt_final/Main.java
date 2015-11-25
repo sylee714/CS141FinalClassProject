@@ -17,20 +17,6 @@ public class Main {
 		UI ui = new UI(new GameEngine(map));
 		ui.startGame();
 
-		/*
-		 * Map map = new Map();
-		 * 
-		 * map.generateEmptySpace(); map.generateRoomsWithBriefCase();
-		 * map.generatePlayer(); map.generateEnemy(); map.generateRadar();
-		 * map.generateAdditionalBullet(); map.generateInvincibility();
-		 * map.movePlayer(3);
-		 * 
-		 * 
-		 * 
-		 * System.out.println(map.toString());
-		 * System.out.println(map.printDebug());
-		 */
-
 	}
 
 }

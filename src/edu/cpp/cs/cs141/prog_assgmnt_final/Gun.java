@@ -41,4 +41,8 @@ public class Gun {
 		}
 	}
 
+	public void collision() {
+
+	}
+
 }

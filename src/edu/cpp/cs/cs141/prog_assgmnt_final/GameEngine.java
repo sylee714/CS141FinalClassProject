@@ -5,6 +5,9 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
 
 import edu.cpp.cs.cs141.prog_assgmnt_final.Map;
 
+import java.io.*;
+import java.util.Random;
+
 /**
  * @author Seungyun
  *
@@ -45,12 +48,9 @@ public class GameEngine {
 		map.generateRoomsWithBriefCase();
 		map.generatePlayer();
 		map.generateEnemy();
-		map.generateRadar();
-		map.generateAdditionalBullet();
-		map.generateInvincibility();
+		map.generatePowerUps();
 	}
-	
-	
+
 	public String printBoard() {
 		if (isDebug() == false) {
 			return map.toString();
@@ -103,31 +103,6 @@ public class GameEngine {
 	 * @return
 	 */
 
-	public void playerLook(int direction) {
-		switch (direction) {
-		// Left
-		case 1:
-			map.playerLook(1);
-			break;
-		// Right
-		case 2:
-			map.playerLook(2);
-			break;
-		// Up
-		case 3:
-			map.playerLook(3);
-			break;
-		// Down
-		case 4:
-			map.playerLook(4);
-			break;
-		default:
-			System.out.println("That isn't a valid choice player.");
-			break;
-		}
-
-	}
-
 	public boolean playerMove(int direction) {
 		boolean temp = true;
 
@@ -163,21 +138,25 @@ public class GameEngine {
 
 	}
 
-	public void enemyMove() {
-		map.enemyMove();
+	public int getTurn() {
+		return turn;
+	}
+
+	public void moveEnemy() {
+		try {
+			map.moveEnemy();
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("Enemies move out of bounds");
+		}
 	}
 
 	public void backToSpawnLocation() {
-
+		map.generatePlayer();
 	}
 
-	public boolean gameWon() {
+	public boolean endGame() {
 		boolean won = false;
 		return won;
-
-	}
-
-	public void backToInitialSpawnLocation() {
 
 	}
 
@@ -189,7 +168,18 @@ public class GameEngine {
 		map.setNotFlipped();
 	}
 
-	public void useRadar() {
-		map.useRadar();
-	}
+	/*
+	 * 
+	 * public void Save() { FileOutputStream outStream = new
+	 * FileOutputStream("Objects.dat"); ObjectOutputStream objectOutputFile =
+	 * new ObjectOutputStream(outStream);
+	 * objectOutputFile.writeObject(GameDataSave); objectOutputFile.close(); }
+	 * 
+	 * public void load() { FileInputStream inStream = new
+	 * FileInputStream("Objects.dat"); ObjectInputStream objectInputFile = new
+	 * ObjectInputStream(inStream); objectInputFile.readObject(GameDataSave);
+	 * objectInputFile.close(); }
+	 * 
+	 */
+
 }

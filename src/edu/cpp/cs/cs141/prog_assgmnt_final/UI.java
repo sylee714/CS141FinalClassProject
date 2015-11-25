@@ -36,7 +36,7 @@ public class UI {
 				break;
 			// calls on loadGame() to open previously saved game
 			case 2:
-				// loadGame();
+				//GameEngine.load();
 				break;
 			case 3:
 				System.out.println("Goodbye! Come back soon!");
@@ -71,7 +71,7 @@ public class UI {
 
 	public void gameLoop() {
 
-		while (!game.gameWon()) {
+		while (!game.endGame()) {
 
 			System.out.println("Begin your turn player!\n");
 			System.out.println(game.printBoard());
@@ -83,19 +83,19 @@ public class UI {
 				switch (option) {
 				// Left
 				case 1:
-					game.playerLook(1);
+					game.visibilityOfPlayer(1);
 					break;
 				// Right
 				case 2:
-					game.playerLook(2);
+					game.visibilityOfPlayer(2);
 					break;
 				// Up
 				case 3:
-					game.playerLook(3);
+					game.visibilityOfPlayer(3);
 					break;
 				// Down
 				case 4:
-					game.playerLook(4);
+					game.visibilityOfPlayer(4);
 					break;
 				default:
 					System.out.println("That isn't a valid choice player.");
@@ -125,9 +125,14 @@ public class UI {
 				break;
 			// Save
 			case 3:
+				//GameEngine.save();
 				break;
 			// Quit
 			case 4:
+				break;
+			//Debug
+			case 5:
+				toggleBoard();
 				break;
 			default:
 				System.out.println("That isn't a valid input try again please.");
@@ -143,9 +148,8 @@ public class UI {
 	 * over.
 	 */
 	public void endTurn() {
-		//game.moveEnemy();
+		game.moveEnemy();
 		game.setNotFlipped();
-		game.useRadar();
 		game.playerTurn();
 
 	}

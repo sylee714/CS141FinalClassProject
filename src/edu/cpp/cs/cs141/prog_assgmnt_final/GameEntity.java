@@ -23,6 +23,18 @@ public abstract class GameEntity {
 		this.column = column;
 	}
 
+	public void attack(boolean attack) {
+
+	}
+
+	public void setAttack(boolean attack) {
+		this.attack = attack;
+	}
+
+	public boolean isAttack() {
+		return attack;
+	}
+
 	public boolean isFlipped() {
 		return isFlipped;
 	}
@@ -97,15 +109,6 @@ public abstract class GameEntity {
 
 		}
 
-	}
-
-	public void setAttack(boolean attack) {
-		this.attack = attack;
-	}
-
-	public boolean isAttack() {
-		// TODO Auto-generated method stub
-		return attack;
 	}
 
 }
