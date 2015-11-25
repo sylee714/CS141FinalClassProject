@@ -148,7 +148,7 @@ public class GameEngine {
 
 	}
 
-<<<<<<< HEAD
+
 	public int getTurn() {
 		return turn;
 	}
@@ -165,7 +165,6 @@ public class GameEngine {
 		map.generatePlayer();
 	}
 
-=======
 	public void playerAttack(int direction) {
 
 		if (map.checkBullet()) {
@@ -243,23 +242,7 @@ public class GameEngine {
 		map.initialPoint();
 	}
 
-	public int getTurn() {
-		return turn;
-	}
 
-	public void moveEnemy() {
-		try {
-			map.moveEnemy();
-		} catch (ArrayIndexOutOfBoundsException e) {
-			// System.out.println("Enemies move out of bounds");
-		}
-	}
-
-	public void backToSpawnLocation() {
-		map.generatePlayer();
-	}
-
->>>>>>> refs/remotes/origin/master
 	public boolean endGame() {
 		boolean won = false;
 		return won;
@@ -269,14 +252,11 @@ public class GameEngine {
 	public void playerDetect() {
 		map.playerDetect();
 	}
-<<<<<<< HEAD
+
 
 	public void setNotFlipped() {
 		map.setNotFlipped();
-=======
-
-	public void setNotFlipped() {
-		map.setNotFlipped();
+		
 	}
 
 	public void Save() {
@@ -285,7 +265,7 @@ public class GameEngine {
 
 	public void load() {
 	
->>>>>>> refs/remotes/origin/master
+
 	}
 
 	/*
