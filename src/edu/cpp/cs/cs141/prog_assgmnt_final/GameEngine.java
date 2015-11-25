@@ -13,16 +13,10 @@ public class GameEngine {
 
 
 	private Map map = new Map();
-	
+
 	public GameEngine(Map map) {
 		this.map = map;
 	}
-
-
-
-	private Player player = new Player();
-
-	private Enemy enemy = new Enemy();
 
 	private int turn = 3;
 
@@ -35,17 +29,12 @@ public class GameEngine {
 		map.generateRoomsWithBriefCase();
 		map.generatePlayer();
 		map.generateEnemy();
-		map.generateRadar();
-		map.generateAdditionalBullet();
-		map.generateInvincibility();
+		map.generatePowerUps();
 	}
 
-	
 	public String displayBoard() {
 		return map.toString();
 	}
-	
-	
 
 	/**
 	 * 
@@ -53,163 +42,92 @@ public class GameEngine {
 	 *            player has immediate visibility of each turn.
 	 */
 
-	public void visibilityOfPlayer() {
-		try {
-			map.visibilityOfPlayer(1);
-		} catch (ArrayIndexOutOfBoundsException e) {
 
-		}
-		try {
-			map.visibilityOfPlayer(2);
-		} catch (ArrayIndexOutOfBoundsException e) {
 
-		}
-		try {
-			map.visibilityOfPlayer(3);
-		} catch (ArrayIndexOutOfBoundsException e) {
-
-		}
-		try {
-			map.visibilityOfPlayer(4);
-		} catch (ArrayIndexOutOfBoundsException e) {
-
-		}
-	}
-
-	/*
-	 * public void visibilityOfPlayer(int direction) {
-	 * 
-	 * switch (direction) { // Left case 1: map.visibilityOfPlayer(1); break; //
-	 * Right case 2: map.visibilityOfPlayer(2); break; // Up case 3:
-	 * map.visibilityOfPlayer(3); break; // Down case 4:
-	 * map.visibilityOfPlayer(4); break; default:
-	 * System.out.println("That isn't a valid choice player."); break; } }
-	 */
 	/**
 	 * @param direction
 	 *            the player can "Look".
 	 */
+
 	public void playerLook(int direction) {
+		
 		switch (direction) {
 		// Left
 		case 1:
-			map.playerLook(1);
+			map.visibilityOfPlayer(1);
 			break;
 		// Right
 		case 2:
-			map.playerLook(2);
+			map.visibilityOfPlayer(2);
 			break;
 		// Up
 		case 3:
-			map.playerLook(3);
+			map.visibilityOfPlayer(3);
 			break;
 		// Down
 		case 4:
-			map.playerLook(4);
-			break;
-		default:
-			System.out.println("That isn't a valid choice player.");
+			map.visibilityOfPlayer(4);
 			break;
 		}
 
 	}
-boolean legitmate = UI.validMove();
-while(legitmate)
-{
-	
+
 	public void playerMove(int direction) {
+		
+
 		switch (direction) {
 		// left
 		case 1:
-			map.movePlayer(4);
+			map.movePlayer(1);
 			break;
 		// Right
 		case 2:
-			map.movePlayer(3);
+			map.movePlayer(2);
 			break;
 		// Up
 		case 3:
-			map.movePlayer(1);
+			map.movePlayer(3);
 			break;
 		// Down
 		case 4:
-			map.movePlayer(2);
+			map.movePlayer(4);
 			break;
-		default:
-			System.out.println("That isn't a valid input player.");
-			break;
-
 		}
-		}	
-	
-}
 
+	
+	}
 
 	public String printDebug() {
 		return map.printDebug();
 	}
 
 
-
-	/**
-	 * 
-	 * @param direction
-	 *            where the player chooses to look
-	 */
-	public void visibilityOfPlayer(int direction) {
-
-		switch (direction) {
-		// Left
-		case 1:
-			map.visibilityOfPlayer(1);
-			break;
-		// Right
-		case 2:
-			map.visibilityOfPlayer(2);
-			break;
-		// Up
-		case 3:
-			map.visibilityOfPlayer(3);
-			break;
-		// Down
-		case 4:
-			map.visibilityOfPlayer(4);
-			break;
-		default:
-			System.out.println("That isn't a valid choice player.");
-			break;
-		}
-
+	public void enemyMove() {
+		map.moveEnemy();
 	}
 
-	
+
 	public boolean gameWon() {
 		boolean won = false;
 		return won;
 
 	}
 
-	
-	public void playerTurn() {
-
-	}
-
-	public void EnemyMove() {
-		try {
-			map.enemyMove();
-		} catch (ArrayIndexOutOfBoundsException e) {
-			System.out.println("You blew it");
-		}
-
-	}
-
-	public void backToSpawnLocation() {
-
-	}
-
-
 	public void backToInitialSpawnLocation() {
+		map.initialPoint();
 
+	}
+
+	public void playerDetect() {
+		map.playerDetect();
+	}
+
+	public void setNotFlipped() {
+		map.setNotFlipped();
+	}
+
+	public void useRadar() {
+		map.useRadar();
 	}
 
 }

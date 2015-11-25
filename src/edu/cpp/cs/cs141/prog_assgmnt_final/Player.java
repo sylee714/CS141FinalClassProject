@@ -9,7 +9,7 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
  */
 public class Player extends GameEntity {
 
-	
+
 	private Gun gun = new Gun();
 
 	public Player() {
@@ -41,7 +41,21 @@ public class Player extends GameEntity {
 	/**
 	 * This field indicates if an enemy is detected.
 	 */
-	private boolean detected = false;
+	private boolean dangerAhead = false;
+
+	/**
+	 * @return the dangerAhead
+	 */
+	public boolean isDangerAhead() {
+		return dangerAhead;
+	}
+
+	/**
+	 * @param dangerAhead the dangerAhead to set
+	 */
+	public void setDangerAhead(boolean dangerAhead) {
+		this.dangerAhead = dangerAhead;
+	}
 
 	/**
 	 * This method is attacking method
@@ -50,27 +64,6 @@ public class Player extends GameEntity {
 	 */
 	public void attack() {
 		
-	}
-
-	/**
-	 * This method is looking method which enables the player to look two-tiles
-	 * ahead of him/her.
-	 */
-	public void look(int direction) {
-		switch(direction) {
-		//up
-		case 1:
-			break;
-		//down
-		case 2:
-			break;
-		//right
-		case 3:
-			break;
-		//left
-		case 4:
-			break;
-		}
 	}
 
 

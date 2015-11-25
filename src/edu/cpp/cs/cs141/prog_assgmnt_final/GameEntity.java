@@ -28,17 +28,12 @@ public abstract class GameEntity {
 		
 	}
 
-
-
-
 	/**
 	 * @param attack the attack to set
 	 */
 	public void setAttack(boolean attack) {
 		this.attack = attack;
 	}
-
-
 
 	/**
 	 * @return the attack
@@ -102,21 +97,22 @@ public abstract class GameEntity {
 	public void move(int movement) {
 
 		switch (movement) {
-		// up
+		// left
 		case 1:
+			column = column - 1;
+			break;
+		// right
+		case 2:
+			column = column + 1;
+			break;
+		// up
+		case 3:
 			row = row - 1;
 			break;
 		// down
-		case 2:
-			row = row + 1;
-			break;
-		// right
-		case 3:
-			column = column + 1;
-			break;
-		// left
 		case 4:
-			column = column - 1;
+
+			row = row + 1;
 			break;
 
 		}
