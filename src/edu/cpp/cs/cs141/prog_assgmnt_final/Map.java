@@ -360,16 +360,16 @@ public class Map {
 
 		boolean foundPlayer = false;
 
-		GameEntity[] enemyHold = { enemy1, enemy2, enemy3, enemy4, enemy5, enemy6 };
+		
 
 		for (int i = 0; i < 6; ++i) {
 
-			if (map[enemyHold[i].getRow()][enemyHold[i].getColumn() - 1].getFront().equals("P")
-					|| map[enemyHold[i].getRow()][enemyHold[i].getColumn() + 1].getFront().equals("P")
-					|| map[enemyHold[i].getRow() - 1][enemyHold[i].getColumn()].getFront().equals("P")
-					|| map[enemyHold[i].getRow() + 1][enemyHold[i].getColumn()].getFront().equals("P"))
-				enemyHold[i].setAttack(true);
-			foundPlayer = enemyHold[i].isAttack();
+			if (map[holdEnemy[i].getRow()][holdEnemy[i].getColumn() - 1].getFront().equals("P")
+					|| map[holdEnemy[i].getRow()][holdEnemy[i].getColumn() + 1].getFront().equals("P")
+					|| map[holdEnemy[i].getRow() - 1][holdEnemy[i].getColumn()].getFront().equals("P")
+					|| map[holdEnemy[i].getRow() + 1][holdEnemy[i].getColumn()].getFront().equals("P"))
+				holdEnemy[i].setAttack(true);
+			foundPlayer = holdEnemy[i].isAttack();
 		}
 
 		return foundPlayer;
@@ -417,91 +417,8 @@ public class Map {
 			}
 		}
 	}
-	
-	public void playerDetect1() {
-		if (player.isDangerAhead() == true) {
-			System.out.println("Danger Ahead!\n");
-			player.setDangerAhead(false);
-		} else
-			System.out.println("Clear!\n");
-	}
-	
-	public boolean movePlayer(int movement) {
-		// if(map[player.getRow()][player.getColumn() -
-		// i].getFront().equals("R") || map[player.getRow()][player.getColumn()
-		// - i].getFront().equals("R"))
 
-		int tempRow = player.getRow();
-		int tempColumn = player.getColumn();
-		int tempRowFalse = player.getRow();
-		int tempColumnFalse = player.getColumn();
-
-		GameEntity tempSpace = map[player.getRow()][player.getColumn()];
-		
-		try {
-			player.move(movement);
-			//System.out.println("0");
-			player.setRow(player.getRow());
-			//System.out.println("1");
-			player.setColumn(player.getColumn());
-			//System.out.println("2");
-
-			map[tempRow][tempColumn] = new EmptySpace();
-			//System.out.println("3");
-
-			if (map[player.getRow()][player.getColumn()] != map[5][0]
-					&& map[player.getRow()][player.getColumn()] != map[5][1]
-					&& map[player.getRow()][player.getColumn()] != map[5][2]
-					&& map[player.getRow()][player.getColumn()] != map[5][3]
-					&& map[player.getRow()][player.getColumn()] != map[6][0]
-					&& map[player.getRow()][player.getColumn()] != map[6][1]
-					&& map[player.getRow()][player.getColumn()] != map[6][2]
-					&& map[player.getRow()][player.getColumn()] != map[6][3]
-					&& map[player.getRow()][player.getColumn()] != map[7][0]
-					&& map[player.getRow()][player.getColumn()] != map[7][2]
-					&& map[player.getRow()][player.getColumn()] != map[7][3]
-					&& map[player.getRow()][player.getColumn()] != map[8][1]
-					&& map[player.getRow()][player.getColumn()] != map[8][2]
-					&& map[player.getRow()][player.getColumn()] != map[8][3]) {
-
-				player.setRow(tempRowFalse);
-				player.setColumn(tempColumnFalse);
-				map[tempRowFalse][tempColumnFalse] = player;
-				return false;
-
-			} else if (tempSpace.getFront().equals("+") || tempSpace.getFront().equals("A")
-					|| tempSpace.getFront().equals("I")) {
-
-				powerUpIndicator = true;
-				// validInput = true;
-
-				player.setRow(player.getRow());
-				player.setColumn(player.getColumn());
-
-				map[tempRow][tempColumn] = new EmptySpace();
-				map[player.getRow()][player.getColumn()] = player;
-				System.out.println(powerUpIndicator);
-				return true;
-			
-			} else {
-				map[player.getRow()][player.getColumn()] = player;
-				//System.out.println("4");
-				
-				return true;
-			}
-
-		} catch (ArrayIndexOutOfBoundsException e) {
-			//System.out.println(tempRowFalse + " " + tempColumnFalse);
-			player.setRow(tempRowFalse);
-			player.setColumn(tempColumnFalse);
-			map[tempRowFalse][tempColumnFalse] = player;
-			return false;
-		}
-		
-		
-	}
-
-	public void movePlayer1(int movement) {
+	public void movePlayer(int movement) {
 
 		int tempRow = player.getRow();
 
@@ -586,8 +503,6 @@ public class Map {
 	}
 
 	
-	
-
 	public void playerAttack(int direction) {
 
 		for (int i = 0; i < map.length; ++i) {
