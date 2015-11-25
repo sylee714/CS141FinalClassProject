@@ -512,37 +512,57 @@ public class Map {
 	}
 
 	public void moveEnemy() {
+		boolean good = true;
+		int tempRow = 0;
+		int tempColumn = 0;
+		int tempRowFalse = 0;
+		int tempColumnFalse = 0;
 
-		// GameEntity[] enemyHold = { enemy1, enemy2, enemy3, enemy4, enemy5,
-		// enemy6 };
+		for (int i = 0; i < 6; ++i) {
+			try {
 
-		try {
-			for (int i = 0; i < 6; ++i) {
+				tempRow = holdEnemy[i].getRow();
+				tempColumn = holdEnemy[i].getColumn();
+				tempRowFalse = holdEnemy[i].getRow();
+				tempColumnFalse = holdEnemy[i].getColumn();
 
-				int tempRow = holdEnemy[i].getRow();
-
-				int tempColumn = holdEnemy[i].getColumn();
-
+				// do {
 				Random r = new Random();
 
-				int movement;
-
-				movement = r.nextInt(3) + 1;
+				int movement = r.nextInt(4) + 1;
 
 				holdEnemy[i].move(movement);
-
-				GameEntity tempSpace = map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()];
 
 				holdEnemy[i].setRow(holdEnemy[i].getRow());
 				holdEnemy[i].setColumn(holdEnemy[i].getColumn());
 
-				map[tempRow][tempColumn] = tempSpace;
-				map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] = holdEnemy[i];
+				map[tempRow][tempColumn] = new EmptySpace();
 
+				if (map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()].getFront().equals(" ")
+						&& map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] != map[1][1]
+						&& map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] != map[1][4]
+						&& map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] != map[1][7]
+						&& map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] != map[4][1]
+						&& map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] != map[4][4]
+						&& map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] != map[4][7]
+						&& map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] != map[7][1]
+						&& map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] != map[7][4]
+						&& map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] != map[7][7]) {
+
+					map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] = holdEnemy[i];
+					good = true;
+
+				} else {
+					holdEnemy[i].setRow(tempRowFalse);
+					holdEnemy[i].setColumn(tempColumnFalse);
+					map[tempRowFalse][tempColumnFalse] = holdEnemy[i];
+				}
+
+				// } while (good != true);
+
+			} catch (ArrayIndexOutOfBoundsException e) {
+				map[tempRowFalse][tempColumnFalse] = holdEnemy[i];
 			}
-
-		} catch (ArrayIndexOutOfBoundsException e) {
-
 		}
 	}
 
