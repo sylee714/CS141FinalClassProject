@@ -164,7 +164,16 @@ public class GameEngine {
 	public void setNotFlipped() {
 		map.setNotFlipped();
 	}
+	
+	public void Save()
+	{
+	FileOutputStream outStream = new FileOutputStream("Objects.dat");
+  	ObjectOutputStream objectOutputFile = new ObjectOutputStream(outStream);
+  	objectOutputFile.writeObject(GameDataSave);
+	objectOutputFile.close();	
+	}
 
+<<<<<<< HEAD
 	public void useRadar() {
 		map.useRadar();
 	}
@@ -177,4 +186,14 @@ public class GameEngine {
 		return foundPlayer;
 	}
 	*/
+=======
+	public void Load()
+	{
+	FileInputStream inStream = new FileInputStream("Objects.dat");
+	ObjectInputStream objectInputFile = new ObjectInputStream(inStream);
+	objectInputFile.readObject(GameDataSave);
+  	objectInputFile.close();
+  	
+	}
+>>>>>>> origin/master
 }

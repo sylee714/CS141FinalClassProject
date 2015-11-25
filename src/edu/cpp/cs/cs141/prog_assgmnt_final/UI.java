@@ -36,6 +36,7 @@ public class UI {
 				break;
 			// calls on loadGame() to open previously saved game
 			case 2:
+				GameEngine.Load();
 				// loadGame();
 				break;
 			case 3:
@@ -131,6 +132,7 @@ public class UI {
 				break;
 			// Save
 			case 3:
+				GameEngine.Save();
 				break;
 			// Quit
 			case 4:
