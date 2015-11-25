@@ -72,12 +72,6 @@ public class UI {
 	public void gameLoop() {
 
 		while (!game.endGame()) {
-
-
-			System.out.println("Begin your turn player!\n");
-			System.out.println(game.printBoard());
-			System.out.println("Chose a direction to look in.\n");
-
 			
 			//game.enemyTurn();
 
@@ -113,11 +107,12 @@ public class UI {
 			} catch (ArrayIndexOutOfBoundsException e) {
 				System.out.println("You currently can't look in that direction player. Look in a valid direction.\n");
 			}
+			
 			game.playerDetect();
 			System.out.println(game.printBoard());
 			System.out.println("What would you like to do next?\n");
 
-			System.out.println("1)Move \n2)Shoot \n3)Save \n4)Quit");
+
 
 			System.out.println("1)Move \n2)Shoot \n3)Save \n4)Quit \n5)Debug Mode");
 

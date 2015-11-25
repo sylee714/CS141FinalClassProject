@@ -8,10 +8,7 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
  *
  */
 public class Enemy extends GameEntity {
-<<<<<<< HEAD
-=======
-	
->>>>>>> refs/remotes/origin/master
+
 
 	public Enemy() {
 		super("E", "*", 0, 0);
