@@ -54,11 +54,22 @@ public class GameEngine {
 	}
 
 	public void generateMap() {
+		
 		map.generateEmptySpace();
 		map.generateRoomsWithBriefCase();
 		map.generatePlayer();
 		map.generateEnemy();
 		map.generatePowerUps();
+		//map.useRadar();
+		
+	}
+	
+	public int briefCaseRow() {
+		return map.briefCaseRow();
+	}
+	
+	public int briefCaseColumn() {
+		return map.briefCaseColumn();
 	}
 
 	public String printBoard() {
@@ -83,6 +94,7 @@ public class GameEngine {
 		switch (direction) {
 		case 1:
 			map.visibilityOfPlayer(1);
+			
 			break;
 
 		case 2:
@@ -97,6 +109,20 @@ public class GameEngine {
 			map.visibilityOfPlayer(4);
 			break;
 		}
+	}
+	
+	public boolean foundRadar() {
+		
+		System.out.println(map.isRadarIndicator());
+		return map.isRadarIndicator();
+	}
+	
+	public void useRadar(boolean foundRadar) {
+		
+		if (foundRadar) {
+			map.useRadar();
+		}
+		
 	}
 
 	/*
@@ -120,18 +146,30 @@ public class GameEngine {
 		// left
 		case 1:
 			temp = map.movePlayer(4);
+			if (map.isRadarIndicator()) {
+				map.useRadar();
+			}
 			break;
 		// Right
 		case 2:
 			temp = map.movePlayer(3);
+			if (map.isRadarIndicator()) {
+				map.useRadar();
+			}
 			break;
 		// Up
 		case 3:
 			temp = map.movePlayer(1);
+			if (map.isRadarIndicator()) {
+				map.useRadar();
+			}
 			break;
 		// Down
 		case 4:
 			temp = map.movePlayer(2);
+			if (map.isRadarIndicator()) {
+				map.useRadar();
+			}
 			break;
 		}
 
@@ -193,18 +231,7 @@ public class GameEngine {
 		}
 	}
 
-	public void powerUps() {
-
-		if (map.isBulletIndicator()) {
-			System.out.println("Found a bullet!");
-		} else if (map.isInvincibleIndicator()) {
-			System.out.println("You are invincible for 5 turns!");
-		} else if (map.isRadarIndicator()) {
-			System.out.println("Found the radar!");
-		}
-
-	}
-
+	
 	/**
 	 * 
 	 * @param direction

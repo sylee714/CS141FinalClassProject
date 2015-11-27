@@ -36,7 +36,7 @@ public class UI {
 				break;
 			// calls on loadGame() to open previously saved game
 			case 2:
-				//GameEngine.load();
+				// GameEngine.load();
 				break;
 			case 3:
 				System.out.println("Goodbye! Come back soon!");
@@ -72,8 +72,8 @@ public class UI {
 	public void gameLoop() {
 
 		while (!game.endGame()) {
-			
-			//game.enemyTurn();
+
+			// game.enemyTurn();
 
 			System.out.println("Begin your turn player!\n");
 			System.out.println(game.printBoard());
@@ -107,45 +107,45 @@ public class UI {
 			} catch (ArrayIndexOutOfBoundsException e) {
 				System.out.println("You currently can't look in that direction player. Look in a valid direction.\n");
 			}
-			
+
+			// keyboard.nextLine();
+
 			game.playerDetect();
+
 			System.out.println(game.printBoard());
+
 			System.out.println("What would you like to do next?\n");
-
-
 
 			System.out.println("1)Move \n2)Shoot \n3)Save \n4)Quit \n5)Debug Mode");
 
-
 			int choice = keyboard.nextInt();
-
 			switch (choice) {
 			// Move
 			case 1:
-				
+
 				System.out.println("Choose a direction to move in.\n");
 				System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
-
 				playerMove();
+
 				break;
 			// Shoot
 			case 2:
-				
+
 				System.out.println("Choose a direction to shoot.\n");
 				System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
-				int direction = keyboard.nextInt();
-				
-				playerShoot(direction);
+				// int direction = keyboard.nextInt();
+
+				playerShoot(keyboard.nextInt());
 				System.out.println();
 				break;
 			// Save
 			case 3:
-				//GameEngine.save();
+				// GameEngine.save();
 				break;
 			// Quit
 			case 4:
 				break;
-			//Debug
+			// Debug
 			case 5:
 				toggleBoard();
 				break;
@@ -165,16 +165,23 @@ public class UI {
 	public void endTurn() {
 		game.moveEnemy();
 
-		//game.enemyTurn();
+		// game.enemyTurn();
 
 		game.setNotFlipped();
+		
+		game.useRadar(game.foundRadar());
+		
+		if (game.foundRadar()) {
+			System.out.println("The brief case is loacated at" + "Row: " + game.briefCaseRow() 
+				+ "Column: " + game.briefCaseColumn());
+		}
+		
 		game.playerTurn();
 
 	}
-	
+
 	public void playerShoot(int direction) {
-		
-		
+
 		switch (direction) {
 		case 1:
 			game.playerAttack(1);
@@ -189,9 +196,8 @@ public class UI {
 			game.playerAttack(4);
 			break;
 		}
-		
-	}
 
+	}
 
 	public void playerMove() {
 		// true = correct choice
@@ -204,18 +210,22 @@ public class UI {
 			// Left
 			case 1:
 				temp = game.playerMove(1);
+
 				break;
 			// Right
 			case 2:
 				temp = game.playerMove(2);
+
 				break;
 			// Up
 			case 3:
 				temp = game.playerMove(3);
+
 				break;
 			// Down
 			case 4:
 				temp = game.playerMove(4);
+
 				break;
 			}
 

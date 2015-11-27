@@ -62,21 +62,6 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * @return the powerUpIndicator
-	 */
-	public boolean isPowerUpIndicator() {
-		return powerUpIndicator;
-	}
-
-	/**
-	 * @param powerUpIndicator
-	 *            the powerUpIndicator to set
-	 */
-	public void setPowerUpIndicator(boolean powerUpIndicator) {
-		this.powerUpIndicator = powerUpIndicator;
-	}
-
-	/**
 	 * @return the bulletIndicator
 	 */
 	public boolean isBulletIndicator() {
@@ -159,28 +144,24 @@ public class Map implements Serializable {
 
 	}
 
-	public boolean detectPowerUps(int row, int column) {
+	public void detectPowerUps(int row, int column) {
 
 		if (map[row][column].getFront().equals("+")) {
 
 			radarIndicator = true;
-			powerUpIndicator = radarIndicator;
 
 		} else if (map[row][column].getFront().equals("A")) {
 
 			bulletIndicator = true;
-			powerUpIndicator = bulletIndicator;
 
 			player.attack(true);
 
 		} else if (map[row][column].getFront().equals("I")) {
 
 			invincibleIndicator = true;
-			powerUpIndicator = invincibleIndicator;
 
 		}
 
-		return powerUpIndicator;
 	}
 
 	public void pickUpInvincible(boolean invincibleIndicator) {
@@ -214,17 +195,18 @@ public class Map implements Serializable {
 
 	}
 
-	public void pickUpRadar(boolean radarIndicator) {
+	public void useRadar() {
 
-		if (radarIndicator) {
-			for (int i = 0; i < map.length; ++i) {
-				for (int j = 0; j < map[i].length; ++j) {
-					if (map[i][j].getFront().equals("B")) {
-						map[i][j].setFlipped(true);
-					}
-				}
-			}
-		}
+		map[briefCase.getRow()][briefCase.getColumn()].setFlipped(true);
+
+	}
+	
+	public int briefCaseRow() {
+		return briefCase.getRow();
+	}
+
+	public int briefCaseColumn() {
+		return briefCase.getColumn();
 	}
 
 	/**
@@ -565,27 +547,13 @@ public class Map implements Serializable {
 					&& map[player.getRow()][player.getColumn()] != map[7][1]
 					&& map[player.getRow()][player.getColumn()] != map[7][4]
 					&& map[player.getRow()][player.getColumn()] != map[7][7]) {
-
+				
 				detectPowerUps(player.getRow(), player.getColumn());
-
-				pickUpBullet(bulletIndicator);
-				pickUpInvincible(invincibleIndicator);
-				// pickUpRadar(radarIndicator);
-
-				if (bulletIndicator) {
-					System.out.println("Found a bullet!");
-				} else if (invincibleIndicator) {
-					System.out.println("You are invincible for 5 turns!");
-				} else if (radarIndicator) {
-					for (int i = 0; i < map.length; ++i) {
-						for (int j = 0; j < map[i].length; ++j) {
-							if (map[i][j].getFront().equals("B")) {
-								map[i][j].setFlipped(true);
-								System.out.println(map[i][j].isFlipped());
-							}
-						}
-					}
-					System.out.println("Found the radar!");
+				
+				
+				if (radarIndicator) {
+					System.out.println(briefCase.getRow() + " " + briefCase.getColumn() + " " + map[briefCase.getRow()][briefCase.getColumn()].getFront());
+					map[briefCase.getRow()][briefCase.getColumn()].setFlipped(true);
 				}
 
 				map[player.getRow()][player.getColumn()] = player;
@@ -738,7 +706,9 @@ public class Map implements Serializable {
 		return numberOfEnemy;
 	}
 
+	
 	public void setNotFlipped() {
+		
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
 				map[i][j].setFlipped(false);
