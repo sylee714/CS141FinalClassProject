@@ -499,10 +499,11 @@ public class Map implements Serializable {
 			// right
 			case 2:
 
+				map[player.getRow()][player.getColumn() + i].setFlipped(true);
 				if (map[player.getRow()][player.getColumn() + i].getFront().equals("E"))
-					map[player.getRow()][player.getColumn() + i] = new EmptySpace();
-
+					player.setDangerAhead(true);
 				break;
+
 			// up
 			case 3:
 				map[player.getRow() - i][player.getColumn()].setFlipped(true);

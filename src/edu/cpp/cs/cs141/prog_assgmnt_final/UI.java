@@ -36,7 +36,7 @@ public class UI {
 				break;
 			// calls on loadGame() to open previously saved game
 			case 2:
-				// GameEngine.load();
+				//GameEngine.load();
 				break;
 			case 3:
 				System.out.println("Goodbye! Come back soon!");
@@ -73,80 +73,45 @@ public class UI {
 
 		while (!game.endGame()) {
 
-			// game.enemyTurn();
-
 			System.out.println("Begin your turn player!\n");
+			
 			System.out.println(game.printBoard());
-			System.out.println("Choose a direction to look in.\n");
-			System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
-
-			int option = keyboard.nextInt();
-			try {
-				switch (option) {
-				// Left
-				case 1:
-					game.visibilityOfPlayer(1);
-					break;
-				// Right
-				case 2:
-					game.visibilityOfPlayer(2);
-					break;
-				// Up
-				case 3:
-					game.visibilityOfPlayer(3);
-					break;
-				// Down
-				case 4:
-					game.visibilityOfPlayer(4);
-					break;
-				default:
-					System.out.println("That isn't a valid choice player.");
-					break;
-
-				}
-			} catch (ArrayIndexOutOfBoundsException e) {
-				System.out.println("You currently can't look in that direction player. Look in a valid direction.\n");
-			}
-
-			// keyboard.nextLine();
-
-			game.playerDetect();
-
-			System.out.println(game.printBoard());
-
 			System.out.println("What would you like to do next?\n");
 
-			System.out.println("1)Move \n2)Shoot \n3)Save \n4)Quit \n5)Debug Mode");
+			System.out.println("1)Move \n2)Look \n3)Shoot \n4)Save \n5)Quit \n6)Debug Mode");
+
 
 			int choice = keyboard.nextInt();
+
 			switch (choice) {
 			// Move
 			case 1:
-
-				System.out.println("Choose a direction to move in.\n");
-				System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
 				playerMove();
-
 				break;
-			// Shoot
+			//Look	
 			case 2:
-
+				playerLook();
+				break;
+				
+			// Shoot
+			case 3:
+				
 				System.out.println("Choose a direction to shoot.\n");
 				System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
-				// int direction = keyboard.nextInt();
-
-				playerShoot(keyboard.nextInt());
+				int direction = keyboard.nextInt();
+				
+				playerShoot(direction);
 				System.out.println();
 				break;
 			// Save
-			case 3:
-				// GameEngine.save();
+			case 4:
+				//GameEngine.save();
 				break;
 			// Quit
-			case 4:
-				break;
-			// Debug
 			case 5:
+				break;
+			//Debug
+			case 6:
 				toggleBoard();
 				break;
 			default:
@@ -155,6 +120,7 @@ public class UI {
 			}
 			endTurn();
 		}
+		
 
 	}
 
@@ -163,25 +129,18 @@ public class UI {
 	 * over.
 	 */
 	public void endTurn() {
-		game.moveEnemy();
+		//game.moveEnemy();
 
-		// game.enemyTurn();
+		//game.enemyTurn();
 
 		game.setNotFlipped();
-		
-		game.useRadar(game.foundRadar());
-		
-		if (game.foundRadar()) {
-			System.out.println("The brief case is loacated at" + "Row: " + game.briefCaseRow() 
-				+ "Column: " + game.briefCaseColumn());
-		}
-		
-		game.playerTurn();
+		//game.playerTurn();
 
 	}
-
+	
 	public void playerShoot(int direction) {
-
+		
+		
 		switch (direction) {
 		case 1:
 			game.playerAttack(1);
@@ -196,10 +155,90 @@ public class UI {
 			game.playerAttack(4);
 			break;
 		}
-
+		
 	}
+	
+	public void playerLook() {
+		System.out.println("Choose a direction to look in.\n");
+		System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
+
+		int option = keyboard.nextInt();
+		try {
+			switch (option) {
+			// Left
+			case 1:
+				game.visibilityOfPlayer(1);
+				break;
+			// Right
+			case 2:
+				game.visibilityOfPlayer(2);
+				break;
+			// Up
+			case 3:
+				game.visibilityOfPlayer(3);
+				break;
+			// Down
+			case 4:
+				game.visibilityOfPlayer(4);
+				break;
+			default:
+				System.out.println("That isn't a valid choice player.");
+				break;
+
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("You currently can't look in that direction player. Look in a valid direction.\n");
+		}
+		game.playerDetect();
+		System.out.println(game.printBoard());
+		
+		System.out.println("What would you like to do next?\n");
+
+		System.out.println("1)Move \n2)Shoot \n3)Save \n4)Quit \n5)Debug Mode");
+
+
+		int choice = keyboard.nextInt();
+
+		switch (choice) {
+		// Move
+		case 1:
+			playerMove();
+			break;			
+		// Shoot
+		case 2:
+			
+			System.out.println("Choose a direction to shoot.\n");
+			System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
+			int direction = keyboard.nextInt();
+			
+			playerShoot(direction);
+			System.out.println();
+			break;
+		// Save
+		case 3:
+			//GameEngine.save();
+			break;
+		// Quit
+		case 4:
+			break;
+		//Debug
+		case 5:
+			toggleBoard();
+			break;
+		default:
+			System.out.println("That isn't a valid input try again please.");
+			break;
+		}
+	}
+	
+	
+
 
 	public void playerMove() {
+		
+		System.out.println("Choose a direction to move in.\n");
+		System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
+		
 		// true = correct choice
 		boolean temp = true;
 
@@ -210,22 +249,18 @@ public class UI {
 			// Left
 			case 1:
 				temp = game.playerMove(1);
-
 				break;
 			// Right
 			case 2:
 				temp = game.playerMove(2);
-
 				break;
 			// Up
 			case 3:
 				temp = game.playerMove(3);
-
 				break;
 			// Down
 			case 4:
 				temp = game.playerMove(4);
-
 				break;
 			}
 
