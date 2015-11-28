@@ -721,7 +721,7 @@ public class Map implements Serializable {
 				checkColumn--;
 				break;
 			}
-			System.out.println(checkRow + " " + checkColumn);
+			//System.out.println(checkRow + " " + checkColumn);
 			// check to make sure enemies don't go out of bounds
 			if (checkColumn < 0 || checkColumn > 8 || checkRow < 0 || checkRow > 8)
 				check = false;
@@ -731,10 +731,10 @@ public class Map implements Serializable {
 					check = true;
 				else {
 					check = false;
-					System.out.println("enemy: " + i + " tried to enter a room");
+					//System.out.println("enemy: " + i + " tried to enter a room");
 				}
 			}
-			System.out.println(check);
+			//System.out.println(check);
 
 		} while (check != true);
 
@@ -751,12 +751,12 @@ public class Map implements Serializable {
 			tempColumn = holdEnemy[i].getColumn();
 
 			holdEnemy[i].move(checkValidPosition(i));
-			System.out.println("1");
+			//System.out.println("1");
 			holdEnemy[i].setRow(holdEnemy[i].getRow());
 			holdEnemy[i].setColumn(holdEnemy[i].getColumn());
-			System.out.println("2");
+			//System.out.println("2");
 			map[tempRow][tempColumn] = new EmptySpace();
-			System.out.println("3" + "\n ------ " + i);
+			//System.out.println("3" + "\n ------ " + i);
 
 			map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] = holdEnemy[i];
 
