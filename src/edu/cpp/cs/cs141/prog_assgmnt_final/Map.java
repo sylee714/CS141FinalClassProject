@@ -220,7 +220,6 @@ public class Map implements Serializable {
 
 	}
 
-
 	public void shootLeft() {
 
 		boolean foundEnemy = false;
@@ -698,51 +697,116 @@ public class Map implements Serializable {
 		}
 	}
 
-	public void moveEnemy() {
-		boolean good = true;
-		int tempRow = 0;
-		int tempColumn = 0;
-		int tempRowFalse = 0;
-		int tempColumnFalse = 0;
+	public int checkValidPosition(int i) {
+		Random r = new Random();
+		int movement;
+		boolean check = true;
 
-		for (int i = 0; i < 6; ++i) {
-			try {
+		do {
+			int checkRow = holdEnemy[i].getRow();
+			int checkColumn = holdEnemy[i].getColumn();
+			movement = r.nextInt(4) + 1;
 
-				tempRow = holdEnemy[i].getRow();
-				tempColumn = holdEnemy[i].getColumn();
-				tempRowFalse = holdEnemy[i].getRow();
-				tempColumnFalse = holdEnemy[i].getColumn();
-
-				Random r = new Random();
-
-				int movement = r.nextInt(4) + 1;
-
-				holdEnemy[i].move(movement);
-
-				holdEnemy[i].setRow(holdEnemy[i].getRow());
-				holdEnemy[i].setColumn(holdEnemy[i].getColumn());
-
-				map[tempRow][tempColumn] = new EmptySpace();
-
-				if (map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()].getFront().equals(" ")) {
-
-					map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] = holdEnemy[i];
-					good = true;
-
-				} else {
-					holdEnemy[i].setRow(tempRowFalse);
-					holdEnemy[i].setColumn(tempColumnFalse);
-					map[tempRowFalse][tempColumnFalse] = holdEnemy[i];
-
-				}
-
-			} catch (ArrayIndexOutOfBoundsException e) {
-				map[tempRowFalse][tempColumnFalse] = holdEnemy[i];
+			switch (movement) {
+			case 1:
+				checkRow--;
+				break;
+			case 2:
+				checkRow++;
+				break;
+			case 3:
+				checkColumn++;
+				break;
+			case 4:
+				checkColumn--;
+				break;
 			}
-		}
+			System.out.println(checkRow + " " + checkColumn);
+			// check to make sure enemies don't go out of bounds
+			if (checkColumn < 0 || checkColumn > 8 || checkRow < 0 || checkRow > 8)
+				check = false;
+			else {
+				// prevent stepping into room or on power ups
+				if (map[checkRow][checkColumn].getFront().equals(" "))
+					check = true;
+				else {
+					check = false;
+					System.out.println("enemy: " + i + " tried to enter a room");
+				}
+			}
+			System.out.println(check);
 
+		} while (check != true);
+
+		return movement;
 	}
 
+	public void moveEnemy() {
+		int tempRow = 0;
+		int tempColumn = 0;
+
+		for (int i = 0; i < 6; ++i) {
+
+			tempRow = holdEnemy[i].getRow();
+			tempColumn = holdEnemy[i].getColumn();
+
+			holdEnemy[i].move(checkValidPosition(i));
+			System.out.println("1");
+			holdEnemy[i].setRow(holdEnemy[i].getRow());
+			holdEnemy[i].setColumn(holdEnemy[i].getColumn());
+			System.out.println("2");
+			map[tempRow][tempColumn] = new EmptySpace();
+			System.out.println("3" + "\n ------ " + i);
+
+			map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] = holdEnemy[i];
+
+		}
+	}
+
+	/*
+	 * public void moveEnemy() { int tempRow = 0; int tempColumn = 0; int
+	 * tempRowFalse = 0; int tempColumnFalse = 0;
+	 * 
+	 * for (int i = enemyNumber; i < 6; ++i) { try {
+	 * 
+	 * tempRow = holdEnemy[i].getRow(); tempColumn = holdEnemy[i].getColumn();
+	 * tempRowFalse = holdEnemy[i].getRow(); tempColumnFalse =
+	 * holdEnemy[i].getColumn();
+	 * 
+	 * Random r = new Random();
+	 * 
+	 * int movement = r.nextInt(4) + 1;
+	 * 
+	 * holdEnemy[i].move(movement);
+	 * 
+	 * holdEnemy[i].setRow(holdEnemy[i].getRow());
+	 * holdEnemy[i].setColumn(holdEnemy[i].getColumn());
+	 * 
+	 * map[tempRow][tempColumn] = new EmptySpace();
+	 * 
+	 * if
+	 * (map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()].getFront().equals(
+	 * " ")) {
+	 * 
+	 * map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] = holdEnemy[i];
+	 * 
+	 * 
+	 * 
+	 * } else { holdEnemy[i].setRow(tempRowFalse);
+	 * holdEnemy[i].setColumn(tempColumnFalse);
+	 * map[tempRowFalse][tempColumnFalse] = holdEnemy[i]; enemyNumber--;
+	 * moveEnemy();
+	 * 
+	 * 
+	 * }
+	 * 
+	 * } catch (ArrayIndexOutOfBoundsException e) {
+	 * map[tempRowFalse][tempColumnFalse] = holdEnemy[i]; moveEnemy(); }
+	 * 
+	 * enemyNumber = 0; }
+	 * 
+	 * }
+	 */
 	public void playerDetect() {
 		if (player.isDangerAhead() == true) {
 			System.out.println("Danger Ahead!\n");

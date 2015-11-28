@@ -193,7 +193,7 @@ public class GameEngine {
 		try {
 			map.moveEnemy();
 		} catch (ArrayIndexOutOfBoundsException e) {
-			System.out.println("Enemies move out of bounds");
+			System.out.println("An enemy moved out of bounds");
 		}
 	}
 
