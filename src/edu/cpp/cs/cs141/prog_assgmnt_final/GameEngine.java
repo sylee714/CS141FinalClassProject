@@ -54,20 +54,20 @@ public class GameEngine {
 	}
 
 	public void generateMap() {
-		
+
 		map.generateEmptySpace();
 		map.generateRoomsWithBriefCase();
 		map.generatePlayer();
 		map.generateEnemy();
 		map.generatePowerUps();
-		//map.useRadar();
-		
+		// map.useRadar();
+
 	}
-	
+
 	public int briefCaseRow() {
 		return map.briefCaseRow();
 	}
-	
+
 	public int briefCaseColumn() {
 		return map.briefCaseColumn();
 	}
@@ -94,7 +94,7 @@ public class GameEngine {
 		switch (direction) {
 		case 1:
 			map.visibilityOfPlayer(1);
-			
+
 			break;
 
 		case 2:
@@ -110,18 +110,18 @@ public class GameEngine {
 			break;
 		}
 	}
-	
+
 	public boolean foundRadar() {
-		
+
 		return map.isRadarIndicator();
 	}
-	
+
 	public void useRadar(boolean foundRadar) {
-		
+
 		if (foundRadar) {
 			map.useRadar();
 		}
-		
+
 	}
 
 	/*
@@ -185,7 +185,6 @@ public class GameEngine {
 
 	}
 
-
 	public int getTurn() {
 		return turn;
 	}
@@ -201,41 +200,47 @@ public class GameEngine {
 	public void backToSpawnLocation() {
 		map.generatePlayer();
 	}
-	
+
 	public int numberOfBullet() {
 		return map.bullet();
 	}
-	
 
 	public void playerAttack(int direction) {
 
-		if (map.checkBullet()) {
-			switch (direction) {
-			// left
-			case 1:
+		switch (direction) {
+
+		// left
+		case 1:
+			if (map.checkBullet()) {
 				map.shootLeft();
 				map.useBullet();
-				break;
-			// right
-			case 2:
+			}
+			break;
+		// right
+		case 2:
+			if (map.checkBullet()) {
 				map.shootRight();
 				map.useBullet();
-				break;
-			// up
-			case 3:
+			}
+			break;
+		// up
+		case 3:
+			if (map.checkBullet()) {
 				map.shootUp();
 				map.useBullet();
-				break;
-			// down
-			case 4:
+			}
+			break;
+		// down
+		case 4:
+			if (map.checkBullet()) {
 				map.shootDown();
 				map.useBullet();
-				break;
 			}
+			break;
 		}
+
 	}
 
-	
 	/**
 	 * 
 	 * @param direction
@@ -273,7 +278,6 @@ public class GameEngine {
 		map.initialPoint();
 	}
 
-
 	public boolean endGame() {
 		boolean won = false;
 		return won;
@@ -284,10 +288,9 @@ public class GameEngine {
 		map.playerDetect();
 	}
 
-
 	public void setNotFlipped() {
 		map.setNotFlipped();
-		
+
 	}
 
 	public void Save() {
@@ -295,7 +298,6 @@ public class GameEngine {
 	}
 
 	public void load() {
-	
 
 	}
 

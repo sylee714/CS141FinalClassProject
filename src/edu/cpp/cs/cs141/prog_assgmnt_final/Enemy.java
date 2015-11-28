@@ -10,8 +10,8 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
 public class Enemy extends GameEntity {
 
 
-	public Enemy() {
-		super("E", "*", 0, 0);
+	public Enemy(String front) {
+		super(front, "*", 0, 0);
 	}
 
 	/**

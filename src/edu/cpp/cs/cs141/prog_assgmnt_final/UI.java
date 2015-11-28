@@ -95,12 +95,12 @@ public class UI {
 			// Shoot
 			case 3:
 
-				System.out.println("Choose a direction to shoot.\n");
-				System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
-				int direction = keyboard.nextInt();
+				//System.out.println("Choose a direction to shoot.\n");
+				//System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
+				//int direction = keyboard.nextInt();
 
-				playerShoot(direction);
-				System.out.println();
+				playerShoot();
+				//System.out.println();
 				break;
 			// Save
 			case 4:
@@ -146,20 +146,25 @@ public class UI {
 
 	}
 
-	public void playerShoot(int direction) {
-
+	public void playerShoot() {
+		
+		System.out.println("Choose a direction to shoot.\n");
+		System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
+		
+		int direction = keyboard.nextInt();
+		
 		switch (direction) {
 		case 1:
-			game.playerAttack(1);
+			game.playerAttack(direction);
 			break;
 		case 2:
-			game.playerAttack(2);
+			game.playerAttack(direction);
 			break;
 		case 3:
-			game.playerAttack(3);
+			game.playerAttack(direction);
 			break;
 		case 4:
-			game.playerAttack(4);
+			game.playerAttack(direction);
 			break;
 		}
 
@@ -213,12 +218,12 @@ public class UI {
 		// Shoot
 		case 2:
 
-			System.out.println("Choose a direction to shoot.\n");
-			System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
-			int direction = keyboard.nextInt();
+			//System.out.println("Choose a direction to shoot.\n");
+			//System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
+			//int direction = keyboard.nextInt();
 
-			playerShoot(direction);
-			System.out.println();
+			playerShoot();
+			//System.out.println();
 			break;
 		// Save
 		case 3:
