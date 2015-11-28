@@ -59,6 +59,16 @@ public class Map implements Serializable {
 
 	private boolean playerAttack = false;
 
+	private boolean foundRoom = false;
+
+	public void searchRoom() {
+
+	}
+
+	public int playerLife() {
+		return player.getLife();
+	}
+
 	/**
 	 * @return the foundPlayer
 	 */
@@ -220,7 +230,6 @@ public class Map implements Serializable {
 
 	}
 
-
 	public void shootLeft() {
 
 		boolean foundEnemy = false;
@@ -338,6 +347,8 @@ public class Map implements Serializable {
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
 				map[i][j] = new EmptySpace();
+				map[i][j].setRow(i);
+				map[i][j].setColumn(j);
 			}
 		}
 	}
@@ -698,47 +709,69 @@ public class Map implements Serializable {
 		}
 	}
 
+	public int checkValidPosition(int i) {
+		Random r = new Random();
+		int movement;
+		boolean check = true;
+
+		do {
+			int checkRow = holdEnemy[i].getRow();
+			int checkColumn = holdEnemy[i].getColumn();
+			movement = r.nextInt(4) + 1;
+
+			switch (movement) {
+			case 1:
+				checkRow--;
+				break;
+			case 2:
+				checkRow++;
+				break;
+			case 3:
+				checkColumn++;
+				break;
+			case 4:
+				checkColumn--;
+				break;
+			}
+			//System.out.println(checkRow + " " + checkColumn);
+			// check to make sure enemies don't go out of bounds
+			if (checkColumn < 0 || checkColumn > 8 || checkRow < 0 || checkRow > 8)
+				check = false;
+			else {
+				// prevent stepping into room or on power ups
+				if (map[checkRow][checkColumn].getFront().equals(" "))
+					check = true;
+				else {
+					check = false;
+					//System.out.println("enemy: " + i + " tried to enter a room");
+				}
+			}
+			System.out.println(check);
+			holdEnemy[i].move(movement);
+		} while (check != true);
+
+		return movement;
+	}
+
 	public void moveEnemy() {
-		boolean good = true;
 		int tempRow = 0;
 		int tempColumn = 0;
-		int tempRowFalse = 0;
-		int tempColumnFalse = 0;
 
 		for (int i = 0; i < 6; ++i) {
-			try {
 
-				tempRow = holdEnemy[i].getRow();
-				tempColumn = holdEnemy[i].getColumn();
-				tempRowFalse = holdEnemy[i].getRow();
-				tempColumnFalse = holdEnemy[i].getColumn();
+			tempRow = holdEnemy[i].getRow();
+			tempColumn = holdEnemy[i].getColumn();
 
-				Random r = new Random();
+			holdEnemy[i].move(checkValidPosition(i));
+			//System.out.println("1");
+			holdEnemy[i].setRow(holdEnemy[i].getRow());
+			holdEnemy[i].setColumn(holdEnemy[i].getColumn());
+			//System.out.println("2");
+			map[tempRow][tempColumn] = new EmptySpace();
+			//System.out.println("3" + "\n ------ " + i);
 
-				int movement = r.nextInt(4) + 1;
+			map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] = holdEnemy[i];
 
-				holdEnemy[i].move(movement);
-
-				holdEnemy[i].setRow(holdEnemy[i].getRow());
-				holdEnemy[i].setColumn(holdEnemy[i].getColumn());
-
-				map[tempRow][tempColumn] = new EmptySpace();
-
-				if (map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()].getFront().equals(" ")) {
-
-					map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] = holdEnemy[i];
-					good = true;
-
-				} else {
-					holdEnemy[i].setRow(tempRowFalse);
-					holdEnemy[i].setColumn(tempColumnFalse);
-					map[tempRowFalse][tempColumnFalse] = holdEnemy[i];
-
-				}
-
-			} catch (ArrayIndexOutOfBoundsException e) {
-				map[tempRowFalse][tempColumnFalse] = holdEnemy[i];
-			}
 		}
 
 	}

@@ -34,7 +34,7 @@ public class GameEngine {
 
 	private boolean attacked = false;
 
-	private boolean endGame;
+	private boolean endGame = false;
 
 	private boolean debug = false;
 
@@ -193,7 +193,7 @@ public class GameEngine {
 		try {
 			map.moveEnemy();
 		} catch (ArrayIndexOutOfBoundsException e) {
-			System.out.println("Enemies move out of bounds");
+			System.out.println("An enemy moved out of bounds");
 		}
 	}
 
@@ -279,8 +279,10 @@ public class GameEngine {
 	}
 
 	public boolean endGame() {
-		boolean won = false;
-		return won;
+		if (map.playerLife() == 0) {
+			endGame = true;
+		}
+		return endGame;
 
 	}
 

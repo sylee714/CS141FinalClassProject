@@ -11,6 +11,8 @@ import java.io.Serializable;
  */
 public class EmptySpace extends GameEntity implements Serializable {
 	
+	
+	
 	public EmptySpace() {
 		super(" ", "*", 0, 0);
 
