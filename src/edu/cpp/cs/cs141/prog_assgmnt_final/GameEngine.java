@@ -293,26 +293,44 @@ public class GameEngine {
 
 	}
 
-	public void Save() {
-
+public static void Save() 
+	{ 
+		try
+		{
+		FileOutputStream fos = new FileOutputStream("Game.dat"); 
+		ObjectOutputStream oos = new ObjectOutputStream(fos);
+		oos.writeObject(map); 
+		oos.close(); 
+		
+		System.out.println("You have successfully saved.");
+		}
+		catch (IOException e)
+		{
+			System.out.println("error saving.");
+		}
 	}
 
-	public void load() {
-
+	public static void Load() 
+	{ 
+		try
+		{
+		FileInputStream fis = new FileInputStream("Game.dat"); 
+		ObjectInputStream ois = new ObjectInputStream(fis); 
+		map = (Map) ois.readObject();
+		ois.close(); 
+		
+		System.out.println("You have successfully loaded.");
+		}
+		catch (FileNotFoundException e)
+		{
+			System.out.println("error loading.");
+		}
+		catch (IOException i)
+		{
+			System.out.println("error loading.");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-
-	/*
-	 * 
-	 * public void Save() { FileOutputStream outStream = new
-	 * FileOutputStream("Objects.dat"); ObjectOutputStream objectOutputFile =
-	 * new ObjectOutputStream(outStream);
-	 * objectOutputFile.writeObject(GameDataSave); objectOutputFile.close(); }
-	 * 
-	 * public void load() { FileInputStream inStream = new
-	 * FileInputStream("Objects.dat"); ObjectInputStream objectInputFile = new
-	 * ObjectInputStream(inStream); objectInputFile.readObject(GameDataSave);
-	 * objectInputFile.close(); }
-	 * 
-	 */
-
 }
