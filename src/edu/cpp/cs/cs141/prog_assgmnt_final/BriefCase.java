@@ -1,11 +1,13 @@
 
 package edu.cpp.cs.cs141.prog_assgmnt_final;
 
+import java.io.Serializable;
+
 /**
  * @author Seungyun
  *
  */
-public class BriefCase extends GameEntity {
+public class BriefCase extends GameEntity implements Serializable {
 	
 	public BriefCase() {
 		super("B", "R", 0, 0);

@@ -293,26 +293,47 @@ public class GameEngine {
 
 	}
 
-	public void Save() {
+	public void save() {
+		try {
+
+			FileOutputStream fos = new FileOutputStream("Save.dat");
+
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+			oos.writeObject(map);
+
+			fos.close();
+
+		} catch (IOException e) {
+
+			System.out.println(e.getMessage());
+
+		}
 
 	}
 
 	public void load() {
 
-	}
+		try {
 
-	/*
-	 * 
-	 * public void Save() { FileOutputStream outStream = new
-	 * FileOutputStream("Objects.dat"); ObjectOutputStream objectOutputFile =
-	 * new ObjectOutputStream(outStream);
-	 * objectOutputFile.writeObject(GameDataSave); objectOutputFile.close(); }
-	 * 
-	 * public void load() { FileInputStream inStream = new
-	 * FileInputStream("Objects.dat"); ObjectInputStream objectInputFile = new
-	 * ObjectInputStream(inStream); objectInputFile.readObject(GameDataSave);
-	 * objectInputFile.close(); }
-	 * 
-	 */
+			FileInputStream fis = new FileInputStream("Save.dat");
+
+			ObjectInputStream ois = new ObjectInputStream(fis);
+
+			try {
+
+				map = (Map) ois.readObject();
+
+			} catch (ClassNotFoundException e) {
+
+				e.printStackTrace();
+			}
+
+			fis.close();
+		} catch (IOException e) {
+
+		}
+
+	}
 
 }

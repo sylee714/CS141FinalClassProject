@@ -3,11 +3,13 @@
  */
 package edu.cpp.cs.cs141.prog_assgmnt_final;
 
+import java.io.Serializable;
+
 /**
  * @author Seungyun
  * 
  */
-public class AdditionalBullet extends GameEntity {
+public class AdditionalBullet extends GameEntity implements Serializable {
 
 	public AdditionalBullet() {
 		super("A", "*", 0, 0);

@@ -220,15 +220,6 @@ public class Map implements Serializable {
 
 	}
 
-	public void printNum() {
-		System.out.println(map.length);
-		System.out.println(player.getColumn());
-		System.out.println(map.length - player.getColumn());
-
-		System.out.println(map.length);
-		System.out.println(player.getRow());
-		System.out.println(map.length - player.getRow());
-	}
 
 	public void shootLeft() {
 
@@ -687,8 +678,6 @@ public class Map implements Serializable {
 					&& map[player.getRow()][player.getColumn()] != map[7][7]) {
 
 				detectPowerUps(player.getRow(), player.getColumn());
-
-				printNum();
 
 				map[player.getRow()][player.getColumn()] = player;
 				return true;

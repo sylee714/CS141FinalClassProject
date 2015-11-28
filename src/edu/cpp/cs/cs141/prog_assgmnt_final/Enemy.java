@@ -3,11 +3,13 @@
  */
 package edu.cpp.cs.cs141.prog_assgmnt_final;
 
+import java.io.Serializable;
+
 /**
  * @author Seungyun
  *
  */
-public class Enemy extends GameEntity {
+public class Enemy extends GameEntity implements Serializable {
 
 
 	public Enemy(String front) {

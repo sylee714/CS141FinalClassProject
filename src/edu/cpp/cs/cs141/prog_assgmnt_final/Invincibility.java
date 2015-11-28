@@ -3,11 +3,13 @@
  */
 package edu.cpp.cs.cs141.prog_assgmnt_final;
 
+import java.io.Serializable;
+
 /**
  * @author Seungyun
  *
  */
-public class Invincibility extends GameEntity {
+public class Invincibility extends GameEntity implements Serializable {
 
 	public Invincibility() {
 		super("I", "*", 0, 0);

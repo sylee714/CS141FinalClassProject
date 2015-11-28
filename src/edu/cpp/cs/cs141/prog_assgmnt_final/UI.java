@@ -14,6 +14,8 @@ public class UI {
 	private GameEngine game = null;
 
 	private Scanner keyboard = null;
+	
+	private boolean quit = false;
 
 	public UI(GameEngine game) {
 		this.game = game;
@@ -26,7 +28,7 @@ public class UI {
 	 */
 	public void startGame() {
 		welcomeMessage();
-		boolean quit = false;
+		//boolean quit = false;
 		while (!quit) {
 			int option = mainMenu();
 			switch (option) {
@@ -36,7 +38,7 @@ public class UI {
 				break;
 			// calls on loadGame() to open previously saved game
 			case 2:
-				// GameEngine.load();
+				//.load();
 				break;
 			case 3:
 				System.out.println("Goodbye! Come back soon!");
@@ -104,10 +106,11 @@ public class UI {
 				break;
 			// Save
 			case 4:
-				// GameEngine.save();
+				game.save();
 				break;
 			// Quit
 			case 5:
+				game.load();
 				break;
 			// Debug
 			case 6:

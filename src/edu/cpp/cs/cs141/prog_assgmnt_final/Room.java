@@ -3,11 +3,13 @@
  */
 package edu.cpp.cs.cs141.prog_assgmnt_final;
 
+import java.io.Serializable;
+
 /**
  * @author Seungyun
  *
  */
-public class Room extends GameEntity {
+public class Room extends GameEntity implements Serializable {
 	public Room() {
 		super("R", "R", 0, 0);
 	}

@@ -3,11 +3,13 @@
  */
 package edu.cpp.cs.cs141.prog_assgmnt_final;
 
+import java.io.Serializable;
+
 /**
  * @author Seungyun
  *
  */
-public class Player extends GameEntity {
+public class Player extends GameEntity implements Serializable{
 
 	//private Gun gun = new Gun();
 
