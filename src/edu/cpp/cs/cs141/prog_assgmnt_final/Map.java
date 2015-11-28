@@ -154,11 +154,17 @@ public class Map implements Serializable {
 
 			bulletIndicator = true;
 
+			if (player.getBullet() == 0) {
+				player.setBullet(1);
+			}
+
 			player.attack(true);
 
 		} else if (map[row][column].getFront().equals("I")) {
 
 			invincibleIndicator = true;
+			invincible.countingTurn();
+			foundPlayer = false;
 
 		}
 
@@ -170,11 +176,25 @@ public class Map implements Serializable {
 
 	}
 
+	public void useInvincible() {
+		invincible.countingTurn();
+	}
+
+	public int invincibleTurn() {
+
+		return invincible.getNumberOfTurns();
+
+	}
+
 	public void pickUpBullet(boolean bulletIndicator) {
 
 		if (player.getBullet() == 0) {
 			player.setBullet(1);
 		}
+	}
+
+	public int bullet() {
+		return player.getBullet();
 	}
 
 	public boolean checkBullet() {
@@ -194,13 +214,99 @@ public class Map implements Serializable {
 		player.setBullet(0);
 
 	}
+	
+	public void printNum() {
+		System.out.println(map.length);
+		System.out.println(player.getColumn());
+		System.out.println(map.length - player.getColumn());
+
+		System.out.println(map.length);
+		System.out.println(player.getRow());
+		System.out.println(map.length - player.getRow());
+	}
+
+	public void shootLeft() {
+		
+		boolean foundEnemy = false;
+
+		for (int i = 1; i < player.getColumn() + 1; ++i) {
+
+			if (map[player.getRow()][player.getColumn() - i].getFront().equals("E")) {
+
+				map[player.getRow()][player.getColumn() - i] = new EmptySpace();
+				foundEnemy = true;
+			}
+			System.out.println("Found Enemy: " + foundEnemy);
+			System.out.println(player.getColumn() - i);
+			
+		}
+
+	}
+
+	public void shootRight() {
+
+		int turn = map.length - player.getColumn();
+		
+		boolean foundEnemy = false;
+		
+		
+
+		for (int i = 1; i < turn; ++i) {
+
+			if (map[player.getRow()][player.getColumn() + i].getFront().equals("E")) {
+
+				map[player.getRow()][player.getColumn() + i] = new EmptySpace();
+				foundEnemy = true;
+				//break;
+			}
+			System.out.println("Found Enemy: " + foundEnemy);
+			System.out.println(player.getColumn() + i);
+
+		}
+		
+	}
+
+	public void shootUp() {
+		
+		boolean foundEnemy = false;
+
+		for (int i = 1; i < player.getRow() + 1; ++i) {
+
+			if (map[player.getRow() - i][player.getColumn()].getFront().equals("E")) {
+
+				map[player.getRow() - i][player.getColumn()] = new EmptySpace();
+				foundEnemy = true;
+			}
+			System.out.println("Found Enemy: " + foundEnemy);
+			System.out.println(player.getRow() - i);
+
+		}
+	}
+
+	public void shootDown() {
+		
+		boolean foundEnemy = false;
+
+		int turn = map.length - player.getRow();
+
+		for (int i = 1; i < turn; ++i) {
+
+			if (map[player.getRow() + i][player.getColumn()].getFront().equals("E")) {
+
+				map[player.getRow() + i][player.getColumn()] = new EmptySpace();
+				foundEnemy = true;
+			}
+			System.out.println("Found Enemy: " + foundEnemy);
+			System.out.println(player.getRow() + i);
+		}
+	}
 
 	public void useRadar() {
 
 		map[briefCase.getRow()][briefCase.getColumn()].setFlipped(true);
 
 	}
-	
+
 	public int briefCaseRow() {
 		return briefCase.getRow();
 	}
@@ -496,22 +602,28 @@ public class Map implements Serializable {
 					player.setDangerAhead(true);
 
 				break;
+
 			// right
 			case 2:
 
 				map[player.getRow()][player.getColumn() + i].setFlipped(true);
 				if (map[player.getRow()][player.getColumn() + i].getFront().equals("E"))
 					player.setDangerAhead(true);
+
 				break;
 
 			// up
 			case 3:
+
 				map[player.getRow() - i][player.getColumn()].setFlipped(true);
 				if (map[player.getRow() - i][player.getColumn()].getFront().equals("E"))
 					player.setDangerAhead(true);
+
 				break;
+
 			// down
 			case 4:
+
 				map[player.getRow() + i][player.getColumn()].setFlipped(true);
 				if (map[player.getRow() + i][player.getColumn()].getFront().equals("E"))
 					player.setDangerAhead(true);
@@ -548,14 +660,10 @@ public class Map implements Serializable {
 					&& map[player.getRow()][player.getColumn()] != map[7][1]
 					&& map[player.getRow()][player.getColumn()] != map[7][4]
 					&& map[player.getRow()][player.getColumn()] != map[7][7]) {
-				
+
 				detectPowerUps(player.getRow(), player.getColumn());
 				
-				
-				if (radarIndicator) {
-					System.out.println(briefCase.getRow() + " " + briefCase.getColumn() + " " + map[briefCase.getRow()][briefCase.getColumn()].getFront());
-					map[briefCase.getRow()][briefCase.getColumn()].setFlipped(true);
-				}
+				printNum();
 
 				map[player.getRow()][player.getColumn()] = player;
 				return true;
@@ -621,69 +729,6 @@ public class Map implements Serializable {
 
 	}
 
-	public void playerAttackHorizontally(int direction) {
-
-		boolean enemyFound = false;
-
-		for (int i = player.getColumn(); i < map.length; ++i) {
-
-			do {
-				switch (direction) {
-
-				// left
-				case 1:
-
-					if (map[player.getRow()][player.getColumn() - i].getFront().equals("E"))
-						map[player.getRow()][player.getColumn() - i] = new EmptySpace();
-					enemyFound = true;
-
-					break;
-				// right
-				case 2:
-
-					if (map[player.getRow()][player.getColumn() + i].getFront().equals("E"))
-						map[player.getRow()][player.getColumn() + i] = new EmptySpace();
-					enemyFound = true;
-
-					break;
-				}
-			} while (!enemyFound);
-		}
-
-	}
-
-	public void playerAttackVertically(int direction) {
-
-		boolean enemyFound = false;
-
-		for (int i = player.getRow(); i < map.length; ++i) {
-
-			do {
-				switch (direction) {
-
-				// up
-				case 1:
-
-					if (map[player.getRow() - i][player.getColumn()].getFront().equals("E"))
-						map[player.getRow() - i][player.getColumn()] = new EmptySpace();
-					enemyFound = true;
-
-					break;
-				// down
-				case 2:
-
-					if (map[player.getRow() + i][player.getColumn()].getFront().equals("E"))
-						map[player.getRow() + i][player.getColumn()] = new EmptySpace();
-					enemyFound = true;
-
-					break;
-
-				}
-			} while (!enemyFound);
-		}
-
-	}
-
 	public void playerDetect() {
 		if (player.isDangerAhead() == true) {
 			System.out.println("Danger Ahead!\n");
@@ -707,9 +752,8 @@ public class Map implements Serializable {
 		return numberOfEnemy;
 	}
 
-	
 	public void setNotFlipped() {
-		
+
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
 				map[i][j].setFlipped(false);

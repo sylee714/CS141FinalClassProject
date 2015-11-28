@@ -36,7 +36,7 @@ public class UI {
 				break;
 			// calls on loadGame() to open previously saved game
 			case 2:
-				//GameEngine.load();
+				// GameEngine.load();
 				break;
 			case 3:
 				System.out.println("Goodbye! Come back soon!");
@@ -74,12 +74,11 @@ public class UI {
 		while (!game.endGame()) {
 
 			System.out.println("Begin your turn player!\n");
-			
+
 			System.out.println(game.printBoard());
 			System.out.println("What would you like to do next?\n");
 
 			System.out.println("1)Move \n2)Look \n3)Shoot \n4)Save \n5)Quit \n6)Debug Mode");
-
 
 			int choice = keyboard.nextInt();
 
@@ -88,29 +87,29 @@ public class UI {
 			case 1:
 				playerMove();
 				break;
-			//Look	
+			// Look
 			case 2:
 				playerLook();
 				break;
-				
+
 			// Shoot
 			case 3:
-				
+
 				System.out.println("Choose a direction to shoot.\n");
 				System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
 				int direction = keyboard.nextInt();
-				
+
 				playerShoot(direction);
 				System.out.println();
 				break;
 			// Save
 			case 4:
-				//GameEngine.save();
+				// GameEngine.save();
 				break;
 			// Quit
 			case 5:
 				break;
-			//Debug
+			// Debug
 			case 6:
 				toggleBoard();
 				break;
@@ -118,9 +117,11 @@ public class UI {
 				System.out.println("That isn't a valid input try again please.");
 				break;
 			}
+			
+			System.out.println("You have " + game.numberOfBullet() + " bullet.");
+			
 			endTurn();
 		}
-		
 
 	}
 
@@ -129,18 +130,24 @@ public class UI {
 	 * over.
 	 */
 	public void endTurn() {
-		//game.moveEnemy();
+		
+		game.moveEnemy();
 
-		//game.enemyTurn();
+		// game.enemyTurn();
 
 		game.setNotFlipped();
-		//game.playerTurn();
+		game.useRadar(game.foundRadar());
+
+		if (game.foundRadar()) {
+			System.out.println("The brief case is loacated at: " + "Row: " + game.briefCaseRow() 
+				+ " Column: " + game.briefCaseColumn());
+		}
+		// game.playerTurn();
 
 	}
-	
+
 	public void playerShoot(int direction) {
-		
-		
+
 		switch (direction) {
 		case 1:
 			game.playerAttack(1);
@@ -155,9 +162,9 @@ public class UI {
 			game.playerAttack(4);
 			break;
 		}
-		
+
 	}
-	
+
 	public void playerLook() {
 		System.out.println("Choose a direction to look in.\n");
 		System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
@@ -191,11 +198,10 @@ public class UI {
 		}
 		game.playerDetect();
 		System.out.println(game.printBoard());
-		
+
 		System.out.println("What would you like to do next?\n");
 
 		System.out.println("1)Move \n2)Shoot \n3)Save \n4)Quit \n5)Debug Mode");
-
 
 		int choice = keyboard.nextInt();
 
@@ -203,25 +209,25 @@ public class UI {
 		// Move
 		case 1:
 			playerMove();
-			break;			
+			break;
 		// Shoot
 		case 2:
-			
+
 			System.out.println("Choose a direction to shoot.\n");
 			System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
 			int direction = keyboard.nextInt();
-			
+
 			playerShoot(direction);
 			System.out.println();
 			break;
 		// Save
 		case 3:
-			//GameEngine.save();
+			// GameEngine.save();
 			break;
 		// Quit
 		case 4:
 			break;
-		//Debug
+		// Debug
 		case 5:
 			toggleBoard();
 			break;
@@ -230,15 +236,12 @@ public class UI {
 			break;
 		}
 	}
-	
-	
-
 
 	public void playerMove() {
-		
+
 		System.out.println("Choose a direction to move in.\n");
 		System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
-		
+
 		// true = correct choice
 		boolean temp = true;
 

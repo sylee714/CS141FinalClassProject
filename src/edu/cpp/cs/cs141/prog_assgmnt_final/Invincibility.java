@@ -37,22 +37,25 @@ public class Invincibility extends GameEntity {
 	 * This method will keep track of invincible turns.
 	 */
 	public void countingTurn() {
-		if (invincible) {
+		
 			numberOfTurns -= 1;
-		}
+			
 	}
 
 	/**
-	 * This field represent the location of invincible power-up when the game
-	 * starts.
-	 * 
-	 * @param index
-	 *            number of row
-	 * @param index
-	 *            number of column
+	 * @return the numberOfTurns
 	 */
-	public void location(int x, int y) {
-
+	public int getNumberOfTurns() {
+		return numberOfTurns;
 	}
+
+	/**
+	 * @param numberOfTurns the numberOfTurns to set
+	 */
+	public void setNumberOfTurns(int numberOfTurns) {
+		this.numberOfTurns = numberOfTurns;
+	}
+
+	
 
 }

@@ -113,7 +113,6 @@ public class GameEngine {
 	
 	public boolean foundRadar() {
 		
-		System.out.println(map.isRadarIndicator());
 		return map.isRadarIndicator();
 	}
 	
@@ -202,6 +201,11 @@ public class GameEngine {
 	public void backToSpawnLocation() {
 		map.generatePlayer();
 	}
+	
+	public int numberOfBullet() {
+		return map.bullet();
+	}
+	
 
 	public void playerAttack(int direction) {
 
@@ -209,22 +213,22 @@ public class GameEngine {
 			switch (direction) {
 			// left
 			case 1:
-				map.playerAttackHorizontally(1);
+				map.shootLeft();
 				map.useBullet();
 				break;
 			// right
 			case 2:
-				map.playerAttackHorizontally(2);
+				map.shootRight();
 				map.useBullet();
 				break;
 			// up
 			case 3:
-				map.playerAttackVertically(1);
+				map.shootUp();
 				map.useBullet();
 				break;
 			// down
 			case 4:
-				map.playerAttackVertically(2);
+				map.shootDown();
 				map.useBullet();
 				break;
 			}
