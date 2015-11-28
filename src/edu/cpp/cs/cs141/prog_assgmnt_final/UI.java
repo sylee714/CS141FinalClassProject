@@ -36,7 +36,7 @@ public class UI {
 				break;
 			// calls on loadGame() to open previously saved game
 			case 2:
-				// GameEngine.load();
+				GameEngine.Load();
 				break;
 			case 3:
 				System.out.println("Goodbye! Come back soon!");
@@ -104,10 +104,11 @@ public class UI {
 				break;
 			// Save
 			case 4:
-				// GameEngine.save();
+				GameEngine.Save();
 				break;
 			// Quit
 			case 5:
+				mainMenu();
 				break;
 			// Debug
 			case 6:
@@ -227,7 +228,7 @@ public class UI {
 			break;
 		// Save
 		case 3:
-			// GameEngine.save();
+			GameEngine.Save();
 			break;
 		// Quit
 		case 4:
