@@ -264,6 +264,7 @@ public class Map implements Serializable {
 
 			do {
 				if (map[player.getRow()][player.getColumn() - i].getFront().equals("R")) {
+					foundRoom = true;
 
 				} else if (map[player.getRow()][player.getColumn() - i].getFront().equals("1")
 						|| map[player.getRow()][player.getColumn() - i].getFront().equals("2")
