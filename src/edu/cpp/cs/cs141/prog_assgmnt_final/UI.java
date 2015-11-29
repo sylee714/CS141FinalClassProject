@@ -1,11 +1,8 @@
-/**
- * 
- */
 package edu.cpp.cs.cs141.prog_assgmnt_final;
 
 import java.util.Scanner;
 
-/**
+/*
  * @author Seungyun
  *
  */
@@ -22,21 +19,28 @@ public class UI {
 
 	/**
 	 * Greets player on startup and gives 3 options. Starting a new game,
-	 * Loading the previous game, and quitting the game.
+	 * Loading the previous game, and Quitting the game.
 	 */
 	public void startGame() {
+		
 		welcomeMessage();
+		
 		boolean quit = false;
 		while (!quit) {
-			int option = mainMenu();
+			int option = 0;
+			while (option < 1 || option > 3)
+			{
+			option = mainMenu(option);
+			}
+			
 			switch (option) {
 			case 1:
 				game.generateMap();
-				gameLoop();
+				gameLoop(option);
 				break;
 			// calls on loadGame() to open previously saved game
 			case 2:
-				GameEngine.Load();
+				 GameEngine.Load();
 				break;
 			case 3:
 				System.out.println("Goodbye! Come back soon!");
@@ -58,9 +62,9 @@ public class UI {
 	public void welcomeMessage() {
 		System.out.println("Hi There Player!\n");
 	}
-
-	private int mainMenu() {
-		int option = 0;
+	
+	
+	private int mainMenu(int option) {
 		System.out.println("Select an option:\n\n1)New Game\n2)Load Game\n3)Quit Game");
 		option = keyboard.nextInt();
 		keyboard.nextLine();
@@ -69,18 +73,19 @@ public class UI {
 
 	}
 
-	public void gameLoop() {
+	// int option is called to use main menu function
+	public void gameLoop(int option) {
 
 		while (!game.endGame()) {
 
-			System.out.println("Begin your turn player!\n");
-
-			System.out.println(game.printBoard());
-			System.out.println("What would you like to do next?\n");
-
-			System.out.println("1)Move \n2)Look \n3)Shoot \n4)Save \n5)Quit \n6)Debug Mode");
-
-			int choice = keyboard.nextInt();
+			beginTurnMessage();
+			
+			int choice = 0;
+			
+			while (choice < 1 || choice > 6)
+			{
+				choice = keyboard.nextInt();
+			}
 
 			switch (choice) {
 			// Move
@@ -106,9 +111,9 @@ public class UI {
 			case 4:
 				GameEngine.Save();
 				break;
-			// Quit
+			// Quit to Main Menu
 			case 5:
-				mainMenu();
+				mainMenu(option);
 				break;
 			// Debug
 			case 6:
@@ -119,13 +124,25 @@ public class UI {
 				break;
 			}
 			
-			System.out.println("You have " + game.numberOfBullet() + " bullet.");
+			System.out.println("\nBullets:" + game.numberOfBullet() + "\nEnemies:" + game.numberOfEnemies() + "\nLifes:" +
+					+ game.numberOfLives());
 			
 			endTurn();
 		}
 
 	}
 
+	public void beginTurnMessage()
+	{
+		System.out.println("Begin your turn player!\n");
+
+		System.out.println(game.printBoard());
+		System.out.println("What would you like to do next?\n");
+
+		System.out.println("1)Move \n2)Look \n3)Shoot \n4)Save \n5)Main Menu \n6)Debug Mode");
+
+	}
+	
 	/**
 	 * Runs all the methods that should take effect once the player's turn is
 	 * over.
@@ -228,7 +245,7 @@ public class UI {
 			break;
 		// Save
 		case 3:
-			GameEngine.Save();
+			 GameEngine.Save();
 			break;
 		// Quit
 		case 4:
