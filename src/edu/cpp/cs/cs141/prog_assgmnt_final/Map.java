@@ -58,6 +58,10 @@ public class Map implements Serializable {
 	private boolean foundPlayer = false;
 
 	private boolean playerAttack = false;
+	
+	private int enemies = 0;
+	
+	
 
 	/**
 	 * @return the foundPlayer
@@ -202,6 +206,28 @@ public class Map implements Serializable {
 		return player.getBullet();
 	}
 
+	public int lives() {
+		return player.getLives();
+	}
+	
+	public int checkEnemyRemaining(int enemies) {
+
+		for (int i = 0; i < map.length; ++i) {
+			for (int j = 0; j < map[i].length; ++j) {
+				if (map[i][j].equals("E")) {
+					enemies = enemies + 1;
+				}
+			}
+		}
+
+		return enemies;
+	}
+	
+	public int enemies() {
+	return enemies;
+	}
+	
+	
 	public boolean checkBullet() {
 
 		if (player.getBullet() == 1) {
@@ -762,20 +788,7 @@ public class Map implements Serializable {
 			System.out.println("Clear!\n");
 	}
 
-	public int checkEnemyRemaining() {
-
-		int numberOfEnemy = 0;
-
-		for (int i = 0; i < map.length; ++i) {
-			for (int j = 0; j < map[i].length; ++j) {
-				if (map[i][j].equals("E")) {
-					numberOfEnemy = numberOfEnemy + 1;
-				}
-			}
-		}
-
-		return numberOfEnemy;
-	}
+	
 
 	public void setNotFlipped() {
 
