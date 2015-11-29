@@ -241,61 +241,43 @@ public class GameEngine {
 	public void visibilityOfEnemy() {
 		map.visibilityOfEnemy();
 	}
-	/*  old method in masterchief most recent code
-	public void visibilityOfEnemy() {
-		try {
-			map.visibilityOfEnemy(1);
-		} catch (ArrayIndexOutOfBoundsException e) {
 
-		}
-		try {
-			map.visibilityOfEnemy(2);
-		} catch (ArrayIndexOutOfBoundsException e) {
-
-		}
-		try {
-			map.visibilityOfEnemy(3);
-		} catch (ArrayIndexOutOfBoundsException e) {
-
-		}
-		try {
-			map.visibilityOfEnemy(4);
-		} catch (ArrayIndexOutOfBoundsException e) {
-
-		}
-	}
-*/
-	
 	/*
+	 * old method in masterchief most recent code public void
+	 * visibilityOfEnemy() { try { map.visibilityOfEnemy(1); } catch
+	 * (ArrayIndexOutOfBoundsException e) {
+	 * 
+	 * } try { map.visibilityOfEnemy(2); } catch (ArrayIndexOutOfBoundsException
+	 * e) {
+	 * 
+	 * } try { map.visibilityOfEnemy(3); } catch (ArrayIndexOutOfBoundsException
+	 * e) {
+	 * 
+	 * } try { map.visibilityOfEnemy(4); } catch (ArrayIndexOutOfBoundsException
+	 * e) {
+	 * 
+	 * } }
+	 */
+
 	public void enemyTurn() {
 
-		map.useInvincibleboolean(map.isInvincibleIndicator()); 
-		
+		map.useInvincible(map.isInvincibleIndicator());
+		map.invincibilityTurns(map.isInvincibleIndicator());
+		map.endInvincibility(map.invincibleTurn());
 		if (map.isAbleEnemyAttack()) {
-	
-		visibilityOfEnemy();
-		map.enemyAttack(map.isFoundPlayer());
-		System.out.println("Found Player: " + map.isFoundPlayer());
-	//	map.playerGotDamaged();
-		map.initialPoint();
-		}
-	}*/
-	public void enemyTurn(){
-		map.useInvincibleboolean(map.isInvincibleIndicator());
-		visibilityOfEnemy();
-		map.enemyAttack(map.isFoundPlayer());
-		System.out.println("Found Player: " + map.isFoundPlayer());
-		
-		if (map.isFoundPlayer()){
-			
-			map.playerGotDamaged();
+
+			visibilityOfEnemy();
+			map.enemyAttack(map.isFoundPlayer());
+			System.out.println("Found Player: " + map.isFoundPlayer());
+			map.playerGotDamaged(map.isFoundPlayer());
+
 			map.initialPoint();
-//			System.out.println("You have " + player.getLife());
-	}
+		}
 
 	}
+
 	public boolean endGame() {
-		if (map.playerLife() == 0) {
+		if (map.playerLife() == 0 || map.isBriefCaseIndicator() == true) {
 			endGame = true;
 		}
 		return endGame;
@@ -353,9 +335,23 @@ public class GameEngine {
 		}
 
 	}
+
 	public void lifeReset() {
 		map.setFoundPlayer(false);
 	}
 
+	public boolean briefCaseIndicator() {
+		return map.isBriefCaseIndicator();
+	}
+
+	public boolean northSideOfRoom() {
+		return map.isNorthSideOfRoom();
+	}
+
+	public void checkRoom() {
+
+		map.searchRoom(map.isNorthSideOfRoom());
+
+	}
 
 }
