@@ -22,9 +22,7 @@ import java.util.Random;
  */
 public class GameEngine {
 
-	private static final Object GameDataSave = null;
-
-	private Map map = null;
+	private static Map map = null;
 
 	public GameEngine(Map map) {
 		this.map = map;
@@ -204,6 +202,14 @@ public class GameEngine {
 	public int numberOfBullet() {
 		return map.bullet();
 	}
+	
+	public int numberOfLives() {
+		return map.lives();
+	}
+	
+	public int numberOfEnemies() {
+		return map.enemies();
+	}
 
 	public void playerAttack(int direction) {
 
@@ -293,7 +299,7 @@ public class GameEngine {
 
 	}
 
-public static void Save() 
+	public static void Save() 
 	{ 
 		try
 		{
@@ -334,3 +340,4 @@ public static void Save()
 		}
 	}
 }
+
