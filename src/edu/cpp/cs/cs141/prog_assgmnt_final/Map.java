@@ -280,8 +280,6 @@ public class Map implements Serializable {
 	public boolean useInvincible(boolean invincibleIndicator) {
 
 		if (invincibleIndicator) {
-
-			invincible.countingTurn();
 			ableEnemyAttack = false;
 
 		} 
@@ -290,6 +288,11 @@ public class Map implements Serializable {
 
 	}
 	
+	public void invincibilityTurns(boolean invincibleIndicator) {
+		if (invincibleIndicator) {
+			invincible.countingTurn();
+		}
+	}
 	
 	
 	public boolean endInvincibility(int turn) {

@@ -288,7 +288,8 @@ public class GameEngine {
 
 	public void enemyTurn() {
 		
-		map.useInvincible(map.isInvincibleIndicator()); 
+		map.useInvincible(map.isInvincibleIndicator());
+		map.invincibilityTurns(map.isInvincibleIndicator());
 		map.endInvincibility(map.invincibleTurn());
 		
 		if (map.isAbleEnemyAttack()) {

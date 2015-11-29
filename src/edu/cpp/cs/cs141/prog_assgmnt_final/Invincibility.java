@@ -40,7 +40,7 @@ public class Invincibility extends GameEntity implements Serializable {
 	 */
 	public void countingTurn() {
 		
-			numberOfTurns -= 1;
+			numberOfTurns = numberOfTurns - 1;
 			
 	}
 
