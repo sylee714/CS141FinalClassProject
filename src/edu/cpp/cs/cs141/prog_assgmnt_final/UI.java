@@ -129,9 +129,15 @@ public class UI {
 				break;
 			}
 			
+			if (game.invincible()) {
+				System.out.println("You consumed invincibility");
+				game.useInvincible();
+			}
+			
 			
 			
 			System.out.println("You have " + game.numberOfBullet() + " bullet.");
+			System.out.println("You are invincible for: " + game.invincibleTurns());
 			endTurn();
 			
 			

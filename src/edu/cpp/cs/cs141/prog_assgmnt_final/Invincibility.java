@@ -18,7 +18,7 @@ public class Invincibility extends GameEntity implements Serializable {
 	/**
 	 * The player will be invincible for 5 turns.
 	 */
-	private int numberOfTurns = 5;
+	private int numberOfTurns = 6;
 
 	/**
 	 * This boolean field makes the player when he/she uses the power-up.
@@ -40,8 +40,7 @@ public class Invincibility extends GameEntity implements Serializable {
 	 */
 	public void countingTurn() {
 		
-			numberOfTurns = numberOfTurns - 1;
-			
+			--numberOfTurns;
 	}
 
 	/**

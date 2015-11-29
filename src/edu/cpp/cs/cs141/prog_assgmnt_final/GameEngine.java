@@ -37,6 +37,7 @@ public class GameEngine {
 	private boolean endGame = false;
 
 	private boolean debug = false;
+	
 
 	/**
 	 * @return the debug
@@ -285,12 +286,16 @@ public class GameEngine {
 
 		}
 	}
+	
+	public boolean invincible() {
+		return map.isInvincibleIndicator();
+	}
+	
+	public void useInvincible() {
+		map.useInvincible(map.invincibleTurns());
+	}
 
 	public void enemyTurn() {
-		
-		map.useInvincible(map.isInvincibleIndicator());
-		map.invincibilityTurns(map.isInvincibleIndicator());
-		map.endInvincibility(map.invincibleTurn());
 		
 		if (map.isAbleEnemyAttack()) {
 			
@@ -367,6 +372,12 @@ public class GameEngine {
 
 		}
 
+	}
+
+
+	public int invincibleTurns() {
+		
+		return map.invincibleTurns();
 	}
 
 }

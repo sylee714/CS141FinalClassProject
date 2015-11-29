@@ -65,6 +65,23 @@ public class Map implements Serializable {
 
 	private boolean northSideOfRoom = false;
 
+	private int turn = 5;
+	
+	
+	/**
+	 * @return the turn
+	 */
+	public int getTurn() {
+		return turn;
+	}
+
+	/**
+	 * @param turn the turn to set
+	 */
+	public void setTurn(int turn) {
+		this.turn = turn;
+	}
+
 	/**
 	 * @return the briefCaseIndicator
 	 */
@@ -271,42 +288,38 @@ public class Map implements Serializable {
 
 		} else if (map[row][column].getFront().equals("I")) {
 
-			invincibleIndicator = true;
+			invincibleIndicator = true; 
+			
 
 		}
 
 	}
 
-	public boolean useInvincible(boolean invincibleIndicator) {
-
-		if (invincibleIndicator) {
+	public boolean useInvincible(int invincibleTurns) {
+		
+		if (invincibleTurns != 0) {
+			
+			invincible.countingTurn();
+			
+			invincible.setNumberOfTurns(invincible.getNumberOfTurns());
+			
 			ableEnemyAttack = false;
 
-		} 
-
-		return ableEnemyAttack;
-
-	}
-	
-	public void invincibilityTurns(boolean invincibleIndicator) {
-		if (invincibleIndicator) {
-			invincible.countingTurn();
-		}
-	}
-	
-	
-	public boolean endInvincibility(int turn) {
-		if (invincible.getNumberOfTurns() == 0) {
+		} else if (invincibleTurns == 0) {
+			
 			ableEnemyAttack = true;
+		
 		}
+
 		return ableEnemyAttack;
+
 	}
-
-	public int invincibleTurn() {
-
+	
+	public int invincibleTurns() {
+		
 		return invincible.getNumberOfTurns();
-
 	}
+	
 
 	public void pickUpBullet(boolean bulletIndicator) {
 
