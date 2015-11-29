@@ -88,6 +88,7 @@ public class UI {
 			// Move
 			case 1:
 				playerMove();
+				
 				break;
 			// Look
 			case 2:
@@ -102,6 +103,7 @@ public class UI {
 				//int direction = keyboard.nextInt();
 
 				playerShoot();
+				
 				//System.out.println();
 				break;
 			// Save
@@ -110,7 +112,7 @@ public class UI {
 				break;
 			// Quit
 			case 5:
-				//game.load();
+				
 				break;
 			// Debug
 			case 6:
@@ -122,9 +124,10 @@ public class UI {
 			}
 			
 			System.out.println("You have " + game.numberOfBullet() + " bullet.");
-			
 			endTurn();
-		}
+			
+			
+		} 
 
 	}
 
@@ -136,7 +139,7 @@ public class UI {
 		
 		game.moveEnemy();
 
-		// game.enemyTurn();
+		//game.enemyTurn();
 
 		game.setNotFlipped();
 		game.useRadar(game.foundRadar());
@@ -145,7 +148,7 @@ public class UI {
 			System.out.println("The brief case is loacated at: " + "Row: " + game.briefCaseRow() 
 				+ " Column: " + game.briefCaseColumn());
 		}
-		// game.playerTurn();
+		
 
 	}
 

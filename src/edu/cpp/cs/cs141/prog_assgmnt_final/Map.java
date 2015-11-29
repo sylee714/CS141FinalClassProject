@@ -63,6 +63,8 @@ public class Map implements Serializable {
 
 	private boolean ableEnemyAttack = true;
 
+	private boolean northSideOfRoom = false;
+
 	/**
 	 * @return the ableEnemyAttack
 	 */
@@ -76,10 +78,6 @@ public class Map implements Serializable {
 	 */
 	public void setAbleEnemyAttack(boolean ableEnemyAttack) {
 		this.ableEnemyAttack = ableEnemyAttack;
-	}
-
-	public void searchRoom() {
-
 	}
 
 	public int playerLife() {
@@ -164,15 +162,27 @@ public class Map implements Serializable {
 		return briefCaseIndicator;
 	}
 
-	public boolean detectRoom(int row, int column) {
+	public boolean checkSideOfRoom(int row, int column) {
 
-		if (map[row][column].getBack().equals("R")) {
+		if (map[player.getRow()][player.getColumn()] == map[1][2]
+				|| map[player.getRow()][player.getColumn()] == map[1][5]
+				|| map[player.getRow()][player.getColumn()] == map[1][8]
+				|| map[player.getRow()][player.getColumn()] == map[4][2]
+				|| map[player.getRow()][player.getColumn()] == map[4][5]
+				|| map[player.getRow()][player.getColumn()] == map[4][8]
+				|| map[player.getRow()][player.getColumn()] == map[7][2]
+				|| map[player.getRow()][player.getColumn()] == map[7][5]
+				|| map[player.getRow()][player.getColumn()] == map[7][8]) {
 
-			roomIndicator = true;
+			northSideOfRoom = true;
 
 		}
 
-		return roomIndicator;
+		return northSideOfRoom;
+
+	}
+
+	public void searchRoom() {
 
 	}
 
@@ -256,34 +266,23 @@ public class Map implements Serializable {
 
 	public void shootLeft() {
 
-		boolean foundEnemy = false;
-
-		boolean foundRoom = false;
-
 		for (int i = 1; i < player.getColumn() + 1; ++i) {
 
-			do {
-				if (map[player.getRow()][player.getColumn() - i].getFront().equals("R")) {
-					foundRoom = true;
+			if (map[player.getRow()][player.getColumn() - i].getFront().equals("R")) {
 
-				} else if (map[player.getRow()][player.getColumn() - i].getFront().equals("1")
-						|| map[player.getRow()][player.getColumn() - i].getFront().equals("2")
-						|| map[player.getRow()][player.getColumn() - i].getFront().equals("3")
-						|| map[player.getRow()][player.getColumn() - i].getFront().equals("4")
-						|| map[player.getRow()][player.getColumn() - i].getFront().equals("5")
-						|| map[player.getRow()][player.getColumn() - i].getFront().equals("6")) {
+				break;
 
-					map[player.getRow()][player.getColumn() - i] = new EmptySpace();
-					foundEnemy = true;
+			} else if (map[player.getRow()][player.getColumn() - i].getFront().equals("1")
+					|| map[player.getRow()][player.getColumn() - i].getFront().equals("2")
+					|| map[player.getRow()][player.getColumn() - i].getFront().equals("3")
+					|| map[player.getRow()][player.getColumn() - i].getFront().equals("4")
+					|| map[player.getRow()][player.getColumn() - i].getFront().equals("5")
+					|| map[player.getRow()][player.getColumn() - i].getFront().equals("6")) {
 
-				}
-			} while (!foundEnemy || !foundRoom);
+				enemyDie(player.getRow(), player.getColumn() - i);
+				break;
 
-			System.out.println("Found Enemy: " + foundEnemy);
-			System.out.println(player.getColumn() - i);
-
-			// System.out.println("Found Enemy: " + foundEnemy);
-			// System.out.println(player.getColumn() - i);
+			}
 
 		}
 
@@ -293,96 +292,109 @@ public class Map implements Serializable {
 
 		int turn = map.length - player.getColumn();
 
-		boolean foundEnemy = false;
-		boolean foundRoom = false;
-
 		for (int i = 1; i < turn; ++i) {
-			do {
-				if (map[player.getRow()][player.getColumn() + i].getFront().equals("R")) {
-					foundRoom = true;
 
-				} else if (map[player.getRow()][player.getColumn() + i].getFront().equals("1")
-						|| map[player.getRow()][player.getColumn() + i].getFront().equals("2")
-						|| map[player.getRow()][player.getColumn() + i].getFront().equals("3")
-						|| map[player.getRow()][player.getColumn() + i].getFront().equals("4")
-						|| map[player.getRow()][player.getColumn() + i].getFront().equals("5")
-						|| map[player.getRow()][player.getColumn() + i].getFront().equals("6")) {
+			if (map[player.getRow()][player.getColumn() + i].getFront().equals("R")) {
 
-					map[player.getRow()][player.getColumn() + i] = new EmptySpace();
-					foundEnemy = true;
+				break;
 
-				}
-				System.out.println("Found Enemy: " + foundEnemy);
-				System.out.println(player.getColumn() + i);
+			} else if (map[player.getRow()][player.getColumn() + i].getFront().equals("1")
+					|| map[player.getRow()][player.getColumn() + i].getFront().equals("2")
+					|| map[player.getRow()][player.getColumn() + i].getFront().equals("3")
+					|| map[player.getRow()][player.getColumn() + i].getFront().equals("4")
+					|| map[player.getRow()][player.getColumn() + i].getFront().equals("5")
+					|| map[player.getRow()][player.getColumn() + i].getFront().equals("6")) {
 
-			} while (!foundEnemy || !foundRoom);
+				enemyDie(player.getRow(), player.getColumn() + 1);
+				break;
+
+			}
+
 		}
 
 	}
 
 	public void shootUp() {
 
-		boolean foundEnemy = false;
-
-		boolean foundRoom = false;
-
 		for (int i = 1; i < player.getRow() + 1; ++i) {
 
-			do {
+			if (map[player.getRow() - i][player.getColumn()].getFront().equals("R")) {
 
-				if (map[player.getRow() - i][player.getColumn()].getFront().equals("R")) {
+				break;
 
-					foundRoom = true;
+			} else if (map[player.getRow() - i][player.getColumn()].getFront().equals("1")
+					|| map[player.getRow() - i][player.getColumn()].getFront().equals("2")
+					|| map[player.getRow() - i][player.getColumn()].getFront().equals("3")
+					|| map[player.getRow() - i][player.getColumn()].getFront().equals("4")
+					|| map[player.getRow() - i][player.getColumn()].getFront().equals("5")
+					|| map[player.getRow() - i][player.getColumn()].getFront().equals("6")) {
+				enemyDie(player.getRow() - i, player.getColumn());
+				break;
 
-				} else if (map[player.getRow() - i][player.getColumn()].getFront().equals("1")
-						|| map[player.getRow() - i][player.getColumn()].getFront().equals("2")
-						|| map[player.getRow() - i][player.getColumn()].getFront().equals("3")
-						|| map[player.getRow() - i][player.getColumn()].getFront().equals("4")
-						|| map[player.getRow() - i][player.getColumn()].getFront().equals("5")
-						|| map[player.getRow() - i][player.getColumn()].getFront().equals("6")) {
-					map[player.getRow() - i][player.getColumn()] = new EmptySpace();
-					foundEnemy = true;
+			}
 
-				}
-				System.out.println("Found Enemy: " + foundEnemy);
-				System.out.println(player.getRow() - i);
-
-			} while (!foundEnemy || !foundRoom);
 		}
 	}
 
 	public void shootDown() {
 
-		boolean foundEnemy = false;
-
-		boolean foundRoom = false;
-
 		int turn = map.length - player.getRow();
 
 		for (int i = 1; i < turn; ++i) {
 
-			do {
+			if (map[player.getRow() + i][player.getColumn()].getFront().equals("R")) {
 
-				if (map[player.getRow() + i][player.getColumn()].getFront().equals("R")) {
+				break;
 
-					foundRoom = true;
+			} else if (map[player.getRow() + i][player.getColumn()].getFront().equals("1")
+					|| map[player.getRow() + i][player.getColumn()].getFront().equals("2")
+					|| map[player.getRow() + i][player.getColumn()].getFront().equals("3")
+					|| map[player.getRow() + i][player.getColumn()].getFront().equals("4")
+					|| map[player.getRow() + i][player.getColumn()].getFront().equals("5")
+					|| map[player.getRow() + i][player.getColumn()].getFront().equals("6")) {
 
-				} else if (map[player.getRow() + i][player.getColumn()].getFront().equals("1")
-						|| map[player.getRow() + i][player.getColumn()].getFront().equals("2")
-						|| map[player.getRow() + i][player.getColumn()].getFront().equals("3")
-						|| map[player.getRow() + i][player.getColumn()].getFront().equals("4")
-						|| map[player.getRow() + i][player.getColumn()].getFront().equals("5")
-						|| map[player.getRow() + i][player.getColumn()].getFront().equals("6")) {
+				enemyDie(player.getRow() + i, player.getColumn());
+				break;
 
-					map[player.getRow() + i][player.getColumn()] = new EmptySpace();
-					foundEnemy = true;
+			}
 
-				}
+		}
+	}
 
-				System.out.println("Found Enemy: " + foundEnemy);
-				System.out.println(player.getRow() + i);
+	public void enemyDie(int row, int column) {
+		
+		GameEntity tempSpace = new EmptySpace();
+		
+		if (map[row][column].getFront().equals("1")) {
 
-			} while (!foundEnemy || !foundRoom);
+			map[row][column] = tempSpace;
+			holdEnemy[0] = tempSpace;
+
+		} else if (map[row][column].getFront().equals("2")) {
+
+			map[row][column] = tempSpace;
+			holdEnemy[1] = tempSpace;
+
+		} else if (map[row][column].getFront().equals("3")) {
+
+			map[row][column] = tempSpace;
+			holdEnemy[2] = tempSpace;
+
+		} else if (map[row][column].getFront().equals("4")) {
+
+			map[row][column] = tempSpace;
+			holdEnemy[3] = tempSpace;
+
+		} else if (map[row][column].getFront().equals("5")) {
+
+			map[row][column] = tempSpace;
+			holdEnemy[4] = tempSpace;
+
+		} else if (map[row][column].getFront().equals("6")) {
+
+			map[row][column] = tempSpace;
+			holdEnemy[5] = tempSpace;
+
 		}
 	}
 
@@ -817,6 +829,7 @@ public class Map implements Serializable {
 	public void moveEnemy() {
 		int tempRow = 0;
 		int tempColumn = 0;
+		GameEntity tempSpace;
 
 		for (int i = 0; i < 6; ++i) {
 
@@ -825,10 +838,11 @@ public class Map implements Serializable {
 
 			holdEnemy[i].move(checkValidPosition(i));
 			// System.out.println("1");
+			tempSpace = map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()];
 			holdEnemy[i].setRow(holdEnemy[i].getRow());
 			holdEnemy[i].setColumn(holdEnemy[i].getColumn());
 			// System.out.println("2");
-			map[tempRow][tempColumn] = new EmptySpace();
+			map[tempRow][tempColumn] = tempSpace;
 			// System.out.println("3" + "\n ------ " + i);
 
 			map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] = holdEnemy[i];
