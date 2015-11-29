@@ -77,9 +77,9 @@ public class Player extends GameEntity implements Serializable{
 	 * will lose 1 life point.
 	 */
 	public void gotDamaged() {
-		if (underAttack) {
+		
 			life -= 1;
-		}
+		
 	}
 
 	/**
