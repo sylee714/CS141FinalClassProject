@@ -242,8 +242,11 @@ public class Map implements Serializable {
 		return player.getBullet();
 	}
 
-	public void playerGotDamaged() {
-		player.gotDamaged();
+	public void playerGotDamaged(boolean foundPlayer) {
+		
+		if (foundPlayer) {
+			player.gotDamaged();
+		}
 	}
 
 	public boolean checkBullet() {

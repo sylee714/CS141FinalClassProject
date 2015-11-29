@@ -277,9 +277,13 @@ public class GameEngine {
 		if (map.isAbleEnemyAttack()) {
 			
 		visibilityOfEnemy();
+		
 		map.enemyAttack(map.isFoundPlayer());
+		
 		System.out.println("Found Player: " + map.isFoundPlayer());
-		map.playerGotDamaged();
+		
+		map.playerGotDamaged(map.isFoundPlayer());
+		
 		map.initialPoint();
 		
 		}
