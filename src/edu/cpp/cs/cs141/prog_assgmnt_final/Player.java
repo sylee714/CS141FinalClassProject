@@ -105,7 +105,7 @@ public class Player extends GameEntity {
 	/**
 	 * @return the life
 	 */
-	public int getLife() {
+	public int getLives() {
 		return life;
 	}
 
