@@ -94,13 +94,10 @@ public class GameEngine {
 		switch (direction) {
 		case 1:
 			map.visibilityOfPlayer(1);
-
 			break;
-
 		case 2:
 			map.visibilityOfPlayer(2);
 			break;
-
 		case 3:
 			map.visibilityOfPlayer(3);
 			break;
@@ -117,11 +114,9 @@ public class GameEngine {
 	}
 
 	public void useRadar(boolean foundRadar) {
-
 		if (foundRadar) {
 			map.useRadar();
 		}
-
 	}
 
 	/*
@@ -179,10 +174,6 @@ public class GameEngine {
 
 	public String printDebug() {
 		return map.printDebug();
-	}
-
-	public void playerTurn() {
-
 	}
 
 	public int getTurn() {
@@ -248,6 +239,10 @@ public class GameEngine {
 	 */
 
 	public void visibilityOfEnemy() {
+		map.visibilityOfEnemy();
+	}
+	/*  old method in masterchief most recent code
+	public void visibilityOfEnemy() {
 		try {
 			map.visibilityOfEnemy(1);
 		} catch (ArrayIndexOutOfBoundsException e) {
@@ -269,15 +264,36 @@ public class GameEngine {
 
 		}
 	}
-
+*/
+	
+	/*
 	public void enemyTurn() {
 
+		map.useInvincibleboolean(map.isInvincibleIndicator()); 
+		
+		if (map.isAbleEnemyAttack()) {
+	
 		visibilityOfEnemy();
 		map.enemyAttack(map.isFoundPlayer());
-		System.out.println("Foud Player: " + map.isFoundPlayer());
+		System.out.println("Found Player: " + map.isFoundPlayer());
+	//	map.playerGotDamaged();
 		map.initialPoint();
+		}
+	}*/
+	public void enemyTurn(){
+		map.useInvincibleboolean(map.isInvincibleIndicator());
+		visibilityOfEnemy();
+		map.enemyAttack(map.isFoundPlayer());
+		System.out.println("Found Player: " + map.isFoundPlayer());
+		
+		if (map.isFoundPlayer()){
+			
+			map.playerGotDamaged();
+			map.initialPoint();
+//			System.out.println("You have " + player.getLife());
 	}
 
+	}
 	public boolean endGame() {
 		if (map.playerLife() == 0) {
 			endGame = true;
@@ -337,5 +353,9 @@ public class GameEngine {
 		}
 
 	}
+	public void lifeReset() {
+		map.setFoundPlayer(false);
+	}
+
 
 }

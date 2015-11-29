@@ -102,7 +102,6 @@ public class UI {
 				//int direction = keyboard.nextInt();
 
 				playerShoot();
-				//System.out.println();
 				break;
 			// Save
 			case 4:
@@ -124,6 +123,8 @@ public class UI {
 			System.out.println("You have " + game.numberOfBullet() + " bullet.");
 			
 			endTurn();
+			game.lifeReset();
+			//game.moveEnemy();
 		}
 
 	}
@@ -135,18 +136,20 @@ public class UI {
 	public void endTurn() {
 		
 		game.moveEnemy();
-
-		// game.enemyTurn();
-
+		game.enemyTurn();
 		game.setNotFlipped();
+		useRadar();
+		
+		// game.playerTurn();
+
+	}
+	public void useRadar() {
 		game.useRadar(game.foundRadar());
 
 		if (game.foundRadar()) {
 			System.out.println("The brief case is loacated at: " + "Row: " + game.briefCaseRow() 
 				+ " Column: " + game.briefCaseColumn());
 		}
-		// game.playerTurn();
-
 	}
 
 	public void playerShoot() {
@@ -220,13 +223,7 @@ public class UI {
 			break;
 		// Shoot
 		case 2:
-
-			//System.out.println("Choose a direction to shoot.\n");
-			//System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
-			//int direction = keyboard.nextInt();
-
 			playerShoot();
-			//System.out.println();
 			break;
 		// Save
 		case 3:
@@ -280,7 +277,7 @@ public class UI {
 			else {
 				temp = false;
 				System.out.println("Invalid Input. Please enter new direction: ");
-				System.out.println(game.displayBoard());
+				System.out.println(game.printBoard());
 			}
 
 		} while (temp != true);
