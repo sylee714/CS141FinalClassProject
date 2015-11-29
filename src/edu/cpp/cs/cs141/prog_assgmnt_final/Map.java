@@ -236,7 +236,11 @@ public class Map implements Serializable {
 
 		for (int i = 1; i < player.getColumn() + 1; ++i) {
 
-			if (map[player.getRow()][player.getColumn() - i].getFront().equals("1")
+			if (map[player.getRow()][player.getColumn() - i].getFront().equals("R")) {
+
+				break;
+
+			} else if (map[player.getRow()][player.getColumn() - i].getFront().equals("1")
 					|| map[player.getRow()][player.getColumn() - i].getFront().equals("2")
 					|| map[player.getRow()][player.getColumn() - i].getFront().equals("3")
 					|| map[player.getRow()][player.getColumn() - i].getFront().equals("4")
@@ -261,8 +265,11 @@ public class Map implements Serializable {
 		boolean foundEnemy = false;
 
 		for (int i = 1; i < turn; ++i) {
-
-			if (map[player.getRow()][player.getColumn() + i].getFront().equals("1")
+			
+			if (map[player.getRow()][player.getColumn() + i].getFront().equals("R")) {
+				break;
+				
+			} else if (map[player.getRow()][player.getColumn() + i].getFront().equals("1")
 					|| map[player.getRow()][player.getColumn() + i].getFront().equals("2")
 					|| map[player.getRow()][player.getColumn() + i].getFront().equals("3")
 					|| map[player.getRow()][player.getColumn() + i].getFront().equals("4")
@@ -285,8 +292,11 @@ public class Map implements Serializable {
 		GameEntity tempSpace = new EmptySpace();
 
 		for (int i = 1; i < player.getRow() + 1; ++i) {
-
-			if (map[player.getRow() - i][player.getColumn()].getFront().equals("1")
+			
+			if (map[player.getRow() - i][player.getColumn()].getFront().equals("R")) {
+				break;
+				
+			} else if (map[player.getRow() - i][player.getColumn()].getFront().equals("1")
 					|| map[player.getRow() - i][player.getColumn()].getFront().equals("2")
 					|| map[player.getRow() - i][player.getColumn()].getFront().equals("3")
 					|| map[player.getRow() - i][player.getColumn()].getFront().equals("4")
@@ -309,8 +319,10 @@ public class Map implements Serializable {
 		int turn = map.length - player.getRow();
 
 		for (int i = 1; i < turn; ++i) {
-
-			if (map[player.getRow() + i][player.getColumn()].getFront().equals("1")
+			
+			if (map[player.getRow() + i][player.getColumn()].getFront().equals("R")) {
+				break;
+			}else if (map[player.getRow() + i][player.getColumn()].getFront().equals("1")
 					|| map[player.getRow() + i][player.getColumn()].getFront().equals("2")
 					|| map[player.getRow() + i][player.getColumn()].getFront().equals("3")
 					|| map[player.getRow() + i][player.getColumn()].getFront().equals("4")
@@ -733,17 +745,18 @@ public class Map implements Serializable {
 				checkColumn--;
 				break;
 			}
-			//System.out.println(checkRow + " " + checkColumn);
+			// System.out.println(checkRow + " " + checkColumn);
 			// check to make sure enemies don't go out of bounds
-			if (checkColumn < 0 || checkColumn > 8 || checkRow < 0 || checkRow > 8)
+			if (checkColumn < 0 || checkColumn > 8 || checkRow < 0 || checkRow > 8) {
 				check = false;
-			else {
+			} else {
 				// prevent stepping into room or on power ups
-				if (map[checkRow][checkColumn].getFront().equals(" "))
+				if (map[checkRow][checkColumn].getFront().equals(" ")) {
 					check = true;
-				else {
+				} else {
 					check = false;
-					//System.out.println("enemy: " + i + " tried to enter a room");
+					// System.out.println("enemy: " + i + " tried to enter a
+					// room");
 				}
 			}
 			System.out.println(check);
@@ -763,12 +776,12 @@ public class Map implements Serializable {
 			tempColumn = holdEnemy[i].getColumn();
 
 			holdEnemy[i].move(checkValidPosition(i));
-			//System.out.println("1");
+			// System.out.println("1");
 			holdEnemy[i].setRow(holdEnemy[i].getRow());
 			holdEnemy[i].setColumn(holdEnemy[i].getColumn());
-			//System.out.println("2");
+			// System.out.println("2");
 			map[tempRow][tempColumn] = new EmptySpace();
-			//System.out.println("3" + "\n ------ " + i);
+			// System.out.println("3" + "\n ------ " + i);
 
 			map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] = holdEnemy[i];
 
