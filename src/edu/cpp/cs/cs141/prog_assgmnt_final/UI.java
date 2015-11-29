@@ -92,9 +92,7 @@ public class UI {
 			case 1:
 				playerMove();
 				if (game.northSideOfRoom()) {
-
 					checkRoom();
-
 				}
 
 				break;
@@ -105,13 +103,12 @@ public class UI {
 
 			// Shoot
 			case 3:
-
-				// System.out.println("Choose a direction to shoot.\n");
-				// System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
-				// int direction = keyboard.nextInt();
-
+				if(game.numberOfBullet() == 1)
 				playerShoot();
-				break;
+				else {
+					System.out.println("You are out of ammo.");
+				}
+					break;
 			// Save
 			case 4:
 				game.save();
@@ -130,14 +127,12 @@ public class UI {
 				break;
 			}
 
-			System.out
-					.println("You have " + game.numberOfBullet() + " bullet.");
 
 			endTurn();
-			game.lifeReset();
-			// game.moveEnemy();
 		}
-
+		
+	
+		
 	}
 
 	/**
@@ -148,12 +143,15 @@ public class UI {
 
 		// game.moveEnemy();
 		game.enemyTurn();
+		
 		game.setNotFlipped();
 		useRadar();
-
-		// game.playerTurn();
-
+		 if (game.isFoundPlayer())
+		System.out.println("You have " + game.playerLife() + " lives left player.\n");
+		 
+		 game.lifeReset();
 	}
+		
 
 	public void useRadar() {
 		game.useRadar(game.foundRadar());
@@ -185,8 +183,9 @@ public class UI {
 		case 4:
 			game.playerAttack(direction);
 			break;
+			
 		}
-
+		System.out.println("You have " + game.numberOfBullet() + " bullet.");
 	}
 
 	public void playerLook() {
@@ -218,8 +217,7 @@ public class UI {
 
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {
-			System.out
-					.println("You currently can't look in that direction player. Look in a valid direction.\n");
+			System.out.println("You currently can't look in that direction player. Look in a valid direction.\n");
 		}
 		game.playerDetect();
 		System.out.println(game.printBoard());
@@ -235,22 +233,24 @@ public class UI {
 		case 1:
 			playerMove();
 			if (game.northSideOfRoom()) {
-
 				checkRoom();
-
 			}
-
 			break;
 		// Shoot
 		case 2:
-			playerShoot();
+			if(game.numberOfBullet() == 1)
+				playerShoot();
+				else {
+					System.out.println("You are out of ammo.");
+				}
 			break;
 		// Save
 		case 3:
-			// GameEngine.save();
+			game.save();
 			break;
 		// Quit
 		case 4:
+			game.load();
 			break;
 		// Debug
 		case 5:
@@ -328,6 +328,8 @@ public class UI {
 			if (game.briefCaseIndicator()) {
 
 				System.out.println("Congratulation! You found the brief case.");
+				System.out.println("It took you " + game.getTurn() + " turns to complete the game!");
+				System.out.println("You have " + game.playerLife() + " lives left!");
 
 			} else {
 

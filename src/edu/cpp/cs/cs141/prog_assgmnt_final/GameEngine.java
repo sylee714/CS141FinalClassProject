@@ -142,6 +142,7 @@ public class GameEngine {
 			temp = map.movePlayer(4);
 			if (map.isRadarIndicator()) {
 				map.useRadar();
+				
 			}
 			break;
 		// Right
@@ -166,10 +167,15 @@ public class GameEngine {
 			}
 			break;
 		}
-
-		temp = (temp == true) ? true : false;
-
+		if(temp == true){
+		turn++;
 		return temp;
+		
+		}
+		else{
+			temp = false;
+			return temp;
+		}
 	}
 
 	public String printDebug() {
@@ -178,8 +184,9 @@ public class GameEngine {
 
 	public int getTurn() {
 		return turn;
-	}
-
+	}	
+	
+	
 	public void moveEnemy() {
 		try {
 			map.moveEnemy();
@@ -229,7 +236,7 @@ public class GameEngine {
 			}
 			break;
 		}
-
+		turn++;
 	}
 
 	/**
@@ -268,12 +275,14 @@ public class GameEngine {
 
 			visibilityOfEnemy();
 			map.enemyAttack(map.isFoundPlayer());
-			System.out.println("Found Player: " + map.isFoundPlayer());
 			map.playerGotDamaged(map.isFoundPlayer());
-
 			map.initialPoint();
 		}
 
+	}
+	
+	public boolean isFoundPlayer() {
+		return map.isFoundPlayer();
 	}
 
 	public boolean endGame() {
@@ -283,7 +292,13 @@ public class GameEngine {
 		return endGame;
 
 	}
-
+	
+	public int playerLife() {
+		
+		return map.playerLife();
+	}
+	
+	
 	public void playerDetect() {
 		map.playerDetect();
 	}
