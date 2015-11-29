@@ -34,16 +34,6 @@ public class Player extends GameEntity implements Serializable{
 	private boolean attack = true;
 	
 	/**
-	 * This field represents if player picked up radar power-up or not.
-	 */
-	private boolean radar = false;
-
-	/**
-	 * This field represents if player picked up invincible power-up or not.
-	 */
-	private boolean invincible = false;
-
-	/**
 	 * This field indicates if an enemy is detected.
 	 */
 	private boolean dangerAhead = false;
@@ -62,15 +52,6 @@ public class Player extends GameEntity implements Serializable{
 		this.dangerAhead = dangerAhead;
 	}
 
-	/**
-	 * This method is attacking method
-	 * 
-	 * @return
-	 */
-	public void attack() {
-		
-	}
-
 
 	/**
 	 * This method indicates if player got attacked by an enemy. If it did, it
@@ -82,27 +63,7 @@ public class Player extends GameEntity implements Serializable{
 		
 	}
 
-	/**
-	 * This method is picking up power-ups.
-	 */
-	public void pickPowerUp() {
 
-	}
-
-	/**
-	 * This method is using power-ups.
-	 */
-	public void usePowerUp() {
-
-	}
-
-	/**
-	 * When player finds the brief case, picking up method will pick up the
-	 * brief case.
-	 */
-	public void pickUpBriefCase() {
-
-	}
 
 	/**
 	 * @return the life
