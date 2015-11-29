@@ -110,7 +110,7 @@ public class UI {
 				break;
 			// Quit
 			case 5:
-				game.load();
+				//game.load();
 				break;
 			// Debug
 			case 6:
