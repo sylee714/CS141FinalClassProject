@@ -277,19 +277,26 @@ public class Map implements Serializable {
 
 	}
 
-	public boolean useInvincibleboolean(boolean invincibleIndicator) {
+	public boolean useInvincible(boolean invincibleIndicator) {
 
 		if (invincibleIndicator) {
 
 			invincible.countingTurn();
 			ableEnemyAttack = false;
 
-		} else if (invincible.getNumberOfTurns() == 0) {
-			ableEnemyAttack = true;
-		}
+		} 
 
 		return ableEnemyAttack;
 
+	}
+	
+	
+	
+	public boolean endInvincibility(int turn) {
+		if (invincible.getNumberOfTurns() == 0) {
+			ableEnemyAttack = true;
+		}
+		return ableEnemyAttack;
 	}
 
 	public int invincibleTurn() {
