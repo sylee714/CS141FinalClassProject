@@ -66,6 +66,36 @@ public class Map implements Serializable {
 	private boolean northSideOfRoom = false;
 
 	/**
+	 * @return the briefCaseIndicator
+	 */
+	public boolean isBriefCaseIndicator() {
+		return briefCaseIndicator;
+	}
+
+	/**
+	 * @param briefCaseIndicator
+	 *            the briefCaseIndicator to set
+	 */
+	public void setBriefCaseIndicator(boolean briefCaseIndicator) {
+		this.briefCaseIndicator = briefCaseIndicator;
+	}
+
+	/**
+	 * @return the northSideOfRoom
+	 */
+	public boolean isNorthSideOfRoom() {
+		return northSideOfRoom;
+	}
+
+	/**
+	 * @param northSideOfRoom
+	 *            the northSideOfRoom to set
+	 */
+	public void setNorthSideOfRoom(boolean northSideOfRoom) {
+		this.northSideOfRoom = northSideOfRoom;
+	}
+
+	/**
 	 * @return the ableEnemyAttack
 	 */
 	public boolean isAbleEnemyAttack() {
@@ -164,25 +194,62 @@ public class Map implements Serializable {
 
 	public boolean checkSideOfRoom(int row, int column) {
 
-		if (map[player.getRow()][player.getColumn()] == map[1][2]
-				|| map[player.getRow()][player.getColumn()] == map[1][5]
-				|| map[player.getRow()][player.getColumn()] == map[1][8]
-				|| map[player.getRow()][player.getColumn()] == map[4][2]
-				|| map[player.getRow()][player.getColumn()] == map[4][5]
-				|| map[player.getRow()][player.getColumn()] == map[4][8]
-				|| map[player.getRow()][player.getColumn()] == map[7][2]
-				|| map[player.getRow()][player.getColumn()] == map[7][5]
-				|| map[player.getRow()][player.getColumn()] == map[7][8]) {
+		if (checkPositionOfPlayer(player.getRow(), player.getColumn())) {
 
 			northSideOfRoom = true;
 
+		} else {
+
+			northSideOfRoom = false;
 		}
 
 		return northSideOfRoom;
 
 	}
 
-	public void searchRoom() {
+	public boolean checkPositionOfPlayer(int row, int column) {
+		boolean checkPosition = false;
+		if (player.getRow() == 0 && player.getColumn() == 1) {
+			checkPosition = true;
+		} else if (player.getRow() == 0 && player.getColumn() == 4) {
+			checkPosition = true;
+		} else if (player.getRow() == 0 && player.getColumn() == 7) {
+			checkPosition = true;
+		} else if (player.getRow() == 3 && player.getColumn() == 1) {
+			checkPosition = true;
+		} else if (player.getRow() == 3 && player.getColumn() == 4) {
+			checkPosition = true;
+		} else if (player.getRow() == 3 && player.getColumn() == 7) {
+			checkPosition = true;
+		} else if (player.getRow() == 6 && player.getColumn() == 1) {
+			checkPosition = true;
+		} else if (player.getRow() == 6 && player.getColumn() == 4) {
+			checkPosition = true;
+		} else if (player.getRow() == 6 && player.getColumn() == 7) {
+			checkPosition = true;
+		} else {
+			checkPosition = false;
+		}
+		return checkPosition;
+	}
+
+	public boolean searchRoom(boolean northSideOfRoom) {
+
+		if (northSideOfRoom) {
+
+			if (map[player.getRow() + 1][player.getColumn()].getFront().equals("B")) {
+
+				briefCaseIndicator = true;
+
+			} else {
+
+				briefCaseIndicator = false;
+
+			}
+		}
+		
+		System.out.println(briefCaseIndicator);
+		return briefCaseIndicator;
 
 	}
 
@@ -243,7 +310,7 @@ public class Map implements Serializable {
 	}
 
 	public void playerGotDamaged(boolean foundPlayer) {
-		
+
 		if (foundPlayer) {
 			player.gotDamaged();
 		}
@@ -308,7 +375,7 @@ public class Map implements Serializable {
 					|| map[player.getRow()][player.getColumn() + i].getFront().equals("5")
 					|| map[player.getRow()][player.getColumn() + i].getFront().equals("6")) {
 
-				enemyDie(player.getRow(), player.getColumn() + 1);
+				enemyDie(player.getRow(), player.getColumn() + i);
 				break;
 
 			}
@@ -365,9 +432,9 @@ public class Map implements Serializable {
 	}
 
 	public void enemyDie(int row, int column) {
-		
+
 		GameEntity tempSpace = new EmptySpace();
-		
+
 		if (map[row][column].getFront().equals("1")) {
 
 			map[row][column] = tempSpace;
@@ -764,6 +831,7 @@ public class Map implements Serializable {
 					&& map[player.getRow()][player.getColumn()] != map[7][7]) {
 
 				detectPowerUps(player.getRow(), player.getColumn());
+				checkSideOfRoom(player.getRow(), player.getColumn());
 
 				map[player.getRow()][player.getColumn()] = player;
 				return true;

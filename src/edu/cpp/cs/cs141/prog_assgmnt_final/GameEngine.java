@@ -240,6 +240,22 @@ public class GameEngine {
 		}
 
 	}
+	
+	public boolean briefCaseIndicator() {
+		return map.isBriefCaseIndicator();
+	}
+	
+	public boolean northSideOfRoom() {
+		return map.isNorthSideOfRoom();
+	}
+	
+
+	
+	public void checkRoom() {
+		
+		map.searchRoom(map.isNorthSideOfRoom());
+		
+	}
 
 	/**
 	 * 
@@ -292,7 +308,7 @@ public class GameEngine {
 	}
 
 	public boolean endGame() {
-		if (map.playerLife() == 0) {
+		if (map.playerLife() == 0 || map.isBriefCaseIndicator() == true) {
 			endGame = true;
 		}
 		return endGame;

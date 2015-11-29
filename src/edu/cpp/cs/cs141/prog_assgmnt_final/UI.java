@@ -89,6 +89,12 @@ public class UI {
 			case 1:
 				playerMove();
 				
+				if (game.northSideOfRoom()) {
+					
+					checkRoom();
+					
+				}
+				
 				break;
 			// Look
 			case 2:
@@ -122,6 +128,8 @@ public class UI {
 				System.out.println("That isn't a valid input try again please.");
 				break;
 			}
+			
+			
 			
 			System.out.println("You have " + game.numberOfBullet() + " bullet.");
 			endTurn();
@@ -288,6 +296,39 @@ public class UI {
 
 		} while (temp != true);
 
+	}
+	
+	public void checkRoom() {
+		System.out.println(game.printBoard());
+		System.out.println("Do you want to check the room? ");
+		System.out.println("1)Yes \n2)No");
+		
+		int option = keyboard.nextInt();
+		
+		switch (option) {
+		case 1:
+			
+			game.checkRoom();
+			
+			if (game.briefCaseIndicator()) {
+				
+				System.out.println("Congratulation! You found the brief case.");
+				
+			} else {
+				
+				System.out.println("Failed... Brief case is not found. Search the other rooms. ");
+				
+			}
+			
+			break;
+			
+		case 2:
+			
+			System.out.println("You missed your chance...");
+			
+			break;
+			
+		}
 	}
 
 	public void toggleBoard() {
