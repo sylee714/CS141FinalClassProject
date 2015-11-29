@@ -271,11 +271,20 @@ public class GameEngine {
 	}
 
 	public void enemyTurn() {
-
+		
+		map.useInvincibleboolean(map.isInvincibleIndicator()); 
+		
+		if (map.isAbleEnemyAttack()) {
+			
 		visibilityOfEnemy();
 		map.enemyAttack(map.isFoundPlayer());
-		System.out.println("Foud Player: " + map.isFoundPlayer());
+		System.out.println("Found Player: " + map.isFoundPlayer());
+		map.playerGotDamaged();
 		map.initialPoint();
+		
+		}
+
+		
 	}
 
 	public boolean endGame() {

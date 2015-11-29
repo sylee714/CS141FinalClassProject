@@ -60,6 +60,24 @@ public class Map implements Serializable {
 	private boolean playerAttack = false;
 
 	private boolean foundRoom = false;
+	
+	private boolean ableEnemyAttack = true;
+	
+	
+
+	/**
+	 * @return the ableEnemyAttack
+	 */
+	public boolean isAbleEnemyAttack() {
+		return ableEnemyAttack;
+	}
+
+	/**
+	 * @param ableEnemyAttack the ableEnemyAttack to set
+	 */
+	public void setAbleEnemyAttack(boolean ableEnemyAttack) {
+		this.ableEnemyAttack = ableEnemyAttack;
+	}
 
 	public void searchRoom() {
 
@@ -178,21 +196,28 @@ public class Map implements Serializable {
 		} else if (map[row][column].getFront().equals("I")) {
 
 			invincibleIndicator = true;
-			invincible.countingTurn();
-			foundPlayer = false;
+			
+			
 
 		}
 
 	}
 
-	public void pickUpInvincible(boolean invincibleIndicator) {
+	
 
-		enemyAttack = false;
-
-	}
-
-	public void useInvincible() {
-		invincible.countingTurn();
+	public boolean useInvincibleboolean (boolean invincibleIndicator) {
+		
+		if (invincibleIndicator) {
+			
+			invincible.countingTurn();
+			ableEnemyAttack = false;
+			
+		} else if (invincible.getNumberOfTurns() == 0) {
+			ableEnemyAttack = true;
+		}
+		
+		return ableEnemyAttack;
+		
 	}
 
 	public int invincibleTurn() {
@@ -210,6 +235,10 @@ public class Map implements Serializable {
 
 	public int bullet() {
 		return player.getBullet();
+	}
+	
+	public void playerGotDamaged() {
+		player.gotDamaged();
 	}
 
 	public boolean checkBullet() {
@@ -760,7 +789,7 @@ public class Map implements Serializable {
 				}
 			}
 			System.out.println(check);
-			holdEnemy[i].move(movement);
+			
 		} while (check != true);
 
 		return movement;
