@@ -1,62 +1,86 @@
 /**
- * 
+ * CS 141: Introduction to Programming and Problem Solving
+ * Professor: Edwin Rodríguez
+ *
+ * Programming Assignment #Final (Group Project)
+ *
+ * <description-of-assignment>
+ *
+ * Team Liquid 
+ *   <Anthony Vu, Victor Darkes, Seungyun Lee, Jeffrey Lee>
  */
 package edu.cpp.cs.cs141.prog_assgmnt_final;
 
 import java.io.Serializable;
 
 /**
+ * 
+ * This class represents a power-up called Invincibility. It extends GameEntity
+ * class and it uses a super constructor to assign initial values of front,
+ * back, row, column of the Invincibility.
+ * 
  * @author Seungyun
  *
  */
 public class Invincibility extends GameEntity implements Serializable {
 
+	/**
+	 * 
+	 * A super constructor for the class. It allows to set initial values for
+	 * front, back, row, column.
+	 * 
+	 */
 	public Invincibility() {
+
 		super("I", "*", 0, 0);
+
 	}
 
 	/**
-	 * The player will be invincible for 5 turns.
+	 * 
+	 * The player will be invincible for 5 turns. The initial value is 6 because
+	 * as soon as the player consumes it, it goes down by 1.
+	 * 
 	 */
 	private int numberOfTurns = 6;
 
 	/**
-	 * This boolean field makes the player when he/she uses the power-up.
-	 */
-	private boolean invincible = false;
-
-	/**
-	 * This method sets the value of the boolean invincible.
 	 * 
-	 * @param invincible
-	 *            the invincible to set
-	 */
-	public void setInvincible(boolean invincible) {
-		this.invincible = invincible;
-	}
-
-	/**
-	 * This method will keep track of invincible turns.
-	 */
-	public void countingTurn() {
-		
-			--numberOfTurns;
-	}
-
-	/**
-	 * @return the numberOfTurns
+	 * This method returns how many invincible turns are left.
+	 * 
+	 * @return the numberOfTurns that the player is invincible
 	 */
 	public int getNumberOfTurns() {
+
 		return numberOfTurns;
+
 	}
 
 	/**
-	 * @param numberOfTurns the numberOfTurns to set
+	 * 
+	 * This method sets new value for the numberOfTurns field after the player
+	 * takes a turn.
+	 * 
+	 * @param numberOfTurns
+	 * 				The new value of numberOfTurns after the player consumes the
+	 * 				invincibillity and takes a turn.
+	 * 
 	 */
 	public void setNumberOfTurns(int numberOfTurns) {
+
 		this.numberOfTurns = numberOfTurns;
+
 	}
 
-	
+	/**
+	 * 
+	 * This method counts down the invincible turns.
+	 * 
+	 */
+	public void countingTurn() {
+
+		--numberOfTurns;
+
+	}
 
 }

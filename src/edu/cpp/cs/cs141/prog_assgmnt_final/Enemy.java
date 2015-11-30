@@ -1,11 +1,22 @@
 /**
- * 
+ * CS 141: Introduction to Programming and Problem Solving
+ * Professor: Edwin Rodríguez
+ *
+ * Programming Assignment #Final (Group Project)
+ *
+ * <description-of-assignment>
+ *
+ * Team Liquid 
+ *   <Anthony Vu, Victor Darkes, Seungyun Lee, Jeffrey Lee>
  */
 package edu.cpp.cs.cs141.prog_assgmnt_final;
 
 import java.io.Serializable;
 
 /**
+ * 
+ * This class represents an Enemy.
+ * 
  * @author Seungyun
  *
  */
@@ -16,20 +27,13 @@ public class Enemy extends GameEntity implements Serializable {
 		super(front, "*", 0, 0);
 	}
 
-	/**
-	 * Life point of an enemy.
-	 */
-	private int life = 1;
+	
 
 	/**
 	 * This field indicates if an enemy found the player.
 	 */
-	private boolean detected = false;
+	private boolean foundPlayer = false;
 
-	/**
-	 * This field represents the status of an enemy.
-	 */
-	private boolean alive = true;
 
 	/**
 	 * 
@@ -51,43 +55,10 @@ public class Enemy extends GameEntity implements Serializable {
 		this.attack = attack;
 	}
 
-	/**
-	 * Initial spawn point of an enemy.
-	 */
-	public void location() {
+	
 
-	}
 
-	/**
-	 * This moving method will make an enemy to move randomly.
-	 * 
-	 * @param movement
-	 * @return
-	 */
-	public int moving(int movement) {
-		return 0;
-	}
-
-	/**
-	 * This method attacks player if the player is located an adjacent tile.
-	 */
-	public void attack() {
-
-	}
-
-	/**
-	 * If an enemy gets a shot by player, it dies.
-	 */
-	public void gotShot() {
-		life -= 1;
-		alive = false;
-	}
-
-	/**
-	 * This method will check if player is next to enemy's tile.
-	 */
-	public void detectPlayer() {
-
-	}
+	
+	
 
 }
