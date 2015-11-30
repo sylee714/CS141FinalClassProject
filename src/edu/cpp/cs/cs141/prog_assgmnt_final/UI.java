@@ -184,7 +184,7 @@ public class UI {
 	}
 
 	/**
-	 * Allows the user to return to the main method.
+	 * Allows the user to return to the main menu.
 	 */
 	public void menu() {
 		int option = mainMenu();
@@ -207,6 +207,10 @@ public class UI {
 			break;}	
 	}
 	
+	/**
+	 * Activates the radar power up if it is found by the user. 
+	 * Display's it's coordinates to the user.
+	 */
 	public void useRadar() {
 		game.useRadar(game.foundRadar());
 		if (game.foundRadar()) {
@@ -216,6 +220,9 @@ public class UI {
 		}
 	}
 
+	/**
+	 * Shoots in the direction the user selects. Either Up, Down, Left, or Right.
+	 */
 	public void playerShoot() {
 		System.out.println("Choose a direction to shoot.\n");
 		System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
@@ -238,6 +245,10 @@ public class UI {
 		System.out.println("You have " + game.numberOfBullet() + " bullet.");
 	}
 
+	/**
+	 * Reveals the two immediate spaces in any direction the user chooses.
+	 * Then it allows them to Move, Shoot, Save or go back to the Main Menu.
+	 */
 	public void playerLook() {
 		System.out.println("Choose a direction to look in.\n");
 		System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
@@ -312,13 +323,16 @@ public class UI {
 			break;
 		}
 	}
-
+	
+	
+	/**
+	 * Moves the player across the 2D array as long 
+	 */
 	public void playerMove() {
 
 		System.out.println("Choose a direction to move in.\n");
 		System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
 
-		// true = correct choice
 		boolean temp = true;
 
 		do {
@@ -356,6 +370,9 @@ public class UI {
 
 	}
 
+	/**
+	 * Switches the board that is printed from game mode to debug mode.
+	 */
 	public void toggleBoard() {
 		if (game.isDebug() == false) {
 			game.setDebug(true);
@@ -364,6 +381,11 @@ public class UI {
 		}
 	}
 
+	/**
+	 * A method that runs when the player walks in front of a room. It asks if they would 
+	 * like to see the rooms contents and depending on whether or not the player chooses it
+	 * will: tell them the contents of the room, or let them continue through.
+	 */
 	public void checkRoom() {
 		System.out.println(game.printBoard());
 		System.out.println("Do you want to check the room? ");

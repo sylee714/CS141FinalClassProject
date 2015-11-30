@@ -32,11 +32,11 @@ public class Invincibility extends GameEntity implements Serializable {
 	}
 
 	/**
-	 * The player will be invincible for 5 turns. The initial value is 6 because
+	 * The player will be invincible for 5 turns. The initial value is 7 because
 	 * as soon as the player consumes it, it goes down by 1.
 	 * 
 	 */
-	private int numberOfTurns = 6;
+	private int numberOfTurns = 7;
 
 	/**
 	 * 
