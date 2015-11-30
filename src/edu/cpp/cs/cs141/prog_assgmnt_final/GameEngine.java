@@ -1,5 +1,13 @@
 /**
- * 
+ * CS 141: Introduction to Programming and Problem Solving
+ * Professor: Edwin Rodríguez
+ *
+ * Programming Assignment #Final (Group Project)
+ *
+ * <description-of-assignment>
+ *
+ * Team Liquid 
+ *   <Anthony Vu, Victor Darkes, Seungyun Lee, Jeffrey Lee> 
  */
 package edu.cpp.cs.cs141.prog_assgmnt_final;
 
@@ -22,7 +30,7 @@ import java.util.Random;
  */
 public class GameEngine {
 
-	private static final Object GameDataSave = null;
+	//private static final Object GameDataSave = null;
 
 	private Map map = null;
 
@@ -31,8 +39,6 @@ public class GameEngine {
 	}
 
 	private int turn = 0;
-
-	private boolean attacked = false;
 
 	private boolean endGame = false;
 
@@ -60,8 +66,6 @@ public class GameEngine {
 		map.generatePlayer();
 		map.generateEnemy();
 		map.generatePowerUps();
-		// map.useRadar();
-
 	}
 
 	public int briefCaseRow() {
@@ -119,15 +123,6 @@ public class GameEngine {
 		}
 	}
 
-	/*
-	 * public void visibilityOfPlayer(int direction) {
-	 * 
-	 * switch (direction) { // Left case 1: map.visibilityOfPlayer(1); break; //
-	 * Right case 2: map.visibilityOfPlayer(2); break; // Up case 3:
-	 * map.visibilityOfPlayer(3); break; // Down case 4:
-	 * map.visibilityOfPlayer(4); break; default: System.out.println(
-	 * "That isn't a valid choice player."); break; } }
-	 */
 	/**
 	 * @param direction
 	 * @return
@@ -142,7 +137,7 @@ public class GameEngine {
 			temp = map.movePlayer(4);
 			if (map.isRadarIndicator()) {
 				map.useRadar();
-				
+
 			}
 			break;
 		// Right
@@ -167,12 +162,11 @@ public class GameEngine {
 			}
 			break;
 		}
-		if(temp == true){
-		turn++;
-		return temp;
-		
-		}
-		else{
+		if (temp == true) {
+			turn++;
+			return temp;
+
+		} else {
 			temp = false;
 			return temp;
 		}
@@ -184,9 +178,8 @@ public class GameEngine {
 
 	public int getTurn() {
 		return turn;
-	}	
-	
-	
+	}
+
 	public void moveEnemy() {
 		try {
 			map.moveEnemy();
@@ -249,28 +242,16 @@ public class GameEngine {
 		map.visibilityOfEnemy();
 	}
 
-	/*
-	 * old method in masterchief most recent code public void
-	 * visibilityOfEnemy() { try { map.visibilityOfEnemy(1); } catch
-	 * (ArrayIndexOutOfBoundsException e) {
-	 * 
-	 * } try { map.visibilityOfEnemy(2); } catch (ArrayIndexOutOfBoundsException
-	 * e) {
-	 * 
-	 * } try { map.visibilityOfEnemy(3); } catch (ArrayIndexOutOfBoundsException
-	 * e) {
-	 * 
-	 * } try { map.visibilityOfEnemy(4); } catch (ArrayIndexOutOfBoundsException
-	 * e) {
-	 * 
-	 * } }
-	 */
+	public boolean invincible() {
+		return map.isInvincibleIndicator();
+	}
+
+	public void useInvincible() {
+		map.useInvincible(map.invincibleTurns());
+	}
 
 	public void enemyTurn() {
 
-		map.useInvincible(map.isInvincibleIndicator());
-		map.invincibilityTurns(map.isInvincibleIndicator());
-		map.endInvincibility(map.invincibleTurn());
 		if (map.isAbleEnemyAttack()) {
 
 			visibilityOfEnemy();
@@ -280,7 +261,12 @@ public class GameEngine {
 		}
 
 	}
-	
+
+	public int invincibleTurns() {
+
+		return map.invincibleTurns();
+	}
+
 	public boolean isFoundPlayer() {
 		return map.isFoundPlayer();
 	}
@@ -292,13 +278,12 @@ public class GameEngine {
 		return endGame;
 
 	}
-	
+
 	public int playerLife() {
-		
+
 		return map.playerLife();
 	}
-	
-	
+
 	public void playerDetect() {
 		map.playerDetect();
 	}

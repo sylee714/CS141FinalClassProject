@@ -1,12 +1,23 @@
 /**
- * 
+ * CS 141: Introduction to Programming and Problem Solving
+ * Professor: Edwin Rodríguez
+ *
+ * Programming Assignment #Final (Group Project)
+ *
+ * <description-of-assignment>
+ *
+ * Team Liquid 
+ *   <Anthony Vu, Victor Darkes, Seungyun Lee, Jeffrey Lee>
  */
 package edu.cpp.cs.cs141.prog_assgmnt_final;
 
 import java.util.Scanner;
 
 /**
- * @author Seungyun
+ * This class is the user interface and it meant to handle interaction 
+ * with the user and the game engine. This class is responsible for 
+ * printing out and what the user sees and informing the user of
+ * what they can do while they are playing the game.
  *
  */
 public class UI {
@@ -103,12 +114,12 @@ public class UI {
 
 			// Shoot
 			case 3:
-				if(game.numberOfBullet() == 1)
-				playerShoot();
+				if (game.numberOfBullet() == 1)
+					playerShoot();
 				else {
 					System.out.println("You are out of ammo.");
 				}
-					break;
+				break;
 			// Save
 			case 4:
 				game.save();
@@ -127,12 +138,17 @@ public class UI {
 				break;
 			}
 
+			if (game.invincible()) {
+				System.out.println("You consumed invincibility");
+				game.useInvincible();
+				System.out.println("You are invincible for: "
+						+ game.invincibleTurns());
+			}
 
+			
 			endTurn();
 		}
-		
-	
-		
+
 	}
 
 	/**
@@ -143,15 +159,15 @@ public class UI {
 
 		// game.moveEnemy();
 		game.enemyTurn();
-		
+
 		game.setNotFlipped();
 		useRadar();
-		 if (game.isFoundPlayer())
-		System.out.println("You have " + game.playerLife() + " lives left player.\n");
-		 
-		 game.lifeReset();
+		if (game.isFoundPlayer())
+			System.out.println("You have " + game.playerLife()
+					+ " lives left player.\n");
+
+		game.lifeReset();
 	}
-		
 
 	public void useRadar() {
 		game.useRadar(game.foundRadar());
@@ -183,7 +199,7 @@ public class UI {
 		case 4:
 			game.playerAttack(direction);
 			break;
-			
+
 		}
 		System.out.println("You have " + game.numberOfBullet() + " bullet.");
 	}
@@ -217,7 +233,8 @@ public class UI {
 
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {
-			System.out.println("You currently can't look in that direction player. Look in a valid direction.\n");
+			System.out
+					.println("You currently can't look in that direction player. Look in a valid direction.\n");
 		}
 		game.playerDetect();
 		System.out.println(game.printBoard());
@@ -238,11 +255,11 @@ public class UI {
 			break;
 		// Shoot
 		case 2:
-			if(game.numberOfBullet() == 1)
+			if (game.numberOfBullet() == 1)
 				playerShoot();
-				else {
-					System.out.println("You are out of ammo.");
-				}
+			else {
+				System.out.println("You are out of ammo.");
+			}
 			break;
 		// Save
 		case 3:
@@ -328,8 +345,10 @@ public class UI {
 			if (game.briefCaseIndicator()) {
 
 				System.out.println("Congratulation! You found the brief case.");
-				System.out.println("It took you " + game.getTurn() + " turns to complete the game!");
-				System.out.println("You have " + game.playerLife() + " lives left!");
+				System.out.println("It took you " + game.getTurn()
+						+ " turns to complete the game!");
+				System.out.println("You have " + game.playerLife()
+						+ " lives left!");
 
 			} else {
 

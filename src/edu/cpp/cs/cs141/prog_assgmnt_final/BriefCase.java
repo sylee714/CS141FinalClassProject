@@ -1,40 +1,31 @@
+/**
+ * CS 141: Introduction to Programming and Problem Solving
+ * Professor: Edwin Rodríguez
+ *
+ * Programming Assignment #Final (Group Project)
+ *
+ * <description-of-assignment>
+ *
+ * Team Liquid 
+ *   <Anthony Vu, Victor Darkes, Seungyun Lee, Jeffrey Lee>
+ */
 
 package edu.cpp.cs.cs141.prog_assgmnt_final;
 
 import java.io.Serializable;
 
 /**
- * @author Seungyun
- *
+ * This class represents a BriefCase. It extends GameEntity class and it uses a
+ * super constructor to assign initial values of front, back, row, column of the
+ * BriefCase.
  */
 public class BriefCase extends GameEntity implements Serializable {
-	
-	public BriefCase() {
-		super("B", "R", 0, 0);
-		
-	}
-	
-	/**
-	 * This boolean 
-	 */
-	private boolean retrieved = false;
-	
-	/** 
-	 * This field represent the location of brief case when
-	 * the game starts. It can be only located in one of nine rooms. 
-	 * 
-	 * @param index number of row
-	 * @param index number of column
-	 */
-	public void location(int x, int y) {
-		
-	}
 
 	/**
-	 * This method allows to set the value of boolean retrieved.
-	 * @param retrieved the retrieved to set
+	 * A super constructor for the class. It allows to set initial values for
+	 * front, back, row, column.
 	 */
-	public void setRetrieved(boolean retrieved) {
-		this.retrieved = retrieved;
+	public BriefCase() {
+		super("B", "R", 0, 0);
 	}
 }

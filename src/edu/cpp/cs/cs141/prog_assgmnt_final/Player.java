@@ -1,21 +1,29 @@
 /**
- * 
+ * CS 141: Introduction to Programming and Problem Solving
+ * Professor: Edwin Rodríguez
+ *
+ * Programming Assignment Final (Group Project)
+ *
+ * <description-of-assignment>
+ *
+ * Team Liquid 
+ *   <Anthony Vu, Victor Darkes, Seungyun Lee, Jeffrey Lee>
  */
 package edu.cpp.cs.cs141.prog_assgmnt_final;
 
 import java.io.Serializable;
 
 /**
- * @author Seungyun
+ * This class represents the player.
  *
  */
-public class Player extends GameEntity implements Serializable{
+public class Player extends GameEntity implements Serializable {
 
-	//private Gun gun = new Gun();
+	// private Gun gun = new Gun();
 
 	public Player() {
 		super("P", "P", 0, 0);
-		
+
 	}
 
 	/**
@@ -23,25 +31,10 @@ public class Player extends GameEntity implements Serializable{
 	 * with.
 	 */
 	private int life = 3;
-	
+
 	private int bullet = 1;
 
-	/**
-	 * This field represents if player is got attacked by an enemy.
-	 */
-	private boolean underAttack = true;
-
 	private boolean attack = true;
-	
-	/**
-	 * This field represents if player picked up radar power-up or not.
-	 */
-	private boolean radar = false;
-
-	/**
-	 * This field represents if player picked up invincible power-up or not.
-	 */
-	private boolean invincible = false;
 
 	/**
 	 * This field indicates if an enemy is detected.
@@ -56,21 +49,12 @@ public class Player extends GameEntity implements Serializable{
 	}
 
 	/**
-	 * @param dangerAhead the dangerAhead to set
+	 * @param dangerAhead
+	 *            the dangerAhead to set
 	 */
 	public void setDangerAhead(boolean dangerAhead) {
 		this.dangerAhead = dangerAhead;
 	}
-
-	/**
-	 * This method is attacking method
-	 * 
-	 * @return
-	 */
-	public void attack() {
-		
-	}
-
 
 	/**
 	 * This method indicates if player got attacked by an enemy. If it did, it
@@ -78,29 +62,6 @@ public class Player extends GameEntity implements Serializable{
 	 */
 	public void gotDamaged() {
 		life -= 1;
-		}
-	
-
-	/**
-	 * This method is picking up power-ups.
-	 */
-	public void pickPowerUp() {
-
-	}
-
-	/**
-	 * This method is using power-ups.
-	 */
-	public void usePowerUp() {
-
-	}
-
-	/**
-	 * When player finds the brief case, picking up method will pick up the
-	 * brief case.
-	 */
-	public void pickUpBriefCase() {
-
 	}
 
 	/**
@@ -126,7 +87,8 @@ public class Player extends GameEntity implements Serializable{
 	}
 
 	/**
-	 * @param bullet the bullet to set
+	 * @param bullet
+	 *            the bullet to set
 	 */
 	public void setBullet(int bullet) {
 		this.bullet = bullet;
@@ -140,13 +102,11 @@ public class Player extends GameEntity implements Serializable{
 	}
 
 	/**
-	 * @param attack the attack to set
+	 * @param attack
+	 *            the attack to set
 	 */
 	public void setAttack(boolean attack) {
 		this.attack = attack;
 	}
-	
-	
-	
 
 }

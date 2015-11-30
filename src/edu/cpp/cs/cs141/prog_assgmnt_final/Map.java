@@ -1,66 +1,181 @@
+/**
+ * CS 141: Introduction to Programming and Problem Solving
+ * Professor: Edwin Rodríguez
+ *
+ * Programming Assignment #Final (Group Project)
+ *
+ * <description-of-assignment>
+ *
+ * Team Liquid 
+ *   <Anthony Vu, Victor Darkes, Seungyun Lee, Jeffrey Lee>
+ */
+
 package edu.cpp.cs.cs141.prog_assgmnt_final;
 
 import java.util.Random;
 import java.io.Serializable;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 /**
- * @author Seungyun
+ * 
  *
  */
 public class Map implements Serializable {
 	/**
-	 * The size of the map.
+	 * This field creates a 2D array of GameEntity. Its initial size is 9 by 9.
 	 */
 	private GameEntity[][] map = new GameEntity[9][9];
 
 	boolean northSideOfRoom = false;
 
+	/**
+	 *
+	 * This field creates a player.
+	 *
+	 */
 	private Player player = new Player();
 
+	/**
+	 * 
+	 * This field creates an additional bullet power-up.
+	 * 
+	 */
 	private AdditionalBullet bullet = new AdditionalBullet();
 
+	/**
+	 * 
+	 * This field creates a radar power-up.
+	 * 
+	 */
 	private Radar radar = new Radar();
 
+	/**
+	 * 
+	 * This field creates an invincibility power-up.
+	 * 
+	 */
 	private Invincibility invincible = new Invincibility();
 
+	/**
+	 * 
+	 * This field creates a briefcase.
+	 * 
+	 */
 	private BriefCase briefCase = new BriefCase();
 
+	/**
+	 * 
+	 * This field creates an enemy called enemy1 with '1' as its front side
+	 * symbol.
+	 * 
+	 */
 	private Enemy enemy1 = new Enemy("1");
 
+	/**
+	 * 
+	 * This field creates an enemy called enemy2 with '2' as its front side
+	 * symbol.
+	 * 
+	 */
 	private Enemy enemy2 = new Enemy("2");
 
+	/**
+	 * 
+	 * This field creates an enemy called enemy3 with '3' as its front side
+	 * symbol.
+	 * 
+	 */
 	private Enemy enemy3 = new Enemy("3");
 
+	/**
+	 * 
+	 * This field creates an enemy called enemy4 with '4' as its front side
+	 * symbol.
+	 * 
+	 */
 	private Enemy enemy4 = new Enemy("4");
 
+	/**
+	 * 
+	 * This field creates an enemy called enemy5 with '5' as its front side
+	 * symbol.
+	 * 
+	 */
 	private Enemy enemy5 = new Enemy("5");
 
+	/**
+	 * 
+	 * This field creates an enemy called enemy6 with '6' as its front side
+	 * symbol.
+	 * 
+	 */
 	private Enemy enemy6 = new Enemy("6");
 
+	/**
+	 *
+	 * This field checks for rooms.
+	 * 
+	 */
 	private boolean roomIndicator = false;
 
-	private boolean powerUpIndicator = false;
-
+	/**
+	 * 
+	 * This field represents an GameEntity array which holds all the enemies.
+	 * 
+	 */
 	private GameEntity[] holdEnemy = { enemy1, enemy2, enemy3, enemy4, enemy5,
 			enemy6 };
 
+	/**
+	 * 
+	 * This field represents an GameEntity array which holds all the power-ups.
+	 * 
+	 */
 	private GameEntity[] holdPowerUps = { radar, bullet, invincible };
 
+	/**
+	 * 
+	 * This field represents whether or not the player found the additional
+	 * bullet. Its initial value is false.
+	 * 
+	 */
 	private boolean bulletIndicator = false;
 
+	/**
+	 * 
+	 * This field represents whether or not the player found the radar. Its
+	 * initial value is false.
+	 * 
+	 */
 	private boolean radarIndicator = false;
+
+	/**
+	 *
+	 * This field represents whether or not the player found the invincibility.
+	 * Its initial value is false.
+	 * 
+	 */
 
 	private boolean invincibleIndicator = false;
 
+	/**
+	 * 
+	 * This field represents whether or not the player found the briefcase. Its
+	 * initial value is false.
+	 * 
+	 */
 	private boolean briefCaseIndicator = false;
 
-	private boolean enemyAttack = true;
-
+	/**
+	 * 
+	 * This field represents whether or not an enemy found the player. Its
+	 * initial value is false.
+	 * 
+	 */
 	private boolean foundPlayer = false;
 
 	private boolean ableEnemyAttack = true;
+
+	private boolean playerAttack = false;
 
 	public boolean checkSideOfRoom(int row, int column) {
 
@@ -95,10 +210,6 @@ public class Map implements Serializable {
 	public void setFoundPlayer(boolean foundPlayer) {
 		this.foundPlayer = foundPlayer;
 	}
-
-	private boolean playerAttack = false;
-
-	private boolean foundRoom = false;
 
 	public boolean checkPositionOfPlayer(int row, int column) {
 		boolean checkPosition = false;
@@ -255,7 +366,8 @@ public class Map implements Serializable {
 				player.setBullet(1);
 			}
 
-			player.attack(true);
+			// player.attack(true);
+			player.setAttack(true);
 
 		} else if (map[row][column].getFront().equals("I")) {
 
@@ -267,10 +379,19 @@ public class Map implements Serializable {
 
 	}
 
-	public boolean useInvincible(boolean invincibleIndicator) {
+	public boolean useInvincible(int invincibleTurns) {
 
-		if (invincibleIndicator) {
+		if (invincibleTurns != 0) {
+
+			invincible.countingTurn();
+
+			invincible.setNumberOfTurns(invincible.getNumberOfTurns());
+
 			ableEnemyAttack = false;
+
+		} else if (invincibleTurns == 0) {
+
+			ableEnemyAttack = true;
 
 		}
 
@@ -278,10 +399,10 @@ public class Map implements Serializable {
 
 	}
 
-	public void invincibilityTurns(boolean invincibleIndicator) {
-		if (invincibleIndicator) {
-			invincible.countingTurn();
-		}
+	public int invincibleTurns() {
+
+		return invincible.getNumberOfTurns();
+
 	}
 
 	public boolean endInvincibility(int turn) {
@@ -363,6 +484,14 @@ public class Map implements Serializable {
 
 	}
 
+	/**
+	 * 
+	 * This method allows the player to shoot left. The for-loop checks the left
+	 * sides of the player and if it finds a room or an enemy, the for-loop
+	 * breaks. If it's an enemy, then it replace enemy with a new EmptySpace()
+	 * with enemyDie() method.
+	 * 
+	 */
 	public void shootLeft() {
 
 		for (int i = 1; i < player.getColumn() + 1; ++i) {
@@ -392,6 +521,14 @@ public class Map implements Serializable {
 
 	}
 
+	/**
+	 * 
+	 * This method allows the player to shoot right. The for-loop checks the
+	 * right sides of the player and if it finds a room or an enemy, the
+	 * for-loop breaks. If it's an enemy, then it replace enemy with a new
+	 * EmptySpace() with enemyDie() method.
+	 * 
+	 */
 	public void shootRight() {
 
 		int turn = map.length - player.getColumn();
@@ -425,9 +562,14 @@ public class Map implements Serializable {
 
 	}
 
+	/**
+	 * + * + * This method allows the player to shoot up. The for-loop checks
+	 * the top + * sides of the player and if it finds a room or an enemy, the
+	 * for-loop + * breaks. If it's an enemy, then it replace enemy with a new
+	 * EmptySpace() + * with enemyDie() method. + * +
+	 */
 	public void shootUp() {
 
-		boolean foundEnemy = false;
 		for (int i = 1; i < player.getRow() + 1; ++i) {
 
 			if (map[player.getRow() - i][player.getColumn()].getFront().equals(
@@ -454,6 +596,14 @@ public class Map implements Serializable {
 		}
 	}
 
+	/**
+	 * 
+	 * This method allows the player to shoot down. The for-loop checks the
+	 * bottom sides of the player and if it finds a room or an enemy, the
+	 * for-loop breaks. If it's an enemy, then it replace enemy with a new
+	 * EmptySpace() with enemyDie() method.
+	 * 
+	 */
 	public void shootDown() {
 
 		int turn = map.length - player.getRow();
@@ -486,6 +636,18 @@ public class Map implements Serializable {
 		}
 	}
 
+	/**
+	 * 
+	 * This method replaces an enemy with a new EmptySpace(). It deletes a
+	 * corresponding enemy from the holdEnemy array when 'if-statement' finds
+	 * one.
+	 * 
+	 * @param row
+	 *            Row index number of an enemy
+	 * @param column
+	 *            Column index number of an enemy
+	 * 
+	 */
 	public void enemyDie(int row, int column) {
 
 		GameEntity tempSpace = new EmptySpace();
