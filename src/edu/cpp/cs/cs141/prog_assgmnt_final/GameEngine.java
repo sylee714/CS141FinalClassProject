@@ -30,8 +30,6 @@ import java.util.Random;
  */
 public class GameEngine {
 
-	//private static final Object GameDataSave = null;
-
 	private Map map = null;
 
 	public GameEngine(Map map) {

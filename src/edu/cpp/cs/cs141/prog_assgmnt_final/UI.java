@@ -23,21 +23,31 @@ import java.util.Scanner;
 public class UI {
 
 	/**
-	 * 
+	 * Initializes an empty GameEngine object. 
 	 */
 	private GameEngine game = null;
 
+	/**
+	 * Initializes a Scanner to take in user input.
+	 */
 	private Scanner keyboard = null;
 
+	/**
+	 *  Boolean to know whether or not the user decides to quit the game.
+	 */
 	private boolean quit = false;
 
+	/**
+	 * @param game
+	 * Constructor for a UI object that takes in a scanner and a Game Engine object.
+	 */
 	public UI(GameEngine game) {
 		this.game = game;
 		keyboard = new Scanner(System.in);
 	}
 
 	/**
-	 * Greets player on startup and gives 3 options. Starting a new game,
+	 * Greets user on startup and gives 3 options. Starting a new game,
 	 * Loading the previous game, and quitting the game.
 	 */
 	public void startGame() {
@@ -78,7 +88,7 @@ public class UI {
 	}
 
 	/**
-	 * @return What the user sees on start up. Selection decided
+	 * @return What the user sees on start up. Selection decides
 	 * whether or not game is ran, loaded or quit.
 	 */
 	private int mainMenu() {
@@ -91,15 +101,16 @@ public class UI {
 
 	}
 
+	/**
+	 * a method that runs as long as the game hasn't ended.
+	 */
 	public void gameLoop() {
 
 		while (!game.endGame()) {
 
 			System.out.println("Begin your turn player!\n");
-
 			System.out.println(game.printBoard());
 			System.out.println("What would you like to do next?\n");
-
 			System.out
 					.println("1)Move \n2)Look \n3)Shoot \n4)Save \n5)Main Menu \n6)Debug Mode");
 
@@ -172,6 +183,9 @@ public class UI {
 		game.lifeReset();
 	}
 
+	/**
+	 * Allows the user to return to the main method.
+	 */
 	public void menu() {
 		int option = mainMenu();
 		switch (option) {
