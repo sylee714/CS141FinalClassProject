@@ -4,7 +4,17 @@
  *
  * Programming Assignment #Final (Group Project)
  *
- * <description-of-assignment>
+*  Text-based game in which the player is located on a 9x9 grid unable to see anything,
+ *  but where the player is located. The objective is to find a briefcase located 
+ *  within one of 9 rooms located throughout the grid. The caveat, there are 6 enemies
+ *  located throughout the grid that can kill the player if the two meet. There are 3 power
+ *  ups scattered across the board that will aid the player in finding the brief case: 
+ *  additional bullet, radar, and invisibility. The additional bullet will refill the player's 
+ *  one-shot gun in the event it was shot earlier. The radar power up will located the 
+ *  briefcase and disclose the location to the player. Invincibility will make the player 
+ *  immune to all enemy attacks up to five turns. Keep in mind, the player has no storage
+ *  so none of the power ups can be stored for later use. The player has 3 lives before
+ *  game over. A load and save option is available for convenience.
  *
  * Team Liquid 
  *   <Anthony Vu, Victor Darkes, Seungyun Lee, Jeffrey Lee>
@@ -46,22 +56,6 @@ public class GameEngine {
 
 	private boolean debug = false;
 	
-
-	/**
-	 * @return the debug
-	 */
-	public boolean isDebug() {
-		return debug;
-	}
-
-	/**
-	 * @param debug
-	 *            the debug to set
-	 */
-	public void setDebug(boolean debug) {
-		this.debug = debug;
-	}
-
 	public void generateMap() {
 
 		map.generateEmptySpace();
@@ -69,8 +63,52 @@ public class GameEngine {
 		map.generatePlayer();
 		map.generateEnemy();
 		map.generatePowerUps();
-		// map.useRadar();
 
+	}
+	
+	public String printBoard() {
+		
+		if (isDebug() == false) {
+			
+			return map.toString();
+
+		} else {
+			
+			return map.printDebug();
+			
+		}
+		
+	}
+
+	public String displayBoard() {
+		
+		return map.toString();
+		
+	}
+	
+	/**
+	 * @return the debug
+	 */
+	public boolean isDebug() {
+		
+		return debug;
+		
+	}
+
+	/**
+	 * @param debug
+	 *            the debug to set
+	 */
+	public void setDebug(boolean debug) {
+		
+		this.debug = debug;
+		
+	}
+	
+	public String printDebug() {
+		
+		return map.printDebug();
+		
 	}
 
 	public int briefCaseRow() {
@@ -79,19 +117,6 @@ public class GameEngine {
 
 	public int briefCaseColumn() {
 		return map.briefCaseColumn();
-	}
-
-	public String printBoard() {
-		if (isDebug() == false) {
-			return map.toString();
-
-		} else {
-			return map.printDebug();
-		}
-	}
-
-	public String displayBoard() {
-		return map.toString();
 	}
 
 	/**
@@ -186,11 +211,6 @@ public class GameEngine {
 		return temp;
 	}
 
-	public String printDebug() {
-		return map.printDebug();
-	}
-
-	
 
 	public void moveEnemy() {
 		try {
@@ -266,27 +286,14 @@ public class GameEngine {
 	 *            player has immediate visibility of each turn.
 	 */
 
+	/**
+	 * 
+	 * @param direction
+	 *            player has immediate visibility of each turn.
+	 */
+
 	public void visibilityOfEnemy() {
-		try {
-			map.visibilityOfEnemy(1);
-		} catch (ArrayIndexOutOfBoundsException e) {
-
-		}
-		try {
-			map.visibilityOfEnemy(2);
-		} catch (ArrayIndexOutOfBoundsException e) {
-
-		}
-		try {
-			map.visibilityOfEnemy(3);
-		} catch (ArrayIndexOutOfBoundsException e) {
-
-		}
-		try {
-			map.visibilityOfEnemy(4);
-		} catch (ArrayIndexOutOfBoundsException e) {
-
-		}
+		map.visibilityOfEnemy();
 	}
 	
 	public boolean invincible() {
@@ -295,6 +302,11 @@ public class GameEngine {
 	
 	public void useInvincible() {
 		map.useInvincible(map.invincibleTurns());
+	}
+	
+	public int invincibleTurns() {
+		
+		return map.invincibleTurns();
 	}
 
 	public void enemyTurn() {
@@ -307,7 +319,7 @@ public class GameEngine {
 		
 		System.out.println("Found Player: " + map.isFoundPlayer());
 		
-		map.playerGotDamaged(map.isFoundPlayer());
+		//map.playerGotDamaged(map.isFoundPlayer());
 		
 		map.initialPoint();
 		
@@ -376,10 +388,5 @@ public class GameEngine {
 
 	}
 
-
-	public int invincibleTurns() {
-		
-		return map.invincibleTurns();
-	}
 
 }
