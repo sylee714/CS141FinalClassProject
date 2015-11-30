@@ -49,7 +49,8 @@ public class UI {
 				break;
 			// calls on loadGame() to open previously saved game
 			case 2:
-				// .load();
+				game.load();
+				gameLoop();
 				break;
 			case 3:
 				System.out.println("Goodbye! Come back soon!");
@@ -65,14 +66,20 @@ public class UI {
 		}
 
 	}
+	
+
 
 	/**
-	 * Prints a welcome message to the player.
+	 * Prints a welcome message to the user.
 	 */
 	public void welcomeMessage() {
 		System.out.println("Hi There Player!\n");
 	}
 
+	/**
+	 * @return What the user sees on start up. Selection decided
+	 * whether or not game is ran, loaded or quit.
+	 */
 	private int mainMenu() {
 		int option = 0;
 		System.out.println("Select an option:\n\n1)New Game\n2)Load Game\n3)Quit Game");
@@ -93,7 +100,7 @@ public class UI {
 			System.out.println("What would you like to do next?\n");
 
 			System.out
-					.println("1)Move \n2)Look \n3)Shoot \n4)Save \n5)Quit \n6)Debug Mode");
+					.println("1)Move \n2)Look \n3)Shoot \n4)Save \n5)Main Menu \n6)Debug Mode");
 
 			int choice = keyboard.nextInt();
 
@@ -122,10 +129,12 @@ public class UI {
 			// Save
 			case 4:
 				game.save();
+				System.out.println("Save was successful.");
 				break;
 			// Quit
 			case 5:
-				game.load();
+				mainMenu();
+				
 				break;
 			// Debug
 			case 6:
