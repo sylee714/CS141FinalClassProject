@@ -75,8 +75,7 @@ public class UI {
 
 	private int mainMenu() {
 		int option = 0;
-		System.out
-				.println("Select an option:\n\n1)New Game\n2)Load Game\n3)Quit Game");
+		System.out.println("Select an option:\n\n1)New Game\n2)Load Game\n3)Quit Game");
 		option = keyboard.nextInt();
 		keyboard.nextLine();
 
@@ -157,13 +156,13 @@ public class UI {
 	 */
 	public void endTurn() {
 
-		// game.moveEnemy();
+		game.moveEnemy();
 		game.enemyTurn();
 
 		game.setNotFlipped();
 		useRadar();
 		if (game.isFoundPlayer())
-			System.out.println("You have " + game.playerLife()
+			System.out.println("You died. You have " + game.playerLife()
 					+ " lives left player.\n");
 
 		game.lifeReset();

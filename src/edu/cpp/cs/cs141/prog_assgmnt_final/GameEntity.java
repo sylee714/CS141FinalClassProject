@@ -76,9 +76,6 @@ public abstract class GameEntity implements Serializable {
 		this.column = column;
 	}
 
-	public void attack(boolean attack) {
-
-	}
 
 	/**
 	 * This method sets the boolean value for the boolean field 'attack.'
