@@ -22,6 +22,9 @@ import java.util.Scanner;
  */
 public class UI {
 
+	/**
+	 * 
+	 */
 	private GameEngine game = null;
 
 	private Scanner keyboard = null;
@@ -39,7 +42,6 @@ public class UI {
 	 */
 	public void startGame() {
 		welcomeMessage();
-		// boolean quit = false;
 		while (!quit) {
 			int option = mainMenu();
 			switch (option) {
@@ -47,7 +49,6 @@ public class UI {
 				game.generateMap();
 				gameLoop();
 				break;
-			// calls on loadGame() to open previously saved game
 			case 2:
 				game.load();
 				gameLoop();
@@ -111,13 +112,11 @@ public class UI {
 				if (game.northSideOfRoom()) {
 					checkRoom();
 				}
-
 				break;
 			// Look
 			case 2:
 				playerLook();
 				break;
-
 			// Shoot
 			case 3:
 				if (game.numberOfBullet() == 1)
@@ -131,10 +130,9 @@ public class UI {
 				game.save();
 				System.out.println("Save was successful.");
 				break;
-			// Quit
+			// Main Menu
 			case 5:
-				mainMenu();
-				
+				menu();
 				break;
 			// Debug
 			case 6:
@@ -164,22 +162,39 @@ public class UI {
 	 * over.
 	 */
 	public void endTurn() {
-
 		game.moveEnemy();
 		game.enemyTurn();
-
 		game.setNotFlipped();
 		useRadar();
 		if (game.isFoundPlayer())
 			System.out.println("You died. You have " + game.playerLife()
 					+ " lives left player.\n");
-
 		game.lifeReset();
 	}
 
+	public void menu() {
+		int option = mainMenu();
+		switch (option) {
+		case 1:
+			game.generateMap();
+			gameLoop();
+			break;
+		case 2:
+			game.load();
+			gameLoop();
+			break;
+		case 3:
+			System.out.println("Goodbye! Come back soon!");
+			System.exit(0);
+			break;
+		default:
+			System.out
+					.println("Invalid input. Choose from \"1\",\"2\", or \"3\" please.");
+			break;}	
+	}
+	
 	public void useRadar() {
 		game.useRadar(game.foundRadar());
-
 		if (game.foundRadar()) {
 			System.out.println("The brief case is loacated at: " + "Row: "
 					+ game.briefCaseRow() + " Column: "
@@ -188,12 +203,9 @@ public class UI {
 	}
 
 	public void playerShoot() {
-
 		System.out.println("Choose a direction to shoot.\n");
 		System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
-
 		int direction = keyboard.nextInt();
-
 		switch (direction) {
 		case 1:
 			game.playerAttack(direction);
@@ -215,7 +227,6 @@ public class UI {
 	public void playerLook() {
 		System.out.println("Choose a direction to look in.\n");
 		System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
-
 		int option = keyboard.nextInt();
 		try {
 			switch (option) {
@@ -249,7 +260,7 @@ public class UI {
 
 		System.out.println("What would you like to do next?\n");
 
-		System.out.println("1)Move \n2)Shoot \n3)Save \n4)Quit \n5)Debug Mode");
+		System.out.println("1)Move \n2)Shoot \n3)Save \n4)Main Menu \n5)Debug Mode");
 
 		int choice = keyboard.nextInt();
 
@@ -272,10 +283,11 @@ public class UI {
 		// Save
 		case 3:
 			game.save();
+			System.out.println("Save was successful.");
 			break;
-		// Quit
+		// Main Menu
 		case 4:
-			game.load();
+			menu();
 			break;
 		// Debug
 		case 5:
