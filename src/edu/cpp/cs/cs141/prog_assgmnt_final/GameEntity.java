@@ -36,35 +36,26 @@ import java.io.Serializable;
 public abstract class GameEntity implements Serializable {
 
 	/**
-	 * 
 	 * This field represents the front side of an GameEntity.
-	 * 
 	 */
 	private String front = "";
 
-	/**
-	 * 
-	 * This field represents the back side of an GameEntity.
-	 * 
+	/** 
+	 * This field represents the back side of an GameEntity. 
 	 */
 	private String back = "";
 
 	/**
-	 * 
 	 * This field represents the row index number of an GameEntity.
-	 * 
 	 */
 	private int row = 0;
 
 	/**
-	 * 
 	 * This field represents the column index number of an GameEntity.
-	 * 
 	 */
 	private int column = 0;
 
 	/**
-	 * 
 	 * This is a constructor which allows to set initial values of front, back,
 	 * row, and column.
 	 * 
@@ -76,7 +67,6 @@ public abstract class GameEntity implements Serializable {
 	 *            Row index number of an GameEntity, where it's located at.
 	 * @param column
 	 *            Column index number of an GameEntity, where it's located at.
-	 * 
 	 */
 	public GameEntity(String front, String back, int row, int column) {
 
@@ -88,29 +78,23 @@ public abstract class GameEntity implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This field represents whether an GameEntity is flipped or not. If it's
 	 * true, it shows the front side; otherwise, it shows the back side.
-	 * 
 	 */
 	private boolean isFlipped = false;
 
-	/**
-	 * 
+	/** 
 	 * This field represents whether or not an GameEntity attacks. If it's true,
 	 * then the GameEntity attacks;, otherwise, it does not attack. This is only
 	 * shared with Player and Enemy classes.
-	 * 
 	 */
 	private boolean attack = false;
 
 	/**
-	 * 
 	 * This method sets the boolean value for the boolean field 'attack.'
 	 * 
 	 * @param attack
 	 *            Boolean value either true or false.
-	 * 
 	 */
 	public void setAttack(boolean attack) {
 
@@ -119,12 +103,10 @@ public abstract class GameEntity implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method returns true, if 'attack' is true, and false, is 'attack' is
 	 * false.
 	 * 
 	 * @return true if 'attack' is true; false, if 'attack' is false
-	 * 
 	 */
 	public boolean isAttack() {
 
@@ -133,12 +115,10 @@ public abstract class GameEntity implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method returns true, if 'isFlipped' is true, and false, if
 	 * 'isFlipped' is false.
 	 * 
 	 * @return true if 'isFlipped' is true; false, if 'isFlipped' is false
-	 * 
 	 */
 	public boolean isFlipped() {
 
@@ -147,12 +127,10 @@ public abstract class GameEntity implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method sets the boolean value for the boolean field 'isFlipped.'
 	 * 
 	 * @param isFlipped
 	 *            Boolean value either true or false.
-	 * 
 	 */
 	public void setFlipped(boolean isFlipped) {
 
@@ -161,11 +139,9 @@ public abstract class GameEntity implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method returns a front side symbol of an GameEntity.
 	 * 
 	 * @return front side symbol
-	 * 
 	 */
 	public String getFront() {
 
@@ -174,11 +150,9 @@ public abstract class GameEntity implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method returns a back side symbol of an GameEntity.
 	 * 
 	 * @return back side symbol
-	 * 
 	 */
 	public String getBack() {
 
@@ -187,11 +161,9 @@ public abstract class GameEntity implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method returns a current row index number of an GameEntity.
 	 * 
 	 * @return current row index number
-	 * 
 	 */
 	public int getRow() {
 
@@ -200,13 +172,11 @@ public abstract class GameEntity implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method sets a new row index number of an GameEntity.
 	 * 
 	 * @param row
 	 *            The new row index number where an GameEntity will be located
 	 *            at.
-	 * 
 	 */
 	public void setRow(int row) {
 
@@ -215,11 +185,9 @@ public abstract class GameEntity implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method returns a current column index number of an GameEntity.
 	 * 
 	 * @return current column index number
-	 * 
 	 */
 	public int getColumn() {
 
@@ -228,13 +196,11 @@ public abstract class GameEntity implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This methods sets a new column index number of an GameEntity.
 	 * 
 	 * @param column
 	 *            The new column index number where an GameEntity will be
 	 *            located at.
-	 * 
 	 */
 	public void setColumn(int column) {
 
@@ -243,13 +209,11 @@ public abstract class GameEntity implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method is moving method. Up, down, right, and left only. Only the
 	 * player and enemies can move.
 	 * 
 	 * @param movement
 	 *            The direction where an GameEntity wants to move.
-	 * 
 	 */
 	public void move(int movement) {
 

@@ -24,21 +24,18 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
 import java.io.Serializable;
 
 /**
- * 
  * This class represents a power-up called Radar. It extends GameEntity class and it uses a
  * super constructor to assign initial values of front, back, row,
  * column of the Radar.
  * 
  * @author Seungyun
- *
+ * 
  */
 public class Radar extends GameEntity implements Serializable {
 
 	/**
-	 * 
 	 * A super constructor for the class. It allows to set initial values for
 	 * front, back, row, column.
-	 * 
 	 */
 	public Radar() {
 		

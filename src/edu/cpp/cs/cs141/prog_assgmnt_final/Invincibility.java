@@ -24,7 +24,6 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
 import java.io.Serializable;
 
 /**
- * 
  * This class represents a power-up called Invincibility. It extends GameEntity
  * class and it uses a super constructor to assign initial values of front,
  * back, row, column of the Invincibility.
@@ -35,10 +34,8 @@ import java.io.Serializable;
 public class Invincibility extends GameEntity implements Serializable {
 
 	/**
-	 * 
 	 * A super constructor for the class. It allows to set initial values for
 	 * front, back, row, column.
-	 * 
 	 */
 	public Invincibility() {
 
@@ -47,15 +44,12 @@ public class Invincibility extends GameEntity implements Serializable {
 	}
 
 	/**
-	 * 
 	 * The player will be invincible for 5 turns. The initial value is 6 because
 	 * as soon as the player consumes it, it goes down by 1.
-	 * 
 	 */
 	private int numberOfTurns = 6;
 
 	/**
-	 * 
 	 * This method returns how many invincible turns are left.
 	 * 
 	 * @return the numberOfTurns that the player is invincible
@@ -67,14 +61,12 @@ public class Invincibility extends GameEntity implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method sets new value for the numberOfTurns field after the player
 	 * takes a turn.
 	 * 
 	 * @param numberOfTurns
 	 * 				The new value of numberOfTurns after the player consumes the
 	 * 				invincibillity and takes a turn.
-	 * 
 	 */
 	public void setNumberOfTurns(int numberOfTurns) {
 
@@ -83,13 +75,11 @@ public class Invincibility extends GameEntity implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method counts down the invincible turns.
-	 * 
 	 */
 	public void countingTurn() {
 
-		--numberOfTurns;
+		numberOfTurns = numberOfTurns - 1;
 
 	}
 

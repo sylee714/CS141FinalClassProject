@@ -24,51 +24,23 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
 import java.io.Serializable;
 
 /**
- * 
- * This class represents an Enemy.
+ * This class represents an Enemy. It extends GameEntity class and it uses
+ * a super constructor to assign initial values of front, back, row,
+ * column of the Enemy.
  * 
  * @author Seungyun
- *
+ * 
  */
 public class Enemy extends GameEntity implements Serializable {
-
-
+	
+	/**
+	 * A super constructor for the class. It allows to set initial values for
+	 * front, back, row, column.
+	 */
 	public Enemy(String front) {
+		
 		super(front, "*", 0, 0);
+		
 	}
-
-	
-
-	/**
-	 * This field indicates if an enemy found the player.
-	 */
-	private boolean foundPlayer = false;
-
-
-	/**
-	 * 
-	 */
-	private boolean attack = false;
-
-	/**
-	 * @return the attack
-	 */
-	public boolean isAttack() {
-		return attack;
-	}
-
-	/**
-	 * @param attack
-	 *            the attack to set
-	 */
-	public void setAttack(boolean attack) {
-		this.attack = attack;
-	}
-
-	
-
-
-	
-	
 
 }

@@ -23,8 +23,7 @@ package edu.cpp.cs.cs141.prog_assgmnt_final;
 
 import java.io.Serializable;
 
-/**
- * 
+/** 
  * This class represents a power-up called AdditionalBullet. It extends
  * GameEntity class and it uses a super constructor to assign initial values of
  * front, back, row, column of the AdditionalBullet.
@@ -35,12 +34,8 @@ import java.io.Serializable;
 public class AdditionalBullet extends GameEntity implements Serializable {
 
 	/**
-	 * 
 	 * A super constructor for the class. It allows to set initial values for
 	 * front, back, row, column.
-	 * 
-	 * @author Seungyun
-	 * 
 	 */
 	public AdditionalBullet() {
 
@@ -49,11 +44,9 @@ public class AdditionalBullet extends GameEntity implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This field represents additional bullet, which can be picked up by the
 	 * player. Its initial value is 1. It's only effective when the player has
 	 * no bullet.
-	 * 
 	 */
 	private int bullet = 1;
 

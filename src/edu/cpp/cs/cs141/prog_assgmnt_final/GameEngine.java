@@ -40,8 +40,6 @@ import java.util.Random;
  */
 public class GameEngine {
 
-	private static final Object GameDataSave = null;
-
 	private Map map = null;
 
 	public GameEngine(Map map) {
@@ -50,12 +48,10 @@ public class GameEngine {
 
 	private int turn = 0;
 
-	private boolean attacked = false;
-
 	private boolean endGame = false;
 
 	private boolean debug = false;
-	
+
 	public void generateMap() {
 
 		map.generateEmptySpace();
@@ -63,36 +59,17 @@ public class GameEngine {
 		map.generatePlayer();
 		map.generateEnemy();
 		map.generatePowerUps();
-
-	}
-	
-	public String printBoard() {
-		
-		if (isDebug() == false) {
-			
-			return map.toString();
-
-		} else {
-			
-			return map.printDebug();
-			
-		}
-		
 	}
 
-	public String displayBoard() {
-		
-		return map.toString();
-		
+	public int getTurn() {
+		return turn;
 	}
-	
+
 	/**
 	 * @return the debug
 	 */
 	public boolean isDebug() {
-		
 		return debug;
-		
 	}
 
 	/**
@@ -100,15 +77,35 @@ public class GameEngine {
 	 *            the debug to set
 	 */
 	public void setDebug(boolean debug) {
-		
 		this.debug = debug;
-		
 	}
-	
+
 	public String printDebug() {
-		
 		return map.printDebug();
-		
+	}
+
+	public String printBoard() {
+		if (isDebug() == false) {
+			return map.toString();
+
+		} else {
+			return map.printDebug();
+		}
+	}
+
+	public String displayBoard() {
+		return map.toString();
+	}
+
+	public boolean foundRadar() {
+
+		return map.isRadarIndicator();
+	}
+
+	public void useRadar(boolean foundRadar) {
+		if (foundRadar) {
+			map.useRadar();
+		}
 	}
 
 	public int briefCaseRow() {
@@ -117,6 +114,37 @@ public class GameEngine {
 
 	public int briefCaseColumn() {
 		return map.briefCaseColumn();
+	}
+
+	public int invincibleTurns() {
+
+		return map.invincibleTurns();
+	}
+
+	public boolean invincible() {
+		return map.isInvincibleIndicator();
+	}
+
+	public void useInvincible() {
+		map.useInvincible(map.invincibleTurns());
+	}
+
+	public boolean briefCaseIndicator() {
+		return map.isBriefCaseIndicator();
+	}
+
+	public int numberOfBullet() {
+		return map.bullet();
+	}
+
+	public boolean northSideOfRoom() {
+		return map.isNorthSideOfRoom();
+	}
+
+	public void checkRoom() {
+
+		map.searchRoom(map.isNorthSideOfRoom());
+
 	}
 
 	/**
@@ -128,13 +156,10 @@ public class GameEngine {
 		switch (direction) {
 		case 1:
 			map.visibilityOfPlayer(1);
-
 			break;
-
 		case 2:
 			map.visibilityOfPlayer(2);
 			break;
-
 		case 3:
 			map.visibilityOfPlayer(3);
 			break;
@@ -145,28 +170,15 @@ public class GameEngine {
 		}
 	}
 
-	public boolean foundRadar() {
-
-		return map.isRadarIndicator();
+	public void playerDetect() {
+		map.playerDetect();
 	}
 
-	public void useRadar(boolean foundRadar) {
-
-		if (foundRadar) {
-			map.useRadar();
-		}
+	public void setNotFlipped() {
+		map.setNotFlipped();
 
 	}
 
-	/*
-	 * public void visibilityOfPlayer(int direction) {
-	 * 
-	 * switch (direction) { // Left case 1: map.visibilityOfPlayer(1); break; //
-	 * Right case 2: map.visibilityOfPlayer(2); break; // Up case 3:
-	 * map.visibilityOfPlayer(3); break; // Down case 4:
-	 * map.visibilityOfPlayer(4); break; default: System.out.println(
-	 * "That isn't a valid choice player."); break; } }
-	 */
 	/**
 	 * @param direction
 	 * @return
@@ -181,6 +193,7 @@ public class GameEngine {
 			temp = map.movePlayer(4);
 			if (map.isRadarIndicator()) {
 				map.useRadar();
+
 			}
 			break;
 		// Right
@@ -205,27 +218,14 @@ public class GameEngine {
 			}
 			break;
 		}
+		if (temp == true) {
+			turn++;
+			return temp;
 
-		temp = (temp == true) ? true : false;
-
-		return temp;
-	}
-
-
-	public void moveEnemy() {
-		try {
-			map.moveEnemy();
-		} catch (ArrayIndexOutOfBoundsException e) {
-			System.out.println("An enemy moved out of bounds");
+		} else {
+			temp = false;
+			return temp;
 		}
-	}
-
-	public void backToSpawnLocation() {
-		map.generatePlayer();
-	}
-
-	public int numberOfBullet() {
-		return map.bullet();
 	}
 
 	public void playerAttack(int direction) {
@@ -261,30 +261,86 @@ public class GameEngine {
 			}
 			break;
 		}
+		turn++;
+	}
+
+	public void chooseHardMode(int option) {
+
+		switch (option) {
+		case 1:
+			map.setHardMode(true);
+			break;
+		case 2:
+			map.setHardMode(false);
+			break;
+
+		}
+	}
+
+	public boolean hardMode() {
+
+		return map.isHardMode();
+
+	}
+
+	public void smartEnemyLook() {
+
+		map.enemyHardModeVisibility();
+		map.checkVisibilityHardMode(map.isPlayerLeft(), map.isPlayerRight(), map.isPlayerUp(), map.isPlayerDown());
+
+	}
+
+	public boolean playerLeft() {
+
+		return map.isPlayerLeft();
+
+	}
+
+	public boolean playerRight() {
+
+		return map.isPlayerRight();
+
+	}
+
+	public boolean playerUp() {
+
+		return map.isPlayerUp();
+
+	}
+
+	public boolean playerDown() {
+
+		return map.isPlayerDown();
 
 	}
 	
-	public boolean briefCaseIndicator() {
-		return map.isBriefCaseIndicator();
-	}
-	
-	public boolean northSideOfRoom() {
-		return map.isNorthSideOfRoom();
-	}
-	
-
-	
-	public void checkRoom() {
+	public boolean hardModePlayerNotFound() {
 		
-		map.searchRoom(map.isNorthSideOfRoom());
-		
+		return map.isHardModePlayerNotFound();
+				
 	}
 
-	/**
-	 * 
-	 * @param direction
-	 *            player has immediate visibility of each turn.
-	 */
+	public void smartEnemyMove() {
+
+		try {
+
+			map.enemyHardModeMove(map.isPlayerLeft(), map.isPlayerRight(), map.isPlayerUp(), map.isPlayerDown(),
+					map.isHardModePlayerNotFound());
+
+		} catch (ArrayIndexOutOfBoundsException e) {
+
+		}
+
+	}
+
+	public void moveEnemy() {
+		try {
+			map.moveEnemy();
+		} catch (ArrayIndexOutOfBoundsException e) {
+			// System.out.println("An enemy moved out of bounds");
+		}
+	}
+
 
 	/**
 	 * 
@@ -295,37 +351,38 @@ public class GameEngine {
 	public void visibilityOfEnemy() {
 		map.visibilityOfEnemy();
 	}
-	
-	public boolean invincible() {
-		return map.isInvincibleIndicator();
-	}
-	
-	public void useInvincible() {
-		map.useInvincible(map.invincibleTurns());
-	}
-	
-	public int invincibleTurns() {
-		
-		return map.invincibleTurns();
-	}
 
 	public void enemyTurn() {
 		
+		//smartEnemyLook();
+
 		if (map.isAbleEnemyAttack()) {
-			
-		visibilityOfEnemy();
-		
-		map.enemyAttack(map.isFoundPlayer());
-		
-		System.out.println("Found Player: " + map.isFoundPlayer());
-		
-		//map.playerGotDamaged(map.isFoundPlayer());
-		
-		map.initialPoint();
-		
+
+			//smartEnemyLook();
+			//visibilityOfEnemy();
+			map.enemyAttack(map.isFoundPlayer());
+			map.playerGotDamaged(map.isFoundPlayer());
+			map.initialPoint();
+
 		}
 
-		
+	}
+
+	public boolean isFoundPlayer() {
+		return map.isFoundPlayer();
+	}
+
+	public int playerLife() {
+
+		return map.playerLife();
+	}
+
+	public void backToSpawnLocation() {
+		map.generatePlayer();
+	}
+
+	public void lifeReset() {
+		map.setFoundPlayer(false);
 	}
 
 	public boolean endGame() {
@@ -333,15 +390,6 @@ public class GameEngine {
 			endGame = true;
 		}
 		return endGame;
-
-	}
-
-	public void playerDetect() {
-		map.playerDetect();
-	}
-
-	public void setNotFlipped() {
-		map.setNotFlipped();
 
 	}
 
@@ -387,6 +435,5 @@ public class GameEngine {
 		}
 
 	}
-
 
 }

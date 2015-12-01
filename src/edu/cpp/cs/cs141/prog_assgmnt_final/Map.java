@@ -31,180 +31,438 @@ import javax.swing.plaf.synth.SynthSeparatorUI;
  *
  */
 public class Map implements Serializable {
+
 	/**
-	 * 
 	 * This field creates a 2D array of GameEntity. Its initial size is 9 by 9.
-	 * 
 	 */
 	private GameEntity[][] map = new GameEntity[9][9];
 
 	/**
-	 * 
 	 * This field creates a player.
-	 * 
 	 */
 	private Player player = new Player();
 
 	/**
-	 * 
 	 * This field creates an additional bullet power-up.
-	 * 
 	 */
 	private AdditionalBullet bullet = new AdditionalBullet();
 
 	/**
-	 * 
 	 * This field creates a radar power-up.
-	 * 
 	 */
 	private Radar radar = new Radar();
 
 	/**
-	 * 
 	 * This field creates an invincibility power-up.
-	 * 
 	 */
 	private Invincibility invincible = new Invincibility();
 
 	/**
-	 * 
 	 * This field creates a briefcase.
-	 * 
 	 */
 	private BriefCase briefCase = new BriefCase();
 
 	/**
-	 * 
 	 * This field creates an enemy called enemy1 with '1' as its front side
 	 * symbol.
-	 * 
 	 */
 	private Enemy enemy1 = new Enemy("1");
 
 	/**
-	 * 
 	 * This field creates an enemy called enemy2 with '2' as its front side
 	 * symbol.
-	 * 
 	 */
 	private Enemy enemy2 = new Enemy("2");
 
 	/**
-	 * 
 	 * This field creates an enemy called enemy3 with '3' as its front side
 	 * symbol.
-	 * 
 	 */
 	private Enemy enemy3 = new Enemy("3");
 
 	/**
-	 * 
 	 * This field creates an enemy called enemy4 with '4' as its front side
 	 * symbol.
-	 * 
 	 */
 	private Enemy enemy4 = new Enemy("4");
 
 	/**
-	 * 
 	 * This field creates an enemy called enemy5 with '5' as its front side
 	 * symbol.
-	 * 
 	 */
 	private Enemy enemy5 = new Enemy("5");
 
 	/**
-	 * 
 	 * This field creates an enemy called enemy6 with '6' as its front side
 	 * symbol.
-	 * 
 	 */
 	private Enemy enemy6 = new Enemy("6");
 
 	/**
-	 * 
 	 * This field represents an GameEntity array which holds all the enemies.
-	 * 
 	 */
 	private GameEntity[] holdEnemy = { enemy1, enemy2, enemy3, enemy4, enemy5, enemy6 };
 
 	/**
-	 * 
 	 * This field represents an GameEntity array which holds all the power-ups.
-	 * 
 	 */
 	private GameEntity[] holdPowerUps = { radar, bullet, invincible };
 
 	/**
-	 * 
 	 * This field represents whether or not the player found the additional
 	 * bullet. Its initial value is false.
-	 * 
 	 */
 	private boolean bulletIndicator = false;
 
 	/**
-	 * 
 	 * This field represents whether or not the player found the radar. Its
 	 * initial value is false.
-	 * 
 	 */
 	private boolean radarIndicator = false;
 
 	/**
-	 *
 	 * This field represents whether or not the player found the invincibility.
 	 * Its initial value is false.
-	 * 
 	 */
 	private boolean invincibleIndicator = false;
 
 	/**
-	 * 
 	 * This field represents whether or not the player found the briefcase. Its
 	 * initial value is false.
-	 * 
 	 */
 	private boolean briefCaseIndicator = false;
 
 	/**
-	 * 
 	 * This field represents whether or not an enemy found the player. Its
 	 * initial value is false.
-	 * 
 	 */
 	private boolean foundPlayer = false;
 
 	/**
-	 * 
 	 * This field represents whether or not player can attack.
-	 * 
 	 */
 	private boolean playerAttack = false;
 
 	/**
-	 * 
 	 * This field depends on the invincibility power-up. When the player
 	 * consumes the inivincibility power-up, this field's value becomes false in
 	 * order to disable enemyAttack method. Otherwise, it stays as true.
-	 * 
 	 */
 	private boolean ableEnemyAttack = true;
 
 	/**
-	 * 
 	 * This field represents whether or not the player is located on northside
 	 * of a room.
-	 * 
 	 */
 	private boolean northSideOfRoom = false;
 
 	/**
-	 * 
+	 * This field represents whether or not the game is in normal mode.
+	 */
+	private boolean normalMode = false;
+
+	/**
+	 * This field represents whether or not the game is in hard mode.
+	 */
+	private boolean hardMode = false;
+
+	private boolean playerUp = false;
+
+	private boolean playerDown = false;
+
+	private boolean playerRight = false;
+
+	private boolean playerLeft = false;
+
+	private boolean hardModePlayerNotFound = true;
+
+	/**
+	 * @return the normalMode
+	 */
+	public boolean isNormalMode() {
+		return normalMode;
+	}
+
+	/**
+	 * @param normalMode
+	 *            the normalMode to set
+	 */
+	public void setNormalMode(boolean normalMode) {
+		this.normalMode = normalMode;
+	}
+
+	/**
+	 * @return the hardMode
+	 */
+	public boolean isHardMode() {
+		return hardMode;
+	}
+
+	/**
+	 * @param hardMode
+	 *            the hardMode to set
+	 */
+	public void setHardMode(boolean hardMode) {
+		this.hardMode = hardMode;
+	}
+
+	/**
+	 * @return the playerUp
+	 */
+	public boolean isPlayerUp() {
+		return playerUp;
+	}
+
+	/**
+	 * @return the playerDown
+	 */
+	public boolean isPlayerDown() {
+		return playerDown;
+	}
+
+	/**
+	 * @return the playerRight
+	 */
+	public boolean isPlayerRight() {
+		return playerRight;
+	}
+
+	/**
+	 * @return the playerLeft
+	 */
+	public boolean isPlayerLeft() {
+		return playerLeft;
+	}
+
+	/**
+	 * @return the hardModePlayerFound
+	 */
+	public boolean isHardModePlayerNotFound() {
+		return hardModePlayerNotFound;
+	}
+
+	public boolean enemyVisibilityLeft(GameEntity enemy) {
+
+			for (int i = 1; i < enemy.getColumn() + 1; ++i) {
+
+				if (map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("R")
+						|| map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("I")
+						|| map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("+")
+						|| map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("A")) {
+
+					//playerLeft = false;
+					//break;
+
+				} else if (map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("P")) {
+
+					playerLeft = true;
+					//break;
+
+				} else {
+
+					playerLeft = false;
+
+				}
+
+			}
+
+		return playerLeft;
+		
+	}
+
+	public boolean enemyVisibilityRight(GameEntity enemy) {
+
+		
+
+			int turn = map.length - enemy.getColumn();
+
+			for (int i = 1; i < turn; ++i) {
+
+				if (map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("R")
+						|| map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("I")
+						|| map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("+")
+						|| map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("A")) {
+
+					//playerRight = false;
+					//break;
+
+				} else if (map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("P")) {
+
+					playerRight = true;
+					//break;
+
+				} else {
+
+					playerRight = false;
+
+				}
+
+			}
+
+		return playerRight;
+
+	}
+
+	public boolean enemyVisibilityUp(GameEntity enemy) {
+
+			for (int i = 1; i < enemy.getRow() + 1; ++i) {
+
+				if (map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("R")
+						|| map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("I")
+						|| map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("+")
+						|| map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("A")) {
+
+					//playerUp = false;
+					//break;
+
+				} else if (map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("P")) {
+
+					playerUp = true;
+					//break;
+
+				} else {
+
+					playerUp = false;
+
+				}
+
+			}
+
+		return playerUp;
+
+	}
+
+	public boolean enemyVisibilityDown(GameEntity enemy) {
+
+			int turn = map.length - enemy.getRow();
+
+			for (int i = 1; i < turn; ++i) {
+
+				if (map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("R")
+						|| map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("I")
+						|| map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("+")
+						|| map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("A")) {
+
+					//playerDown = false;
+					//break;
+
+				} else if (map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("P")) {
+
+					playerDown = true;
+					//break;
+
+				} else {
+
+					playerDown = false;
+
+				}
+
+			}
+
+		return playerDown;
+
+	}
+	
+	public void enemyHardModeVisibility() {
+		
+		for (int i = 0; i < holdEnemy.length; ++i) {
+			
+			enemyVisibilityLeft(holdEnemy[i]);
+			enemyVisibilityRight(holdEnemy[i]);
+			enemyVisibilityUp(holdEnemy[i]);
+			enemyVisibilityDown(holdEnemy[i]);
+			
+		}
+		
+	}
+
+	public boolean checkVisibilityHardMode(boolean playerLeft, boolean playerRight, boolean playerUp,
+			boolean playerDown) {
+
+		if (playerLeft || playerRight || playerUp || playerDown) {
+
+			hardModePlayerNotFound = false;
+
+		} else {
+
+			hardModePlayerNotFound = true;
+
+		}
+
+		return hardModePlayerNotFound;
+
+	}
+
+	public void enemyHardModeMove(boolean playerLeft, boolean playerRight, boolean playerUp, boolean playerDown,
+			boolean hardModePlayerNotFound) {
+
+		int tempRow;
+		int tempColumn;
+		GameEntity tempSpace;
+
+		for (int i = 0; i < holdEnemy.length; ++i) {
+
+			if (playerLeft) {
+
+				smartMove(holdEnemy[i], 4);
+
+			} else if (playerRight) {
+
+				smartMove(holdEnemy[i], 3);
+
+			} else if (playerUp) {
+
+				smartMove(holdEnemy[i], 1);
+
+			} else if (playerDown) {
+
+				smartMove(holdEnemy[i], 2);
+
+			} else if (hardModePlayerNotFound) {
+
+				tempRow = holdEnemy[i].getRow();
+				tempColumn = holdEnemy[i].getColumn();
+
+				holdEnemy[i].move(checkValidPosition(i));
+
+				tempSpace = map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()];
+				holdEnemy[i].setRow(holdEnemy[i].getRow());
+				holdEnemy[i].setColumn(holdEnemy[i].getColumn());
+
+				map[tempRow][tempColumn] = tempSpace;
+
+				map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] = holdEnemy[i];
+
+			}
+		}
+
+	}
+
+	public void smartMove(GameEntity enemy, int direction) {
+
+		int tempRow;
+		int tempColumn;
+		GameEntity tempSpace;
+
+		tempRow = enemy.getRow();
+		tempColumn = enemy.getColumn();
+
+		tempSpace = map[enemy.getRow()][enemy.getColumn()];
+
+		enemy.move(direction);
+
+		enemy.setRow(enemy.getRow());
+		enemy.setColumn(enemy.getColumn());
+
+		map[tempRow][tempColumn] = tempSpace;
+		map[enemy.getRow()][enemy.getColumn()] = enemy;
+
+	}
+
+	/**
 	 * This method returns the value of briefCaseIndicator.
 	 * 
 	 * @return the value of briefCaseIndicator, either true or false
-	 * 
 	 */
 	public boolean isBriefCaseIndicator() {
 
@@ -213,12 +471,10 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method allows to set the value of briefCaseIndicator.
 	 * 
 	 * @param briefCaseIndicator
 	 *            to set the value of briefCaseIndicator, either true or false
-	 * 
 	 */
 	public void setBriefCaseIndicator(boolean briefCaseIndicator) {
 
@@ -227,11 +483,9 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method returns the value of northSideOfRoom.
 	 * 
 	 * @return the value of northSideOfRoom, either true or false
-	 * 
 	 */
 	public boolean isNorthSideOfRoom() {
 
@@ -240,11 +494,9 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method returns the value of ableEnemyAttack.
 	 * 
 	 * @return the value of ableEnemyAttack, either true or false
-	 * 
 	 */
 	public boolean isAbleEnemyAttack() {
 
@@ -253,11 +505,9 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method returns the life points the player has.
 	 * 
 	 * @return player's life points
-	 * 
 	 */
 	public int playerLife() {
 
@@ -266,11 +516,9 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method returns the value of foundPlayer, either true or false.
 	 * 
 	 * @return the value of foundPlayer, either true or false
-	 * 
 	 */
 	public boolean isFoundPlayer() {
 
@@ -279,68 +527,68 @@ public class Map implements Serializable {
 	}
 
 	/**
+	 * This method sets the value of foundPlayer, either true or false.
 	 * 
+	 * @param the
+	 *            value of foundPlayer, either true or false
+	 */
+	public void setFoundPlayer(boolean foundPlayer) {
+		this.foundPlayer = foundPlayer;
+	}
+
+	/**
 	 * This method returns the value of bulletIndicator, either true or false.
 	 * 
 	 * @return the value of bulletIndicator, either true or false
-	 * 
 	 */
 	public boolean isBulletIndicator() {
 		return bulletIndicator;
 	}
 
 	/**
-	 * 
-	 * This method
+	 * This method sets the value of bulletIndicator, either true or false.
 	 * 
 	 * @param bulletIndicator
-	 *            the bulletIndicator to set
-	 * 
+	 *            set the value of bulletIndicator, either true or false
 	 */
 	public void setBulletIndicator(boolean bulletIndicator) {
 		this.bulletIndicator = bulletIndicator;
 	}
 
 	/**
-	 * 
-	 * 
+	 * This method returns the value of radarIndicator, either true or false.
 	 * 
 	 * @return the radarIndicator
-	 * 
 	 */
 	public boolean isRadarIndicator() {
 		return radarIndicator;
 	}
 
 	/**
-	 * 
-	 * 
+	 * This method sets the value of radarIndicator, either true or false.
 	 * 
 	 * @param radarIndicator
-	 *            the radarIndicator to set
-	 * 
+	 *            set the value of radarIndicator, either true or false
 	 */
 	public void setRadarIndicator(boolean radarIndicator) {
 		this.radarIndicator = radarIndicator;
 	}
 
 	/**
-	 * 
-	 * 
+	 * This method returns the value of invincibleIndicator, either true or
+	 * false.
 	 * 
 	 * @return the invincibleIndicator
-	 * 
 	 */
 	public boolean isInvincibleIndicator() {
 		return invincibleIndicator;
 	}
 
 	/**
-	 * 
-	 * 
-	 * 
+	 * This method sets the value of invincibleIndicator, either true or false.
+	 *
 	 * @param invincibleIndicator
-	 *            the invincibleIndicator to set
+	 *            set the value of invincibleIndicator, either true or false
 	 * 
 	 */
 	public void setInvincibleIndicator(boolean invincibleIndicator) {
@@ -348,23 +596,19 @@ public class Map implements Serializable {
 	}
 
 	/**
+	 * This method returns the value of playerAttack, either true or false.
 	 * 
-	 * 
-	 * 
-	 * @return the playerAttack
-	 * 
+	 * @return the value of playerAttack, either true or false
 	 */
 	public boolean isPlayerAttack() {
 		return playerAttack;
 	}
 
 	/**
-	 * 
-	 * 
+	 * This method sets the value of playerAttack, either true or false.
 	 * 
 	 * @param playerAttack
-	 *            the playerAttack to set
-	 * 
+	 *            set the value of playerAttack, either true or false
 	 */
 	public void setPlayerAttack(boolean playerAttack) {
 		this.playerAttack = playerAttack;
@@ -374,21 +618,25 @@ public class Map implements Serializable {
 	 * This method fills the map with empty spaces to initialize the map.
 	 */
 	public void generateEmptySpace() {
+
 		for (int i = 0; i < map.length; ++i) {
+
 			for (int j = 0; j < map[i].length; ++j) {
+
 				map[i][j] = new EmptySpace();
 				map[i][j].setRow(i);
 				map[i][j].setColumn(j);
+
 			}
+
 		}
+
 	}
 
 	/**
-	 * 
 	 * This method generates 9 nine rooms and only one of them has the brief
 	 * case. A number will be generated randomly, depending on the number, one
 	 * of the room is selected to contain the brief case.
-	 * 
 	 */
 	public void generateRoomsWithBriefCase() {
 
@@ -457,10 +705,8 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method generates the player's character at position (8,0) which is
 	 * the initial/starting position.
-	 * 
 	 */
 	public void generatePlayer() {
 
@@ -471,13 +717,11 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method generates 6 enemies. Each enemy's position is generated
 	 * randomly and the 'if statement' filters positions where enemies cannot be
 	 * located. When invalid position is generated and skips an element in the
 	 * holdEnemy array, --i in 'else' will make the value of i go back to its
 	 * previous value.
-	 * 
 	 */
 	public void generateEnemy() {
 
@@ -508,13 +752,11 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method generates 3 power-ups. Each power-up's position is generated
 	 * randomly and the 'if statement' filters positions where power-ups cannot
 	 * be located. When invalid position is generated and skips an element in
 	 * the holdEnemy array, --i in 'else' will make the value of i go back to
 	 * its previous value.
-	 * 
 	 */
 	public void generatePowerUps() {
 
@@ -542,7 +784,6 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method checks if the player is located on the northside of a room.
 	 * 
 	 * @param row
@@ -550,7 +791,6 @@ public class Map implements Serializable {
 	 * @param column
 	 *            index number
 	 * @return the value of checkPosition, either true or false
-	 * 
 	 */
 	public boolean checkPositionOfPlayer(int row, int column) {
 		boolean checkPosition = false;
@@ -579,7 +819,6 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method takes row and column as an argument and if the player is
 	 * located on the northside of a room, it returns northSideOfRoom as true;
 	 * otherwise, false. Then, the player will be asked whether or not to check
@@ -590,7 +829,6 @@ public class Map implements Serializable {
 	 * @param column
 	 *            index number
 	 * @return the value of northSideOfRoom, either true or false
-	 * 
 	 */
 	public boolean checkSideOfRoom(int row, int column) {
 
@@ -608,7 +846,6 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method takes row and column as an argument and checks if the room
 	 * that the player wants to check has the briefcase. If the room has the
 	 * briefcase, it returns briefCaseIndicator as true; otherwise, false.
@@ -618,7 +855,6 @@ public class Map implements Serializable {
 	 * @param column
 	 *            index number
 	 * @return the value of briefCaseIndicator, either true or false
-	 * 
 	 */
 	public boolean detectBriefCase(int row, int column) {
 
@@ -632,14 +868,12 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method allows the player to search the rooms. If the room has the
 	 * briefcase, it will give briefCaseIndicator as true; otherwise, false.
 	 * 
 	 * @param the
 	 *            value of northSideOfRoom, either true or false
 	 * @return the value of northSideOfRoom, either true or false
-	 * 
 	 */
 	public boolean searchRoom(boolean northSideOfRoom) {
 
@@ -662,7 +896,6 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method takes row and column as an argument and checks if the
 	 * player's new location has one of te power-ups. If it does, then it
 	 * returns one of the power-up indicator as true; otherwise. false.
@@ -671,7 +904,6 @@ public class Map implements Serializable {
 	 *            index number
 	 * @param column
 	 *            index number
-	 * 
 	 */
 	public void detectPowerUps(int row, int column) {
 
@@ -694,17 +926,11 @@ public class Map implements Serializable {
 
 			invincibleIndicator = true;
 
-		} else {
-
-			radarIndicator = false;
-			bulletIndicator = false;
-			invincibleIndicator = false;
 		}
 
 	}
 
 	/**
-	 * 
 	 * This method makes the player to use the invincible power-up as soon as he
 	 * or she consumes it. Then, the player will be invincible for 5 turns by
 	 * disabling eneny's attack method, returning ableEnemyAttack as true.
@@ -713,7 +939,6 @@ public class Map implements Serializable {
 	 * @param remaining
 	 *            number of invincibleTurns
 	 * @return the value of ableEnemyAttack, either true or false
-	 * 
 	 */
 	public boolean useInvincible(int invincibleTurns) {
 
@@ -736,11 +961,9 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method returns the number of remaining invincible turns.
 	 * 
 	 * @return the number of remaining invincible turns
-	 * 
 	 */
 	public int invincibleTurns() {
 
@@ -748,7 +971,6 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method allows the player to pick up the additional bullet power-up.
 	 * If the player has no bullet, then he or she gets one bullet; otherwise,
 	 * no effect.
@@ -767,7 +989,6 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method returns how many bullet the player has.
 	 * 
 	 * @return the number of bullet that that player has
@@ -779,14 +1000,12 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method checks how many bullet the player has. If the player has 1
 	 * bullet, then the player is allowed to shoot; otherwise, the player cannot
 	 * shoot. If the player can shoot, it returns playerAttack as true;
 	 * otherwise, false.
 	 * 
 	 * @return the value of playerAttack, either true or false
-	 * 
 	 */
 	public boolean checkBullet() {
 
@@ -804,9 +1023,7 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method consumes one bullet, when the player shoots.
-	 * 
 	 */
 	public void useBullet() {
 
@@ -815,12 +1032,10 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method allows the player to shoot left. The for-loop checks the left
 	 * sides of the player and if it finds a room or an enemy, the for-loop
 	 * breaks. If it's an enemy, then it replace enemy with a new EmptySpace()
 	 * with enemyDie() method.
-	 * 
 	 */
 	public void shootLeft() {
 
@@ -848,12 +1063,10 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method allows the player to shoot right. The for-loop checks the
 	 * right sides of the player and if it finds a room or an enemy, the
 	 * for-loop breaks. If it's an enemy, then it replace enemy with a new
 	 * EmptySpace() with enemyDie() method.
-	 * 
 	 */
 	public void shootRight() {
 
@@ -883,12 +1096,10 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method allows the player to shoot up. The for-loop checks the top
 	 * sides of the player and if it finds a room or an enemy, the for-loop
 	 * breaks. If it's an enemy, then it replace enemy with a new EmptySpace()
 	 * with enemyDie() method.
-	 * 
 	 */
 	public void shootUp() {
 
@@ -916,12 +1127,10 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method allows the player to shoot down. The for-loop checks the
 	 * bottom sides of the player and if it finds a room or an enemy, the
 	 * for-loop breaks. If it's an enemy, then it replace enemy with a new
 	 * EmptySpace() with enemyDie() method.
-	 * 
 	 */
 	public void shootDown() {
 
@@ -951,7 +1160,6 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method replaces an enemy with a new EmptySpace(). It deletes a
 	 * corresponding enemy from the holdEnemy array when 'if-statement' finds
 	 * one.
@@ -960,7 +1168,6 @@ public class Map implements Serializable {
 	 *            Row index number of an enemy
 	 * @param column
 	 *            Column index number of an enemy
-	 * 
 	 */
 	public void enemyDie(int row, int column) {
 
@@ -1000,10 +1207,8 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method allows the player to use the radar when the player consumes
 	 * the radar power-up.
-	 * 
 	 */
 	public void useRadar() {
 
@@ -1012,12 +1217,10 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method returns the row index number of the briefcase when the player
 	 * uses the radar.
 	 * 
 	 * @return the row index number of the briefcase
-	 * 
 	 */
 	public int briefCaseRow() {
 
@@ -1026,12 +1229,10 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method returns the column index nubmer of the briefcase when the
 	 * player uses the radar.
 	 * 
 	 * @return the column index number of the briefcase
-	 * 
 	 */
 	public int briefCaseColumn() {
 
@@ -1040,6 +1241,9 @@ public class Map implements Serializable {
 	}
 
 	/**
+	 * This method allows enemies to check their left side tile to see if the
+	 * player is there.
+	 * 
 	 * @return
 	 */
 	public boolean visibilityOfEnemyLeft() {
@@ -1260,7 +1464,12 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * @param foundPlayer
+	 * This method represents enemy attack and takes the boolean foundPlayer as
+	 * an argument and if enemies find the player, then it creates new
+	 * EmptySpace where the player was located.
+	 * 
+	 * @param the
+	 *            value of foundPlayer, either true or false
 	 */
 	public void enemyAttack(boolean foundPlayer) {
 
@@ -1268,7 +1477,19 @@ public class Map implements Serializable {
 
 			map[player.getRow()][player.getColumn()] = new EmptySpace();
 			initialPoint();
-			playerGotDamaged();
+
+		}
+
+	}
+
+	/**
+	 * This method damages the player when the enemies find the player.
+	 */
+	public void playerGotDamaged(boolean foundPlayer) {
+
+		if (foundPlayer) {
+
+			player.gotDamaged();
 
 		}
 
@@ -1295,16 +1516,12 @@ public class Map implements Serializable {
 	}
 
 	/**
+	 * This method represents the player's look. It lets the player to see two
+	 * tiles ahead of him in the direction the user chooses to look. But the
+	 * player cannot look through the rooms.
 	 * 
-	 */
-	public void playerGotDamaged() {
-
-		player.gotDamaged();
-
-	}
-
-	/**
 	 * @param direction
+	 *            where the user wants to look
 	 */
 	public void visibilityOfPlayer(int direction) {
 
@@ -1315,36 +1532,73 @@ public class Map implements Serializable {
 			// left
 			case 1:
 
-				map[player.getRow()][player.getColumn() - i].setFlipped(true);
-				if (map[player.getRow()][player.getColumn() - i].getFront().equals("E"))
-					player.setDangerAhead(true);
+				if (map[player.getRow()][player.getColumn() - i].getFront().equals("R")) {
+					break;
+				} else {
+
+					map[player.getRow()][player.getColumn() - i].setFlipped(true);
+
+					if (map[player.getRow()][player.getColumn() - i].getFront().equals("E"))
+
+						player.setDangerAhead(true);
+
+				}
 
 				break;
 
 			// right
 			case 2:
 
-				map[player.getRow()][player.getColumn() + i].setFlipped(true);
-				if (map[player.getRow()][player.getColumn() + i].getFront().equals("E"))
-					player.setDangerAhead(true);
+				if (map[player.getRow()][player.getColumn() + i].getFront().equals("R")) {
+
+					break;
+
+				} else {
+
+					map[player.getRow()][player.getColumn() + i].setFlipped(true);
+
+					if (map[player.getRow()][player.getColumn() + i].getFront().equals("E"))
+
+						player.setDangerAhead(true);
+				}
 
 				break;
 
 			// up
 			case 3:
 
-				map[player.getRow() - i][player.getColumn()].setFlipped(true);
-				if (map[player.getRow() - i][player.getColumn()].getFront().equals("E"))
-					player.setDangerAhead(true);
+				if (map[player.getRow() - i][player.getColumn()].getFront().equals("R")) {
+
+					break;
+
+				} else {
+
+					map[player.getRow() - i][player.getColumn()].setFlipped(true);
+
+					if (map[player.getRow() - i][player.getColumn()].getFront().equals("E"))
+
+						player.setDangerAhead(true);
+
+				}
 
 				break;
 
 			// down
 			case 4:
 
-				map[player.getRow() + i][player.getColumn()].setFlipped(true);
-				if (map[player.getRow() + i][player.getColumn()].getFront().equals("E"))
-					player.setDangerAhead(true);
+				if (map[player.getRow() + i][player.getColumn()].getFront().equals("R")) {
+
+					break;
+
+				} else {
+
+					map[player.getRow() + i][player.getColumn()].setFlipped(true);
+
+					if (map[player.getRow() + i][player.getColumn()].getFront().equals("E"))
+
+						player.setDangerAhead(true);
+
+				}
 
 				break;
 
@@ -1352,12 +1606,10 @@ public class Map implements Serializable {
 
 		}
 	}
-	
+
 	/**
-	 * 
 	 * This method sets everything to setFlipped(false) after the player takes
 	 * an action.
-	 * 
 	 */
 	public void setNotFlipped() {
 
@@ -1491,11 +1743,12 @@ public class Map implements Serializable {
 	 * 
 	 */
 	public void moveEnemy() {
+
 		int tempRow = 0;
 		int tempColumn = 0;
 		GameEntity tempSpace;
 
-		for (int i = 0; i < 6; ++i) {
+		for (int i = 0; i < holdEnemy.length; ++i) {
 
 			tempRow = holdEnemy[i].getRow();
 			tempColumn = holdEnemy[i].getColumn();
@@ -1515,7 +1768,6 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method checks how many enemies are there.
 	 * 
 	 * @return number of remaining enemies
@@ -1542,12 +1794,10 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method prints the map in String so that player can see and play the
 	 * game.
 	 * 
 	 * @return A map that player plays on
-	 * 
 	 */
 	public String toString() {
 
@@ -1559,11 +1809,11 @@ public class Map implements Serializable {
 
 				if (m.isFlipped())
 
-					result += " " + m.getFront();
+					result += "[" + m.getFront() + "]";
 
 				else
 
-					result += " " + m.getBack();
+					result += "[" + m.getBack() + "]";
 
 			}
 
@@ -1576,12 +1826,10 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
 	 * This method is debug mode and prints the map in String. It shows all the
 	 * position of the game entities.
 	 * 
 	 * @return A map that shows every position of the game entities.
-	 * 
 	 */
 	public String printDebug() {
 
@@ -1591,13 +1839,7 @@ public class Map implements Serializable {
 
 			for (int j = 0; j < map[i].length; ++j) {
 
-				if (map[i][j].getFront() != " ")
-
-					result += " " + map[i][j].getFront();
-
-				else
-
-					result += " " + "*";
+				result += "[" + map[i][j].getFront() + "]";
 
 			}
 
@@ -1607,5 +1849,5 @@ public class Map implements Serializable {
 		return result;
 
 	}
-	
+
 }
