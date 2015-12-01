@@ -145,20 +145,17 @@ public class UI {
 					System.out.println("You are out of ammo.");
 				}
 				break;
-			case 4:
-
-				break;
 			// Save
-			case 5:
+			case 4:
 				game.save();
 				System.out.println("Save was successful.");
 				break;
 			// Main Menu
-			case 6:
+			case 5:
 				menu();
 				break;
 			// Debug
-			case 7:
+			case 6:
 				toggleBoard();
 				break;
 			default:
