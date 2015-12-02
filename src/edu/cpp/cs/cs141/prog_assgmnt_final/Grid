@@ -1,0 +1,40 @@
+package ideas;
+
+import javax.swing.*; //Required for the swing classes
+import java.awt.*; //Required for the BorderLayout and GridLayout class
+import java.awt.event.*; //Required for the ActionListener and ItemListener Interface
+
+public class Grid extends JPanel 
+{
+	private JLabel darknessL;
+	private JLabel playerL;
+	private JLabel employeeL;
+	private JLabel ovenL;
+	private JLabel managerL;
+	private JLabel pinkL;
+	private JLabel ovenGlovesL;
+	
+	public void Grid()
+	{
+		setLayout(new GridLayout());
+		
+		ImageIcon darkness = new ImageIcon("Blank.png");
+		ImageIcon player = new ImageIcon("Player.png");
+		ImageIcon employee = new ImageIcon("Employee.png");
+		ImageIcon oven = new ImageIcon("Oven.png");
+		ImageIcon manager = new ImageIcon("Boss.png");
+		ImageIcon pinkSlip = new ImageIcon("PinkSlip.png");
+		ImageIcon ovenGlove = new ImageIcon("ovenGloves.png");
+		
+		darknessL = new JLabel(darkness);
+		playerL = new JLabel(player);
+		employeeL = new JLabel(employee);
+		ovenL = new JLabel(oven);
+		managerL = new JLabel(manager);
+		pinkL = new JLabel(pinkSlip);
+		ovenGlovesL = new JLabel(ovenGlove);
+		
+		
+		
+	}
+}
