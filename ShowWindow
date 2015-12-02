@@ -1,0 +1,55 @@
+import javax.swing.*; //Required for the swing classes
+import java.awt.*; //Required for the BorderLayout and GridLayout class
+import java.awt.event.*; //Required for the ActionListener and ItemListener Interface
+
+public class ShowWindow extends JFrame
+{
+	final int WINDOW_WIDTH = 800;
+	final int WINDOW_HEIGHT = 800;
+	
+	
+	//Menu menu = new Menu();
+	//Grid grid = new Grid();
+	//Banner banner = new Banner();
+	//SidePanel sidePanel = new SidePanel();
+	
+	public void ShowWindow()
+	{
+		//Create the window
+		JFrame window = new JFrame();
+		
+		window.setTitle("The Sandwich Game");
+		
+		window.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+		
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		setLayout(new BorderLayout());
+		pack();
+		
+		window.setVisible(true);
+		
+	//	add(sidePanel, BorderLayout.EAST);
+	//	add(menu, BorderLayout.NORTH);
+	//	add(grid, BorderLayout.CENTER);
+	//	add(banner, BorderLayout.SOUTH);
+		
+		
+		
+	}
+		
+	public static void main(String[] args)
+	{
+		
+		
+		new ShowWindow();
+			
+	}
+	
+	
+}
+
+
+
+		
+
