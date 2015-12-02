@@ -1,0 +1,30 @@
+package ideas;
+
+import javax.swing.*; //Required for the swing classes
+import java.awt.*; //Required for the BorderLayout and GridLayout class
+
+
+public class Banner extends JPanel
+{
+	private JLabel greeting; //To display a greeting
+	private JLabel imageLabel; //To hold the image
+	
+	public Banner()
+	{
+		//two rows and one column
+		setLayout(new GridLayout(2,1));
+		
+		//create the label
+		greeting = new JLabel("Welcome to THE SANDWICH GAME!");
+		
+		add(greeting); //goes to row 1, column 1
+		
+		//The picture for the sandwich(briefcase)
+		ImageIcon sandwich = new ImageIcon("Sandwich.PNG");
+		imageLabel = new JLabel(sandwich);
+		
+		add(imageLabel); //goes to row 2, column 1
+		
+	}
+	
+}
