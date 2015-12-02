@@ -1,0 +1,96 @@
+package ideas;
+
+import javax.swing.*; //Required for the swing classes
+import java.awt.*; //Required for the BorderLayout and GridLayout class
+import java.awt.event.*; //Required for the ActionListener and ItemListener Interface
+
+public class Menu extends JPanel
+{
+	private JMenuBar menuBar; //The menu bar
+	private JMenu modeMenu; //The mode menu
+	private JMenu gameMenu; //The game menu
+	private JCheckBoxMenuItem hardMode; // The hard mode
+	private JCheckBoxMenuItem debugMode; //The debug mode
+	private JButton newGame; //Starts a new game
+	private JButton saveGame; //Saves the progress
+	private JButton loadGame; //Loads the progress
+	
+	public Menu()
+	{
+		buildMenuBar();
+	}
+	
+	private void buildMenuBar()
+	{
+		menuBar = new JMenuBar(); //Create the menu bar
+		
+		//Create the mode and game menu
+		buildModeMenu();
+		buildGameMenu();
+		
+		menuBar.add(modeMenu);
+		menuBar.add(gameMenu);
+		
+		//set the window's menu bar
+		setJMenuBar(menuBar);
+		
+	}
+	
+	private void buildModeMenu()
+	{
+		//create a check box for the hard mode and the debug mode
+		//sets a keyboard key to open the menu items
+		hardMode = new JCheckBoxMenuItem("Hard");
+		hardMode.setMnemonic(KeyEvent.VK_H);
+		hardMode.addActionListener(new ModeListener());
+		
+		debugMode = new JCheckBoxMenuItem("Debug");
+		debugMode.setMnemonic(KeyEvent.VK_D);
+		debugMode.addActionListener(new ModeListener());
+		
+		//create a button group for the check box buttons
+		ButtonGroup group = new ButtonGroup();
+		group.add(hardMode);
+		group.add(debugMode);
+		
+		modeMenu = new JMenu("Mode");
+		modeMenu.setMnemonic(KeyEvent.VK_V);
+		
+		//add the menu items to the mode menu
+		modeMenu.add(hardMode);
+		modeMenu.add(debugMode);
+		
+	}
+	
+	private void buildGameMenu()
+	{
+		//create a button for the new, save, and load game functions
+		//sets a keyboard key to open the menu items
+		newGame = new JButton("New Game");
+		newGame.setMnemonic(KeyEvent.VK_N);
+		newGame.addActionListener(new ProcessListener);
+		
+		saveGame = new JButton("Save");
+		saveGame.setMnemonic(KeyEvent.VK_S);
+		saveGame.addActionListener(new ProcessListener);
+		
+		loadGame = new JButton("Load");
+		loadGame.setMnemonic(KeyEvent.VK_L);
+		loadGame.addActionListener(new ProcessListener);
+		
+		//create a button group for the buttons
+		ButtonGroup group = new ButtonGroup();
+		group.add(newGame);
+		group.add(saveGame);
+		group.add(loadGame);
+		
+		gameMenu = new JMenu("Game");
+		gameMenu.setMnemonic(KeyEvent.VK_G);
+		
+		//add the menu items to the game menu
+		gameMenu.add(newGame);
+		gameMenu.add(saveGame);
+		gameMenu.add(loadGame);
+		
+	}
+}
