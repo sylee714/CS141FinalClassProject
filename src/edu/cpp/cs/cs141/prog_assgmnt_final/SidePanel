@@ -1,0 +1,14 @@
+package ideas;
+
+import javax.swing.*; //Required for the swing classes
+import java.awt.*; //Required for the BorderLayout and GridLayout class
+import java.awt.event.*; //Required for the ActionListener and ItemListener Interface
+
+public class SidePanel extends JPanel 
+{
+
+	public SidePanel()
+	{
+		
+	}
+}
