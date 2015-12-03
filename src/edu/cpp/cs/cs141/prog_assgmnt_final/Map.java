@@ -27,6 +27,13 @@ import java.io.Serializable;
 import javax.swing.plaf.synth.SynthSeparatorUI;
 
 /**
+ * This class represents a Map; yet, it has a lot of fields and methods that
+ * make the game playable. Thus, this class can be seen as Map/sub-GameEngine
+ * class. This is where all the objects that are necessary components of the
+ * game are created. It contains move methods for Player and Enemies and their
+ * attack methods.
+ * 
+ * 
  * @author Seungyun
  *
  */
@@ -206,234 +213,250 @@ public class Map implements Serializable {
 		this.hardMode = hardMode;
 	}
 
-	/**
-	 * @return the playerUp
-	 */
-	public boolean isPlayerUp() {
-		return playerUp;
+	public boolean isPlayerLeft(GameEntity enemy) {
+
+		return enemy.isPlayerLeft();
+
 	}
 
-	/**
-	 * @return the playerDown
-	 */
-	public boolean isPlayerDown() {
-		return playerDown;
+	public boolean isPlayerRight(GameEntity enemy) {
+
+		return enemy.isPlayerRight();
+
 	}
 
-	/**
-	 * @return the playerRight
-	 */
-	public boolean isPlayerRight() {
-		return playerRight;
+	public boolean isPlayerUp(GameEntity enemy) {
+
+		return enemy.isPlayerUp();
+
 	}
 
-	/**
-	 * @return the playerLeft
-	 */
-	public boolean isPlayerLeft() {
-		return playerLeft;
+	public boolean isPlayerDownn(GameEntity enemy) {
+
+		return enemy.isPlayerDown();
+
 	}
 
-	/**
-	 * @return the hardModePlayerFound
-	 */
-	public boolean isHardModePlayerNotFound() {
-		return hardModePlayerNotFound;
-	}
+	public void enemyVisibilityLeft(GameEntity enemy) {
 
-	public boolean enemyVisibilityLeft(GameEntity enemy) {
+		for (int i = 0; i < enemy.getColumn() + 1; ++i) {
 
-			for (int i = 1; i < enemy.getColumn() + 1; ++i) {
-
-				if (map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("R")
-						|| map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("I")
-						|| map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("+")
-						|| map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("A")) {
-
-					//playerLeft = false;
-					//break;
-
-				} else if (map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("P")) {
-
-					playerLeft = true;
-					//break;
-
-				} else {
-
-					playerLeft = false;
-
-				}
-
+			if (enemy.getColumn() < 0 || enemy.getColumn() > 8) {
+				enemy.setPlayerLeft(false);
+				break;
 			}
 
-		return playerLeft;
-		
-	}
+			else if (map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("R")
+					|| map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("I")
+					|| map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("+")
+					|| map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("A")
+					|| map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("E")) {
 
-	public boolean enemyVisibilityRight(GameEntity enemy) {
+				enemy.setPlayerLeft(false);
 
-		
+				break;
 
-			int turn = map.length - enemy.getColumn();
+			} // else if (map[enemy.getRow()][enemy.getColumn() -
+				// i].getFront().equals(" ")) {
 
-			for (int i = 1; i < turn; ++i) {
+			// enemy.setPlayerLeft(false);
 
-				if (map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("R")
-						|| map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("I")
-						|| map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("+")
-						|| map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("A")) {
+			// break;
+			// }
 
-					//playerRight = false;
-					//break;
+			else if (map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("P")) {
 
-				} else if (map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("P")) {
+				enemy.setPlayerLeft(true);
 
-					playerRight = true;
-					//break;
+				break;
 
-				} else {
-
-					playerRight = false;
-
-				}
-
+			} else {
+				enemy.setPlayerLeft(false);
 			}
-
-		return playerRight;
-
-	}
-
-	public boolean enemyVisibilityUp(GameEntity enemy) {
-
-			for (int i = 1; i < enemy.getRow() + 1; ++i) {
-
-				if (map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("R")
-						|| map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("I")
-						|| map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("+")
-						|| map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("A")) {
-
-					//playerUp = false;
-					//break;
-
-				} else if (map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("P")) {
-
-					playerUp = true;
-					//break;
-
-				} else {
-
-					playerUp = false;
-
-				}
-
-			}
-
-		return playerUp;
-
-	}
-
-	public boolean enemyVisibilityDown(GameEntity enemy) {
-
-			int turn = map.length - enemy.getRow();
-
-			for (int i = 1; i < turn; ++i) {
-
-				if (map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("R")
-						|| map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("I")
-						|| map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("+")
-						|| map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("A")) {
-
-					//playerDown = false;
-					//break;
-
-				} else if (map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("P")) {
-
-					playerDown = true;
-					//break;
-
-				} else {
-
-					playerDown = false;
-
-				}
-
-			}
-
-		return playerDown;
-
-	}
-	
-	public void enemyHardModeVisibility() {
-		
-		for (int i = 0; i < holdEnemy.length; ++i) {
-			
-			enemyVisibilityLeft(holdEnemy[i]);
-			enemyVisibilityRight(holdEnemy[i]);
-			enemyVisibilityUp(holdEnemy[i]);
-			enemyVisibilityDown(holdEnemy[i]);
-			
 		}
-		
+
 	}
 
-	public boolean checkVisibilityHardMode(boolean playerLeft, boolean playerRight, boolean playerUp,
-			boolean playerDown) {
+	public void enemyVisibilityRight(GameEntity enemy) {
+
+		int turn = map.length - enemy.getColumn();
+
+		for (int i = 0; i < turn; ++i) {
+
+			if (enemy.getColumn() < 0 || enemy.getColumn() > 8) {
+				enemy.setPlayerRight(false);
+				break;
+			}
+
+			else if (map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("R")
+					|| map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("I")
+					|| map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("+")
+					|| map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("A")
+					|| map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("E")) {
+
+				enemy.setPlayerRight(false);
+
+				break;
+
+			} // else if (map[enemy.getRow()][enemy.getColumn() +
+				// i].getFront().equals(" ")) {
+
+			// enemy.setPlayerRight(false);
+
+			// break;
+
+			// }
+
+			else if (map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("P")) {
+
+				enemy.setPlayerRight(true);
+
+				break;
+
+			} else {
+				enemy.setPlayerRight(false);
+			}
+		}
+
+	}
+
+	public void enemyVisibilityUp(GameEntity enemy) {
+
+		for (int i = 0; i < enemy.getRow() + 1; ++i) {
+
+			if (enemy.getRow() < 0 || enemy.getRow() > 8) {
+				enemy.setPlayerUp(false);
+				break;
+			}
+
+			else if (map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("R")
+					|| map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("I")
+					|| map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("+")
+					|| map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("A")
+					|| map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("E")) {
+
+				enemy.setPlayerUp(false);
+
+				break;
+
+			} // else if (map[enemy.getRow() -
+				// i][enemy.getColumn()].getFront().equals(" ")) {
+
+			// enemy.setPlayerUp(false);
+
+			// break;
+			// }
+
+			else if (map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("P")) {
+
+				enemy.setPlayerUp(true);
+
+				break;
+
+			} else {
+				enemy.setPlayerUp(false);
+			}
+
+		}
+
+	}
+
+	public void enemyVisibilityDown(GameEntity enemy) {
+
+		int turn = map.length - enemy.getRow();
+
+		for (int i = 0; i < turn; ++i) {
+
+			if (enemy.getRow() < 0 || enemy.getRow() > 8) {
+				enemy.setPlayerDown(false);
+				break;
+			}
+
+			else if (map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("R")
+					|| map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("I")
+					|| map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("+")
+					|| map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("A")
+					|| map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("E")) {
+
+				enemy.setPlayerDown(false);
+
+				break;
+
+			} // else if (map[enemy.getRow() +
+				// i][enemy.getColumn()].getFront().equals(" ")) {
+
+			// enemy.setPlayerDown(false);
+
+			// break;
+			// }
+
+			else if (map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("P")) {
+
+				enemy.setPlayerDown(true);
+
+				break;
+
+			} else {
+				enemy.setPlayerDown(false);
+			}
+
+		}
+
+	}
+
+	public void checkVisibilityHardMode(boolean playerLeft, boolean playerRight, boolean playerUp, boolean playerDown,
+			GameEntity enemy) {
 
 		if (playerLeft || playerRight || playerUp || playerDown) {
 
-			hardModePlayerNotFound = false;
+			enemy.setHardModePlayerNotFound(false);
 
 		} else {
 
-			hardModePlayerNotFound = true;
+			enemy.setHardModePlayerNotFound(true);
 
 		}
-
-		return hardModePlayerNotFound;
 
 	}
 
 	public void enemyHardModeMove(boolean playerLeft, boolean playerRight, boolean playerUp, boolean playerDown,
-			boolean hardModePlayerNotFound) {
+			boolean hardModePlayerNotFound, GameEntity enemy, int i) {
 
 		int tempRow;
 		int tempColumn;
 		GameEntity tempSpace;
 
-		for (int i = 0; i < holdEnemy.length; ++i) {
+		if (playerLeft) {
 
-			if (playerLeft) {
+			smartMove(enemy, 4);
 
-				smartMove(holdEnemy[i], 4);
+		} else if (playerRight) {
 
-			} else if (playerRight) {
+			smartMove(enemy, 3);
 
-				smartMove(holdEnemy[i], 3);
+		} else if (playerUp) {
 
-			} else if (playerUp) {
+			smartMove(enemy, 1);
 
-				smartMove(holdEnemy[i], 1);
+		} else if (playerDown) {
 
-			} else if (playerDown) {
+			smartMove(enemy, 2);
 
-				smartMove(holdEnemy[i], 2);
+		} else if (hardModePlayerNotFound) {
 
-			} else if (hardModePlayerNotFound) {
+			tempRow = enemy.getRow();
+			tempColumn = enemy.getColumn();
 
-				tempRow = holdEnemy[i].getRow();
-				tempColumn = holdEnemy[i].getColumn();
+			enemy.move(checkValidPosition(i));
 
-				holdEnemy[i].move(checkValidPosition(i));
+			tempSpace = map[enemy.getRow()][enemy.getColumn()];
+			enemy.setRow(enemy.getRow());
+			enemy.setColumn(enemy.getColumn());
 
-				tempSpace = map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()];
-				holdEnemy[i].setRow(holdEnemy[i].getRow());
-				holdEnemy[i].setColumn(holdEnemy[i].getColumn());
+			map[tempRow][tempColumn] = tempSpace;
 
-				map[tempRow][tempColumn] = tempSpace;
+			map[enemy.getRow()][enemy.getColumn()] = enemy;
 
-				map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] = holdEnemy[i];
-
-			}
 		}
 
 	}
@@ -447,15 +470,66 @@ public class Map implements Serializable {
 		tempRow = enemy.getRow();
 		tempColumn = enemy.getColumn();
 
-		tempSpace = map[enemy.getRow()][enemy.getColumn()];
-
 		enemy.move(direction);
 
-		enemy.setRow(enemy.getRow());
-		enemy.setColumn(enemy.getColumn());
+		if (map[tempRow][tempColumn].getFront().equals("P")) {
 
-		map[tempRow][tempColumn] = tempSpace;
-		map[enemy.getRow()][enemy.getColumn()] = enemy;
+			foundPlayer = true;
+			enemyAttack(foundPlayer);
+			playerGotDamaged(foundPlayer);
+			relocateEnemy(foundPlayer);
+
+			tempSpace = map[enemy.getRow()][enemy.getColumn()];
+
+			enemy.setRow(enemy.getRow());
+			enemy.setColumn(enemy.getColumn());
+
+			map[tempRow][tempColumn] = tempSpace;
+			map[enemy.getRow()][enemy.getColumn()] = enemy;
+
+		} else if (map[tempRow][tempColumn].getFront().equals("1") || map[tempRow][tempColumn].getFront().equals("2")
+				|| map[tempRow][tempColumn].getFront().equals("3") || map[tempRow][tempColumn].getFront().equals("4")
+				|| map[tempRow][tempColumn].getFront().equals("5") || map[tempRow][tempColumn].getFront().equals("6")) {
+
+			tempSpace = map[enemy.getRow()][enemy.getColumn()];
+
+			enemy.setRow(enemy.getRow());
+			enemy.setColumn(enemy.getColumn());
+
+			map[tempRow][tempColumn] = tempSpace;
+			map[enemy.getRow()][enemy.getColumn()] = enemy;
+
+		} else {
+
+			enemy.move(direction);
+
+			tempSpace = map[enemy.getRow()][enemy.getColumn()];
+
+			enemy.setRow(enemy.getRow());
+			enemy.setColumn(enemy.getColumn());
+
+			map[tempRow][tempColumn] = new EmptySpace();
+			map[enemy.getRow()][enemy.getColumn()] = enemy;
+
+		}
+
+	}
+
+	public void hardMode() {
+
+		for (int i = 0; i < holdEnemy.length; ++i) {
+
+			enemyVisibilityLeft(holdEnemy[i]);
+			enemyVisibilityRight(holdEnemy[i]);
+			enemyVisibilityUp(holdEnemy[i]);
+			enemyVisibilityDown(holdEnemy[i]);
+			checkVisibilityHardMode(holdEnemy[i].isPlayerLeft(), holdEnemy[i].isPlayerRight(),
+					holdEnemy[i].isPlayerUp(), holdEnemy[i].isPlayerDown(), holdEnemy[i]);
+
+			enemyHardModeMove(holdEnemy[i].isPlayerLeft(), holdEnemy[i].isPlayerRight(), holdEnemy[i].isPlayerUp(),
+					holdEnemy[i].isPlayerDown(), holdEnemy[i].isHardModePlayerNotFound(), holdEnemy[i], i);
+
+		}
 
 	}
 
@@ -612,6 +686,29 @@ public class Map implements Serializable {
 	 */
 	public void setPlayerAttack(boolean playerAttack) {
 		this.playerAttack = playerAttack;
+	}
+
+	/**
+	 * This method returns the value of dangerAhead, either true or false. If
+	 * it's true, then enemies have been sighted by the player.
+	 * 
+	 * @return  the value of dangerAhead, either true or false
+	 */
+	public boolean isPlayerDetect() {
+
+		return player.isDangerAhead();
+
+	}
+
+	/**
+	 * This method sets the value of dangerAhead, either true or false.
+	 * 
+	 * @param danger, either true or false
+	 */
+	public void setPlayerDetect(boolean danger) {
+
+		player.setDangerAhead(danger);
+
 	}
 
 	/**
@@ -952,6 +1049,7 @@ public class Map implements Serializable {
 
 		} else if (invincibleTurns == 0) {
 
+			invincibleIndicator = false;
 			ableEnemyAttack = true;
 
 		}
@@ -1229,7 +1327,7 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * This method returns the column index nubmer of the briefcase when the
+	 * This method returns the column index number of the briefcase when the
 	 * player uses the radar.
 	 * 
 	 * @return the column index number of the briefcase
@@ -1242,217 +1340,266 @@ public class Map implements Serializable {
 
 	/**
 	 * This method allows enemies to check their left side tile to see if the
-	 * player is there.
+	 * player is there. It's surrounded by 'try and catch' to check other sides
+	 * as well.
 	 * 
-	 * @return
+	 * @return foundPlayer, either true or false
 	 */
 	public boolean visibilityOfEnemyLeft() {
+
 		for (int i = 0; i < holdEnemy.length; i++) {
+
 			try {
-				// System.out.println("1st map works");
+
 				if (map[holdEnemy[i].getRow()][holdEnemy[i].getColumn() - 1].getFront().equals("P")) {
 					foundPlayer = true;
+
 				}
+
 			} catch (ArrayIndexOutOfBoundsException e) {
-				// System.out.println("1st map doesn't work");
 
 				// insert 2nd try catch
-
 				try {
-					// System.out.println("2nd map works");
+
 					if (map[holdEnemy[i].getRow()][holdEnemy[i].getColumn() + 1].getFront().equals("P")) {
 						foundPlayer = true;
+
 					}
+
 				} catch (ArrayIndexOutOfBoundsException f) {
-					// System.out.println("2nd map doesn't work");
 
 					// insert 3rd try catch
 					try {
-						// System.out.println("4th map works");
+
 						if (map[holdEnemy[i].getRow() + 1][holdEnemy[i].getColumn()].getFront().equals("P")) {
 							foundPlayer = true;
-						}
-					} catch (ArrayIndexOutOfBoundsException g) {
-						System.out.println("4th map doesn't work");
-						// insert 4th try catch
-						try {
-							// System.out.println("4th map works");
-							if (map[holdEnemy[i].getRow() + 1][holdEnemy[i].getColumn()].getFront().equals("P")) {
-								foundPlayer = true;
-							}
-						} catch (ArrayIndexOutOfBoundsException h) {
-							// System.out.println("4th map doesn't work");
+
 						}
 
+					} catch (ArrayIndexOutOfBoundsException g) {
+
+						// insert 4th try catch
+						try {
+
+							if (map[holdEnemy[i].getRow() + 1][holdEnemy[i].getColumn()].getFront().equals("P")) {
+								foundPlayer = true;
+
+							}
+
+						} catch (ArrayIndexOutOfBoundsException h) {
+
+						}
 						// end 4th try catch
 					}
 					// end 3rd try catch
 				}
-
 				// end 2nd try catch
-
 			}
 
 		}
+
 		return foundPlayer;
 
 	}
 
 	/**
-	 * @return
+	 * This method allows enemies to check their right side tile to see if the
+	 * player is there. It's surrounded by 'try and catch' to check other sides
+	 * as well.
+	 * 
+	 * @return foundPlayer, either true or false
 	 */
 	public boolean visibilityOfEnemyRight() {
+
 		for (int i = 0; i < holdEnemy.length; i++) {
+
 			try {
-				// System.out.println("2nd map works");
+
 				if (map[holdEnemy[i].getRow()][holdEnemy[i].getColumn() + 1].getFront().equals("P")) {
 					foundPlayer = true;
 				}
+
 			} catch (ArrayIndexOutOfBoundsException e) {
-				// System.out.println("2nd map doesn't work");
+
 				// insert 2nd try catch
 				try {
-					// System.out.println("3rd map works");
+
 					if (map[holdEnemy[i].getRow() - 1][holdEnemy[i].getColumn()].getFront().equals("P")) {
 						foundPlayer = true;
+
 					}
+
 				} catch (ArrayIndexOutOfBoundsException f) {
-					// System.out.println("3rd map doesn't work");
+
 					// / insert 3rd try catch
 					try {
-						// System.out.println("4th map works");
+
 						if (map[holdEnemy[i].getRow() + 1][holdEnemy[i].getColumn()].getFront().equals("P")) {
 							foundPlayer = true;
+
 						}
+
 					} catch (ArrayIndexOutOfBoundsException g) {
-						// System.out.println("4th map doesn't work");
+
 						// insert 4th try catch
 						try {
-							// System.out.println("1st map works");
+
 							if (map[holdEnemy[i].getRow()][holdEnemy[i].getColumn() - 1].getFront().equals("P")) {
 								foundPlayer = true;
+
 							}
+
 						} catch (ArrayIndexOutOfBoundsException h) {
-							// System.out.println("1st map doesn't work");
+
 						}
 						// insert 4th try catch
 					}
 					// end 3rd try catch
 				}
 				// end 2nd try catch
-
 			}
+
 		}
+
 		return foundPlayer;
+
 	}
 
 	/**
-	 * @return
+	 * This method allows enemies to check their top side tile to see if the
+	 * player is there. It's surrounded by 'try and catch' to check other sides
+	 * as well.
+	 * 
+	 * @return foundPlayer, either true or false
 	 */
 	public boolean visibilityOfEnemyUp() {
+
 		for (int i = 0; i < holdEnemy.length; i++) {
+
 			try {
-				// System.out.println("3rd map works");
+
 				if (map[holdEnemy[i].getRow() - 1][holdEnemy[i].getColumn()].getFront().equals("P")) {
 					foundPlayer = true;
+
 				}
+
 			} catch (ArrayIndexOutOfBoundsException e) {
-				// System.out.println("3rd map doesn't work");
+
 				// insert 2nd try catch
 				try {
-					// System.out.println("4th map works");
+
 					if (map[holdEnemy[i].getRow() + 1][holdEnemy[i].getColumn()].getFront().equals("P")) {
 						foundPlayer = true;
+
 					}
+
 				} catch (ArrayIndexOutOfBoundsException f) {
-					// System.out.println("4th map doesn't work");
 
 					// insert 3rd try catch
 					try {
-						// System.out.println("1st map works");
+
 						if (map[holdEnemy[i].getRow()][holdEnemy[i].getColumn() - 1].getFront().equals("P")) {
 							foundPlayer = true;
+
 						}
+
 					} catch (ArrayIndexOutOfBoundsException g) {
-						// System.out.println("1st map doesn't work");
 
 						// insert 4th try catch
 						try {
-							// System.out.println("2nd map works");
+
 							if (map[holdEnemy[i].getRow()][holdEnemy[i].getColumn() + 1].getFront().equals("P")) {
 								foundPlayer = true;
+
 							}
+
 						} catch (ArrayIndexOutOfBoundsException h) {
-							// System.out.println("2nd map doesn't work");
+
 						}
 						// end 4th try catch
-
 					}
 					// end 3rd try catch
-
 				}
 				// end 2nd try catch
-
 			}
+
 		}
+
 		return foundPlayer;
+
 	}
 
 	/**
-	 * @return
+	 * This method allows enemies to check their bottom side tile to see if the
+	 * player is there. It's surrounded by 'try and catch' to check other sides
+	 * as well.
+	 * 
+	 * @return foundPlayer, either true or false
 	 */
 	public boolean visibilityOfEnemyDown() {
+
 		for (int i = 0; i < holdEnemy.length; i++) {
+
 			try {
-				// System.out.println("4th map works");
+
 				if (map[holdEnemy[i].getRow() + 1][holdEnemy[i].getColumn()].getFront().equals("P")) {
 					foundPlayer = true;
+
 				}
+
 			} catch (ArrayIndexOutOfBoundsException e) {
-				// System.out.println("4th map doesn't work");
 
 				// insert 2nd try catch
 				try {
-					// System.out.println("1st map works");
+
 					if (map[holdEnemy[i].getRow()][holdEnemy[i].getColumn() - 1].getFront().equals("P")) {
 						foundPlayer = true;
-					}
-				} catch (ArrayIndexOutOfBoundsException f) {
-					// System.out.println("1st map doesn't work");
 
-					// /insert 3rd tr catch
+					}
+
+				} catch (ArrayIndexOutOfBoundsException f) {
+
+					// /insert 3rd try catch
 					try {
-						// System.out.println("2nd map works");
+
 						if (map[holdEnemy[i].getRow()][holdEnemy[i].getColumn() + 1].getFront().equals("P")) {
 							foundPlayer = true;
+
 						}
+
 					} catch (ArrayIndexOutOfBoundsException g) {
-						// System.out.println("2nd map doesn't work");
 
 						// insert 4th try catch
 						try {
-							// System.out.println("3rd map works");
+
 							if (map[holdEnemy[i].getRow() - 1][holdEnemy[i].getColumn()].getFront().equals("P")) {
 								foundPlayer = true;
+
 							}
+
 						} catch (ArrayIndexOutOfBoundsException h) {
-							// System.out.println("3rd map doesn't work");
+
 						}
 						// end 4th try catch
-
 					}
 					// end 3rd try catch
-
 				}
 				// end 2nd try catch
-
 			}
+
 		}
+
 		return foundPlayer;
+
 	}
 
 	/**
+	 * This method combines all the visibilities of enemies. It throws an
+	 * 'ArrayIndexOutOfBoundsException' in order to handle unexpected
+	 * exceptions.
+	 * 
 	 * @throws ArrayIndexOutOfBoundsException
+	 *             to catch exceptions not caught in the 'try-catch' blocks
 	 */
 	public void visibilityOfEnemy() throws ArrayIndexOutOfBoundsException {
 
@@ -1516,6 +1663,55 @@ public class Map implements Serializable {
 	}
 
 	/**
+	 * This method generates 6 enemies. Each enemy's position is generated
+	 * randomly and the 'if statement' filters positions where enemies cannot be
+	 * located. When invalid position is generated and skips an element in the
+	 * holdEnemy array, --i in 'else' will make the value of i go back to its
+	 * previous value.
+	 */
+	public void relocateEnemy(boolean foundPlayer) {
+
+		if (foundPlayer) {
+			Random r = new Random();
+
+			for (int i = 0; i < map.length; ++i) {
+
+				for (int j = 0; j < map[i].length; ++j) {
+
+					GameEntity tempSpace;
+					int row = r.nextInt(9);
+					int column = r.nextInt(9);
+
+					if (map[i][j].getFront().equals("1") || map[i][j].getFront().equals("2")
+							|| map[i][j].getFront().equals("3") || map[i][j].getFront().equals("4")
+							|| map[i][j].getFront().equals("5") || map[i][j].getFront().equals("6")) {
+						if (map[row][column].getFront().equals(" ") && map[row][column] != map[5][0]
+								&& map[row][column] != map[5][1] && map[row][column] != map[5][2]
+								&& map[row][column] != map[5][3] && map[row][column] != map[6][0]
+								&& map[row][column] != map[6][1] && map[row][column] != map[6][2]
+								&& map[row][column] != map[6][3] && map[row][column] != map[7][0]
+								&& map[row][column] != map[7][2] && map[row][column] != map[7][3]
+								&& map[row][column] != map[8][1] && map[row][column] != map[8][2]
+								&& map[row][column] != map[8][3]) {
+
+							tempSpace = map[row][column];
+							map[row][column] = map[i][j];
+							map[row][column].setRow(i);
+							map[row][column].setColumn(j);
+							map[i][j] = tempSpace;
+							map[i][j].setRow(row);
+							map[i][j].setColumn(column);
+
+						}
+					}
+
+				}
+			}
+		}
+
+	}
+
+	/**
 	 * This method represents the player's look. It lets the player to see two
 	 * tiles ahead of him in the direction the user chooses to look. But the
 	 * player cannot look through the rooms.
@@ -1533,12 +1729,19 @@ public class Map implements Serializable {
 			case 1:
 
 				if (map[player.getRow()][player.getColumn() - i].getFront().equals("R")) {
+
 					break;
+
 				} else {
 
 					map[player.getRow()][player.getColumn() - i].setFlipped(true);
 
-					if (map[player.getRow()][player.getColumn() - i].getFront().equals("E"))
+					if (map[player.getRow()][player.getColumn() - i].getFront().equals("1")
+							|| map[player.getRow()][player.getColumn() - i].getFront().equals("2")
+							|| map[player.getRow()][player.getColumn() - i].getFront().equals("3")
+							|| map[player.getRow()][player.getColumn() - i].getFront().equals("4")
+							|| map[player.getRow()][player.getColumn() - i].getFront().equals("5")
+							|| map[player.getRow()][player.getColumn() - i].getFront().equals("6"))
 
 						player.setDangerAhead(true);
 
@@ -1557,7 +1760,12 @@ public class Map implements Serializable {
 
 					map[player.getRow()][player.getColumn() + i].setFlipped(true);
 
-					if (map[player.getRow()][player.getColumn() + i].getFront().equals("E"))
+					if (map[player.getRow()][player.getColumn() + i].getFront().equals("1")
+							|| map[player.getRow()][player.getColumn() + i].getFront().equals("2")
+							|| map[player.getRow()][player.getColumn() + i].getFront().equals("3")
+							|| map[player.getRow()][player.getColumn() + i].getFront().equals("4")
+							|| map[player.getRow()][player.getColumn() + i].getFront().equals("5")
+							|| map[player.getRow()][player.getColumn() + i].getFront().equals("6"))
 
 						player.setDangerAhead(true);
 				}
@@ -1575,7 +1783,12 @@ public class Map implements Serializable {
 
 					map[player.getRow() - i][player.getColumn()].setFlipped(true);
 
-					if (map[player.getRow() - i][player.getColumn()].getFront().equals("E"))
+					if (map[player.getRow() - i][player.getColumn()].getFront().equals("1")
+							|| map[player.getRow() - i][player.getColumn()].getFront().equals("2")
+							|| map[player.getRow() - i][player.getColumn()].getFront().equals("3")
+							|| map[player.getRow() - i][player.getColumn()].getFront().equals("4")
+							|| map[player.getRow() - i][player.getColumn()].getFront().equals("5")
+							|| map[player.getRow() - i][player.getColumn()].getFront().equals("6"))
 
 						player.setDangerAhead(true);
 
@@ -1594,7 +1807,12 @@ public class Map implements Serializable {
 
 					map[player.getRow() + i][player.getColumn()].setFlipped(true);
 
-					if (map[player.getRow() + i][player.getColumn()].getFront().equals("E"))
+					if (map[player.getRow() + i][player.getColumn()].getFront().equals("1")
+							|| map[player.getRow() + i][player.getColumn()].getFront().equals("2")
+							|| map[player.getRow() + i][player.getColumn()].getFront().equals("3")
+							|| map[player.getRow() + i][player.getColumn()].getFront().equals("4")
+							|| map[player.getRow() + i][player.getColumn()].getFront().equals("5")
+							|| map[player.getRow() + i][player.getColumn()].getFront().equals("6"))
 
 						player.setDangerAhead(true);
 
@@ -1626,19 +1844,14 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * 
-	 */
-	public void playerDetect() {
-		if (player.isDangerAhead() == true) {
-			System.out.println("Danger Ahead!\n");
-			player.setDangerAhead(false);
-		} else
-			System.out.println("Clear!\n");
-	}
-
-	/**
+	 * This method represents the player's movement. It moves the player in the
+	 * direction that the user chooses. But it checks if that new location is an
+	 * appropriate one.
+	 *
 	 * @param movement
-	 * @return
+	 *            which gives new location for the player
+	 * @return boolean value, either true or false, to check if it's a valid
+	 *         move
 	 */
 	public boolean movePlayer(int movement) {
 
@@ -1689,20 +1902,27 @@ public class Map implements Serializable {
 	}
 
 	/**
+	 * This method checks if enemies' new locations are good. Their new location
+	 * is chosen randomly.
+	 * 
 	 * @param i
-	 * @return
+	 *            which is the index number of holdEnemy
+	 * @return valid movement that enemies can use
 	 */
 	public int checkValidPosition(int i) {
+
 		Random r = new Random();
 		int movement;
 		boolean check = true;
 
 		do {
+
 			int checkRow = holdEnemy[i].getRow();
 			int checkColumn = holdEnemy[i].getColumn();
 			movement = r.nextInt(4) + 1;
 
 			switch (movement) {
+
 			case 1:
 				checkRow--;
 				break;
@@ -1715,32 +1935,44 @@ public class Map implements Serializable {
 			case 4:
 				checkColumn--;
 				break;
+
 			}
-			// System.out.println(checkRow + " " + checkColumn);
-			// check to make sure enemies don't go out of bounds
+
 			if (checkColumn < 0 || checkColumn > 8 || checkRow < 0 || checkRow > 8)
+
 				check = false;
+
 			else {
+
 				// prevent stepping into room or on power ups
-				if (map[checkRow][checkColumn].getFront().equals(" "))
+				if (map[checkRow][checkColumn].getFront().equals(" ")) {
 					check = true;
-				else {
+
+				} else if (map[checkRow][checkColumn].getFront().equals("P")) {
+
+					foundPlayer = true;
+					enemyAttack(foundPlayer);
+					playerGotDamaged(foundPlayer);
+					relocateEnemy(foundPlayer);
+
+				} else {
+
 					check = false;
-					// System.out.println("enemy: " + i +
-					// " tried to enter a room");
+
 				}
+
 			}
-			// System.out.println(check);
 
 		} while (check != true);
 
 		return movement;
+
 	}
 
-	// deleted by anthony in Collision update
-
 	/**
-	 * 
+	 * This method represents the movement of enemies. After getting valid
+	 * movements from checkValidPostion method, enemies move to their new
+	 * location randomly.
 	 */
 	public void moveEnemy() {
 
@@ -1754,17 +1986,17 @@ public class Map implements Serializable {
 			tempColumn = holdEnemy[i].getColumn();
 
 			holdEnemy[i].move(checkValidPosition(i));
-			// System.out.println("1");
+
 			tempSpace = map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()];
 			holdEnemy[i].setRow(holdEnemy[i].getRow());
 			holdEnemy[i].setColumn(holdEnemy[i].getColumn());
-			// System.out.println("2");
+
 			map[tempRow][tempColumn] = tempSpace;
-			// System.out.println("3" + "\n ------ " + i);
 
 			map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] = holdEnemy[i];
 
 		}
+
 	}
 
 	/**
@@ -1780,7 +2012,9 @@ public class Map implements Serializable {
 
 			for (int j = 0; j < map[i].length; ++j) {
 
-				if (map[i][j].equals("E")) {
+				if (map[i][j].getFront().equals("1") || map[i][j].getFront().equals("2")
+						|| map[i][j].getFront().equals("3") || map[i][j].getFront().equals("4")
+						|| map[i][j].getFront().equals("5") || map[i][j].getFront().equals("6")) {
 
 					numberOfEnemy = numberOfEnemy + 1;
 

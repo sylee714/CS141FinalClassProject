@@ -90,6 +90,86 @@ public abstract class GameEntity implements Serializable {
 	 */
 	private boolean attack = false;
 
+	private boolean playerUp = false;
+
+	private boolean playerDown = false;
+
+	private boolean playerRight = false;
+
+	private boolean playerLeft = false;
+
+	private boolean hardModePlayerNotFound = true;
+
+	/**
+	 * @return the playerUp
+	 */
+	public boolean isPlayerUp() {
+		return playerUp;
+	}
+
+	/**
+	 * @param playerUp the playerUp to set
+	 */
+	public void setPlayerUp(boolean playerUp) {
+		this.playerUp = playerUp;
+	}
+
+	/**
+	 * @return the playerDown
+	 */
+	public boolean isPlayerDown() {
+		return playerDown;
+	}
+
+	/**
+	 * @param playerDown the playerDown to set
+	 */
+	public void setPlayerDown(boolean playerDown) {
+		this.playerDown = playerDown;
+	}
+
+	/**
+	 * @return the playerRight
+	 */
+	public boolean isPlayerRight() {
+		return playerRight;
+	}
+
+	/**
+	 * @param playerRight the playerRight to set
+	 */
+	public void setPlayerRight(boolean playerRight) {
+		this.playerRight = playerRight;
+	}
+
+	/**
+	 * @return the playerLeft
+	 */
+	public boolean isPlayerLeft() {
+		return playerLeft;
+	}
+
+	/**
+	 * @param playerLeft the playerLeft to set
+	 */
+	public void setPlayerLeft(boolean playerLeft) {
+		this.playerLeft = playerLeft;
+	}
+
+	/**
+	 * @return the hardModePlayerNotFound
+	 */
+	public boolean isHardModePlayerNotFound() {
+		return hardModePlayerNotFound;
+	}
+
+	/**
+	 * @param hardModePlayerNotFound the hardModePlayerNotFound to set
+	 */
+	public void setHardModePlayerNotFound(boolean hardModePlayerNotFound) {
+		this.hardModePlayerNotFound = hardModePlayerNotFound;
+	}
+	
 	/**
 	 * This method sets the boolean value for the boolean field 'attack.'
 	 * 

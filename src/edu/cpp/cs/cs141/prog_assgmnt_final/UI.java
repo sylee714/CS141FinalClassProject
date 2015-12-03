@@ -50,13 +50,18 @@ public class UI {
 	private boolean quit = false;
 
 	/**
+	 * This method is a constructor which takes a GameEngine object as an
+	 * argument.
+	 * 
 	 * @param game
 	 *            Constructor for a UI object that takes in a scanner and a Game
 	 *            Engine object.
 	 */
 	public UI(GameEngine game) {
+
 		this.game = game;
 		keyboard = new Scanner(System.in);
+
 	}
 
 	/**
@@ -64,23 +69,35 @@ public class UI {
 	 * the previous game, and quitting the game.
 	 */
 	public void startGame() {
+
 		welcomeMessage();
+
 		while (!quit) {
+
 			int option = mainMenu();
+
 			switch (option) {
+
 			case 1:
+
 				game.generateMap();
 				gameLoop();
 				break;
+
 			case 2:
+
 				game.load();
 				gameLoop();
 				break;
+
 			case 3:
+
 				System.out.println("Goodbye! Come back soon!");
 				quit = true;
 				break;
+
 			default:
+
 				System.out.println("Invalid input. Choose from \"1\",\"2\", or \"3\" please.");
 				break;
 
@@ -91,19 +108,34 @@ public class UI {
 	}
 
 	/**
-	 * Prints a welcome message to the user.
+	 * Prints a welcome message to the user and game rules.
 	 */
 	public void welcomeMessage() {
-		System.out.println("Hi There Player!\n");
+
+		System.out.println("Welcome to Version 1.00 Game!\n");
+		System.out.println("\n===========================================================================");
+		System.out.println("\nNotes: ");
+		System.out.println("	'R' - rooms, only one of them has the briefcase ");
+		System.out.println("	'B' - briefcase, the mission object of the game ");
+		System.out.println("	'A' - additional bullet, no effect if you already have 1 bullet ");
+		System.out.println("	'+' - radar, gives you the location of the briefcase ");
+		System.out.println("	'I' - invincibility, you become invincible for 5 turns ");
+		System.out.println("\n===========================================================================");
+
 	}
 
 	/**
+	 * This method returns the value of option that the user chooses.
+	 * 
 	 * @return What the user sees on start up. Selection decides whether or not
 	 *         game is ran, loaded or quit.
 	 */
 	private int mainMenu() {
+
 		int option = 0;
+
 		System.out.println("Select an option:\n\n1)New Game\n2)Load Game\n3)Quit Game");
+
 		option = keyboard.nextInt();
 		keyboard.nextLine();
 
@@ -112,7 +144,9 @@ public class UI {
 	}
 
 	/**
-	 * a method that runs as long as the game hasn't ended.
+	 * This method represent a game loop. It does not end until the game ends.
+	 * It asks the user for several options: look, move, shoot, save, main menu,
+	 * and debug mode.
 	 */
 	public void gameLoop() {
 
@@ -120,23 +154,36 @@ public class UI {
 
 			System.out.println("Begin your turn player!\n");
 			System.out.println(game.printBoard());
+
+			System.out.println("This is your " + game.getTurn() + "th turns.");
+			System.out.println("You have " + game.playerLife() + " lives.");
+			System.out.println("You have " + game.numberOfBullet() + " bullet.");
+			System.out.println("There are " + game.remainingEnemy() + " enemies.\n");
+
 			System.out.println("What would you like to do next?\n");
 			System.out.println("1)Move \n2)Look \n3)Shoot \n4)Save \n5)Main Menu \n6)Debug Mode");
 
 			int choice = keyboard.nextInt();
+			keyboard.nextLine();
 
 			switch (choice) {
+
 			// Move
 			case 1:
+
 				playerMove();
 				if (game.northSideOfRoom()) {
 					checkRoom();
 				}
+
 				break;
+
 			// Look
 			case 2:
 				playerLook();
+
 				break;
+
 			// Shoot
 			case 3:
 				if (game.numberOfBullet() == 1)
@@ -144,29 +191,39 @@ public class UI {
 				else {
 					System.out.println("You are out of ammo.");
 				}
+
 				break;
+
 			// Save
 			case 4:
 				game.save();
 				System.out.println("Save was successful.");
+
 				break;
+
 			// Main Menu
 			case 5:
+
 				menu();
+
 				break;
+
 			// Debug
 			case 6:
 				toggleBoard();
 				break;
+
 			default:
 				System.out.println("That isn't a valid input try again please.");
+
 				break;
 			}
 
 			if (game.invincible()) {
-				System.out.println("You consumed invincibility");
+
 				game.useInvincible();
 				System.out.println("You are invincible for: " + game.invincibleTurns());
+
 			}
 
 			endTurn();
@@ -179,19 +236,19 @@ public class UI {
 	 * over.
 	 */
 	public void endTurn() {
-		game.smartEnemyLook();
-		game.smartEnemyMove();
-		
+
 		// game.moveEnemy();
-		game.enemyTurn();
+		// game.enemyTurn();
+		// game.hardMode();
+
 		game.setNotFlipped();
 
-		System.out.println("Left: " + game.playerLeft() + "\nRight: " + game.playerRight() + "\nUp: " + game.playerUp()
-				+ "\nDown: " + game.playerDown() + "\nPlayerNotFound :" + game.hardModePlayerNotFound());
-
 		useRadar();
+
 		if (game.isFoundPlayer())
-			System.out.println("You died. You have " + game.playerLife() + " lives left player.\n");
+
+			System.out.println("You died. You have " + game.playerLife() + " lives.\n");
+
 		game.lifeReset();
 	}
 
@@ -199,24 +256,36 @@ public class UI {
 	 * Allows the user to return to the main menu.
 	 */
 	public void menu() {
+
 		int option = mainMenu();
+
 		switch (option) {
+
 		case 1:
+
 			game.generateMap();
 			gameLoop();
 			break;
+
 		case 2:
+
 			game.load();
 			gameLoop();
 			break;
+
 		case 3:
+
 			System.out.println("Goodbye! Come back soon!");
 			System.exit(0);
 			break;
+
 		default:
+
 			System.out.println("Invalid input. Choose from \"1\",\"2\", or \"3\" please.");
 			break;
+
 		}
+
 	}
 
 	/**
@@ -224,11 +293,16 @@ public class UI {
 	 * coordinates to the user.
 	 */
 	public void useRadar() {
+
 		game.useRadar(game.foundRadar());
+
 		if (game.foundRadar()) {
-			System.out.println("The brief case is loacated at: " + "Row: " + game.briefCaseRow() + " Column: "
+
+			System.out.println("\nThe brief case is loacated at: " + "Row: " + game.briefCaseRow() + " Column: "
 					+ game.briefCaseColumn());
+
 		}
+
 	}
 
 	/**
@@ -236,25 +310,33 @@ public class UI {
 	 * Right.
 	 */
 	public void playerShoot() {
+
 		System.out.println("Choose a direction to shoot.\n");
 		System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
+
 		int direction = keyboard.nextInt();
+		keyboard.nextLine();
+
 		switch (direction) {
+
 		case 1:
 			game.playerAttack(direction);
 			break;
+
 		case 2:
 			game.playerAttack(direction);
 			break;
+
 		case 3:
 			game.playerAttack(direction);
 			break;
+
 		case 4:
 			game.playerAttack(direction);
 			break;
 
 		}
-		System.out.println("You have " + game.numberOfBullet() + " bullet.");
+
 	}
 
 	/**
@@ -262,35 +344,100 @@ public class UI {
 	 * it allows them to Move, Shoot, Save or go back to the Main Menu.
 	 */
 	public void playerLook() {
+
 		System.out.println("Choose a direction to look in.\n");
 		System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
+
 		int option = keyboard.nextInt();
+		keyboard.nextLine();
+
 		try {
 			switch (option) {
+
 			// Left
 			case 1:
 				game.visibilityOfPlayer(1);
+				if (game.playerDetect()) {
+
+					System.out.println("Enemy Ahead!!!");
+					game.setPlayerDetect(false);
+
+				} else {
+
+					System.out.println("Clear");
+
+				}
+
 				break;
+
 			// Right
 			case 2:
+				
 				game.visibilityOfPlayer(2);
+
+				if (game.playerDetect()) {
+
+					System.out.println("Enemy Ahead!!!");
+					game.setPlayerDetect(false);
+
+				} else {
+
+					System.out.println("Clear");
+
+				}
+
 				break;
+
 			// Up
 			case 3:
+				
 				game.visibilityOfPlayer(3);
+				
+				if (game.playerDetect()) {
+
+					System.out.println("Enemy Ahead!!!");
+					game.setPlayerDetect(false);
+
+				} else {
+
+					System.out.println("Clear");
+
+				}
+
 				break;
+
 			// Down
 			case 4:
+				
 				game.visibilityOfPlayer(4);
+				
+				if (game.playerDetect()) {
+
+					System.out.println("\nEnemy Ahead!!!\n");
+					game.setPlayerDetect(false);
+
+				} else {
+
+					System.out.println("\nClear\n");
+
+				}
+
 				break;
+
 			default:
-				System.out.println("That isn't a valid choice player.");
+				
+				System.out.println("\nThat isn't a valid choice. Please, try it again.");
+				
 				break;
 
 			}
+
 		} catch (ArrayIndexOutOfBoundsException e) {
-			System.out.println("You currently can't look in that direction player. Look in a valid direction.\n");
+
+			System.out.println("You currently can't look in that direction. Look in a valid direction.\n");
+
 		}
+
 		game.playerDetect();
 		System.out.println(game.printBoard());
 
@@ -299,40 +446,55 @@ public class UI {
 		System.out.println("1)Move \n2)Shoot \n3)Save \n4)Main Menu \n5)Debug Mode");
 
 		int choice = keyboard.nextInt();
+		keyboard.nextLine();
 
 		switch (choice) {
+
 		// Move
 		case 1:
+
 			playerMove();
 			if (game.northSideOfRoom()) {
 				checkRoom();
 			}
 			break;
+
 		// Shoot
 		case 2:
+
 			if (game.numberOfBullet() == 1)
 				playerShoot();
 			else {
-				System.out.println("You are out of ammo.");
+				System.out.println("You are out of ammo.\n");
 			}
 			break;
+
 		// Save
 		case 3:
+
 			game.save();
-			System.out.println("Save was successful.");
+			System.out.println("Save was successful.\n");
 			break;
+
 		// Main Menu
 		case 4:
+
 			menu();
 			break;
+
 		// Debug
 		case 5:
+
 			toggleBoard();
 			break;
+
 		default:
-			System.out.println("That isn't a valid input try again please.");
+
+			System.out.println("That isn't a valid input. Please, try it again.\n");
 			break;
+
 		}
+
 	}
 
 	/**
@@ -343,27 +505,31 @@ public class UI {
 		System.out.println("Choose a direction to move in.\n");
 		System.out.println("1)Left \n2)Right \n3)Up \n4)Down");
 
-		boolean temp = true;
+		boolean temp = false;
 
 		do {
 			int direction = keyboard.nextInt();
-
+			keyboard.nextLine();
 			switch (direction) {
 			// Left
 			case 1:
 				temp = game.playerMove(1);
+				temp = true;
 				break;
 			// Right
 			case 2:
 				temp = game.playerMove(2);
+				temp = true;
 				break;
 			// Up
 			case 3:
 				temp = game.playerMove(3);
+				temp = true;
 				break;
 			// Down
 			case 4:
 				temp = game.playerMove(4);
+				temp = true;
 				break;
 			}
 
@@ -371,11 +537,11 @@ public class UI {
 				temp = true;
 			else {
 				temp = false;
-				System.out.println("Invalid Input. Please enter new direction: ");
+				System.out.println("Invalid Input. Please enter a new direction: \n");
 				System.out.println(game.printBoard());
 			}
 
-		} while (temp != true);
+		} while (!temp);
 
 	}
 
@@ -383,11 +549,17 @@ public class UI {
 	 * Switches the board that is printed from game mode to debug mode.
 	 */
 	public void toggleBoard() {
+
 		if (game.isDebug() == false) {
+
 			game.setDebug(true);
+
 		} else {
+
 			game.setDebug(false);
+
 		}
+
 	}
 
 	/**
@@ -397,26 +569,29 @@ public class UI {
 	 * them continue through.
 	 */
 	public void checkRoom() {
+
 		System.out.println(game.printBoard());
-		System.out.println("Do you want to check the room? ");
+		System.out.println("Do you want to check the room? \n");
 		System.out.println("1)Yes \n2)No");
 
 		int option = keyboard.nextInt();
+		keyboard.nextLine();
 
 		switch (option) {
+
 		case 1:
 
 			game.checkRoom();
 
 			if (game.briefCaseIndicator()) {
 
-				System.out.println("Congratulation! You found the brief case.");
+				System.out.println("Congratulation! You found the brief case.\n");
 				System.out.println("It took you " + game.getTurn() + " turns to complete the game!");
 				System.out.println("You have " + game.playerLife() + " lives left!");
 
 			} else {
 
-				System.out.println("Failed... Brief case is not found. Search the other rooms. ");
+				System.out.println("Failed... Brief case is not found. Search the other rooms.\n");
 
 			}
 
@@ -424,11 +599,12 @@ public class UI {
 
 		case 2:
 
-			System.out.println("You missed your chance...");
+			System.out.println("You missed your chance...\n");
 
 			break;
 
 		}
+
 	}
 
 	public void changeDifficulty() {
