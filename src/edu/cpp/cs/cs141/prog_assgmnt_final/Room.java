@@ -34,6 +34,11 @@ import java.io.Serializable;
 public class Room extends GameEntity implements Serializable {
 
 	/**
+	 * This is serialVersionUID for Room.
+	 */
+	private static final long serialVersionUID = -3964919816155967021L;
+
+	/**
 	 * A super constructor for the class. It allows to set initial values for
 	 * front, back, row, column.
 	 */

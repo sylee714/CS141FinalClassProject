@@ -34,6 +34,11 @@ import java.io.Serializable;
 public class EmptySpace extends GameEntity implements Serializable {
 
 	/**
+	 * This is serialVersionUID for EmptySpace
+	 */
+	private static final long serialVersionUID = 5033841286165565168L;
+
+	/**
 	 * A super constructor for the class. It allows to set initial values for
 	 * front, back, row, column.
 	 */

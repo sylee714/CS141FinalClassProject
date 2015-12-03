@@ -34,6 +34,11 @@ import java.io.Serializable;
 public class Invincibility extends GameEntity implements Serializable {
 
 	/**
+	 * This is serialVersionUID for Invincibility.
+	 */
+	private static final long serialVersionUID = 6479307966170482598L;
+
+	/**
 	 * A super constructor for the class. It allows to set initial values for
 	 * front, back, row, column.
 	 */

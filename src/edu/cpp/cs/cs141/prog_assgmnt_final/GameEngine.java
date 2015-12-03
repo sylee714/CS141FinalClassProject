@@ -319,6 +319,16 @@ public class GameEngine {
 	}
 
 	/**
+	 * This method lets the player to have an immediate vision: one tile in each
+	 * direction.
+	 */
+	public void playerImmediateLook() {
+
+		map.playerImmediateLook();
+
+	}
+
+	/**
 	 * This method lets the player detects if enemies are located in the
 	 * direction that the player is looking at.
 	 */

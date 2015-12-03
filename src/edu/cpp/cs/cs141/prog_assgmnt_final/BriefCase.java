@@ -34,6 +34,11 @@ import java.io.Serializable;
 public class BriefCase extends GameEntity implements Serializable {
 
 	/**
+	 * This is serialVerionUID for BriefCase.
+	 */
+	private static final long serialVersionUID = 1227920950719414172L;
+
+	/**
 	 * A super constructor for the class. It allows to set initial values for
 	 * front, back, row, column.
 	 */

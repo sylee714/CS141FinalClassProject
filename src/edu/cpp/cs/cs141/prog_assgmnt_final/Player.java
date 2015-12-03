@@ -35,6 +35,11 @@ import java.io.Serializable;
 public class Player extends GameEntity implements Serializable {
 
 	/**
+	 * This is serialVersionUID for Player.
+	 */
+	private static final long serialVersionUID = -2119382567041410642L;
+
+	/**
 	 * A super constructor for the class. It allows to set initial values for
 	 * front, back, row, column.
 	 */

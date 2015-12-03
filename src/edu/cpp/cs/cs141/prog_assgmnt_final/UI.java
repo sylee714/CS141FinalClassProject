@@ -152,6 +152,8 @@ public class UI {
 
 		while (!game.endGame()) {
 
+			game.playerImmediateLook();
+			
 			System.out.println("Begin your turn player!\n");
 			System.out.println(game.printBoard());
 
@@ -359,12 +361,12 @@ public class UI {
 				game.visibilityOfPlayer(1);
 				if (game.playerDetect()) {
 
-					System.out.println("Enemy Ahead!!!");
+					System.out.println("\nEnemy Ahead!!!\n");
 					game.setPlayerDetect(false);
 
 				} else {
 
-					System.out.println("Clear");
+					System.out.println("\nClear\n");
 
 				}
 

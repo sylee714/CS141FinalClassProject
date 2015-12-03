@@ -34,6 +34,11 @@ import java.io.Serializable;
 public class Radar extends GameEntity implements Serializable {
 
 	/**
+	 * This is serialVersionUID for Radar.
+	 */
+	private static final long serialVersionUID = 4104166376434391499L;
+
+	/**
 	 * A super constructor for the class. It allows to set initial values for
 	 * front, back, row, column.
 	 */

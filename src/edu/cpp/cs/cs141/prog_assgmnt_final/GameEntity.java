@@ -36,6 +36,11 @@ import java.io.Serializable;
 public abstract class GameEntity implements Serializable {
 
 	/**
+	 * This is serialVersionUID for GameEntity.
+	 */
+	private static final long serialVersionUID = -3272087268948950876L;
+
+	/**
 	 * This field represents the front side of an GameEntity.
 	 */
 	private String front = "";

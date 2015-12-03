@@ -34,6 +34,11 @@ import java.io.Serializable;
 public class AdditionalBullet extends GameEntity implements Serializable {
 
 	/**
+	 * This is the serrialVersionUID for AdditionalBullet.
+	 */
+	private static final long serialVersionUID = -577910075202888068L;
+
+	/**
 	 * A super constructor for the class. It allows to set initial values for
 	 * front, back, row, column.
 	 */

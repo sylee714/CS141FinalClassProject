@@ -21,8 +21,8 @@
  */
 package edu.cpp.cs.cs141.prog_assgmnt_final;
 
-import java.util.Random;
-import java.util.Scanner;
+
+
 
 /**
  * @author Victor Darkes

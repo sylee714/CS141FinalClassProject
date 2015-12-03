@@ -22,6 +22,7 @@
 package edu.cpp.cs.cs141.prog_assgmnt_final;
 
 import java.util.Random;
+
 import java.io.Serializable;
 
 import javax.swing.plaf.synth.SynthSeparatorUI;
@@ -38,6 +39,11 @@ import javax.swing.plaf.synth.SynthSeparatorUI;
  *
  */
 public class Map implements Serializable {
+
+	/**
+	 * This is serialVersionUID for Map.
+	 */
+	private static final long serialVersionUID = -5808445953079391170L;
 
 	/**
 	 * This field creates a 2D array of GameEntity. Its initial size is 9 by 9.
@@ -692,7 +698,7 @@ public class Map implements Serializable {
 	 * This method returns the value of dangerAhead, either true or false. If
 	 * it's true, then enemies have been sighted by the player.
 	 * 
-	 * @return  the value of dangerAhead, either true or false
+	 * @return the value of dangerAhead, either true or false
 	 */
 	public boolean isPlayerDetect() {
 
@@ -703,7 +709,8 @@ public class Map implements Serializable {
 	/**
 	 * This method sets the value of dangerAhead, either true or false.
 	 * 
-	 * @param danger, either true or false
+	 * @param danger,
+	 *            either true or false
 	 */
 	public void setPlayerDetect(boolean danger) {
 
@@ -1712,6 +1719,114 @@ public class Map implements Serializable {
 	}
 
 	/**
+	 * This method lets the player to have immediate left vision.
+	 */
+	public void playerImmediateLeftLook() {
+
+		try {
+
+			if (map[player.getRow()][player.getColumn() - 1].getFront().equals("R")
+					|| map[player.getRow()][player.getColumn() - 1].getFront().equals("B")) {
+
+				map[player.getRow()][player.getColumn() - 1].setFlipped(false);
+
+			} else {
+
+				map[player.getRow()][player.getColumn() - 1].setFlipped(true);
+
+			}
+
+		} catch (ArrayIndexOutOfBoundsException e) {
+
+		}
+
+	}
+
+	/**
+	 * This method lets the player to have immediate right vision.
+	 */
+	public void playerImmediateRightLook() {
+
+		try {
+
+			if (map[player.getRow()][player.getColumn() + 1].getFront().equals("R")
+					|| map[player.getRow()][player.getColumn() + 1].getFront().equals("B")) {
+
+				map[player.getRow()][player.getColumn() + 1].setFlipped(false);
+
+			} else {
+
+				map[player.getRow()][player.getColumn() + 1].setFlipped(true);
+
+			}
+
+		} catch (ArrayIndexOutOfBoundsException e) {
+
+		}
+
+	}
+
+	/**
+	 * This method lets the player to have immediate up vision.
+	 */
+	public void playerImmediateUpLook() {
+
+		try {
+
+			if (map[player.getRow() - 1][player.getColumn()].getFront().equals("R")
+					|| map[player.getRow() - 1][player.getColumn()].getFront().equals("B")) {
+
+				map[player.getRow() - 1][player.getColumn()].setFlipped(false);
+
+			} else {
+
+				map[player.getRow() - 1][player.getColumn()].setFlipped(true);
+
+			}
+
+		} catch (ArrayIndexOutOfBoundsException e) {
+
+		}
+
+	}
+
+	/**
+	 * This method lets the player to have immediate bottom vision.
+	 */
+	public void playerImmediateDownLook() {
+
+		try {
+
+			if (map[player.getRow() + 1][player.getColumn()].getFront().equals("R")
+					|| map[player.getRow() + 1][player.getColumn()].getFront().equals("B")) {
+
+				map[player.getRow() + 1][player.getColumn()].setFlipped(false);
+
+			} else {
+
+				map[player.getRow() + 1][player.getColumn()].setFlipped(true);
+
+			}
+
+		} catch (ArrayIndexOutOfBoundsException e) {
+
+		}
+
+	}
+
+	/**
+	 * This method represents the player's immediate look. The player can see
+	 * left, right, up, and down sides, but only one tile in each direction.
+	 */
+	public void playerImmediateLook() {
+
+		playerImmediateLeftLook();
+		playerImmediateDownLook();
+		playerImmediateRightLook();
+		playerImmediateUpLook();
+	}
+
+	/**
 	 * This method represents the player's look. It lets the player to see two
 	 * tiles ahead of him in the direction the user chooses to look. But the
 	 * player cannot look through the rooms.
@@ -1729,7 +1844,8 @@ public class Map implements Serializable {
 			case 1:
 
 				if (map[player.getRow()][player.getColumn() - i].getFront().equals("R")) {
-
+					
+					map[player.getRow()][player.getColumn() - i].setFlipped(false);
 					break;
 
 				} else {
@@ -1754,6 +1870,7 @@ public class Map implements Serializable {
 
 				if (map[player.getRow()][player.getColumn() + i].getFront().equals("R")) {
 
+					map[player.getRow()][player.getColumn() + i].setFlipped(false);
 					break;
 
 				} else {
@@ -1777,6 +1894,7 @@ public class Map implements Serializable {
 
 				if (map[player.getRow() - i][player.getColumn()].getFront().equals("R")) {
 
+					map[player.getRow() - i][player.getColumn()].setFlipped(false);
 					break;
 
 				} else {
@@ -1801,6 +1919,7 @@ public class Map implements Serializable {
 
 				if (map[player.getRow() + i][player.getColumn()].getFront().equals("R")) {
 
+					map[player.getRow() + i][player.getColumn()].setFlipped(false);
 					break;
 
 				} else {

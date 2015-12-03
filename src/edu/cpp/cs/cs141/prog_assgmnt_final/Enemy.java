@@ -34,6 +34,11 @@ import java.io.Serializable;
 public class Enemy extends GameEntity implements Serializable {
 	
 	/**
+	 * This is serialVersionUID for Enemy.
+	 */
+	private static final long serialVersionUID = 2197613986222995163L;
+
+	/**
 	 * A super constructor for the class. It allows to set initial values for
 	 * front, back, row, column.
 	 */
