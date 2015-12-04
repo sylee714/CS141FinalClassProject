@@ -192,9 +192,7 @@ public class Map implements Serializable {
 
 	/**
 	 * This method sets the value of roomIndicator, either true or false.
-	 * 
-	 * @param the
-	 *            value of roomIndicator, either true or false
+	 * @param roomIndicator, either true or false
 	 */
 	public void setRoomIndicator(boolean roomIndicator) {
 
@@ -425,7 +423,7 @@ public class Map implements Serializable {
 	 * 
 	 * @param playerLeft
 	 *            if the player is on the left side tiles
-	 * @param playerRightif
+	 * @param playerRight
 	 *            the player is on the right side tiles
 	 * @param playerUp
 	 *            if the player is on the top side tiles
@@ -456,7 +454,7 @@ public class Map implements Serializable {
 	 * 
 	 * @param playerLeft
 	 *            if the player is on the left side tiles
-	 * @param playerRightif
+	 * @param playerRight
 	 *            the player is on the right side tiles
 	 * @param playerUp
 	 *            if the player is on the top side tiles
@@ -641,9 +639,7 @@ public class Map implements Serializable {
 
 	/**
 	 * This method sets the value of foundPlayer, either true or false.
-	 * 
-	 * @param the
-	 *            value of foundPlayer, either true or false
+	 * @param foundPlayer, either true or false
 	 */
 	public void setFoundPlayer(boolean foundPlayer) {
 		this.foundPlayer = foundPlayer;
@@ -1052,8 +1048,7 @@ public class Map implements Serializable {
 	 * This method allows the player to search the rooms. If the room has the
 	 * briefcase, it will give briefCaseIndicator as true; otherwise, false.
 	 * 
-	 * @param the
-	 *            value of northSideOfRoom, either true or false
+	 * @param northSideOfRoom, either true or false
 	 * @return the value of northSideOfRoom, either true or false
 	 */
 	public boolean searchRoom(boolean northSideOfRoom) {
@@ -1117,8 +1112,7 @@ public class Map implements Serializable {
 	 * disabling eneny's attack method, returning ableEnemyAttack as true.
 	 * Otherwise, false.
 	 * 
-	 * @param remaining
-	 *            number of invincibleTurns
+	 * @param invincibleTurns, remaining turns
 	 * @return the value of ableEnemyAttack, either true or false
 	 */
 	public boolean useInvincible(int invincibleTurns) {
@@ -1157,8 +1151,7 @@ public class Map implements Serializable {
 	 * If the player has no bullet, then he or she gets one bullet; otherwise,
 	 * no effect.
 	 * 
-	 * @param value
-	 *            of bulletIndicator, either true or false
+	 * @param bulletIndicator, either true or false
 	 */
 	public void pickUpBullet(boolean bulletIndicator) {
 
@@ -1722,8 +1715,7 @@ public class Map implements Serializable {
 	 * an argument and if enemies find the player, then it creates new
 	 * EmptySpace where the player was located.
 	 * 
-	 * @param the
-	 *            value of foundPlayer, either true or false
+	 * @param foundPlayer, either true or false
 	 */
 	public void enemyAttack(boolean foundPlayer) {
 
@@ -1736,8 +1728,10 @@ public class Map implements Serializable {
 
 	}
 
+	
 	/**
 	 * This method damages the player when the enemies find the player.
+	 * @param foundPlayer the value of foundPlayer, either true of false
 	 */
 	public void playerGotDamaged(boolean foundPlayer) {
 
@@ -1770,11 +1764,13 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * This method generates 6 enemies. Each enemy's position is generated
+	 * * This method generates 6 enemies. Each enemy's position is generated
 	 * randomly and the 'if statement' filters positions where enemies cannot be
 	 * located. When invalid position is generated and skips an element in the
 	 * holdEnemy array, --i in 'else' will make the value of i go back to its
 	 * previous value.
+	 * 
+	 * @param foundPlayer the value of foundPlayer, either true or false
 	 */
 	public void relocateEnemy(boolean foundPlayer) {
 

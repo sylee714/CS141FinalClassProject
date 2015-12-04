@@ -162,7 +162,7 @@ public class UI {
 			System.out.println("Begin your turn!\n");
 			System.out.println(game.printBoard());
 
-			System.out.println("This is your " + game.getTurn() + "th turn(s).");
+			System.out.println("This is your turn number: " + game.getTurn() + "\n");
 			System.out.println("You have " + game.playerLife() + " live(s).");
 			System.out.println("You have " + game.numberOfBullet() + " bullet.");
 			System.out.println("There are " + game.remainingEnemy() + " enemies.\n");
