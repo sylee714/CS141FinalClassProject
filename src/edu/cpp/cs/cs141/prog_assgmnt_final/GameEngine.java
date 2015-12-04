@@ -296,6 +296,7 @@ public class GameEngine {
 	public boolean isRoomIndicator() {
 
 		return map.isRoomIndicator();
+		
 	}
 
 	/**
@@ -310,18 +311,22 @@ public class GameEngine {
 		switch (direction) {
 
 		case 1:
+			
 			map.leftVisibilityOfPlayer();
 			break;
 
 		case 2:
+			
 			map.rightVisibilityOfPlayer();
 			break;
 
 		case 3:
+			
 			map.upVisibilityOfPlayer();
 			break;
 
 		case 4:
+			
 			map.downVisibilityOfPlayer();
 			break;
 
@@ -454,30 +459,48 @@ public class GameEngine {
 
 		// left
 		case 1:
+			
 			if (map.checkBullet()) {
+				
 				map.shootLeft();
 				map.useBullet();
+				
 			}
+			
 			break;
+			
 		// right
 		case 2:
+			
 			if (map.checkBullet()) {
+				
 				map.shootRight();
 				map.useBullet();
+				
 			}
+			
 			break;
+			
 		// up
 		case 3:
+			
 			if (map.checkBullet()) {
+				
 				map.shootUp();
 				map.useBullet();
+				
 			}
+			
 			break;
+			
 		// down
 		case 4:
+			
 			if (map.checkBullet()) {
+				
 				map.shootDown();
 				map.useBullet();
+				
 			}
 
 			break;
@@ -490,16 +513,27 @@ public class GameEngine {
 	public void chooseHardMode(int option) {
 
 		switch (option) {
+		
 		case 1:
+			
 			map.setHardMode(true);
 			break;
+			
 		case 2:
+			
 			map.setHardMode(false);
 			break;
 
 		}
+		
 	}
 
+	public boolean isHardMode() {
+		
+		return map.isHardMode();
+		
+	}
+	
 	public void hardMode() {
 
 		map.hardMode();
@@ -597,9 +631,13 @@ public class GameEngine {
 	 * @return the value of endGame, either true or false
 	 */
 	public boolean endGame() {
-		if (map.playerLife() == 0 || map.isBriefCaseIndicator() == true) {
+		
+		if (map.playerLife() <= 0 || map.isBriefCaseIndicator() == true) {
+			
 			endGame = true;
+			
 		}
+		
 		return endGame;
 
 	}

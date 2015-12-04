@@ -162,7 +162,7 @@ public class Map implements Serializable {
 
 	/**
 	 * This field depends on the invincibility power-up. When the player
-	 * consumes the inivincibility power-up, this field's value becomes false in
+	 * consumes the invincibility power-up, this field's value becomes false in
 	 * order to disable enemyAttack method. Otherwise, it stays as true.
 	 */
 	private boolean ableEnemyAttack = true;
@@ -174,24 +174,10 @@ public class Map implements Serializable {
 	private boolean northSideOfRoom = false;
 
 	/**
-	 * This field represents whether or not the game is in normal mode.
-	 */
-	private boolean normalMode = false;
-
-	/**
-	 * This field represents whether or not the game is in hard mode.
+	 * This field represents whether or not the game is in hard mode. True means
+	 * hard mode and false mean normal mode.
 	 */
 	private boolean hardMode = false;
-
-	private boolean playerUp = false;
-
-	private boolean playerDown = false;
-
-	private boolean playerRight = false;
-
-	private boolean playerLeft = false;
-
-	private boolean hardModePlayerNotFound = true;
 
 	/**
 	 * This method returns the value of roomIndicator, either true or false.
@@ -199,7 +185,9 @@ public class Map implements Serializable {
 	 * @return the value of roomIndicator, either true or false
 	 */
 	public boolean isRoomIndicator() {
+
 		return roomIndicator;
+
 	}
 
 	/**
@@ -209,63 +197,39 @@ public class Map implements Serializable {
 	 *            value of roomIndicator, either true or false
 	 */
 	public void setRoomIndicator(boolean roomIndicator) {
+
 		this.roomIndicator = roomIndicator;
+
 	}
 
 	/**
-	 * @return the normalMode
-	 */
-	public boolean isNormalMode() {
-		return normalMode;
-	}
-
-	/**
-	 * @param normalMode
-	 *            the normalMode to set
-	 */
-	public void setNormalMode(boolean normalMode) {
-		this.normalMode = normalMode;
-	}
-
-	/**
-	 * @return the hardMode
+	 * This method returns the value of hardMode, either true or false.
+	 * 
+	 * @return the value of hardMode, either true or false
 	 */
 	public boolean isHardMode() {
 		return hardMode;
 	}
 
 	/**
+	 * This method sets the value of hardMode, either true or false.
+	 * 
 	 * @param hardMode
-	 *            the hardMode to set
+	 *            set the value of hardMode, either true or false
 	 */
 	public void setHardMode(boolean hardMode) {
+
 		this.hardMode = hardMode;
-	}
-
-	public boolean isPlayerLeft(GameEntity enemy) {
-
-		return enemy.isPlayerLeft();
 
 	}
 
-	public boolean isPlayerRight(GameEntity enemy) {
-
-		return enemy.isPlayerRight();
-
-	}
-
-	public boolean isPlayerUp(GameEntity enemy) {
-
-		return enemy.isPlayerUp();
-
-	}
-
-	public boolean isPlayerDownn(GameEntity enemy) {
-
-		return enemy.isPlayerDown();
-
-	}
-
+	/**
+	 * This method represents enemy's smart visibility, which they check left
+	 * tiles to check if there is a player.
+	 * 
+	 * @param enemy
+	 *            each element in holdEnemy
+	 */
 	public void enemyVisibilityLeft(GameEntity enemy) {
 
 		for (int i = 1; i < enemy.getColumn() + 1; ++i) {
@@ -308,6 +272,13 @@ public class Map implements Serializable {
 
 	}
 
+	/**
+	 * This method represents enemy's smart visibility, which they check right
+	 * tiles to check if there is a player.
+	 * 
+	 * @param enemy
+	 *            each element in holdEnemy
+	 */
 	public void enemyVisibilityRight(GameEntity enemy) {
 
 		int turn = map.length - enemy.getColumn();
@@ -352,6 +323,13 @@ public class Map implements Serializable {
 
 	}
 
+	/**
+	 * This method represents enemy's smart visibility, which they check top
+	 * tiles to check if there is a player.
+	 * 
+	 * @param enemy
+	 *            each element in holdEnemy
+	 */
 	public void enemyVisibilityUp(GameEntity enemy) {
 
 		for (int i = 1; i < enemy.getRow() + 1; ++i) {
@@ -390,6 +368,13 @@ public class Map implements Serializable {
 
 	}
 
+	/**
+	 * This method represents enemy's smart visibility, which they check bottom
+	 * tiles to check if there is a player.
+	 * 
+	 * @param enemy
+	 *            each element in holdEnemy
+	 */
 	public void enemyVisibilityDown(GameEntity enemy) {
 
 		int turn = map.length - enemy.getRow();
@@ -432,6 +417,23 @@ public class Map implements Serializable {
 
 	}
 
+	/**
+	 * This method decides where the enemies should move unto. If any of them
+	 * finds the player in any direction, then they will move to the
+	 * corresponding direction to follow the player. If they do not find the
+	 * player, then they will move randomly.
+	 * 
+	 * @param playerLeft
+	 *            if the player is on the left side tiles
+	 * @param playerRightif
+	 *            the player is on the right side tiles
+	 * @param playerUp
+	 *            if the player is on the top side tiles
+	 * @param playerDown
+	 *            if the player is on the bottom side tiles
+	 * @param enemy
+	 *            each element in holdEnemy
+	 */
 	public void checkVisibilityHardMode(boolean playerLeft, boolean playerRight, boolean playerUp, boolean playerDown,
 			GameEntity enemy) {
 
@@ -447,6 +449,26 @@ public class Map implements Serializable {
 
 	}
 
+	/**
+	 * This method allows the enemies to move in hard mode. They follow the
+	 * player once they locate the player; otherwise, they move randomly until
+	 * they find the player.
+	 * 
+	 * @param playerLeft
+	 *            if the player is on the left side tiles
+	 * @param playerRightif
+	 *            the player is on the right side tiles
+	 * @param playerUp
+	 *            if the player is on the top side tiles
+	 * @param playerDown
+	 *            if the player is on the bottom side tiles
+	 * @param hardModePlayerNotFound
+	 *            if they did not find the player
+	 * @param enemy
+	 *            each element in holdEnemy
+	 * @param i
+	 *            integer value for a 'for-loop'
+	 */
 	public void enemyHardModeMove(boolean playerLeft, boolean playerRight, boolean playerUp, boolean playerDown,
 			boolean hardModePlayerNotFound, GameEntity enemy, int i) {
 
@@ -493,37 +515,13 @@ public class Map implements Serializable {
 
 	}
 
-	/*
-	 * public void moveEnemy() {
+	/**
+	 * This method lets the enemies to move in a smart way.
 	 * 
-	 * int tempRow = 0; int tempColumn = 0; GameEntity tempSpace;
-	 * 
-	 * for (int i = 0; i < holdEnemy.length; ++i) {
-	 * 
-	 * if (holdEnemy[i].getFront().equals("1") ||
-	 * holdEnemy[i].getFront().equals("2") ||
-	 * holdEnemy[i].getFront().equals("3") ||
-	 * holdEnemy[i].getFront().equals("4") ||
-	 * holdEnemy[i].getFront().equals("5") ||
-	 * holdEnemy[i].getFront().equals("6")) {
-	 * 
-	 * tempRow = holdEnemy[i].getRow(); tempColumn = holdEnemy[i].getColumn();
-	 * 
-	 * holdEnemy[i].move(checkValidPosition(i));
-	 * 
-	 * tempSpace = map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()];
-	 * holdEnemy[i].setRow(holdEnemy[i].getRow());
-	 * holdEnemy[i].setColumn(holdEnemy[i].getColumn());
-	 * 
-	 * map[tempRow][tempColumn] = tempSpace;
-	 * 
-	 * map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] = holdEnemy[i];
-	 * 
-	 * }
-	 * 
-	 * }
-	 * 
-	 * }
+	 * @param enemy
+	 *            each element in holdEnemy
+	 * @param direction
+	 *            direction where they want to move
 	 */
 	public void smartMove(GameEntity enemy, int direction) {
 
@@ -536,64 +534,26 @@ public class Map implements Serializable {
 
 		enemy.move(direction);
 
-		/*
-		 * if (map[tempRow][tempColumn].getFront().equals("P")) {
-		 * 
-		 * foundPlayer = true; enemyAttack(foundPlayer);
-		 * playerGotDamaged(foundPlayer); relocateEnemy(foundPlayer);
-		 * 
-		 * tempSpace = map[enemy.getRow()][enemy.getColumn()];
-		 * 
-		 * enemy.setRow(enemy.getRow()); enemy.setColumn(enemy.getColumn());
-		 * 
-		 * map[tempRow][tempColumn] = tempSpace;
-		 * map[enemy.getRow()][enemy.getColumn()] = enemy;
-		 * 
-		 * } else
-		 */if (enemy.getFront().equals("1") || enemy.getFront().equals("2") || enemy.getFront().equals("3")
+		if (enemy.getFront().equals("1") || enemy.getFront().equals("2") || enemy.getFront().equals("3")
 				|| enemy.getFront().equals("4") || enemy.getFront().equals("5") || enemy.getFront().equals("6")) {
 
-			if (map[enemy.getRow()][enemy.getColumn()].getFront().equals("P")) {
+			tempSpace = map[enemy.getRow()][enemy.getColumn()];
 
-				enemy.setRow(enemy.getRow());
-				enemy.setColumn(enemy.getColumn());
-				map[tempRow][tempColumn] = new EmptySpace();
-				map[enemy.getRow()][enemy.getColumn()] = enemy;
-				foundPlayer = true;
-				enemyAttack(foundPlayer);
-				playerGotDamaged(foundPlayer);
+			enemy.setRow(enemy.getRow());
+			enemy.setColumn(enemy.getColumn());
 
-			} else {
-
-				tempSpace = map[enemy.getRow()][enemy.getColumn()];
-
-				enemy.setRow(enemy.getRow());
-				enemy.setColumn(enemy.getColumn());
-
-				map[tempRow][tempColumn] = tempSpace;
-				map[enemy.getRow()][enemy.getColumn()] = enemy;
-
-			}
+			map[tempRow][tempColumn] = tempSpace;
+			map[enemy.getRow()][enemy.getColumn()] = enemy;
 
 		}
 
-		/*
-		 * } else {
-		 * 
-		 * //enemy.move(direction);
-		 * 
-		 * tempSpace = map[enemy.getRow()][enemy.getColumn()];
-		 * 
-		 * enemy.setRow(enemy.getRow()); enemy.setColumn(enemy.getColumn());
-		 * 
-		 * map[tempRow][tempColumn] = tempSpace;
-		 * map[enemy.getRow()][enemy.getColumn()] = enemy;
-		 * 
-		 * }
-		 */
-
 	}
 
+	/**
+	 * This method represent hard mode. Now the enemies do not move randomly
+	 * unless they do not find the player, but once they find the player they
+	 * will follow the player.
+	 */
 	public void hardMode() {
 
 		for (int i = 0; i < holdEnemy.length; ++i) {
@@ -832,51 +792,70 @@ public class Map implements Serializable {
 		int randomNumber = r.nextInt(9) + 1;
 
 		switch (randomNumber) {
+
 		case 1:
+
 			map[1][1] = briefCase;
 			briefCase.setRow(1);
 			briefCase.setColumn(1);
 			break;
+
 		case 2:
+
 			map[1][4] = briefCase;
 			briefCase.setRow(1);
 			briefCase.setColumn(4);
 			break;
+
 		case 3:
+
 			map[1][7] = briefCase;
 			briefCase.setRow(1);
 			briefCase.setColumn(7);
 			break;
+
 		case 4:
+
 			map[4][1] = briefCase;
 			briefCase.setRow(4);
 			briefCase.setColumn(1);
 			break;
+
 		case 5:
+
 			map[4][4] = briefCase;
 			briefCase.setRow(4);
 			briefCase.setColumn(4);
 			break;
+
 		case 6:
+
 			map[4][7] = briefCase;
 			briefCase.setRow(4);
 			briefCase.setColumn(7);
 			break;
+
 		case 7:
+
 			map[7][1] = briefCase;
 			briefCase.setRow(7);
 			briefCase.setColumn(1);
 			break;
+
 		case 8:
+
 			map[7][4] = briefCase;
 			briefCase.setRow(7);
 			briefCase.setColumn(4);
 			break;
+
 		case 9:
+
 			map[7][7] = new BriefCase();
 			briefCase.setRow(7);
 			briefCase.setColumn(7);
 			break;
+
 		}
 
 	}
@@ -924,6 +903,7 @@ public class Map implements Serializable {
 
 				--i;
 			}
+
 		}
 
 	}
@@ -970,29 +950,53 @@ public class Map implements Serializable {
 	 * @return the value of checkPosition, either true or false
 	 */
 	public boolean checkPositionOfPlayer(int row, int column) {
+
 		boolean checkPosition = false;
+
 		if (player.getRow() == 0 && player.getColumn() == 1) {
+
 			checkPosition = true;
+
 		} else if (player.getRow() == 0 && player.getColumn() == 4) {
+
 			checkPosition = true;
+
 		} else if (player.getRow() == 0 && player.getColumn() == 7) {
+
 			checkPosition = true;
+
 		} else if (player.getRow() == 3 && player.getColumn() == 1) {
+
 			checkPosition = true;
+
 		} else if (player.getRow() == 3 && player.getColumn() == 4) {
+
 			checkPosition = true;
+
 		} else if (player.getRow() == 3 && player.getColumn() == 7) {
+
 			checkPosition = true;
+
 		} else if (player.getRow() == 6 && player.getColumn() == 1) {
+
 			checkPosition = true;
+
 		} else if (player.getRow() == 6 && player.getColumn() == 4) {
+
 			checkPosition = true;
+
 		} else if (player.getRow() == 6 && player.getColumn() == 7) {
+
 			checkPosition = true;
+
 		} else {
+
 			checkPosition = false;
+
 		}
+
 		return checkPosition;
+
 	}
 
 	/**
@@ -1429,12 +1433,6 @@ public class Map implements Serializable {
 
 		for (int i = 0; i < holdEnemy.length; i++) {
 
-			if (holdEnemy[i].getFront().equals(" ")) {
-
-				foundPlayer = false;
-
-			}
-
 			try {
 
 				if (map[holdEnemy[i].getRow()][holdEnemy[i].getColumn() - 1].getFront().equals("P")) {
@@ -1499,12 +1497,6 @@ public class Map implements Serializable {
 
 		for (int i = 0; i < holdEnemy.length; i++) {
 
-			if (holdEnemy[i].getFront().equals(" ")) {
-
-				foundPlayer = false;
-
-			}
-
 			try {
 
 				if (map[holdEnemy[i].getRow()][holdEnemy[i].getColumn() + 1].getFront().equals("P")) {
@@ -1567,12 +1559,6 @@ public class Map implements Serializable {
 	public boolean visibilityOfEnemyUp() {
 
 		for (int i = 0; i < holdEnemy.length; i++) {
-
-			if (holdEnemy[i].getFront().equals(" ")) {
-
-				foundPlayer = false;
-
-			}
 
 			try {
 
@@ -1638,12 +1624,6 @@ public class Map implements Serializable {
 
 		for (int i = 0; i < holdEnemy.length; i++) {
 
-			if (holdEnemy[i].getFront().equals(" ")) {
-
-				foundPlayer = false;
-
-			}
-
 			try {
 
 				if (map[holdEnemy[i].getRow() + 1][holdEnemy[i].getColumn()].getFront().equals("P")) {
@@ -1698,6 +1678,28 @@ public class Map implements Serializable {
 	}
 
 	/**
+	 * This method filters if there is an EmptySpace in holdEnemy, then that
+	 * EmptySpace cannot act like an enemy.
+	 * 
+	 * @return foundPlayer, either true or false
+	 */
+	public boolean filterEmptySpace() {
+
+		for (int i = 0; i < holdEnemy.length; ++i) {
+
+			if (holdEnemy[i].getFront().equals(" ")) {
+
+				foundPlayer = false;
+
+			}
+
+		}
+
+		return foundPlayer;
+
+	}
+
+	/**
 	 * This method combines all the visibilities of enemies. It throws an
 	 * 'ArrayIndexOutOfBoundsException' in order to handle unexpected
 	 * exceptions.
@@ -1711,6 +1713,7 @@ public class Map implements Serializable {
 		visibilityOfEnemyRight();
 		visibilityOfEnemyUp();
 		visibilityOfEnemyDown();
+		filterEmptySpace();
 
 	}
 
@@ -2191,15 +2194,9 @@ public class Map implements Serializable {
 
 					check = true;
 
-				} else if (map[checkRow][checkColumn].getFront().equals("P")) {
+				}
 
-					foundPlayer = true;
-					enemyAttack(foundPlayer);
-					playerGotDamaged(foundPlayer);
-					// relocateEnemy(foundPlayer);
-					check = true;
-
-				} else {
+				else {
 
 					check = false;
 

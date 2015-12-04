@@ -117,14 +117,14 @@ public class UI {
 		System.out.println("\n===========================================================================");
 		System.out.println("\nNotes: ");
 		System.out.println("	You start with 3 live. The game will end either if you lose all of your\n"
-				+ "life points or you find the briefcase. ");
+				+ "				life points or you find the briefcase. ");
 		System.out.println("	'R' - rooms, only one of them has the briefcase ");
 		System.out.println("	'B' - briefcase, the object of the game ");
 		System.out.println("	'A' - additional bullet, no effect if you already have 1 bullet ");
 		System.out.println("	'+' - radar, gives you the location of the briefcase ");
 		System.out.println("	'I' - invincibility, you become invincible for 5 turns ");
 		System.out.println("	'1-6' - enemies, they will stab you when you are at an adjacent square\n "
-				+ "and you will lose a life point ");
+				+ "				and you will lose a life point ");
 		System.out.println("\n===========================================================================");
 
 	}
@@ -168,7 +168,7 @@ public class UI {
 			System.out.println("There are " + game.remainingEnemy() + " enemies.\n");
 
 			System.out.println("What would you like to do next?\n");
-			System.out.println("1)Move \n2)Look \n3)Shoot \n4)Save \n5)Main Menu \n6)Debug Mode");
+			System.out.println("1)Move \n2)Look \n3)Shoot \n4)Save \n5)Main Menu \n6)Debug Mode \n7)Change Difficulty");
 
 			int choice = keyboard.nextInt();
 			keyboard.nextLine();
@@ -182,20 +182,23 @@ public class UI {
 				if (game.northSideOfRoom()) {
 					checkRoom();
 				}
-
 				break;
 
 			// Look
 			case 2:
-				playerLook();
 
+				playerLook();
 				break;
 
 			// Shoot
 			case 3:
-				if (game.numberOfBullet() == 1)
+
+				if (game.numberOfBullet() == 1) {
+
 					playerShoot();
-				else {
+
+				} else {
+
 					System.out.println("You are out of ammo.");
 				}
 
@@ -212,18 +215,25 @@ public class UI {
 			case 5:
 
 				menu();
-
 				break;
 
 			// Debug
 			case 6:
+
 				toggleBoard();
 				break;
 
-			default:
-				System.out.println("That isn't a valid input try again please.");
+			// Hard mode or Normal mode
+			case 7:
 
+				changeDifficulty();
 				break;
+
+			default:
+
+				System.out.println("That isn't a valid input try again please.");
+				break;
+
 			}
 
 			if (game.invincible()) {
@@ -233,7 +243,16 @@ public class UI {
 
 			}
 
-			endTurn();
+			if (game.isHardMode()) {
+
+				hardEndTurn();
+
+			} else {
+
+				normalEndTurn();
+
+			}
+
 		}
 
 	}
@@ -242,9 +261,9 @@ public class UI {
 	 * Runs all the methods that should take effect once the player's turn is
 	 * over.
 	 */
-	public void endTurn() {
+	public void normalEndTurn() {
 
-		// game.hardMode();
+		game.enemyTurn();
 		game.moveEnemy();
 		game.enemyTurn();
 
@@ -252,11 +271,37 @@ public class UI {
 
 		useRadar();
 
-		if (game.isFoundPlayer())
+		if (game.isFoundPlayer()) {
 
 			System.out.println("You died. You have " + game.playerLife() + " live(s).\n");
 
-		game.lifeReset();
+			game.lifeReset();
+
+		}
+
+	}
+
+	/**
+	 * This method runs hard mode methods.
+	 */
+	public void hardEndTurn() {
+
+		game.enemyTurn();
+		game.hardMode();
+		game.enemyTurn();
+
+		game.setNotFlipped();
+
+		useRadar();
+
+		if (game.isFoundPlayer()) {
+
+			System.out.println("You died. You have " + game.playerLife() + " live(s).\n");
+
+			game.lifeReset();
+
+		}
+
 	}
 
 	/**
@@ -479,7 +524,6 @@ public class UI {
 
 		}
 
-		// game.playerDetect();
 		System.out.println(game.printBoard());
 
 		System.out.println("What would you like to do next?\n");
@@ -495,7 +539,9 @@ public class UI {
 		case 1:
 
 			playerMove();
+
 			if (game.northSideOfRoom()) {
+
 				checkRoom();
 			}
 			break;
@@ -503,10 +549,14 @@ public class UI {
 		// Shoot
 		case 2:
 
-			if (game.numberOfBullet() == 1)
+			if (game.numberOfBullet() == 1) {
+
 				playerShoot();
-			else {
+
+			} else {
+
 				System.out.println("You are out of ammo.\n");
+
 			}
 			break;
 
@@ -529,6 +579,12 @@ public class UI {
 			toggleBoard();
 			break;
 
+		// Hard mode or Normal mode
+		case 6:
+
+			changeDifficulty();
+			break;
+
 		default:
 
 			System.out.println("That isn't a valid input. Please, try it again.\n");
@@ -549,37 +605,52 @@ public class UI {
 		boolean temp = false;
 
 		do {
+
 			int direction = keyboard.nextInt();
 			keyboard.nextLine();
+
 			switch (direction) {
+
 			// Left
 			case 1:
+
 				temp = game.playerMove(1);
 				temp = true;
 				break;
+
 			// Right
 			case 2:
+
 				temp = game.playerMove(2);
 				temp = true;
 				break;
+
 			// Up
 			case 3:
+
 				temp = game.playerMove(3);
 				temp = true;
 				break;
+
 			// Down
 			case 4:
+
 				temp = game.playerMove(4);
 				temp = true;
 				break;
+
 			}
 
 			if (temp == true)
+
 				temp = true;
+
 			else {
+
 				temp = false;
 				System.out.println("Invalid Input. Please enter a new direction: \n");
 				System.out.println(game.printBoard());
+
 			}
 
 		} while (!temp);
@@ -630,6 +701,8 @@ public class UI {
 				System.out.println("It took you " + game.getTurn() + " turns to complete the game!");
 				System.out.println("You have " + game.playerLife() + " lives left!");
 
+				quit = true;
+
 			} else {
 
 				System.out.println("Failed... Brief case is not found. Search the other rooms.\n");
@@ -648,9 +721,102 @@ public class UI {
 
 	}
 
+	/**
+	 * This method lets the user to change the difficulty of the game. It can be
+	 * hard mode or normal mode.
+	 */
 	public void changeDifficulty() {
 
-		System.out.println("1)Hard Mode \n2)Normal Mode");
+		System.out.println("\n1)Hard Mode \n2)Normal Mode\n");
+
+		int option = keyboard.nextInt();
+		keyboard.nextLine();
+
+		switch (option) {
+
+		case 1:
+
+			game.chooseHardMode(1);
+			break;
+
+		case 2:
+
+			game.chooseHardMode(2);
+			break;
+
+		}
+
+		System.out.println(game.printBoard());
+
+		System.out.println("What would you like to do next?\n");
+
+		System.out.println("1)Move \n2)Look \n3)Shoot \n4)Save \n5)Main Menu \n6)Debug Mode \n7)Change Difficulty");
+
+		int choice = keyboard.nextInt();
+		keyboard.nextLine();
+
+		switch (choice) {
+
+		// Move
+		case 1:
+
+			playerMove();
+			if (game.northSideOfRoom()) {
+				checkRoom();
+			}
+			break;
+
+		// Look
+		case 2:
+
+			playerLook();
+			break;
+
+		// Shoot
+		case 3:
+
+			if (game.numberOfBullet() == 1) {
+
+				playerShoot();
+
+			} else {
+
+				System.out.println("You are out of ammo.");
+			}
+
+			break;
+
+		// Save
+		case 4:
+			game.save();
+			System.out.println("Save was successful.");
+
+			break;
+
+		// Main Menu
+		case 5:
+
+			menu();
+			break;
+
+		// Debug
+		case 6:
+
+			toggleBoard();
+			break;
+
+		// Hard mode or Normal mode
+		case 7:
+
+			changeDifficulty();
+			break;
+
+		default:
+
+			System.out.println("That isn't a valid input try again please.");
+			break;
+
+		}
 
 	}
 
