@@ -288,6 +288,17 @@ public class GameEngine {
 	}
 
 	/**
+	 * This method returns the value of roomIndicator, either true or false, to
+	 * check if the player is trying to look through the rooms.
+	 * 
+	 * @return the value of roomIndicator, either true or false
+	 */
+	public boolean isRoomIndicator() {
+
+		return map.isRoomIndicator();
+	}
+
+	/**
 	 * This method represents the player's look method. The player can look in
 	 * left, right, up, or down direction.
 	 * 
@@ -299,19 +310,19 @@ public class GameEngine {
 		switch (direction) {
 
 		case 1:
-			map.visibilityOfPlayer(1);
+			map.leftVisibilityOfPlayer();
 			break;
 
 		case 2:
-			map.visibilityOfPlayer(2);
+			map.rightVisibilityOfPlayer();
 			break;
 
 		case 3:
-			map.visibilityOfPlayer(3);
+			map.upVisibilityOfPlayer();
 			break;
 
 		case 4:
-			map.visibilityOfPlayer(4);
+			map.downVisibilityOfPlayer();
 			break;
 
 		}
@@ -489,12 +500,6 @@ public class GameEngine {
 		}
 	}
 
-	// public boolean hardMode() {
-
-	// return map.isHardMode();
-
-	// }
-
 	public void hardMode() {
 
 		map.hardMode();
@@ -534,8 +539,6 @@ public class GameEngine {
 	 * initial point.
 	 */
 	public void enemyTurn() {
-
-		// hardMode();
 
 		if (map.isAbleEnemyAttack()) {
 

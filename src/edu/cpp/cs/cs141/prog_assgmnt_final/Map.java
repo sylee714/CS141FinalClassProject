@@ -25,8 +25,6 @@ import java.util.Random;
 
 import java.io.Serializable;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 /**
  * This class represents a Map; yet, it has a lot of fields and methods that
  * make the game playable. Thus, this class can be seen as Map/sub-GameEngine
@@ -117,6 +115,12 @@ public class Map implements Serializable {
 	private GameEntity[] holdEnemy = { enemy1, enemy2, enemy3, enemy4, enemy5, enemy6 };
 
 	/**
+	 * This field represents whether or not the player is looking through the
+	 * rooms, in which they cannot.
+	 */
+	private boolean roomIndicator = false;
+
+	/**
 	 * This field represents an GameEntity array which holds all the power-ups.
 	 */
 	private GameEntity[] holdPowerUps = { radar, bullet, invincible };
@@ -190,6 +194,25 @@ public class Map implements Serializable {
 	private boolean hardModePlayerNotFound = true;
 
 	/**
+	 * This method returns the value of roomIndicator, either true or false.
+	 * 
+	 * @return the value of roomIndicator, either true or false
+	 */
+	public boolean isRoomIndicator() {
+		return roomIndicator;
+	}
+
+	/**
+	 * This method sets the value of roomIndicator, either true or false.
+	 * 
+	 * @param the
+	 *            value of roomIndicator, either true or false
+	 */
+	public void setRoomIndicator(boolean roomIndicator) {
+		this.roomIndicator = roomIndicator;
+	}
+
+	/**
 	 * @return the normalMode
 	 */
 	public boolean isNormalMode() {
@@ -245,40 +268,42 @@ public class Map implements Serializable {
 
 	public void enemyVisibilityLeft(GameEntity enemy) {
 
-		for (int i = 0; i < enemy.getColumn() + 1; ++i) {
+		for (int i = 1; i < enemy.getColumn() + 1; ++i) {
 
 			if (enemy.getColumn() < 0 || enemy.getColumn() > 8) {
+
 				enemy.setPlayerLeft(false);
 				break;
+
 			}
 
 			else if (map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("R")
 					|| map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("I")
 					|| map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("+")
 					|| map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("A")
-					|| map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("E")) {
+					|| map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("1")
+					|| map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("2")
+					|| map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("3")
+					|| map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("4")
+					|| map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("5")
+					|| map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("6")) {
 
 				enemy.setPlayerLeft(false);
-
 				break;
 
-			} // else if (map[enemy.getRow()][enemy.getColumn() -
-				// i].getFront().equals(" ")) {
-
-			// enemy.setPlayerLeft(false);
-
-			// break;
-			// }
+			}
 
 			else if (map[enemy.getRow()][enemy.getColumn() - i].getFront().equals("P")) {
 
 				enemy.setPlayerLeft(true);
-
 				break;
 
 			} else {
+
 				enemy.setPlayerLeft(false);
+
 			}
+
 		}
 
 	}
@@ -287,80 +312,78 @@ public class Map implements Serializable {
 
 		int turn = map.length - enemy.getColumn();
 
-		for (int i = 0; i < turn; ++i) {
+		for (int i = 1; i < turn; ++i) {
 
 			if (enemy.getColumn() < 0 || enemy.getColumn() > 8) {
+
 				enemy.setPlayerRight(false);
 				break;
+
 			}
 
 			else if (map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("R")
 					|| map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("I")
 					|| map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("+")
 					|| map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("A")
-					|| map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("E")) {
+					|| map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("1")
+					|| map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("2")
+					|| map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("3")
+					|| map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("4")
+					|| map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("5")
+					|| map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("6")) {
 
 				enemy.setPlayerRight(false);
-
 				break;
 
-			} // else if (map[enemy.getRow()][enemy.getColumn() +
-				// i].getFront().equals(" ")) {
-
-			// enemy.setPlayerRight(false);
-
-			// break;
-
-			// }
+			}
 
 			else if (map[enemy.getRow()][enemy.getColumn() + i].getFront().equals("P")) {
 
 				enemy.setPlayerRight(true);
-
 				break;
 
 			} else {
+
 				enemy.setPlayerRight(false);
+
 			}
+
 		}
 
 	}
 
 	public void enemyVisibilityUp(GameEntity enemy) {
 
-		for (int i = 0; i < enemy.getRow() + 1; ++i) {
+		for (int i = 1; i < enemy.getRow() + 1; ++i) {
 
 			if (enemy.getRow() < 0 || enemy.getRow() > 8) {
+
 				enemy.setPlayerUp(false);
 				break;
-			}
 
-			else if (map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("R")
+			} else if (map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("R")
 					|| map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("I")
 					|| map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("+")
 					|| map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("A")
-					|| map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("E")) {
+					|| map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("1")
+					|| map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("2")
+					|| map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("3")
+					|| map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("4")
+					|| map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("5")
+					|| map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("6")) {
 
 				enemy.setPlayerUp(false);
-
 				break;
 
-			} // else if (map[enemy.getRow() -
-				// i][enemy.getColumn()].getFront().equals(" ")) {
-
-			// enemy.setPlayerUp(false);
-
-			// break;
-			// }
-
-			else if (map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("P")) {
+			} else if (map[enemy.getRow() - i][enemy.getColumn()].getFront().equals("P")) {
 
 				enemy.setPlayerUp(true);
-
 				break;
 
 			} else {
+
 				enemy.setPlayerUp(false);
+
 			}
 
 		}
@@ -371,39 +394,38 @@ public class Map implements Serializable {
 
 		int turn = map.length - enemy.getRow();
 
-		for (int i = 0; i < turn; ++i) {
+		for (int i = 1; i < turn; ++i) {
 
 			if (enemy.getRow() < 0 || enemy.getRow() > 8) {
+
 				enemy.setPlayerDown(false);
 				break;
+
 			}
 
 			else if (map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("R")
 					|| map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("I")
 					|| map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("+")
 					|| map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("A")
-					|| map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("E")) {
+					|| map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("1")
+					|| map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("2")
+					|| map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("3")
+					|| map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("4")
+					|| map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("5")
+					|| map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("6")) {
 
 				enemy.setPlayerDown(false);
-
 				break;
 
-			} // else if (map[enemy.getRow() +
-				// i][enemy.getColumn()].getFront().equals(" ")) {
-
-			// enemy.setPlayerDown(false);
-
-			// break;
-			// }
-
-			else if (map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("P")) {
+			} else if (map[enemy.getRow() + i][enemy.getColumn()].getFront().equals("P")) {
 
 				enemy.setPlayerDown(true);
-
 				break;
 
 			} else {
+
 				enemy.setPlayerDown(false);
+
 			}
 
 		}
@@ -450,23 +472,59 @@ public class Map implements Serializable {
 
 		} else if (hardModePlayerNotFound) {
 
-			tempRow = enemy.getRow();
-			tempColumn = enemy.getColumn();
+			if (enemy.getFront().equals("1") || enemy.getFront().equals("2") || enemy.getFront().equals("3")
+					|| enemy.getFront().equals("4") || enemy.getFront().equals("5") || enemy.getFront().equals("6")) {
 
-			enemy.move(checkValidPosition(i));
+				tempRow = enemy.getRow();
+				tempColumn = enemy.getColumn();
 
-			tempSpace = map[enemy.getRow()][enemy.getColumn()];
-			enemy.setRow(enemy.getRow());
-			enemy.setColumn(enemy.getColumn());
+				enemy.move(checkValidPosition(i));
 
-			map[tempRow][tempColumn] = tempSpace;
+				tempSpace = map[enemy.getRow()][enemy.getColumn()];
+				enemy.setRow(enemy.getRow());
+				enemy.setColumn(enemy.getColumn());
 
-			map[enemy.getRow()][enemy.getColumn()] = enemy;
+				map[tempRow][tempColumn] = tempSpace;
 
+				map[enemy.getRow()][enemy.getColumn()] = enemy;
+
+			}
 		}
 
 	}
 
+	/*
+	 * public void moveEnemy() {
+	 * 
+	 * int tempRow = 0; int tempColumn = 0; GameEntity tempSpace;
+	 * 
+	 * for (int i = 0; i < holdEnemy.length; ++i) {
+	 * 
+	 * if (holdEnemy[i].getFront().equals("1") ||
+	 * holdEnemy[i].getFront().equals("2") ||
+	 * holdEnemy[i].getFront().equals("3") ||
+	 * holdEnemy[i].getFront().equals("4") ||
+	 * holdEnemy[i].getFront().equals("5") ||
+	 * holdEnemy[i].getFront().equals("6")) {
+	 * 
+	 * tempRow = holdEnemy[i].getRow(); tempColumn = holdEnemy[i].getColumn();
+	 * 
+	 * holdEnemy[i].move(checkValidPosition(i));
+	 * 
+	 * tempSpace = map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()];
+	 * holdEnemy[i].setRow(holdEnemy[i].getRow());
+	 * holdEnemy[i].setColumn(holdEnemy[i].getColumn());
+	 * 
+	 * map[tempRow][tempColumn] = tempSpace;
+	 * 
+	 * map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] = holdEnemy[i];
+	 * 
+	 * }
+	 * 
+	 * }
+	 * 
+	 * }
+	 */
 	public void smartMove(GameEntity enemy, int direction) {
 
 		int tempRow;
@@ -478,46 +536,61 @@ public class Map implements Serializable {
 
 		enemy.move(direction);
 
-		if (map[tempRow][tempColumn].getFront().equals("P")) {
+		/*
+		 * if (map[tempRow][tempColumn].getFront().equals("P")) {
+		 * 
+		 * foundPlayer = true; enemyAttack(foundPlayer);
+		 * playerGotDamaged(foundPlayer); relocateEnemy(foundPlayer);
+		 * 
+		 * tempSpace = map[enemy.getRow()][enemy.getColumn()];
+		 * 
+		 * enemy.setRow(enemy.getRow()); enemy.setColumn(enemy.getColumn());
+		 * 
+		 * map[tempRow][tempColumn] = tempSpace;
+		 * map[enemy.getRow()][enemy.getColumn()] = enemy;
+		 * 
+		 * } else
+		 */if (enemy.getFront().equals("1") || enemy.getFront().equals("2") || enemy.getFront().equals("3")
+				|| enemy.getFront().equals("4") || enemy.getFront().equals("5") || enemy.getFront().equals("6")) {
 
-			foundPlayer = true;
-			enemyAttack(foundPlayer);
-			playerGotDamaged(foundPlayer);
-			relocateEnemy(foundPlayer);
+			if (map[enemy.getRow()][enemy.getColumn()].getFront().equals("P")) {
 
-			tempSpace = map[enemy.getRow()][enemy.getColumn()];
+				enemy.setRow(enemy.getRow());
+				enemy.setColumn(enemy.getColumn());
+				map[tempRow][tempColumn] = new EmptySpace();
+				map[enemy.getRow()][enemy.getColumn()] = enemy;
+				foundPlayer = true;
+				enemyAttack(foundPlayer);
+				playerGotDamaged(foundPlayer);
 
-			enemy.setRow(enemy.getRow());
-			enemy.setColumn(enemy.getColumn());
+			} else {
 
-			map[tempRow][tempColumn] = tempSpace;
-			map[enemy.getRow()][enemy.getColumn()] = enemy;
+				tempSpace = map[enemy.getRow()][enemy.getColumn()];
 
-		} else if (map[tempRow][tempColumn].getFront().equals("1") || map[tempRow][tempColumn].getFront().equals("2")
-				|| map[tempRow][tempColumn].getFront().equals("3") || map[tempRow][tempColumn].getFront().equals("4")
-				|| map[tempRow][tempColumn].getFront().equals("5") || map[tempRow][tempColumn].getFront().equals("6")) {
+				enemy.setRow(enemy.getRow());
+				enemy.setColumn(enemy.getColumn());
 
-			tempSpace = map[enemy.getRow()][enemy.getColumn()];
+				map[tempRow][tempColumn] = tempSpace;
+				map[enemy.getRow()][enemy.getColumn()] = enemy;
 
-			enemy.setRow(enemy.getRow());
-			enemy.setColumn(enemy.getColumn());
-
-			map[tempRow][tempColumn] = tempSpace;
-			map[enemy.getRow()][enemy.getColumn()] = enemy;
-
-		} else {
-
-			enemy.move(direction);
-
-			tempSpace = map[enemy.getRow()][enemy.getColumn()];
-
-			enemy.setRow(enemy.getRow());
-			enemy.setColumn(enemy.getColumn());
-
-			map[tempRow][tempColumn] = new EmptySpace();
-			map[enemy.getRow()][enemy.getColumn()] = enemy;
+			}
 
 		}
+
+		/*
+		 * } else {
+		 * 
+		 * //enemy.move(direction);
+		 * 
+		 * tempSpace = map[enemy.getRow()][enemy.getColumn()];
+		 * 
+		 * enemy.setRow(enemy.getRow()); enemy.setColumn(enemy.getColumn());
+		 * 
+		 * map[tempRow][tempColumn] = tempSpace;
+		 * map[enemy.getRow()][enemy.getColumn()] = enemy;
+		 * 
+		 * }
+		 */
 
 	}
 
@@ -1356,6 +1429,12 @@ public class Map implements Serializable {
 
 		for (int i = 0; i < holdEnemy.length; i++) {
 
+			if (holdEnemy[i].getFront().equals(" ")) {
+
+				foundPlayer = false;
+
+			}
+
 			try {
 
 				if (map[holdEnemy[i].getRow()][holdEnemy[i].getColumn() - 1].getFront().equals("P")) {
@@ -1420,6 +1499,12 @@ public class Map implements Serializable {
 
 		for (int i = 0; i < holdEnemy.length; i++) {
 
+			if (holdEnemy[i].getFront().equals(" ")) {
+
+				foundPlayer = false;
+
+			}
+
 			try {
 
 				if (map[holdEnemy[i].getRow()][holdEnemy[i].getColumn() + 1].getFront().equals("P")) {
@@ -1482,6 +1567,12 @@ public class Map implements Serializable {
 	public boolean visibilityOfEnemyUp() {
 
 		for (int i = 0; i < holdEnemy.length; i++) {
+
+			if (holdEnemy[i].getFront().equals(" ")) {
+
+				foundPlayer = false;
+
+			}
 
 			try {
 
@@ -1546,6 +1637,12 @@ public class Map implements Serializable {
 	public boolean visibilityOfEnemyDown() {
 
 		for (int i = 0; i < holdEnemy.length; i++) {
+
+			if (holdEnemy[i].getFront().equals(" ")) {
+
+				foundPlayer = false;
+
+			}
 
 			try {
 
@@ -1827,121 +1924,144 @@ public class Map implements Serializable {
 	}
 
 	/**
-	 * This method represents the player's look. It lets the player to see two
-	 * tiles ahead of him in the direction the user chooses to look. But the
-	 * player cannot look through the rooms.
-	 * 
-	 * @param direction
-	 *            where the user wants to look
+	 * This method lets the player to see two tiles ahead in left direction.
 	 */
-	public void visibilityOfPlayer(int direction) {
+	public void leftVisibilityOfPlayer() {
 
-		for (int i = 1; i < 3; ++i) {
+		for (int i = 0; i < 3; ++i) {
 
-			switch (direction) {
+			if (map[player.getRow()][player.getColumn() - i].getFront().equals("R")
+					|| map[player.getRow()][player.getColumn() - i].getFront().equals("B")) {
 
-			// left
-			case 1:
-
-				if (map[player.getRow()][player.getColumn() - i].getFront().equals("R")) {
-					
-					map[player.getRow()][player.getColumn() - i].setFlipped(false);
-					break;
-
-				} else {
-
-					map[player.getRow()][player.getColumn() - i].setFlipped(true);
-
-					if (map[player.getRow()][player.getColumn() - i].getFront().equals("1")
-							|| map[player.getRow()][player.getColumn() - i].getFront().equals("2")
-							|| map[player.getRow()][player.getColumn() - i].getFront().equals("3")
-							|| map[player.getRow()][player.getColumn() - i].getFront().equals("4")
-							|| map[player.getRow()][player.getColumn() - i].getFront().equals("5")
-							|| map[player.getRow()][player.getColumn() - i].getFront().equals("6"))
-
-						player.setDangerAhead(true);
-
-				}
-
+				roomIndicator = true;
+				map[player.getRow()][player.getColumn() - i].setFlipped(false);
 				break;
 
-			// right
-			case 2:
+			} else {
 
-				if (map[player.getRow()][player.getColumn() + i].getFront().equals("R")) {
+				map[player.getRow()][player.getColumn() - i].setFlipped(true);
 
-					map[player.getRow()][player.getColumn() + i].setFlipped(false);
+				if (map[player.getRow()][player.getColumn() - i].getFront().equals("1")
+						|| map[player.getRow()][player.getColumn() - i].getFront().equals("2")
+						|| map[player.getRow()][player.getColumn() - i].getFront().equals("3")
+						|| map[player.getRow()][player.getColumn() - i].getFront().equals("4")
+						|| map[player.getRow()][player.getColumn() - i].getFront().equals("5")
+						|| map[player.getRow()][player.getColumn() - i].getFront().equals("6")) {
+
+					roomIndicator = false;
+					player.setDangerAhead(true);
 					break;
-
-				} else {
-
-					map[player.getRow()][player.getColumn() + i].setFlipped(true);
-
-					if (map[player.getRow()][player.getColumn() + i].getFront().equals("1")
-							|| map[player.getRow()][player.getColumn() + i].getFront().equals("2")
-							|| map[player.getRow()][player.getColumn() + i].getFront().equals("3")
-							|| map[player.getRow()][player.getColumn() + i].getFront().equals("4")
-							|| map[player.getRow()][player.getColumn() + i].getFront().equals("5")
-							|| map[player.getRow()][player.getColumn() + i].getFront().equals("6"))
-
-						player.setDangerAhead(true);
 				}
-
-				break;
-
-			// up
-			case 3:
-
-				if (map[player.getRow() - i][player.getColumn()].getFront().equals("R")) {
-
-					map[player.getRow() - i][player.getColumn()].setFlipped(false);
-					break;
-
-				} else {
-
-					map[player.getRow() - i][player.getColumn()].setFlipped(true);
-
-					if (map[player.getRow() - i][player.getColumn()].getFront().equals("1")
-							|| map[player.getRow() - i][player.getColumn()].getFront().equals("2")
-							|| map[player.getRow() - i][player.getColumn()].getFront().equals("3")
-							|| map[player.getRow() - i][player.getColumn()].getFront().equals("4")
-							|| map[player.getRow() - i][player.getColumn()].getFront().equals("5")
-							|| map[player.getRow() - i][player.getColumn()].getFront().equals("6"))
-
-						player.setDangerAhead(true);
-
-				}
-
-				break;
-
-			// down
-			case 4:
-
-				if (map[player.getRow() + i][player.getColumn()].getFront().equals("R")) {
-
-					map[player.getRow() + i][player.getColumn()].setFlipped(false);
-					break;
-
-				} else {
-
-					map[player.getRow() + i][player.getColumn()].setFlipped(true);
-
-					if (map[player.getRow() + i][player.getColumn()].getFront().equals("1")
-							|| map[player.getRow() + i][player.getColumn()].getFront().equals("2")
-							|| map[player.getRow() + i][player.getColumn()].getFront().equals("3")
-							|| map[player.getRow() + i][player.getColumn()].getFront().equals("4")
-							|| map[player.getRow() + i][player.getColumn()].getFront().equals("5")
-							|| map[player.getRow() + i][player.getColumn()].getFront().equals("6"))
-
-						player.setDangerAhead(true);
-
-				}
-
-				break;
 
 			}
 
 		}
+
+	}
+
+	/**
+	 * This method lets the player to see two tiles ahead in right direction.
+	 */
+	public void rightVisibilityOfPlayer() {
+
+		for (int i = 1; i < 3; ++i) {
+
+			if (map[player.getRow()][player.getColumn() + i].getFront().equals("R")
+					|| map[player.getRow()][player.getColumn() + i].getFront().equals("B")) {
+
+				map[player.getRow()][player.getColumn() + i].setFlipped(false);
+				roomIndicator = true;
+				break;
+
+			} else {
+
+				map[player.getRow()][player.getColumn() + i].setFlipped(true);
+
+				if (map[player.getRow()][player.getColumn() + i].getFront().equals("1")
+						|| map[player.getRow()][player.getColumn() + i].getFront().equals("2")
+						|| map[player.getRow()][player.getColumn() + i].getFront().equals("3")
+						|| map[player.getRow()][player.getColumn() + i].getFront().equals("4")
+						|| map[player.getRow()][player.getColumn() + i].getFront().equals("5")
+						|| map[player.getRow()][player.getColumn() + i].getFront().equals("6")) {
+					roomIndicator = false;
+					player.setDangerAhead(true);
+					break;
+				}
+
+			}
+
+		}
+
+	}
+
+	/**
+	 * This method lets the player to see two tiles ahead in up direction.
+	 */
+	public void upVisibilityOfPlayer() {
+
+		for (int i = 0; i < 3; ++i) {
+
+			if (map[player.getRow() - i][player.getColumn()].getFront().equals("R")
+					|| map[player.getRow() - i][player.getColumn()].getFront().equals("B")) {
+
+				roomIndicator = true;
+				map[player.getRow() - i][player.getColumn()].setFlipped(false);
+				break;
+
+			} else {
+
+				map[player.getRow() - i][player.getColumn()].setFlipped(true);
+
+				if (map[player.getRow() - i][player.getColumn()].getFront().equals("1")
+						|| map[player.getRow() - i][player.getColumn()].getFront().equals("2")
+						|| map[player.getRow() - i][player.getColumn()].getFront().equals("3")
+						|| map[player.getRow() - i][player.getColumn()].getFront().equals("4")
+						|| map[player.getRow() - i][player.getColumn()].getFront().equals("5")
+						|| map[player.getRow() - i][player.getColumn()].getFront().equals("6")) {
+
+					roomIndicator = false;
+					player.setDangerAhead(true);
+					break;
+				}
+
+			}
+
+		}
+	}
+
+	/**
+	 * This method lets the player to see two tiles ahead in down direction.
+	 */
+	public void downVisibilityOfPlayer() {
+
+		for (int i = 0; i < 3; ++i) {
+
+			if (map[player.getRow() + i][player.getColumn()].getFront().equals("R")
+					|| map[player.getRow() + i][player.getColumn()].getFront().equals("B")) {
+
+				roomIndicator = true;
+				map[player.getRow() + i][player.getColumn()].setFlipped(false);
+				break;
+
+			} else {
+
+				map[player.getRow() + i][player.getColumn()].setFlipped(true);
+
+				if (map[player.getRow() + i][player.getColumn()].getFront().equals("1")
+						|| map[player.getRow() + i][player.getColumn()].getFront().equals("2")
+						|| map[player.getRow() + i][player.getColumn()].getFront().equals("3")
+						|| map[player.getRow() + i][player.getColumn()].getFront().equals("4")
+						|| map[player.getRow() + i][player.getColumn()].getFront().equals("5")
+						|| map[player.getRow() + i][player.getColumn()].getFront().equals("6")) {
+
+					roomIndicator = false;
+					player.setDangerAhead(true);
+					break;
+				}
+			}
+
+		}
+
 	}
 
 	/**
@@ -2032,12 +2152,13 @@ public class Map implements Serializable {
 
 		Random r = new Random();
 		int movement;
-		boolean check = true;
+		boolean check = false;
 
 		do {
 
 			int checkRow = holdEnemy[i].getRow();
 			int checkColumn = holdEnemy[i].getColumn();
+
 			movement = r.nextInt(4) + 1;
 
 			switch (movement) {
@@ -2057,14 +2178,17 @@ public class Map implements Serializable {
 
 			}
 
-			if (checkColumn < 0 || checkColumn > 8 || checkRow < 0 || checkRow > 8)
+			if (checkColumn < 0 || checkColumn > 8 || checkRow < 0 || checkRow > 8) {
 
 				check = false;
+
+			}
 
 			else {
 
 				// prevent stepping into room or on power ups
 				if (map[checkRow][checkColumn].getFront().equals(" ")) {
+
 					check = true;
 
 				} else if (map[checkRow][checkColumn].getFront().equals("P")) {
@@ -2072,7 +2196,8 @@ public class Map implements Serializable {
 					foundPlayer = true;
 					enemyAttack(foundPlayer);
 					playerGotDamaged(foundPlayer);
-					relocateEnemy(foundPlayer);
+					// relocateEnemy(foundPlayer);
+					check = true;
 
 				} else {
 
@@ -2082,7 +2207,7 @@ public class Map implements Serializable {
 
 			}
 
-		} while (check != true);
+		} while (!check);
 
 		return movement;
 
@@ -2101,18 +2226,24 @@ public class Map implements Serializable {
 
 		for (int i = 0; i < holdEnemy.length; ++i) {
 
-			tempRow = holdEnemy[i].getRow();
-			tempColumn = holdEnemy[i].getColumn();
+			if (holdEnemy[i].getFront().equals("1") || holdEnemy[i].getFront().equals("2")
+					|| holdEnemy[i].getFront().equals("3") || holdEnemy[i].getFront().equals("4")
+					|| holdEnemy[i].getFront().equals("5") || holdEnemy[i].getFront().equals("6")) {
 
-			holdEnemy[i].move(checkValidPosition(i));
+				tempRow = holdEnemy[i].getRow();
+				tempColumn = holdEnemy[i].getColumn();
 
-			tempSpace = map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()];
-			holdEnemy[i].setRow(holdEnemy[i].getRow());
-			holdEnemy[i].setColumn(holdEnemy[i].getColumn());
+				holdEnemy[i].move(checkValidPosition(i));
 
-			map[tempRow][tempColumn] = tempSpace;
+				tempSpace = map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()];
+				holdEnemy[i].setRow(holdEnemy[i].getRow());
+				holdEnemy[i].setColumn(holdEnemy[i].getColumn());
 
-			map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] = holdEnemy[i];
+				map[tempRow][tempColumn] = tempSpace;
+
+				map[holdEnemy[i].getRow()][holdEnemy[i].getColumn()] = holdEnemy[i];
+
+			}
 
 		}
 

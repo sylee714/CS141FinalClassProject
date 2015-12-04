@@ -112,14 +112,19 @@ public class UI {
 	 */
 	public void welcomeMessage() {
 
-		System.out.println("Welcome to Version 1.00 Game!\n");
+		System.out.println("Welcome to Version 1.00 Find the BriefCase Game!\n");
+
 		System.out.println("\n===========================================================================");
 		System.out.println("\nNotes: ");
+		System.out.println("	You start with 3 live. The game will end either if you lose all of your\n"
+				+ "life points or you find the briefcase. ");
 		System.out.println("	'R' - rooms, only one of them has the briefcase ");
-		System.out.println("	'B' - briefcase, the mission object of the game ");
+		System.out.println("	'B' - briefcase, the object of the game ");
 		System.out.println("	'A' - additional bullet, no effect if you already have 1 bullet ");
 		System.out.println("	'+' - radar, gives you the location of the briefcase ");
 		System.out.println("	'I' - invincibility, you become invincible for 5 turns ");
+		System.out.println("	'1-6' - enemies, they will stab you when you are at an adjacent square\n "
+				+ "and you will lose a life point ");
 		System.out.println("\n===========================================================================");
 
 	}
@@ -153,12 +158,12 @@ public class UI {
 		while (!game.endGame()) {
 
 			game.playerImmediateLook();
-			
-			System.out.println("Begin your turn player!\n");
+
+			System.out.println("Begin your turn!\n");
 			System.out.println(game.printBoard());
 
-			System.out.println("This is your " + game.getTurn() + "th turns.");
-			System.out.println("You have " + game.playerLife() + " lives.");
+			System.out.println("This is your " + game.getTurn() + "th turn(s).");
+			System.out.println("You have " + game.playerLife() + " live(s).");
 			System.out.println("You have " + game.numberOfBullet() + " bullet.");
 			System.out.println("There are " + game.remainingEnemy() + " enemies.\n");
 
@@ -224,7 +229,7 @@ public class UI {
 			if (game.invincible()) {
 
 				game.useInvincible();
-				System.out.println("You are invincible for: " + game.invincibleTurns());
+				System.out.println("\nYou are invincible for " + game.invincibleTurns() + " turn(s).\n");
 
 			}
 
@@ -239,9 +244,9 @@ public class UI {
 	 */
 	public void endTurn() {
 
-		// game.moveEnemy();
-		// game.enemyTurn();
 		// game.hardMode();
+		game.moveEnemy();
+		game.enemyTurn();
 
 		game.setNotFlipped();
 
@@ -249,7 +254,7 @@ public class UI {
 
 		if (game.isFoundPlayer())
 
-			System.out.println("You died. You have " + game.playerLife() + " lives.\n");
+			System.out.println("You died. You have " + game.playerLife() + " live(s).\n");
 
 		game.lifeReset();
 	}
@@ -301,7 +306,7 @@ public class UI {
 		if (game.foundRadar()) {
 
 			System.out.println("\nThe brief case is loacated at: " + "Row: " + game.briefCaseRow() + " Column: "
-					+ game.briefCaseColumn());
+					+ game.briefCaseColumn() + "\n");
 
 		}
 
@@ -358,15 +363,25 @@ public class UI {
 
 			// Left
 			case 1:
-				game.visibilityOfPlayer(1);
-				if (game.playerDetect()) {
 
-					System.out.println("\nEnemy Ahead!!!\n");
-					game.setPlayerDetect(false);
+				game.visibilityOfPlayer(1);
+
+				if (game.isRoomIndicator()) {
+
+					System.out.println("\nYou cannot look through the rooms.\n");
 
 				} else {
 
-					System.out.println("\nClear\n");
+					if (game.playerDetect()) {
+
+						System.out.println("\nEnemy Ahead!!!\n");
+						game.setPlayerDetect(false);
+
+					} else {
+
+						System.out.println("\nClear\n");
+
+					}
 
 				}
 
@@ -374,17 +389,25 @@ public class UI {
 
 			// Right
 			case 2:
-				
+
 				game.visibilityOfPlayer(2);
 
-				if (game.playerDetect()) {
+				if (game.isRoomIndicator()) {
 
-					System.out.println("Enemy Ahead!!!");
-					game.setPlayerDetect(false);
+					System.out.println("\nYou cannot look through the rooms.\n");
 
 				} else {
 
-					System.out.println("Clear");
+					if (game.playerDetect()) {
+
+						System.out.println("Enemy Ahead!!!");
+						game.setPlayerDetect(false);
+
+					} else {
+
+						System.out.println("Clear");
+
+					}
 
 				}
 
@@ -392,17 +415,25 @@ public class UI {
 
 			// Up
 			case 3:
-				
-				game.visibilityOfPlayer(3);
-				
-				if (game.playerDetect()) {
 
-					System.out.println("Enemy Ahead!!!");
-					game.setPlayerDetect(false);
+				game.visibilityOfPlayer(3);
+
+				if (game.isRoomIndicator()) {
+
+					System.out.println("\nYou cannot look through the rooms.\n");
 
 				} else {
 
-					System.out.println("Clear");
+					if (game.playerDetect()) {
+
+						System.out.println("Enemy Ahead!!!");
+						game.setPlayerDetect(false);
+
+					} else {
+
+						System.out.println("Clear");
+
+					}
 
 				}
 
@@ -410,26 +441,34 @@ public class UI {
 
 			// Down
 			case 4:
-				
-				game.visibilityOfPlayer(4);
-				
-				if (game.playerDetect()) {
 
-					System.out.println("\nEnemy Ahead!!!\n");
-					game.setPlayerDetect(false);
+				game.visibilityOfPlayer(4);
+
+				if (game.isRoomIndicator()) {
+
+					System.out.println("\nYou cannot look through the rooms.\n");
 
 				} else {
 
-					System.out.println("\nClear\n");
+					if (game.playerDetect()) {
+
+						System.out.println("\nEnemy Ahead!!!\n");
+						game.setPlayerDetect(false);
+
+					} else {
+
+						System.out.println("\nClear\n");
+
+					}
 
 				}
 
 				break;
 
 			default:
-				
+
 				System.out.println("\nThat isn't a valid choice. Please, try it again.");
-				
+
 				break;
 
 			}
@@ -440,7 +479,7 @@ public class UI {
 
 		}
 
-		game.playerDetect();
+		// game.playerDetect();
 		System.out.println(game.printBoard());
 
 		System.out.println("What would you like to do next?\n");
